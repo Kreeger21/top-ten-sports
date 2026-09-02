@@ -70,4 +70,8 @@ NBA leaderboards use a fixed qualification of at least 65 games played.
 - Kicking: field goals made and attempted
 
 College Football rushing data covers 1996–2026. Other College Football categories cover 2014–2026. Results are restricted to Division I FBS conferences and teams. Rushing uses official season-summary totals from the D1SportsNet NCAA statistics archive so postseason games and official corrections are included. Other categories use cfbfastR play data.
+
+## Public deployment
+
+The included `render.yaml` deploys the `main` branch as a Render web service. Render installs `requirements.txt`, starts the app with Gunicorn, generates the Flask session secret, and redeploys production whenever `main` is updated.
 Targets are not offered because Sports-Reference does not publish CFB target totals and the older play-level target data is incomplete.

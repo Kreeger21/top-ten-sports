@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: top-ten-sports
+    runtime: python
+    plan: free
+    branch: main
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    healthCheckPath: /
+    envVars:
+      - key: TOP_TEN_ENV
+        value: production
+      - key: FLASK_SECRET_KEY
+        generateValue: true
