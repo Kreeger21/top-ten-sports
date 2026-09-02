@@ -80,7 +80,7 @@ tbody tr:first-child .rank { border-color: var(--accent); color: var(--accent-da
 .infield-dirt { position:absolute; width:360px; height:360px; left:50%; top:52%; transform:translate(-50%,-50%) rotate(45deg); background:#b97845; border:5px solid #e9c08f; }
 .diamond-position { position:absolute; z-index:2; width:150px; min-height:92px; transform:translate(-50%,-50%); padding:12px; text-align:center; border-radius:14px; background:rgba(10,25,20,.92); border:2px solid rgba(255,255,255,.35); color:#fff; }
 .diamond-position span,.diamond-position small,.diamond-position strong { display:block; }.diamond-position span{color:var(--accent);font-weight:900}.diamond-position strong{font-size:1.05rem;margin:5px 0}.diamond-position small{font-size:.78rem}
-.pos-cf{left:50%;top:10%}.pos-lf{left:20%;top:25%}.pos-rf{left:80%;top:25%}.pos-ss{left:34%;top:44%}.pos-2b{left:66%;top:44%}.pos-3b{left:22%;top:66%}.pos-1b{left:78%;top:66%}.pos-p{left:50%;top:64%}.pos-c{left:50%;top:88%}.pos-dh{left:82%;top:88%}
+.pos-cf{left:50%;top:10%}.pos-lf{left:20%;top:25%}.pos-rf{left:80%;top:25%}.pos-ss{left:34%;top:44%}.pos-2b{left:66%;top:44%}.pos-3b{left:22%;top:66%}.pos-1b{left:78%;top:66%}.pos-sp{left:50%;top:64%}.pos-c{left:50%;top:88%}.pos-rp{left:18%;top:88%}.pos-dh{left:82%;top:88%}
 @media(max-width:650px){.baseball-field{min-height:600px}.diamond-position{width:112px;min-height:78px;padding:8px}.diamond-position strong{font-size:.86rem}.diamond-position small{font-size:.68rem}.infield-dirt{width:280px;height:280px}}
 @media(max-width:650px){.year-range,.parameter-menus{grid-template-columns:1fr}.check-menu-options{position:static;margin-top:6px}}
 @media(max-width:650px){.war-mode-options{grid-template-columns:1fr}}

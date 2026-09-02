@@ -56,7 +56,7 @@ class LeaderTests(unittest.TestCase):
     @patch("war_diamond_service.get_player_names", return_value=("Hank Aaron", "Dale Murphy"))
     @patch("war_diamond_service.get_lineup", return_value=[
         {"position": "RF", "name": "Hank Aaron", "season": 1961, "value": 9.5, "display": "9.5 WAR", "team": "Atlanta Braves"},
-        {"position": "P", "name": "Greg Maddux", "season": 1995, "value": 9.7, "display": "9.7 WAR", "team": "Atlanta Braves"},
+        {"position": "SP", "name": "Greg Maddux", "season": 1995, "value": 9.7, "display": "9.7 WAR", "team": "Atlanta Braves"},
     ])
     def test_war_diamond_reveals_correct_position(self, _lineup, _names):
         response = app.test_client().post(
@@ -120,7 +120,29 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(season["1B"]["name"], "Matt Olson")
         self.assertEqual(career["RF"]["display"], "733 HR")
         self.assertEqual(career["RF"]["name"], "Hank Aaron")
+        self.assertNotIn("P", season)
+        self.assertNotIn("SP", season)
+        self.assertNotIn("RP", season)
         get_lineup.cache_clear()
+
+    def test_war_separates_starting_and_relief_pitchers(self):
+        from war_diamond_service import STAT_OPTIONS, _pitching_lineup
+        pitchers = pd.DataFrame([
+            {"player_ID": "starter", "name_common": "Ace Starter", "year_ID": 2020, "WAR": 7.0, "G": 32, "GS": 32},
+            {"player_ID": "reliever", "name_common": "Elite Closer", "year_ID": 2020, "WAR": 4.0, "G": 70, "GS": 0},
+            {"player_ID": "swing", "name_common": "Swing Pitcher", "year_ID": 2020, "WAR": 5.0, "G": 40, "GS": 10},
+        ])
+        lineup = {player["position"]: player for player in _pitching_lineup(
+            pitchers, "Test Team", "single_season", STAT_OPTIONS["war"]
+        )}
+        self.assertEqual(lineup["SP"]["name"], "Ace Starter")
+        self.assertEqual(lineup["RP"]["name"], "Swing Pitcher")
+
+    def test_relief_pitcher_is_positioned_left_of_catcher(self):
+        with open("static/styles.css", encoding="utf-8") as styles_file:
+            styles = styles_file.read()
+        self.assertIn(".pos-sp{left:50%;top:64%}", styles)
+        self.assertIn(".pos-rp{left:18%;top:88%}", styles)
 
     def test_war_diamond_difficulty_year_ranges_and_dh(self):
         from war_diamond_service import POSITION_COLUMNS, _in_era

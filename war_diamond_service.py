@@ -127,6 +127,29 @@ def _position_lineup(data, team_name, war_mode, definition, positions=None):
     return lineup
 
 
+def _pitching_lineup(data, team_name, war_mode, definition):
+    group_columns = ["player_ID", "name_common"] + ([] if war_mode == "career" else ["year_ID"])
+    aggregations = {"WAR": ("WAR", "sum"), "G": ("G", "sum"), "GS": ("GS", "sum")}
+    if war_mode == "career":
+        aggregations.update(first_year=("year_ID", "min"), last_year=("year_ID", "max"))
+    data = data.groupby(group_columns, as_index=False).agg(**aggregations)
+    data["pitching_role"] = data.apply(
+        lambda row: "SP" if row["GS"] > 0 and row["GS"] >= row["G"] - row["GS"] else "RP", axis=1
+    )
+    lineup = []
+    for role in ("SP", "RP"):
+        eligible = data.loc[data["pitching_role"] == role].sort_values("WAR", ascending=False)
+        if eligible.empty:
+            continue
+        row = eligible.iloc[0]
+        value = _round_war(row["WAR"])
+        lineup.append({"position": role, "name": _display_name(row["name_common"]),
+                       "season": int(row["year_ID"]) if war_mode == "single_season" else None,
+                       "years": _year_range(row) if war_mode == "career" else None,
+                       "value": value, "display": _format_value(value, definition), "team": team_name})
+    return lineup
+
+
 @lru_cache(maxsize=900)
 def get_lineup(team_key, era="medium", war_mode="single_season", stat_key="war"):
     team_name, team_ids = TEAMS[team_key]
@@ -135,7 +158,8 @@ def get_lineup(team_key, era="medium", war_mode="single_season", stat_key="war")
         batting = _in_era(_batting_records().loc[
             lambda data: data["team_ID"].isin(LAHMAN_TEAM_IDS[team_key])
         ].copy(), era)
-        return tuple(_position_lineup(batting, team_name, war_mode, definition))
+        batting_positions = [position for position in POSITION_COLUMNS if position != "P"]
+        return tuple(_position_lineup(batting, team_name, war_mode, definition, batting_positions))
 
     batting = bwar_bat()
     batting = _in_era(batting.loc[batting["team_ID"].isin(team_ids) & (batting["pitcher"] != "Y")].copy(), era)
@@ -146,20 +170,7 @@ def get_lineup(team_key, era="medium", war_mode="single_season", stat_key="war")
         player["display"] = _format_value(player["value"], definition)
 
     pitching = _in_era(bwar_pitch().loc[lambda data: data["team_ID"].isin(team_ids)].copy(), era)
-    group_columns = ["player_ID", "name_common"] + ([] if war_mode == "career" else ["year_ID"])
-    if war_mode == "career":
-        pitching = pitching.groupby(group_columns, as_index=False).agg(
-            WAR=("WAR", "sum"), first_year=("year_ID", "min"), last_year=("year_ID", "max")
-        ).sort_values("WAR", ascending=False)
-    else:
-        pitching = pitching.groupby(group_columns, as_index=False)["WAR"].sum().sort_values("WAR", ascending=False)
-    if not pitching.empty:
-        row = pitching.iloc[0]
-        lineup.append({"position": "P", "name": _display_name(row["name_common"]),
-                       "season": int(row["year_ID"]) if war_mode == "single_season" else None,
-                       "years": _year_range(row) if war_mode == "career" else None,
-                       "value": _round_war(row["WAR"]), "display": _format_value(_round_war(row["WAR"]), definition),
-                       "team": team_name})
+    lineup.extend(_pitching_lineup(pitching, team_name, war_mode, definition))
     return tuple(lineup)
 
 
