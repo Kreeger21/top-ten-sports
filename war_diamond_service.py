@@ -25,8 +25,12 @@ TEAMS = {
     "TOR": ("Toronto Blue Jays", {"TOR"}), "WSN": ("Washington Nationals", {"MON", "WSN"}),
 }
 
-POSITION_COLUMNS = {"C": "G_c", "1B": "G_1b", "2B": "G_2b", "3B": "G_3b", "SS": "G_ss", "LF": "G_lf", "CF": "G_cf", "RF": "G_rf"}
-ERA_OPTIONS = {"modern": "Modern Era (1901–present)", "all_time": "All Time"}
+POSITION_COLUMNS = {"C": "G_c", "1B": "G_1b", "2B": "G_2b", "3B": "G_3b", "SS": "G_ss", "LF": "G_lf", "CF": "G_cf", "RF": "G_rf", "DH": "G_dh"}
+ERA_OPTIONS = {
+    "easy": "Easy — 1950–present",
+    "medium": "Medium — Modern Era (1901–present)",
+    "hard": "Hard — All Time",
+}
 
 
 def _display_name(name):
@@ -47,11 +51,12 @@ def _appearances():
 
 
 def _in_era(data, era):
-    return data.loc[data["year_ID"] >= 1901] if era == "modern" else data
+    minimum_year = {"easy": 1950, "medium": 1901}.get(era)
+    return data.loc[data["year_ID"] >= minimum_year] if minimum_year else data
 
 
-@lru_cache(maxsize=60)
-def get_lineup(team_key, era="modern"):
+@lru_cache(maxsize=90)
+def get_lineup(team_key, era="medium"):
     team_name, team_ids = TEAMS[team_key]
     batting = bwar_bat()
     batting = _in_era(batting.loc[batting["team_ID"].isin(team_ids) & (batting["pitcher"] != "Y")].copy(), era)
@@ -77,8 +82,8 @@ def get_lineup(team_key, era="modern"):
     return tuple(lineup)
 
 
-@lru_cache(maxsize=60)
-def get_player_names(team_key, era="modern"):
+@lru_cache(maxsize=90)
+def get_player_names(team_key, era="medium"):
     _, team_ids = TEAMS[team_key]
     batting = _in_era(bwar_bat().loc[lambda data: data["team_ID"].isin(team_ids)], era)
     pitching = _in_era(bwar_pitch().loc[lambda data: data["team_ID"].isin(team_ids)], era)

@@ -254,9 +254,10 @@ def _war_diamond():
     team_key = request.values.get("team", "ATL")
     if team_key not in war_diamond_service.TEAMS:
         team_key = "ATL"
-    era = request.values.get("era", "modern")
+    era = request.values.get("era", "medium")
+    era = {"modern": "medium", "all_time": "hard"}.get(era, era)
     if era not in war_diamond_service.ERA_OPTIONS:
-        era = "modern"
+        era = "medium"
     try:
         lineup = [dict(player) for player in war_diamond_service.get_lineup(team_key, era)]
         player_names = war_diamond_service.get_player_names(team_key, era)

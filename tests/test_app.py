@@ -66,26 +66,32 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Hank Aaron", response.data)
         self.assertIn(b"1961", response.data)
         self.assertIn(b"9.5 WAR", response.data)
+        _lineup.assert_called_once_with("ATL", "medium")
 
     @patch("war_diamond_service.get_player_names", return_value=("Hank Aaron", "Dale Murphy"))
     @patch("war_diamond_service.get_lineup", return_value=[
         {"position": "RF", "name": "Hank Aaron", "season": 1961, "war": 9.5, "team": "Atlanta Braves"},
+        {"position": "DH", "name": "Marcell Ozuna", "season": 2024, "war": 4.5, "team": "Atlanta Braves"},
     ])
     def test_war_diamond_has_era_choice_and_full_team_roster(self, _lineup, _names):
-        response = app.test_client().get("/mlb/war-diamond?team=ATL&era=all_time")
+        response = app.test_client().get("/mlb/war-diamond?team=ATL&era=hard")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'id="era-select"', response.data)
-        self.assertIn(b'value="modern"', response.data)
-        self.assertIn(b'value="all_time" selected', response.data)
+        self.assertIn(b'value="easy"', response.data)
+        self.assertIn(b'value="medium"', response.data)
+        self.assertIn(b'value="hard" selected', response.data)
         self.assertIn(b"Dale Murphy", response.data)
-        _lineup.assert_called_once_with("ATL", "all_time")
-        _names.assert_called_once_with("ATL", "all_time")
+        self.assertIn(b"pos-dh", response.data)
+        _lineup.assert_called_once_with("ATL", "hard")
+        _names.assert_called_once_with("ATL", "hard")
 
-    def test_war_diamond_modern_era_starts_in_1901(self):
-        from war_diamond_service import _in_era
-        seasons = pd.DataFrame({"year_ID": [1900, 1901, 2025]})
-        self.assertEqual(_in_era(seasons, "modern")["year_ID"].tolist(), [1901, 2025])
-        self.assertEqual(_in_era(seasons, "all_time")["year_ID"].tolist(), [1900, 1901, 2025])
+    def test_war_diamond_difficulty_year_ranges_and_dh(self):
+        from war_diamond_service import POSITION_COLUMNS, _in_era
+        seasons = pd.DataFrame({"year_ID": [1900, 1901, 1949, 1950, 2025]})
+        self.assertEqual(_in_era(seasons, "easy")["year_ID"].tolist(), [1950, 2025])
+        self.assertEqual(_in_era(seasons, "medium")["year_ID"].tolist(), [1901, 1949, 1950, 2025])
+        self.assertEqual(_in_era(seasons, "hard")["year_ID"].tolist(), [1900, 1901, 1949, 1950, 2025])
+        self.assertEqual(POSITION_COLUMNS["DH"], "G_dh")
 
     def test_war_diamond_preserves_scroll_after_guess(self):
         with open("templates/war_diamond.html", encoding="utf-8") as template_file:
