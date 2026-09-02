@@ -27,9 +27,9 @@ TEAMS = {
 
 POSITION_COLUMNS = {"C": "G_c", "1B": "G_1b", "2B": "G_2b", "3B": "G_3b", "SS": "G_ss", "LF": "G_lf", "CF": "G_cf", "RF": "G_rf", "DH": "G_dh"}
 ERA_OPTIONS = {
-    "easy": "Easy — 1950–present",
-    "medium": "Medium — Modern Era (1901–present)",
-    "hard": "Hard — All Time",
+    "easy": "Easy — 1970–present",
+    "medium": "Medium — 1950–present",
+    "hard": "Hard — Modern Era (1901–present)",
 }
 WAR_MODE_OPTIONS = {
     "single_season": "Single-Season WAR Leaders",
@@ -60,7 +60,7 @@ def _appearances():
 
 
 def _in_era(data, era):
-    minimum_year = {"easy": 1950, "medium": 1901}.get(era)
+    minimum_year = {"easy": 1970, "medium": 1950, "hard": 1901}.get(era)
     return data.loc[data["year_ID"] >= minimum_year] if minimum_year else data
 
 

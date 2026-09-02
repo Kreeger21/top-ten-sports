@@ -102,10 +102,10 @@ class LeaderTests(unittest.TestCase):
 
     def test_war_diamond_difficulty_year_ranges_and_dh(self):
         from war_diamond_service import POSITION_COLUMNS, _in_era
-        seasons = pd.DataFrame({"year_ID": [1900, 1901, 1949, 1950, 2025]})
-        self.assertEqual(_in_era(seasons, "easy")["year_ID"].tolist(), [1950, 2025])
-        self.assertEqual(_in_era(seasons, "medium")["year_ID"].tolist(), [1901, 1949, 1950, 2025])
-        self.assertEqual(_in_era(seasons, "hard")["year_ID"].tolist(), [1900, 1901, 1949, 1950, 2025])
+        seasons = pd.DataFrame({"year_ID": [1900, 1901, 1949, 1950, 1969, 1970, 2025]})
+        self.assertEqual(_in_era(seasons, "easy")["year_ID"].tolist(), [1970, 2025])
+        self.assertEqual(_in_era(seasons, "medium")["year_ID"].tolist(), [1950, 1969, 1970, 2025])
+        self.assertEqual(_in_era(seasons, "hard")["year_ID"].tolist(), [1901, 1949, 1950, 1969, 1970, 2025])
         self.assertEqual(POSITION_COLUMNS["DH"], "G_dh")
 
     def test_war_diamond_preserves_scroll_after_guess(self):
