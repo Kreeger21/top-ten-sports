@@ -49,7 +49,7 @@ class LeaderTests(unittest.TestCase):
         response = app.test_client().get("/mlb")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Build Your Own", response.data)
-        self.assertIn(b"Surprise Me", response.data)
+        self.assertIn(b"Quiz Your Friends", response.data)
         self.assertIn(b"Award Winners", response.data)
         self.assertIn(b"WAR Diamond", response.data)
 
@@ -158,11 +158,12 @@ class LeaderTests(unittest.TestCase):
     def test_random_setup_renders_parameter_controls(self):
         response = app.test_client().get("/mlb/random")
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Customize Your Surprise", response.data)
+        self.assertIn(b"Quiz Your Friends", response.data)
         self.assertIn(b'name="min_year"', response.data)
         self.assertIn(b'name="max_year"', response.data)
         self.assertIn(b'name="groups"', response.data)
         self.assertIn(b'name="stats"', response.data)
+        self.assertIn(b"data-stat-group", response.data)
 
     def test_random_choice_redirects_to_leaderboard(self):
         response = app.test_client().post("/mlb/random", data={
@@ -187,6 +188,13 @@ class LeaderTests(unittest.TestCase):
 
     def test_random_parameters_require_category_and_statistic(self):
         response = app.test_client().post("/nba/random", data={"min_year": 2000, "max_year": 2025})
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(b"Select at least one category and one statistic", response.data)
+
+    def test_random_parameters_reject_stats_outside_selected_categories(self):
+        response = app.test_client().post("/nba/random", data={
+            "min_year": 2000, "max_year": 2025, "groups": "scoring", "stats": "defense:STL"
+        })
         self.assertEqual(response.status_code, 400)
         self.assertIn(b"Select at least one category and one statistic", response.data)
 

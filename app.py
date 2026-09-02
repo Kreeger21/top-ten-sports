@@ -149,6 +149,9 @@ def _random_redirect(sport_key):
                                sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
                                selected_groups=list(options), selected_stats=[], error=None,
                                home_endpoint=sport["home"], random_endpoint=sport["random"])
+    groups = [group for group in groups if group in options]
+    stats = [token for token in stats if ":" in token and token.split(":", 1)[0] in groups
+             and token.split(":", 1)[1] in options[token.split(":", 1)[0]]]
     if not groups or not stats:
         return render_template("random_setup.html", sport_name=sport["name"], min_year=minimum, max_year=maximum,
                                sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
