@@ -12,7 +12,7 @@
   </section>
   <section class="baseball-field" aria-label="{{ team_name }} WAR diamond">
     <div class="outfield-grass"></div><div class="infield-dirt"></div>
-    {% for player in lineup %}{% set revealed = player.position in guessed or forfeited %}<article class="diamond-position pos-{{ player.position|lower }} {% if forfeited and player.position not in guessed %}forfeited-player{% endif %}"><span>{{ player.position }}</span>{% if revealed %}<strong>{{ player.name }}</strong><small>{% if player.season %}{{ player.season }} · {% else %}Career · {% endif %}{{ '%.1f'|format(player.war) }} WAR</small>{% else %}<strong>?</strong><small>Unknown player</small>{% endif %}</article>{% endfor %}
+    {% for player in lineup %}{% set revealed = player.position in guessed or forfeited %}<article class="diamond-position pos-{{ player.position|lower }} {% if forfeited and player.position not in guessed %}forfeited-player{% endif %}"><span>{{ player.position }}</span>{% if revealed %}<strong>{{ player.name }}</strong><small>{% if player.season %}{{ player.season }} · {% else %}{% if player.years %}{{ player.years }} · {% endif %}Career · {% endif %}{{ '%.1f'|format(player.war) }} WAR</small>{% else %}<strong>?</strong><small>Unknown player</small>{% endif %}</article>{% endfor %}
   </section>{% endif %}
 </main><script>
 const input=document.querySelector('#diamond-guess'),box=document.querySelector('#diamond-suggestions'),names={{ player_names|tojson }};

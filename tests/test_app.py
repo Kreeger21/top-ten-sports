@@ -89,14 +89,14 @@ class LeaderTests(unittest.TestCase):
 
     @patch("war_diamond_service.get_player_names", return_value=("Andruw Jones",))
     @patch("war_diamond_service.get_lineup", return_value=[
-        {"position": "CF", "name": "Andruw Jones", "season": None, "war": 61.0, "team": "Atlanta Braves"},
+        {"position": "CF", "name": "Andruw Jones", "season": None, "years": "1996–2007", "war": 61.0, "team": "Atlanta Braves"},
     ])
     def test_war_diamond_career_mode_displays_franchise_total(self, _lineup, _names):
         response = app.test_client().post("/mlb/war-diamond", data={
             "team": "ATL", "era": "hard", "war_mode": "career", "player": "Andruw Jones"
         })
         self.assertEqual(response.status_code, 200)
-        self.assertIn("Career \u00b7 61.0 WAR".encode(), response.data)
+        self.assertIn("1996\u20132007 \u00b7 Career \u00b7 61.0 WAR".encode(), response.data)
         self.assertIn(b"Career WAR with Franchise", response.data)
         _lineup.assert_called_once_with("ATL", "hard", "career")
 
