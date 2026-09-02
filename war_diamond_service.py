@@ -26,6 +26,7 @@ TEAMS = {
 }
 
 POSITION_COLUMNS = {"C": "G_c", "1B": "G_1b", "2B": "G_2b", "3B": "G_3b", "SS": "G_ss", "LF": "G_lf", "CF": "G_cf", "RF": "G_rf"}
+ERA_OPTIONS = {"modern": "Modern Era (1901–present)", "all_time": "All Time"}
 
 
 def _display_name(name):
@@ -45,11 +46,15 @@ def _appearances():
     return games[["playerID", "position"]]
 
 
-@lru_cache(maxsize=30)
-def get_lineup(team_key):
+def _in_era(data, era):
+    return data.loc[data["year_ID"] >= 1901] if era == "modern" else data
+
+
+@lru_cache(maxsize=60)
+def get_lineup(team_key, era="modern"):
     team_name, team_ids = TEAMS[team_key]
     batting = bwar_bat()
-    batting = batting.loc[batting["team_ID"].isin(team_ids) & (batting["pitcher"] != "Y")].copy()
+    batting = _in_era(batting.loc[batting["team_ID"].isin(team_ids) & (batting["pitcher"] != "Y")].copy(), era)
     batting = batting.groupby(["player_ID", "name_common", "year_ID"], as_index=False)["WAR"].sum()
     batting = batting.merge(_appearances(), left_on="player_ID", right_on="playerID", how="inner")
 
@@ -61,8 +66,8 @@ def get_lineup(team_key):
             lineup.append({"position": position, "name": _display_name(row["name_common"]),
                            "season": int(row["year_ID"]), "war": _round_war(row["WAR"]), "team": team_name})
 
-    pitching = bwar_pitch()
-    pitching = pitching.loc[pitching["team_ID"].isin(team_ids)].groupby(
+    pitching = _in_era(bwar_pitch().loc[lambda data: data["team_ID"].isin(team_ids)].copy(), era)
+    pitching = pitching.groupby(
         ["player_ID", "name_common", "year_ID"], as_index=False
     )["WAR"].sum().sort_values("WAR", ascending=False)
     if not pitching.empty:
@@ -72,5 +77,10 @@ def get_lineup(team_key):
     return tuple(lineup)
 
 
-def get_player_names(team_key):
-    return tuple(sorted({player["name"] for player in get_lineup(team_key)}, key=str.casefold))
+@lru_cache(maxsize=60)
+def get_player_names(team_key, era="modern"):
+    _, team_ids = TEAMS[team_key]
+    batting = _in_era(bwar_bat().loc[lambda data: data["team_ID"].isin(team_ids)], era)
+    pitching = _in_era(bwar_pitch().loc[lambda data: data["team_ID"].isin(team_ids)], era)
+    names = {_display_name(name) for name in pd.concat([batting["name_common"], pitching["name_common"]]).dropna()}
+    return tuple(sorted(names, key=str.casefold))
