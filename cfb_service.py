@@ -11,6 +11,21 @@ D1SPORTSNET_RUSHING_URL = "https://d1sportsnet.com/football/stats/{season}/ir.ph
 MIN_SEASON = 1996
 MAX_SEASON = 2026
 
+RAW_COLUMNS = {
+    "conference", "team", "opponent", "touchdown_stat", "touchdown_player_id",
+    "completion_player_id", "completion_player", "completion_yds",
+    "incompletion_player_id", "incompletion_player",
+    "interception_thrown_player_id", "interception_thrown_player",
+    "rush_player_id", "rush_player", "rush_yds",
+    "reception_player_id", "reception_player", "reception_yds",
+    "interception_player_id", "interception_player", "interception_stat",
+    "sack_player_id", "sack_player", "sack_stat",
+    "fumble_forced_player_id", "fumble_forced_player", "fumble_forced_stat",
+    "pass_breakup_player_id", "pass_breakup_player", "pass_breakup_stat",
+    "field_goal_made_player_id", "field_goal_made_player", "field_goal_made_stat",
+    "field_goal_attempt_player_id", "field_goal_attempt_player", "field_goal_attempt_stat",
+}
+
 FBS_CONFERENCES = {
     "ACC", "American Athletic", "Big 12", "Big Ten", "Conference USA",
     "FBS Independents", "Mid-American", "Mountain West", "Pac-12", "SEC", "Sun Belt",
@@ -56,9 +71,13 @@ def stat_min_season(group, stat_key):
     return 2014
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=1)
 def _raw_season(season):
-    return pd.read_csv(DATA_URL.format(season=season), low_memory=False)
+    return pd.read_csv(
+        DATA_URL.format(season=season),
+        usecols=lambda column: column in RAW_COLUMNS,
+        low_memory=False,
+    )
 
 
 @lru_cache(maxsize=16)
@@ -142,7 +161,7 @@ def _combine(frames):
     return combined
 
 
-@lru_cache(maxsize=64)
+@lru_cache(maxsize=8)
 def _category_data(season, group):
     raw = _raw_season(season)
     fbs_teams = set(raw.loc[raw["conference"].isin(FBS_CONFERENCES), "team"].dropna())

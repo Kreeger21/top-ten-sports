@@ -214,6 +214,15 @@ class LeaderTests(unittest.TestCase):
         from cfb_service import STAT_OPTIONS as cfb_options
         self.assertNotIn("targets", cfb_options["receiving"])
 
+    @patch("cfb_service.pd.read_csv", return_value=pd.DataFrame())
+    def test_college_football_only_loads_required_columns(self, read_csv):
+        from cfb_service import _raw_season
+        _raw_season.cache_clear()
+        _raw_season(2022)
+        usecols = read_csv.call_args.kwargs["usecols"]
+        self.assertTrue(usecols("rush_yds"))
+        self.assertFalse(usecols("play_text"))
+
     @patch("cfb_service.get_leaders", return_value=[])
     def test_season_is_a_dropdown(self, _leaders):
         response = app.test_client().get("/college-football/leaderboard?season=2017&group=rushing&stat=rushing_yards")
