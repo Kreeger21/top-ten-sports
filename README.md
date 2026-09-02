@@ -1,6 +1,6 @@
 # Top Ten Sports
 
-A Flask web app with MLB, NFL, and NBA top-ten leaderboards, randomizers, and guessing challenges.
+A Flask web app with MLB, NFL, NBA, and College Football top-ten leaderboards, randomizers, and guessing challenges.
 
 ## Run locally
 
@@ -60,3 +60,13 @@ NFL regular-season data comes from nflverse and currently covers 1999–2024.
 
 NBA regular-season leader data comes from the official NBA statistics service. Enter the season's starting year; for example, `2023` represents 2023–24.
 NBA leaderboards use a fixed qualification of at least 65 games played.
+
+### College Football
+
+- Passing: yards, touchdowns, completions, attempts, interceptions
+- Rushing: yards, touchdowns, attempts
+- Receiving: yards, touchdowns, receptions, targets
+- Defense: interceptions, sacks, forced fumbles, pass breakups
+- Kicking: field goals made and attempted
+
+College Football data comes from cfbfastR and covers 2014–2026. Results are restricted to Division I FBS conferences and teams.

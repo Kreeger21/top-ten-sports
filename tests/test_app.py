@@ -43,6 +43,7 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"MLB Top Ten", response.data)
         self.assertIn(b"NFL Top Ten", response.data)
         self.assertIn(b"NBA Top Ten", response.data)
+        self.assertIn(b"FBS Top Ten", response.data)
 
     def test_mlb_home_renders(self):
         response = app.test_client().get("/mlb")
@@ -175,6 +176,28 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"at least 65 games", response.data)
         self.assertNotIn(b'name="min_games"', response.data)
         leaders.assert_called_once_with(2023, "scoring", "PTS", min_games=65)
+
+    def test_college_football_home_renders(self):
+        response = app.test_client().get("/college-football")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"College Football Top Ten", response.data)
+
+    @patch("cfb_service.get_leaders", return_value=[{"name": "Player One", "team": "Georgia", "value": "4,000"}])
+    def test_college_football_leaderboard_renders(self, _leaders):
+        response = app.test_client().get(
+            "/college-football/leaderboard?season=2024&group=passing&stat=passing_yards"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Passing Yards Leaders", response.data)
+        self.assertIn(b"Player One", response.data)
+
+    @patch("cfb_service._category_data", return_value=pd.DataFrame([
+        {"player": "Second", "team": "Team B", "passing_yards": 3500},
+        {"player": "First", "team": "Team A", "passing_yards": 4200},
+    ]))
+    def test_college_football_leaders_are_sorted(self, _data):
+        from cfb_service import get_leaders as get_cfb_leaders
+        self.assertEqual(get_cfb_leaders(2024, "passing", "passing_yards")[0]["name"], "First")
 
 
 if __name__ == "__main__":

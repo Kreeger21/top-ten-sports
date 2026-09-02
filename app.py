@@ -8,6 +8,7 @@ from flask import Flask, jsonify, redirect, render_template, request, session, u
 import mlb_service
 import nfl_service
 import nba_service
+import cfb_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -24,6 +25,8 @@ SPORTS = {
     "nfl": {"name": "NFL", "service": nfl_service, "min": nfl_service.MIN_SEASON, "max": lambda: nfl_service.MAX_SEASON},
     "nba": {"name": "NBA", "service": nba_service, "min": nba_service.MIN_SEASON, "max": lambda: date.today().year - 1,
             "supports_min_games": True, "default_min_games": 65, "fixed_min_games": 65},
+    "cfb": {"name": "College Football", "service": cfb_service, "min": cfb_service.MIN_SEASON,
+            "max": lambda: min(date.today().year, cfb_service.MAX_SEASON)},
 }
 
 for key, sport in SPORTS.items():
@@ -52,6 +55,7 @@ def _sport_home(sport_key):
         "mlb": "Build baseball leaderboards or test your knowledge.",
         "nfl": "Explore NFL seasonal leaders from 1999 through 2024.",
         "nba": "Explore NBA regular-season leaders across scoring, rebounding, playmaking, and defense.",
+        "cfb": "Explore player leaders from every FBS conference and team.",
     }
     intro = intros[sport_key]
     return render_template("home.html", sport_name=sport["name"], eyebrow=f'{sport["name"]} history, ranked', intro=intro,
@@ -205,6 +209,18 @@ def nba_new_challenge(): return _new_challenge("nba")
 def nba_challenge(): return _challenge("nba")
 @app.route("/nba/api/player-search")
 def nba_player_search(): return _player_search("nba")
+@app.route("/college-football")
+def cfb_home(): return _sport_home("cfb")
+@app.route("/college-football/leaderboard")
+def cfb_leaderboard(): return _leaderboard("cfb")
+@app.route("/college-football/random")
+def cfb_random(): return _random_redirect("cfb")
+@app.route("/college-football/challenge/new")
+def cfb_new_challenge(): return _new_challenge("cfb")
+@app.route("/college-football/challenge", methods=["GET", "POST"])
+def cfb_challenge(): return _challenge("cfb")
+@app.route("/college-football/api/player-search")
+def cfb_player_search(): return _player_search("cfb")
 
 if __name__ == "__main__":
     app.run(

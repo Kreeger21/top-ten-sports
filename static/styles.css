@@ -75,6 +75,7 @@ tbody tr:first-child .rank { border-color: var(--accent); color: var(--accent-da
 .mlb-card { background: linear-gradient(145deg, #17354a, #0b1722); }
 .nfl-card { background: linear-gradient(145deg, #4a251d, #171319); }
 .nba-card { background: linear-gradient(145deg, #6b3516, #201712); }
+.cfb-card { background: linear-gradient(145deg, #314523, #111c16); }
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
 .league-card:hover { transform: translateY(-5px); border-color: var(--accent); }
