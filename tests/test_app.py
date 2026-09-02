@@ -199,6 +199,17 @@ class LeaderTests(unittest.TestCase):
         from cfb_service import get_leaders as get_cfb_leaders
         self.assertEqual(get_cfb_leaders(2024, "passing", "passing_yards")[0]["name"], "First")
 
+    @patch("cfb_service._official_rushing_data", return_value=pd.DataFrame([
+        {"player": "Second", "team": "Team B", "rushing_yards": 1900},
+        {"player": "First", "team": "Team A", "rushing_yards": 2200},
+    ]))
+    def test_college_football_rushing_uses_official_totals(self, official_data):
+        from cfb_service import get_leaders as get_cfb_leaders
+        leaders = get_cfb_leaders(2017, "rushing", "rushing_yards")
+        self.assertEqual(leaders[0]["name"], "First")
+        self.assertEqual(leaders[0]["value"], "2,200")
+        official_data.assert_called_once_with(2017)
+
     def test_college_football_does_not_offer_unreliable_targets(self):
         from cfb_service import STAT_OPTIONS as cfb_options
         self.assertNotIn("targets", cfb_options["receiving"])

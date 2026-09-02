@@ -1,9 +1,12 @@
 from functools import lru_cache, reduce
+from urllib.request import Request, urlopen
 
 import pandas as pd
+from bs4 import BeautifulSoup
 
 
 DATA_URL = "https://raw.githubusercontent.com/sportsdataverse/cfbfastR-data/main/player_stats/csv/player_stats_{season}.csv"
+D1SPORTSNET_RUSHING_URL = "https://d1sportsnet.com/football/stats/{season}/ir.php"
 MIN_SEASON = 2014
 MAX_SEASON = 2026
 
@@ -46,6 +49,42 @@ STAT_OPTIONS = {
 @lru_cache(maxsize=16)
 def _raw_season(season):
     return pd.read_csv(DATA_URL.format(season=season), low_memory=False)
+
+
+@lru_cache(maxsize=16)
+def _official_rushing_data(season):
+    """Load season rushing totals from an NCAA-statistics archive.
+
+    Unlike totals reconstructed from individual plays, these values include
+    postseason games and the official corrections applied after games.
+    """
+    request = Request(
+        D1SPORTSNET_RUSHING_URL.format(season=season),
+        headers={"User-Agent": "TopTenSports/1.0"},
+    )
+    with urlopen(request, timeout=15) as response:
+        soup = BeautifulSoup(response.read(), "html.parser")
+
+    records = []
+    for row in soup.find_all("tr"):
+        cells = [cell.get_text(" ", strip=True) for cell in row.find_all(["th", "td"], recursive=False)]
+        if len(cells) != 9 or cells[0] in {"", "Rank"}:
+            continue
+        try:
+            records.append({
+                "player_id": f"{cells[1]}|{cells[2]}",
+                "player": cells[1],
+                "team": cells[2],
+                "games": int(cells[5].replace(",", "")),
+                "carries": int(cells[6].replace(",", "")),
+                "rushing_yards": int(cells[7].replace(",", "")),
+                "rushing_tds": int(cells[8].replace(",", "")),
+            })
+        except ValueError:
+            continue
+    if not records:
+        raise ValueError(f"No official rushing statistics found for {season}")
+    return pd.DataFrame.from_records(records)
 
 
 def _event(data, player_id, player_name, stat_name, value=None, team="team", mask=None):
@@ -109,7 +148,7 @@ def _category_data(season, group):
 
 
 def get_leaders(season, group, stat_key, limit=10):
-    data = _category_data(season, group)
+    data = _official_rushing_data(season) if group == "rushing" else _category_data(season, group)
     if data.empty:
         return []
     leaders = data.loc[data[stat_key] > 0].sort_values(stat_key, ascending=False).head(limit)
@@ -119,5 +158,5 @@ def get_leaders(season, group, stat_key, limit=10):
 
 @lru_cache(maxsize=64)
 def get_player_names(season, group):
-    data = _category_data(season, group)
+    data = _official_rushing_data(season) if group == "rushing" else _category_data(season, group)
     return tuple(sorted(set(data["player"].dropna()), key=str.casefold))
