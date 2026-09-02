@@ -331,14 +331,17 @@ def _war_diamond():
     era = {"modern": "medium", "all_time": "hard"}.get(era, era)
     if era not in war_diamond_service.ERA_OPTIONS:
         era = "medium"
+    war_mode = request.values.get("war_mode", "single_season")
+    if war_mode not in war_diamond_service.WAR_MODE_OPTIONS:
+        war_mode = "single_season"
     try:
-        lineup = [dict(player) for player in war_diamond_service.get_lineup(team_key, era)]
+        lineup = [dict(player) for player in war_diamond_service.get_lineup(team_key, era, war_mode)]
         player_names = war_diamond_service.get_player_names(team_key, era)
         error = None
     except (OSError, ValueError, KeyError) as exc:
         app.logger.warning("Could not load WAR diamond: %s", exc)
         lineup, player_names, error = [], (), "WAR data is temporarily unavailable. Please try again."
-    game_key = f"war-diamond:{team_key}:{era}"
+    game_key = f"war-diamond:{team_key}:{era}:{war_mode}"
     if session.get("diamond_game_key") != game_key:
         session["diamond_game_key"], session["diamond_guesses"] = game_key, []
         session["diamond_forfeited"] = False
@@ -362,6 +365,7 @@ def _war_diamond():
     completed = bool(lineup) and len(guessed) == len(lineup)
     return render_template("war_diamond.html", team_key=team_key, teams=war_diamond_service.TEAMS,
                            era=era, era_options=war_diamond_service.ERA_OPTIONS,
+                           war_mode=war_mode, war_mode_options=war_diamond_service.WAR_MODE_OPTIONS,
                            team_name=war_diamond_service.TEAMS[team_key][0], lineup=lineup,
                            player_names=player_names,
                            guessed=guessed, forfeited=forfeited, finished=completed or forfeited,

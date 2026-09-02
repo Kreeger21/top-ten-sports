@@ -66,7 +66,7 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Hank Aaron", response.data)
         self.assertIn(b"1961", response.data)
         self.assertIn(b"9.5 WAR", response.data)
-        _lineup.assert_called_once_with("ATL", "medium")
+        _lineup.assert_called_once_with("ATL", "medium", "single_season")
 
     @patch("war_diamond_service.get_player_names", return_value=("Hank Aaron", "Dale Murphy"))
     @patch("war_diamond_service.get_lineup", return_value=[
@@ -80,10 +80,25 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b'value="easy"', response.data)
         self.assertIn(b'value="medium"', response.data)
         self.assertIn(b'value="hard" selected', response.data)
+        self.assertIn(b'value="single_season" checked', response.data)
+        self.assertIn(b'value="career"', response.data)
         self.assertIn(b"Dale Murphy", response.data)
         self.assertIn(b"pos-dh", response.data)
-        _lineup.assert_called_once_with("ATL", "hard")
+        _lineup.assert_called_once_with("ATL", "hard", "single_season")
         _names.assert_called_once_with("ATL", "hard")
+
+    @patch("war_diamond_service.get_player_names", return_value=("Andruw Jones",))
+    @patch("war_diamond_service.get_lineup", return_value=[
+        {"position": "CF", "name": "Andruw Jones", "season": None, "war": 61.0, "team": "Atlanta Braves"},
+    ])
+    def test_war_diamond_career_mode_displays_franchise_total(self, _lineup, _names):
+        response = app.test_client().post("/mlb/war-diamond", data={
+            "team": "ATL", "era": "hard", "war_mode": "career", "player": "Andruw Jones"
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Career \u00b7 61.0 WAR".encode(), response.data)
+        self.assertIn(b"Career WAR with Franchise", response.data)
+        _lineup.assert_called_once_with("ATL", "hard", "career")
 
     def test_war_diamond_difficulty_year_ranges_and_dh(self):
         from war_diamond_service import POSITION_COLUMNS, _in_era

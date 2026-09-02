@@ -31,6 +31,10 @@ ERA_OPTIONS = {
     "medium": "Medium — Modern Era (1901–present)",
     "hard": "Hard — All Time",
 }
+WAR_MODE_OPTIONS = {
+    "single_season": "Single-Season WAR Leaders",
+    "career": "Career WAR with Franchise",
+}
 
 
 def _display_name(name):
@@ -55,12 +59,13 @@ def _in_era(data, era):
     return data.loc[data["year_ID"] >= minimum_year] if minimum_year else data
 
 
-@lru_cache(maxsize=90)
-def get_lineup(team_key, era="medium"):
+@lru_cache(maxsize=180)
+def get_lineup(team_key, era="medium", war_mode="single_season"):
     team_name, team_ids = TEAMS[team_key]
     batting = bwar_bat()
     batting = _in_era(batting.loc[batting["team_ID"].isin(team_ids) & (batting["pitcher"] != "Y")].copy(), era)
-    batting = batting.groupby(["player_ID", "name_common", "year_ID"], as_index=False)["WAR"].sum()
+    group_columns = ["player_ID", "name_common"] + ([] if war_mode == "career" else ["year_ID"])
+    batting = batting.groupby(group_columns, as_index=False)["WAR"].sum()
     batting = batting.merge(_appearances(), left_on="player_ID", right_on="playerID", how="inner")
 
     lineup = []
@@ -69,15 +74,15 @@ def get_lineup(team_key, era="medium"):
         if not eligible.empty:
             row = eligible.iloc[0]
             lineup.append({"position": position, "name": _display_name(row["name_common"]),
-                           "season": int(row["year_ID"]), "war": _round_war(row["WAR"]), "team": team_name})
+                           "season": int(row["year_ID"]) if war_mode == "single_season" else None,
+                           "war": _round_war(row["WAR"]), "team": team_name})
 
     pitching = _in_era(bwar_pitch().loc[lambda data: data["team_ID"].isin(team_ids)].copy(), era)
-    pitching = pitching.groupby(
-        ["player_ID", "name_common", "year_ID"], as_index=False
-    )["WAR"].sum().sort_values("WAR", ascending=False)
+    pitching = pitching.groupby(group_columns, as_index=False)["WAR"].sum().sort_values("WAR", ascending=False)
     if not pitching.empty:
         row = pitching.iloc[0]
-        lineup.append({"position": "P", "name": _display_name(row["name_common"]), "season": int(row["year_ID"]),
+        lineup.append({"position": "P", "name": _display_name(row["name_common"]),
+                       "season": int(row["year_ID"]) if war_mode == "single_season" else None,
                        "war": _round_war(row["WAR"]), "team": team_name})
     return tuple(lineup)
 
