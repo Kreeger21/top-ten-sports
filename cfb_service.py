@@ -1,4 +1,5 @@
 from functools import lru_cache, reduce
+import re
 from urllib.request import Request, urlopen
 
 import pandas as pd
@@ -7,7 +8,7 @@ from bs4 import BeautifulSoup
 
 DATA_URL = "https://raw.githubusercontent.com/sportsdataverse/cfbfastR-data/main/player_stats/csv/player_stats_{season}.csv"
 D1SPORTSNET_RUSHING_URL = "https://d1sportsnet.com/football/stats/{season}/ir.php"
-MIN_SEASON = 2014
+MIN_SEASON = 1996
 MAX_SEASON = 2026
 
 FBS_CONFERENCES = {
@@ -46,6 +47,15 @@ STAT_OPTIONS = {
 }
 
 
+def stat_min_season(group, stat_key):
+    """The official archive has complete rushing tables back to 1996."""
+    if group == "rushing" and stat_key in {"rushing_yards", "carries"}:
+        return MIN_SEASON
+    if group == "rushing" and stat_key == "rushing_tds":
+        return 2000
+    return 2014
+
+
 @lru_cache(maxsize=16)
 def _raw_season(season):
     return pd.read_csv(DATA_URL.format(season=season), low_memory=False)
@@ -82,6 +92,34 @@ def _official_rushing_data(season):
             })
         except ValueError:
             continue
+    if not records:
+        # Older archive pages store the leaderboard as fixed-width text rather
+        # than table rows. Formats vary slightly, but always end in numeric
+        # columns following "Player, Team".
+        blocks = [text for text in soup.stripped_strings if "Rushing" in text and "\n" in text]
+        for line in (blocks[-1].splitlines() if blocks else []):
+            match = re.match(
+                r"^\s*\d+\.?\s+(.+?),\s+(.+?)\s+(?:-+\s+)?(\d+(?:\s+[\d.]+){3,5})\s*$",
+                line,
+            )
+            if not match:
+                continue
+            player, team, number_text = match.groups()
+            numbers = number_text.split()
+            if len(numbers) == 4:  # 1996: CAR, YDS, AVG, YDSPG
+                carries, yards = numbers[:2]
+                games, touchdowns = 0, 0
+            else:  # Later pages: G, CAR, YDS, TD, [AVG], YDSPG
+                games, carries, yards, touchdowns = numbers[:4]
+            records.append({
+                "player_id": f"{player}|{team}",
+                "player": player,
+                "team": team.rstrip(" -"),
+                "games": int(games),
+                "carries": int(carries),
+                "rushing_yards": int(yards),
+                "rushing_tds": int(touchdowns),
+            })
     if not records:
         raise ValueError(f"No official rushing statistics found for {season}")
     return pd.DataFrame.from_records(records)

@@ -25,7 +25,11 @@
       <form method="get" action="{{ url_for(leaderboard_endpoint) }}" class="controls">
         <label>
           <span>Season</span>
-          <input type="number" name="season" min="{{ min_season }}" max="{{ current_year }}" value="{{ season }}" required>
+          <select name="season" id="season-select" required>
+            {% for year in season_choices %}
+              <option value="{{ year }}" {% if year == season %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+          </select>
         </label>
 
         <label>
@@ -42,7 +46,7 @@
           <select name="stat" id="stat-select">
             {% for option_group, options in stat_options.items() %}
               {% for key, definition in options.items() %}
-                <option value="{{ key }}" data-group="{{ option_group }}"
+                <option value="{{ key }}" data-group="{{ option_group }}" data-min-season="{{ stat_minimums[option_group ~ ':' ~ key] }}"
                   {% if option_group == group and key == stat_key %}selected{% endif %}>
                   {{ definition.label }}
                 </option>
@@ -104,17 +108,30 @@
   <script>
     const groupSelect = document.querySelector('#group-select');
     const statSelect = document.querySelector('#stat-select');
+    const seasonSelect = document.querySelector('#season-select');
 
     function showMatchingStats() {
-      const selectedGroup = groupSelect.value;
+      let selectedGroup = groupSelect.value;
+      const selectedSeason = Number(seasonSelect.value);
       const options = [...statSelect.options];
-      options.forEach(option => option.hidden = option.dataset.group !== selectedGroup);
-      if (statSelect.selectedOptions[0].hidden) {
-        statSelect.value = options.find(option => option.dataset.group === selectedGroup).value;
+      options.forEach(option => {
+        option.disabled = selectedSeason < Number(option.dataset.minSeason);
+        option.hidden = option.dataset.group !== selectedGroup || option.disabled;
+      });
+      let available = options.find(option => option.dataset.group === selectedGroup && !option.disabled);
+      if (!available) {
+        available = options.find(option => !option.disabled);
+        selectedGroup = available.dataset.group;
+        groupSelect.value = selectedGroup;
+        options.forEach(option => option.hidden = option.dataset.group !== selectedGroup || option.disabled);
+      }
+      if (!statSelect.selectedOptions.length || statSelect.selectedOptions[0].hidden || statSelect.selectedOptions[0].disabled) {
+        statSelect.value = available.value;
       }
     }
 
     groupSelect.addEventListener('change', showMatchingStats);
+    seasonSelect.addEventListener('change', showMatchingStats);
     showMatchingStats();
   </script>
 </body>

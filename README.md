@@ -69,5 +69,5 @@ NBA leaderboards use a fixed qualification of at least 65 games played.
 - Defense: interceptions, sacks, forced fumbles, pass breakups
 - Kicking: field goals made and attempted
 
-College Football data covers 2014–2026 and is restricted to Division I FBS conferences and teams. Rushing uses official season-summary totals from the D1SportsNet NCAA statistics archive so postseason games and official corrections are included. Other categories use cfbfastR play data.
+College Football rushing data covers 1996–2026. Other College Football categories cover 2014–2026. Results are restricted to Division I FBS conferences and teams. Rushing uses official season-summary totals from the D1SportsNet NCAA statistics archive so postseason games and official corrections are included. Other categories use cfbfastR play data.
 Targets are not offered because Sports-Reference does not publish CFB target totals and the older play-level target data is incomplete.

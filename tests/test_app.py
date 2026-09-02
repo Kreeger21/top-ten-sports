@@ -214,6 +214,23 @@ class LeaderTests(unittest.TestCase):
         from cfb_service import STAT_OPTIONS as cfb_options
         self.assertNotIn("targets", cfb_options["receiving"])
 
+    @patch("cfb_service.get_leaders", return_value=[])
+    def test_season_is_a_dropdown(self, _leaders):
+        response = app.test_client().get("/college-football/leaderboard?season=2017&group=rushing&stat=rushing_yards")
+        self.assertIn(b'<select name="season" id="season-select"', response.data)
+        self.assertNotIn(b'<input type="number" name="season"', response.data)
+
+    @patch("cfb_service.get_leaders", return_value=[])
+    def test_historical_cfb_rushing_is_available(self, leaders):
+        response = app.test_client().get("/college-football/leaderboard?season=1996&group=rushing&stat=rushing_yards")
+        self.assertEqual(response.status_code, 200)
+        leaders.assert_called_once_with(1996, "rushing", "rushing_yards")
+
+    @patch("cfb_service.get_leaders", return_value=[])
+    def test_unsupported_historical_cfb_stat_falls_back_to_rushing(self, leaders):
+        app.test_client().get("/college-football/leaderboard?season=2005&group=passing&stat=passing_yards")
+        leaders.assert_called_once_with(2005, "rushing", "rushing_yards")
+
 
 if __name__ == "__main__":
     unittest.main()

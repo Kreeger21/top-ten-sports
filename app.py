@@ -45,8 +45,21 @@ def _random_selection(sport_key):
     sport, options = SPORTS[sport_key], SPORTS[sport_key]["service"].STAT_OPTIONS
     group = random.choice(list(options))
     stat_key = random.choice(list(options[group]))
+    stat_min = getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])(group, stat_key)
     latest = sport["max"]() - (sport_key == "mlb" and stat_key == "war")
-    return random.randint(sport["min"], latest), group, stat_key
+    return random.randint(stat_min, latest), group, stat_key
+
+
+def _valid_selection(sport, season, group, stat_key):
+    options = sport["service"].STAT_OPTIONS
+    stat_minimum = getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])
+    if group in options and stat_key in options[group] and season >= stat_minimum(group, stat_key):
+        return group, stat_key
+    for candidate_group, stats in options.items():
+        for candidate_stat in stats:
+            if season >= stat_minimum(candidate_group, candidate_stat):
+                return candidate_group, candidate_stat
+    return next(iter(options)), next(iter(next(iter(options.values()))))
 
 
 def _sport_home(sport_key):
@@ -71,9 +84,8 @@ def _leaderboard(sport_key):
     if group not in options:
         group = next(iter(options))
     stat_key = request.args.get("stat", next(iter(options[group])))
-    if stat_key not in options[group]:
-        stat_key = next(iter(options[group]))
     season = max(sport["min"], min(season, max_season))
+    group, stat_key = _valid_selection(sport, season, group, stat_key)
     min_games = sport.get("fixed_min_games", 0)
     error = None
     try:
@@ -84,8 +96,11 @@ def _leaderboard(sport_key):
     except (OSError, ValueError, KeyError) as exc:
         app.logger.warning("Could not load %s leaders: %s", sport["name"], exc)
         leaders, error = [], f'{sport["name"]} data is temporarily unavailable. Please try again.'
+    stat_minimums = {f"{option_group}:{key}": getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])(option_group, key)
+                     for option_group, stats in options.items() for key in stats}
     return render_template("index.html", sport_name=sport["name"], season=season, min_season=sport["min"],
                            current_year=max_season, group=group, stat_key=stat_key, stat_options=options,
+                           season_choices=range(max_season, sport["min"] - 1, -1), stat_minimums=stat_minimums,
                            leaders=leaders, error=error, randomized=request.args.get("randomized") == "1",
                            supports_min_games=sport.get("supports_min_games", False), min_games=min_games,
                            home_endpoint=sport["home"], leaderboard_endpoint=sport["leaderboard"],
@@ -126,8 +141,8 @@ def _challenge(sport_key):
     sport, options = SPORTS[sport_key], SPORTS[sport_key]["service"].STAT_OPTIONS
     season = request.values.get("season", sport["max"](), type=int)
     group, stat_key = request.values.get("group", next(iter(options))), request.values.get("stat", "")
-    if group not in options or stat_key not in options[group]: return redirect(url_for(sport["new_challenge"]))
     season = max(sport["min"], min(season, sport["max"]()))
+    group, stat_key = _valid_selection(sport, season, group, stat_key)
     min_games = sport.get("fixed_min_games", 0)
     game_key = f"{sport_key}:{season}:{group}:{stat_key}:{min_games}"
     if session.get("challenge_key") != game_key:
