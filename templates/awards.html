@@ -44,7 +44,7 @@
             <input type="hidden" name="decade" value="{{ decade }}">
             <label for="award-guess" class="sr-only">Guess an award winner</label>
             <div class="autocomplete">
-              <input id="award-guess" name="player" type="search" placeholder="Guess a player's name…" autocomplete="off" aria-autocomplete="list" aria-controls="award-suggestions" aria-expanded="false" autofocus required>
+              <input id="award-guess" name="player" type="search" placeholder="Guess a player's name…" autocomplete="off" aria-autocomplete="list" aria-controls="award-suggestions" aria-expanded="false" required>
               <div id="award-suggestions" class="suggestions" role="listbox" hidden></div>
             </div>
             <button type="submit">Submit guess</button>
@@ -92,6 +92,20 @@
     const guessInput = document.querySelector('#award-guess');
     const suggestions = document.querySelector('#award-suggestions');
     const playerNames = {{ player_names|tojson }};
+    const scrollKey = `award-scroll:${location.pathname}:{{ decade }}`;
+
+    const savedScroll = sessionStorage.getItem(scrollKey);
+    if (savedScroll !== null) {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: Number(savedScroll), behavior: 'instant' });
+        sessionStorage.removeItem(scrollKey);
+        guessInput?.focus({ preventScroll: true });
+      });
+    }
+
+    document.querySelectorAll('.guess-form, .forfeit-form').forEach(form => {
+      form.addEventListener('submit', () => sessionStorage.setItem(scrollKey, String(window.scrollY)));
+    });
 
     function closeSuggestions() {
       if (!suggestions) return;

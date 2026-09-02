@@ -77,6 +77,16 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Final score", response.data)
         self.assertIn(b"forfeited-player", response.data)
 
+    @patch("awards_service.get_player_names", return_value=("LeBron James",))
+    @patch("awards_service.get_decade_winners", return_value=[
+        {"season": 2016, "season_label": "2016-17", "name": "LeBron James", "team": "Cleveland Cavaliers"},
+    ])
+    @patch("awards_service.get_decades", return_value=(2010,))
+    def test_award_guess_preserves_scroll_position(self, _decades, _winners, _names):
+        response = app.test_client().get("/nba/awards?decade=2010")
+        self.assertIn(b"sessionStorage.setItem(scrollKey", response.data)
+        self.assertIn(b"preventScroll: true", response.data)
+
     @patch("mlb_service.get_leaders", return_value=[])
     def test_leaderboard_renders(self, _leaders):
         response = app.test_client().get("/mlb/leaderboard?season=2025&group=hitting&stat=avg")
