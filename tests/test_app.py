@@ -51,12 +51,12 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Build Your Own", response.data)
         self.assertIn(b"Quiz Your Friends", response.data)
         self.assertIn(b"Award Winners", response.data)
-        self.assertIn(b"WAR Diamond", response.data)
+        self.assertIn(b"Fill the Field", response.data)
 
     @patch("war_diamond_service.get_player_names", return_value=("Hank Aaron", "Dale Murphy"))
     @patch("war_diamond_service.get_lineup", return_value=[
-        {"position": "RF", "name": "Hank Aaron", "season": 1961, "war": 9.5, "team": "Atlanta Braves"},
-        {"position": "P", "name": "Greg Maddux", "season": 1995, "war": 9.7, "team": "Atlanta Braves"},
+        {"position": "RF", "name": "Hank Aaron", "season": 1961, "value": 9.5, "display": "9.5 WAR", "team": "Atlanta Braves"},
+        {"position": "P", "name": "Greg Maddux", "season": 1995, "value": 9.7, "display": "9.7 WAR", "team": "Atlanta Braves"},
     ])
     def test_war_diamond_reveals_correct_position(self, _lineup, _names):
         response = app.test_client().post(
@@ -66,12 +66,12 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Hank Aaron", response.data)
         self.assertIn(b"1961", response.data)
         self.assertIn(b"9.5 WAR", response.data)
-        _lineup.assert_called_once_with("ATL", "medium", "single_season")
+        _lineup.assert_called_once_with("ATL", "medium", "single_season", "war")
 
     @patch("war_diamond_service.get_player_names", return_value=("Hank Aaron", "Dale Murphy"))
     @patch("war_diamond_service.get_lineup", return_value=[
-        {"position": "RF", "name": "Hank Aaron", "season": 1961, "war": 9.5, "team": "Atlanta Braves"},
-        {"position": "DH", "name": "Marcell Ozuna", "season": 2024, "war": 4.5, "team": "Atlanta Braves"},
+        {"position": "RF", "name": "Hank Aaron", "season": 1961, "value": 9.5, "display": "9.5 WAR", "team": "Atlanta Braves"},
+        {"position": "DH", "name": "Marcell Ozuna", "season": 2024, "value": 4.5, "display": "4.5 WAR", "team": "Atlanta Braves"},
     ])
     def test_war_diamond_has_era_choice_and_full_team_roster(self, _lineup, _names):
         response = app.test_client().get("/mlb/war-diamond?team=ATL&era=hard")
@@ -84,12 +84,14 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b'value="career"', response.data)
         self.assertIn(b"Dale Murphy", response.data)
         self.assertIn(b"pos-dh", response.data)
-        _lineup.assert_called_once_with("ATL", "hard", "single_season")
-        _names.assert_called_once_with("ATL", "hard")
+        self.assertIn(b'id="diamond-stat-select"', response.data)
+        self.assertIn(b"Home Runs", response.data)
+        _lineup.assert_called_once_with("ATL", "hard", "single_season", "war")
+        _names.assert_called_once_with("ATL", "hard", "war")
 
     @patch("war_diamond_service.get_player_names", return_value=("Andruw Jones",))
     @patch("war_diamond_service.get_lineup", return_value=[
-        {"position": "CF", "name": "Andruw Jones", "season": None, "years": "1996–2007", "war": 61.0, "team": "Atlanta Braves"},
+        {"position": "CF", "name": "Andruw Jones", "season": None, "years": "1996–2007", "value": 61.0, "display": "61.0 WAR", "team": "Atlanta Braves"},
     ])
     def test_war_diamond_career_mode_displays_franchise_total(self, _lineup, _names):
         response = app.test_client().post("/mlb/war-diamond", data={
@@ -97,8 +99,28 @@ class LeaderTests(unittest.TestCase):
         })
         self.assertEqual(response.status_code, 200)
         self.assertIn("1996\u20132007 \u00b7 Career \u00b7 61.0 WAR".encode(), response.data)
-        self.assertIn(b"Career WAR with Franchise", response.data)
-        _lineup.assert_called_once_with("ATL", "hard", "career")
+        self.assertIn(b"Career with Franchise", response.data)
+        _lineup.assert_called_once_with("ATL", "hard", "career", "war")
+
+    @patch("war_diamond_service._appearances", return_value=pd.DataFrame([
+        {"playerID": "olsonma02", "position": "1B"}, {"playerID": "aaronha01", "position": "RF"},
+    ]))
+    @patch("war_diamond_service._batting_records", return_value=pd.DataFrame([
+        {"player_ID": "olsonma02", "name_common": "Matt Olson", "year_ID": 2023, "team_ID": "ATL", "HR": 54},
+        {"player_ID": "aaronha01", "name_common": "Henry Aaron", "year_ID": 1954, "team_ID": "ML1", "HR": 398},
+        {"player_ID": "aaronha01", "name_common": "Henry Aaron", "year_ID": 1973, "team_ID": "ATL", "HR": 40},
+        {"player_ID": "aaronha01", "name_common": "Henry Aaron", "year_ID": 1974, "team_ID": "ATL", "HR": 295},
+    ]))
+    def test_fill_the_field_home_run_single_season_and_career_examples(self, _batting, _positions):
+        from war_diamond_service import get_lineup
+        get_lineup.cache_clear()
+        season = {player["position"]: player for player in get_lineup("ATL", "hard", "single_season", "home_runs")}
+        career = {player["position"]: player for player in get_lineup("ATL", "hard", "career", "home_runs")}
+        self.assertEqual(season["1B"]["display"], "54 HR")
+        self.assertEqual(season["1B"]["name"], "Matt Olson")
+        self.assertEqual(career["RF"]["display"], "733 HR")
+        self.assertEqual(career["RF"]["name"], "Hank Aaron")
+        get_lineup.cache_clear()
 
     def test_war_diamond_difficulty_year_ranges_and_dh(self):
         from war_diamond_service import POSITION_COLUMNS, _in_era
@@ -111,7 +133,7 @@ class LeaderTests(unittest.TestCase):
     def test_war_diamond_preserves_scroll_after_guess(self):
         with open("templates/war_diamond.html", encoding="utf-8") as template_file:
             template = template_file.read()
-        self.assertIn("diamond-scroll", template)
+        self.assertIn("fill-field-scroll", template)
         self.assertIn("sessionStorage.setItem", template)
         self.assertIn("preventScroll:true", template)
 

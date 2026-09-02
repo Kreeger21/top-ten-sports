@@ -334,14 +334,17 @@ def _war_diamond():
     war_mode = request.values.get("war_mode", "single_season")
     if war_mode not in war_diamond_service.WAR_MODE_OPTIONS:
         war_mode = "single_season"
+    stat_key = request.values.get("diamond_stat", "war")
+    if stat_key not in war_diamond_service.STAT_OPTIONS:
+        stat_key = "war"
     try:
-        lineup = [dict(player) for player in war_diamond_service.get_lineup(team_key, era, war_mode)]
-        player_names = war_diamond_service.get_player_names(team_key, era)
+        lineup = [dict(player) for player in war_diamond_service.get_lineup(team_key, era, war_mode, stat_key)]
+        player_names = war_diamond_service.get_player_names(team_key, era, stat_key)
         error = None
     except (OSError, ValueError, KeyError) as exc:
-        app.logger.warning("Could not load WAR diamond: %s", exc)
-        lineup, player_names, error = [], (), "WAR data is temporarily unavailable. Please try again."
-    game_key = f"war-diamond:{team_key}:{era}:{war_mode}"
+        app.logger.warning("Could not load Fill the Field: %s", exc)
+        lineup, player_names, error = [], (), "Baseball data is temporarily unavailable. Please try again."
+    game_key = f"fill-the-field:{team_key}:{era}:{war_mode}:{stat_key}"
     if session.get("diamond_game_key") != game_key:
         session["diamond_game_key"], session["diamond_guesses"] = game_key, []
         session["diamond_forfeited"] = False
@@ -366,6 +369,7 @@ def _war_diamond():
     return render_template("war_diamond.html", team_key=team_key, teams=war_diamond_service.TEAMS,
                            era=era, era_options=war_diamond_service.ERA_OPTIONS,
                            war_mode=war_mode, war_mode_options=war_diamond_service.WAR_MODE_OPTIONS,
+                           stat_key=stat_key, diamond_stats=war_diamond_service.STAT_OPTIONS,
                            team_name=war_diamond_service.TEAMS[team_key][0], lineup=lineup,
                            player_names=player_names,
                            guessed=guessed, forfeited=forfeited, finished=completed or forfeited,
