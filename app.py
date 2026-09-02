@@ -9,6 +9,7 @@ import mlb_service
 import nfl_service
 import nba_service
 import cfb_service
+import awards_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -33,6 +34,7 @@ for key, sport in SPORTS.items():
     sport.update({
         "home": f"{key}_home", "leaderboard": f"{key}_leaderboard", "random": f"{key}_random",
         "challenge": f"{key}_challenge", "new_challenge": f"{key}_new_challenge", "search": f"{key}_player_search",
+        "awards": f"{key}_awards",
     })
 
 
@@ -73,7 +75,7 @@ def _sport_home(sport_key):
     intro = intros[sport_key]
     return render_template("home.html", sport_name=sport["name"], eyebrow=f'{sport["name"]} history, ranked', intro=intro,
                            leaderboard_endpoint=sport["leaderboard"], random_endpoint=sport["random"],
-                           new_challenge_endpoint=sport["new_challenge"])
+                           new_challenge_endpoint=sport["new_challenge"], awards_endpoint=sport["awards"])
 
 
 def _leaderboard(sport_key):
@@ -186,6 +188,61 @@ def _challenge(sport_key):
                            challenge_endpoint=sport["challenge"], search_endpoint=sport["search"])
 
 
+def _award_game(sport_key):
+    sport = SPORTS[sport_key]
+    try:
+        decades = awards_service.get_decades(sport_key)
+        decade = request.values.get("decade", decades[0], type=int)
+        if decade not in decades:
+            decade = decades[0]
+        winners = awards_service.get_decade_winners(sport_key, decade)
+        player_names = awards_service.get_player_names(sport_key)
+        error = None
+    except (OSError, ValueError, KeyError, awards_service.requests.RequestException) as exc:
+        app.logger.warning("Could not load %s award history: %s", sport["name"], exc)
+        decades, decade, winners, player_names = (), None, [], ()
+        error = "Award history is temporarily unavailable. Please try again."
+
+    game_key = f"award:{sport_key}:{decade}"
+    if session.get("award_game_key") != game_key:
+        session["award_game_key"], session["award_guesses"] = game_key, []
+        session["award_forfeited"] = False
+    guessed = set(session.get("award_guesses", []))
+    forfeited = session.get("award_forfeited", False)
+    message = message_type = None
+    if request.method == "POST" and request.form.get("action") == "forfeit":
+        forfeited = True
+        session["award_forfeited"] = True
+        message, message_type = "Game over — the remaining winners are shown in red.", "error"
+    elif request.method == "POST" and winners and not forfeited:
+        submitted = _normalized_name(request.form.get("player", ""))
+        matching_names = {winner["name"] for winner in winners
+                          if submitted in {_normalized_name(winner["name"]), _normalized_name(winner["name"]).rsplit(" ", 1)[-1]}}
+        if len(matching_names) == 1:
+            name = matching_names.pop()
+            if name in guessed:
+                message, message_type = f"You already found {name}.", "neutral"
+            else:
+                guessed.add(name)
+                session["award_guesses"] = list(guessed)
+                seasons_won = sum(winner["name"] == name for winner in winners)
+                suffix = f" ({seasons_won} winning seasons)" if seasons_won > 1 else ""
+                message, message_type = f"Correct — {name}{suffix}!", "success"
+        elif len(matching_names) > 1:
+            message, message_type = "That last name matches multiple winners. Choose the full name.", "neutral"
+        else:
+            message, message_type = "Not an award winner in this decade. Try again.", "error"
+    guessed_slots = sum(winner["name"] in guessed for winner in winners)
+    completed = bool(winners) and guessed_slots == len(winners)
+    return render_template(
+        "awards.html", sport_name=sport["name"], decade=decade, decades=decades, winners=winners,
+        award=awards_service.AWARDS[sport_key], player_names=player_names, guessed=guessed,
+        forfeited=forfeited, finished=completed or forfeited, completed=completed,
+        final_score=guessed_slots, message=message, message_type=message_type, error=error,
+        home_endpoint=sport["home"], awards_endpoint=sport["awards"],
+    )
+
+
 @app.route("/")
 def home(): return render_template("sports_home.html")
 @app.route("/mlb")
@@ -200,6 +257,8 @@ def mlb_new_challenge(): return _new_challenge("mlb")
 def mlb_challenge(): return _challenge("mlb")
 @app.route("/mlb/api/player-search")
 def mlb_player_search(): return _player_search("mlb")
+@app.route("/mlb/awards", methods=["GET", "POST"])
+def mlb_awards(): return _award_game("mlb")
 @app.route("/nfl")
 def nfl_home(): return _sport_home("nfl")
 @app.route("/nfl/leaderboard")
@@ -212,6 +271,8 @@ def nfl_new_challenge(): return _new_challenge("nfl")
 def nfl_challenge(): return _challenge("nfl")
 @app.route("/nfl/api/player-search")
 def nfl_player_search(): return _player_search("nfl")
+@app.route("/nfl/awards", methods=["GET", "POST"])
+def nfl_awards(): return _award_game("nfl")
 @app.route("/nba")
 def nba_home(): return _sport_home("nba")
 @app.route("/nba/leaderboard")
@@ -224,6 +285,8 @@ def nba_new_challenge(): return _new_challenge("nba")
 def nba_challenge(): return _challenge("nba")
 @app.route("/nba/api/player-search")
 def nba_player_search(): return _player_search("nba")
+@app.route("/nba/awards", methods=["GET", "POST"])
+def nba_awards(): return _award_game("nba")
 @app.route("/college-football")
 def cfb_home(): return _sport_home("cfb")
 @app.route("/college-football/leaderboard")
@@ -236,6 +299,8 @@ def cfb_new_challenge(): return _new_challenge("cfb")
 def cfb_challenge(): return _challenge("cfb")
 @app.route("/college-football/api/player-search")
 def cfb_player_search(): return _player_search("cfb")
+@app.route("/college-football/awards", methods=["GET", "POST"])
+def cfb_awards(): return _award_game("cfb")
 
 if __name__ == "__main__":
     app.run(

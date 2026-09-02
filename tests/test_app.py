@@ -50,6 +50,32 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Build Your Own", response.data)
         self.assertIn(b"Surprise Me", response.data)
+        self.assertIn(b"Award Winners", response.data)
+
+    @patch("awards_service.get_player_names", return_value=("LeBron James", "Stephen Curry"))
+    @patch("awards_service.get_decade_winners", return_value=[
+        {"season": 2014, "season_label": "2014-15", "name": "Stephen Curry", "team": "Golden State Warriors"},
+        {"season": 2015, "season_label": "2015-16", "name": "Stephen Curry", "team": "Golden State Warriors"},
+        {"season": 2016, "season_label": "2016-17", "name": "LeBron James", "team": "Cleveland Cavaliers"},
+    ])
+    @patch("awards_service.get_decades", return_value=(2020, 2010, 2000))
+    def test_award_game_reveals_every_season_for_repeat_winner(self, _decades, _winners, _names):
+        client = app.test_client()
+        response = client.post("/nba/awards", data={"decade": 2010, "player": "Stephen Curry"})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"2 winning seasons", response.data)
+        self.assertIn(b"2/3", response.data)
+        self.assertIn(b"2010\xe2\x80\x932019", response.data)
+
+    @patch("awards_service.get_player_names", return_value=("LeBron James",))
+    @patch("awards_service.get_decade_winners", return_value=[
+        {"season": 2016, "season_label": "2016-17", "name": "LeBron James", "team": "Cleveland Cavaliers"},
+    ])
+    @patch("awards_service.get_decades", return_value=(2010,))
+    def test_award_game_forfeit_shows_final_score(self, _decades, _winners, _names):
+        response = app.test_client().post("/nba/awards", data={"decade": 2010, "action": "forfeit"})
+        self.assertIn(b"Final score", response.data)
+        self.assertIn(b"forfeited-player", response.data)
 
     @patch("mlb_service.get_leaders", return_value=[])
     def test_leaderboard_renders(self, _leaders):

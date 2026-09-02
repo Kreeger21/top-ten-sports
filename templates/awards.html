@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Award Winners · {{ sport_name }} Top Ten</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="page-shell">
+    <nav class="top-nav"><a href="{{ url_for(home_endpoint) }}">← {{ sport_name }} Home</a></nav>
+
+    <header class="hero challenge-hero">
+      <p class="eyebrow">Decade Award Challenge</p>
+      <h1>Who won {{ award.name }}?</h1>
+      <p class="intro">Choose a ten-year era and guess every winner. A repeat winner reveals each season they won.</p>
+    </header>
+
+    {% if error %}
+      <section class="card"><p class="message error">{{ error }}</p></section>
+    {% else %}
+      <section class="card controls-card">
+        <form method="get" action="{{ url_for(awards_endpoint) }}" class="award-controls">
+          <label for="decade-select"><span>Era</span></label>
+          <select id="decade-select" name="decade">
+            {% for choice in decades %}
+              <option value="{{ choice }}" {% if choice == decade %}selected{% endif %}>{{ choice }}–{{ choice + 9 }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">Start this era</button>
+        </form>
+      </section>
+
+      <section class="clue-strip" aria-label="Award challenge progress">
+        <div><span>Sport</span><strong>{{ sport_name }}</strong></div>
+        <div><span>Era</span><strong>{{ decade }}–{{ decade + 9 }}</strong></div>
+        <div><span>Award</span><strong>{{ award.short }}</strong></div>
+        <div><span>Progress</span><strong>{{ final_score }}/{{ winners|length }}</strong></div>
+      </section>
+
+      <section class="card guess-card">
+        {% if not finished %}
+          <form method="post" class="guess-form">
+            <input type="hidden" name="decade" value="{{ decade }}">
+            <label for="award-guess" class="sr-only">Guess an award winner</label>
+            <div class="autocomplete">
+              <input id="award-guess" name="player" type="search" placeholder="Guess a player's name…" autocomplete="off" aria-autocomplete="list" aria-controls="award-suggestions" aria-expanded="false" autofocus required>
+              <div id="award-suggestions" class="suggestions" role="listbox" hidden></div>
+            </div>
+            <button type="submit">Submit guess</button>
+          </form>
+          <form method="post" class="forfeit-form">
+            <input type="hidden" name="decade" value="{{ decade }}">
+            <input type="hidden" name="action" value="forfeit">
+            <button type="submit" class="forfeit-button">Forfeit and reveal winners</button>
+          </form>
+        {% elif forfeited %}
+          <div class="final-score"><span>Final score</span><strong>{{ final_score }}/{{ winners|length }}</strong><p>You found {{ final_score }} winning seasons.</p></div>
+        {% else %}
+          <div class="victory-message"><span>✓</span><strong>You found every winner! Final score: {{ final_score }}/{{ winners|length }}</strong></div>
+        {% endif %}
+        {% if message %}<p class="guess-feedback {{ message_type }}">{{ message }}</p>{% endif %}
+      </section>
+
+      <section class="card leaderboard challenge-board" aria-live="polite">
+        <div class="table-heading">
+          <div><p class="eyebrow">{{ decade }}–{{ decade + 9 }} {{ sport_name }}</p><h2>{{ award.name }} Winners</h2></div>
+          <span class="stat-badge">{{ award.short }}</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Season</th><th>Player</th><th>Team</th></tr></thead>
+            <tbody>
+              {% for winner in winners %}
+                {% set correctly_guessed = winner.name in guessed %}
+                {% set revealed = correctly_guessed or forfeited %}
+                <tr class="{% if forfeited and not correctly_guessed %}forfeited-player{% elif not revealed %}hidden-player{% endif %}">
+                  <td><span class="award-season">{{ winner.season_label }}</span></td>
+                  <td class="player-name">{% if revealed %}{{ winner.name }}{% else %}<span class="blank-name">Unknown winner</span>{% endif %}</td>
+                  <td>{% if revealed %}{{ winner.team }}{% else %}—{% endif %}</td>
+                </tr>
+              {% else %}
+                <tr><td colspan="3" class="message">No award winners were found for this era.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    {% endif %}
+  </main>
+  <script>
+    const guessInput = document.querySelector('#award-guess');
+    const suggestions = document.querySelector('#award-suggestions');
+    const playerNames = {{ player_names|tojson }};
+
+    function closeSuggestions() {
+      if (!suggestions) return;
+      suggestions.hidden = true;
+      suggestions.replaceChildren();
+      guessInput?.setAttribute('aria-expanded', 'false');
+    }
+
+    function updateSuggestions() {
+      const query = guessInput.value.trim().toLocaleLowerCase();
+      if (query.length < 2) return closeSuggestions();
+      const names = playerNames.filter(name => name.toLocaleLowerCase().includes(query)).slice(0, 8);
+      suggestions.replaceChildren();
+      names.forEach(name => {
+        const option = document.createElement('button');
+        option.type = 'button'; option.className = 'suggestion-option'; option.setAttribute('role', 'option');
+        option.textContent = name;
+        option.addEventListener('click', () => {
+          guessInput.value = name; closeSuggestions(); guessInput.form.requestSubmit();
+        });
+        suggestions.append(option);
+      });
+      suggestions.hidden = names.length === 0;
+      guessInput.setAttribute('aria-expanded', String(names.length > 0));
+    }
+
+    guessInput?.addEventListener('input', updateSuggestions);
+    document.addEventListener('click', event => { if (!event.target.closest('.autocomplete')) closeSuggestions(); });
+  </script>
+</body>
+</html>
