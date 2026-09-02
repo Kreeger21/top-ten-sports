@@ -165,7 +165,8 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b'name="stats"', response.data)
         self.assertIn(b"data-stat-group", response.data)
 
-    def test_random_choice_redirects_to_leaderboard(self):
+    @patch("mlb_service.get_leaders", return_value=[{"name": "Player"}])
+    def test_random_choice_redirects_to_leaderboard(self, _leaders):
         response = app.test_client().post("/mlb/random", data={
             "min_year": 2000, "max_year": 2025, "groups": "hitting", "stats": "hitting:avg"
         })
@@ -175,7 +176,24 @@ class LeaderTests(unittest.TestCase):
         self.assertIn("min_year=2000", response.headers["Location"])
         self.assertIn("groups=hitting", response.headers["Location"])
 
-    @patch("mlb_service.get_leaders", return_value=[])
+    @patch("nba_service.get_leaders", side_effect=[[], [{"name": "Available Player"}]])
+    def test_random_choice_validates_and_respins_unavailable_data(self, leaders):
+        response = app.test_client().post("/nba/random", data={
+            "min_year": 1973, "max_year": 1975, "groups": "scoring", "stats": "scoring:FG_PCT"
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(leaders.call_count, 2)
+
+    @patch("nba_service.get_leaders", side_effect=OSError("provider unavailable"))
+    def test_unavailable_randomized_leaderboard_automatically_respins(self, _leaders):
+        response = app.test_client().get(
+            "/nba/leaderboard?season=1974&group=scoring&stat=FG_PCT&randomized=1&min_year=1973&max_year=1975&groups=scoring&stats=scoring:FG_PCT"
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/nba/random?", response.headers["Location"])
+        self.assertIn("spin=1", response.headers["Location"])
+
+    @patch("mlb_service.get_leaders", return_value=[{"name": "Rickey Henderson", "team": "OAK", "value": "65"}])
     def test_randomized_screen_has_respin_button(self, _leaders):
         response = app.test_client().get(
             "/mlb/leaderboard?season=1990&group=hitting&stat=stolenBases&randomized=1"

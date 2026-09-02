@@ -45,7 +45,7 @@ def _normalized_name(name):
     return " ".join(plain.casefold().split())
 
 
-def _random_selection(sport_key, minimum=None, maximum=None, groups=None, stats=None):
+def _random_selection(sport_key, minimum=None, maximum=None, groups=None, stats=None, excluded=None):
     sport, options = SPORTS[sport_key], SPORTS[sport_key]["service"].STAT_OPTIONS
     minimum = sport["min"] if minimum is None else max(sport["min"], minimum)
     maximum = sport["max"]() if maximum is None else min(sport["max"](), maximum)
@@ -53,19 +53,26 @@ def _random_selection(sport_key, minimum=None, maximum=None, groups=None, stats=
         minimum, maximum = maximum, minimum
     groups = [group for group in (groups or options) if group in options]
     selected_stats = set(stats or ())
-    candidates = []
+    candidates, excluded = [], set(excluded or ())
     for group in groups:
         for stat_key in options[group]:
             if selected_stats and f"{group}:{stat_key}" not in selected_stats:
                 continue
             stat_min = getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])(group, stat_key)
             stat_max = maximum - (sport_key == "mlb" and stat_key == "war")
-            if max(minimum, stat_min) <= stat_max:
-                candidates.append((group, stat_key, max(minimum, stat_min), stat_max))
+            for season in range(max(minimum, stat_min), stat_max + 1):
+                if f"{season}:{group}:{stat_key}" not in excluded:
+                    candidates.append((season, group, stat_key))
     if not candidates:
         raise ValueError("No statistics are available inside those parameters.")
-    group, stat_key, stat_min, stat_max = random.choice(candidates)
-    return random.randint(stat_min, stat_max), group, stat_key
+    return random.choice(candidates)
+
+
+def _load_leaders(sport, season, group, stat_key):
+    min_games = sport.get("fixed_min_games", 0)
+    if sport.get("supports_min_games"):
+        return sport["service"].get_leaders(season, group, stat_key, min_games=min_games)
+    return sport["service"].get_leaders(season, group, stat_key)
 
 
 def _valid_selection(sport, season, group, stat_key):
@@ -108,10 +115,7 @@ def _leaderboard(sport_key):
     min_games = sport.get("fixed_min_games", 0)
     error = None
     try:
-        if sport.get("supports_min_games"):
-            leaders = sport["service"].get_leaders(season, group, stat_key, min_games=min_games)
-        else:
-            leaders = sport["service"].get_leaders(season, group, stat_key)
+        leaders = _load_leaders(sport, season, group, stat_key)
     except (OSError, ValueError, KeyError) as exc:
         app.logger.warning("Could not load %s leaders: %s", sport["name"], exc)
         leaders, error = [], f'{sport["name"]} data is temporarily unavailable. Please try again.'
@@ -122,6 +126,10 @@ def _leaderboard(sport_key):
     random_max_year = request.args.get("max_year", max_season, type=int)
     random_groups = request.args.getlist("groups") or list(options)
     random_stats = request.args.getlist("stats") or [f"{option_group}:{key}" for option_group, stats in options.items() for key in stats]
+    if randomized and (error or not leaders):
+        query = urlencode({"spin": 1, "min_year": random_min_year, "max_year": random_max_year,
+                           "groups": random_groups, "stats": random_stats}, doseq=True)
+        return redirect(f'{url_for(sport["random"])}?{query}')
     respin_url = None
     if randomized:
         query = urlencode({"spin": 1, "min_year": random_min_year, "max_year": random_max_year,
@@ -157,13 +165,25 @@ def _random_redirect(sport_key):
                                sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
                                selected_groups=groups, selected_stats=stats, error="Select at least one category and one statistic.",
                                home_endpoint=sport["home"], random_endpoint=sport["random"]), 400
-    try:
-        selection = _random_selection(sport_key, minimum, maximum, groups, stats)
-    except ValueError as exc:
+    excluded, selection = set(), None
+    for _attempt in range(10):
+        try:
+            candidate = _random_selection(sport_key, minimum, maximum, groups, stats, excluded)
+        except ValueError:
+            break
+        excluded.add(f"{candidate[0]}:{candidate[1]}:{candidate[2]}")
+        try:
+            if _load_leaders(sport, *candidate):
+                selection = candidate
+                break
+        except (OSError, ValueError, KeyError) as exc:
+            app.logger.warning("Randomized %s selection unavailable (%s/%s/%s): %s", sport["name"], *candidate, exc)
+    if selection is None:
         return render_template("random_setup.html", sport_name=sport["name"], min_year=minimum, max_year=maximum,
                                sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
-                               selected_groups=groups, selected_stats=stats, error=str(exc),
-                               home_endpoint=sport["home"], random_endpoint=sport["random"]), 400
+                               selected_groups=groups, selected_stats=stats,
+                               error="No available leaderboard was found after validating several combinations. Try a different year range or try again.",
+                               home_endpoint=sport["home"], random_endpoint=sport["random"]), 503
     query = urlencode({"season": selection[0], "group": selection[1], "stat": selection[2], "randomized": 1,
                        "min_games": sport.get("default_min_games", 0), "min_year": minimum, "max_year": maximum,
                        "groups": groups, "stats": stats}, doseq=True)
