@@ -51,6 +51,22 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Build Your Own", response.data)
         self.assertIn(b"Surprise Me", response.data)
         self.assertIn(b"Award Winners", response.data)
+        self.assertIn(b"WAR Diamond", response.data)
+
+    @patch("war_diamond_service.get_lineup", return_value=[
+        {"position": "RF", "name": "Hank Aaron", "season": 1961, "war": 9.5, "team": "Atlanta Braves"},
+        {"position": "P", "name": "Greg Maddux", "season": 1995, "war": 9.7, "team": "Atlanta Braves"},
+    ])
+    def test_war_diamond_reveals_correct_position(self, _lineup):
+        response = app.test_client().post("/mlb/war-diamond", data={"team": "ATL", "player": "Hank Aaron"})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Hank Aaron", response.data)
+        self.assertIn(b"1961", response.data)
+        self.assertIn(b"9.5 WAR", response.data)
+
+    def test_war_uses_conventional_half_up_rounding(self):
+        from war_diamond_service import _round_war
+        self.assertEqual(_round_war(9.45), 9.5)
 
     @patch("awards_service.get_player_names", return_value=("LeBron James", "Stephen Curry"))
     @patch("awards_service.get_decade_winners", return_value=[

@@ -10,6 +10,7 @@ import nfl_service
 import nba_service
 import cfb_service
 import awards_service
+import war_diamond_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -75,7 +76,8 @@ def _sport_home(sport_key):
     intro = intros[sport_key]
     return render_template("home.html", sport_name=sport["name"], eyebrow=f'{sport["name"]} history, ranked', intro=intro,
                            leaderboard_endpoint=sport["leaderboard"], random_endpoint=sport["random"],
-                           new_challenge_endpoint=sport["new_challenge"], awards_endpoint=sport["awards"])
+                           new_challenge_endpoint=sport["new_challenge"], awards_endpoint=sport["awards"],
+                           diamond_endpoint="mlb_diamond" if sport_key == "mlb" else None)
 
 
 def _leaderboard(sport_key):
@@ -248,6 +250,46 @@ def _award_game(sport_key):
     )
 
 
+def _war_diamond():
+    team_key = request.values.get("team", "ATL")
+    if team_key not in war_diamond_service.TEAMS:
+        team_key = "ATL"
+    try:
+        lineup = [dict(player) for player in war_diamond_service.get_lineup(team_key)]
+        error = None
+    except (OSError, ValueError, KeyError) as exc:
+        app.logger.warning("Could not load WAR diamond: %s", exc)
+        lineup, error = [], "WAR data is temporarily unavailable. Please try again."
+    game_key = f"war-diamond:{team_key}"
+    if session.get("diamond_game_key") != game_key:
+        session["diamond_game_key"], session["diamond_guesses"] = game_key, []
+        session["diamond_forfeited"] = False
+    guessed = set(session.get("diamond_guesses", []))
+    forfeited = session.get("diamond_forfeited", False)
+    message = message_type = None
+    if request.method == "POST" and request.form.get("action") == "forfeit":
+        forfeited = True; session["diamond_forfeited"] = True
+        message, message_type = "Game over — the remaining positions are shown in red.", "error"
+    elif request.method == "POST" and lineup and not forfeited:
+        submitted = _normalized_name(request.form.get("player", ""))
+        matches = [player for player in lineup if submitted in {_normalized_name(player["name"]), _normalized_name(player["name"]).rsplit(" ", 1)[-1]}]
+        if len(matches) == 1:
+            position = matches[0]["position"]
+            if position in guessed: message, message_type = f"You already filled {position}.", "neutral"
+            else:
+                guessed.add(position); session["diamond_guesses"] = list(guessed)
+                message, message_type = f"Correct — {matches[0]['name']} owns the {position} season!", "success"
+        elif len(matches) > 1: message, message_type = "Enter the player's full name.", "neutral"
+        else: message, message_type = "That player does not own a position record for this franchise.", "error"
+    completed = bool(lineup) and len(guessed) == len(lineup)
+    return render_template("war_diamond.html", team_key=team_key, teams=war_diamond_service.TEAMS,
+                           team_name=war_diamond_service.TEAMS[team_key][0], lineup=lineup,
+                           player_names=sorted({player["name"] for player in lineup}, key=str.casefold),
+                           guessed=guessed, forfeited=forfeited, finished=completed or forfeited,
+                           final_score=len(guessed), message=message, message_type=message_type,
+                           error=error)
+
+
 @app.route("/")
 def home(): return render_template("sports_home.html")
 @app.route("/mlb")
@@ -264,6 +306,8 @@ def mlb_challenge(): return _challenge("mlb")
 def mlb_player_search(): return _player_search("mlb")
 @app.route("/mlb/awards", methods=["GET", "POST"])
 def mlb_awards(): return _award_game("mlb")
+@app.route("/mlb/war-diamond", methods=["GET", "POST"])
+def mlb_diamond(): return _war_diamond()
 @app.route("/nfl")
 def nfl_home(): return _sport_home("nfl")
 @app.route("/nfl/leaderboard")
