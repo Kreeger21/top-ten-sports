@@ -46,7 +46,7 @@ WAR uses Baseball-Reference bWAR through pybaseball and may differ from FanGraph
 
 - Passing: yards, touchdowns, completions, attempts, interceptions
 - Rushing: yards, touchdowns, attempts, first downs
-- Receiving: yards, touchdowns, receptions, targets
+- Receiving: yards, touchdowns, receptions
 - Fantasy: standard and PPR fantasy points
 
 NFL regular-season data comes from nflverse and currently covers 1999–2024.
@@ -70,3 +70,4 @@ NBA leaderboards use a fixed qualification of at least 65 games played.
 - Kicking: field goals made and attempted
 
 College Football data comes from cfbfastR and covers 2014–2026. Results are restricted to Division I FBS conferences and teams.
+Targets are not offered because Sports-Reference does not publish CFB target totals and the older play-level target data is incomplete.

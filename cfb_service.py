@@ -29,7 +29,6 @@ STAT_OPTIONS = {
         "receiving_yards": {"label": "Receiving Yards", "short": "YDS"},
         "receiving_tds": {"label": "Receiving Touchdowns", "short": "TD"},
         "receptions": {"label": "Receptions", "short": "REC"},
-        "targets": {"label": "Targets", "short": "TGT"},
     },
     "defense": {
         "interceptions": {"label": "Interceptions", "short": "INT"},
@@ -94,7 +93,6 @@ def _category_data(season, group):
             _event(data, "reception_player_id", "reception_player", "receiving_yards", "reception_yds"),
             _event(data, "reception_player_id", "reception_player", "receiving_tds", mask=(data["touchdown_stat"].fillna(0) > 0) & (data["touchdown_player_id"] == data["reception_player_id"])),
             _event(data, "reception_player_id", "reception_player", "receptions"),
-            _event(data, "target_player_id", "target_player", "targets"),
         ])
     if group == "defense":
         defense = _combine([

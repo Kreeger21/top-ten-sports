@@ -199,6 +199,10 @@ class LeaderTests(unittest.TestCase):
         from cfb_service import get_leaders as get_cfb_leaders
         self.assertEqual(get_cfb_leaders(2024, "passing", "passing_yards")[0]["name"], "First")
 
+    def test_college_football_does_not_offer_unreliable_targets(self):
+        from cfb_service import STAT_OPTIONS as cfb_options
+        self.assertNotIn("targets", cfb_options["receiving"])
+
 
 if __name__ == "__main__":
     unittest.main()
