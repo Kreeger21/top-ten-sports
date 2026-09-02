@@ -86,6 +86,16 @@ class LeaderTests(unittest.TestCase):
         response = app.test_client().get("/nba/awards?decade=2010")
         self.assertIn(b"sessionStorage.setItem(scrollKey", response.data)
         self.assertIn(b"preventScroll: true", response.data)
+        self.assertIn(b'id="award-select"', response.data)
+
+    def test_major_and_postseason_awards_are_available(self):
+        from awards_service import AWARDS
+        self.assertIn("dpoy", AWARDS["nfl"])
+        self.assertIn("opoy", AWARDS["nfl"])
+        self.assertIn("rookie", AWARDS["nba"])
+        self.assertIn("world_series_mvp", AWARDS["mlb"])
+        self.assertIn("super_bowl_mvp", AWARDS["nfl"])
+        self.assertIn("finals_mvp", AWARDS["nba"])
 
     @patch("mlb_service.get_leaders", return_value=[])
     def test_leaderboard_renders(self, _leaders):

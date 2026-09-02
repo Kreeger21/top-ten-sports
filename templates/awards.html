@@ -27,6 +27,12 @@
               <option value="{{ choice }}" {% if choice == decade %}selected{% endif %}>{{ choice }}–{{ choice + 9 }}</option>
             {% endfor %}
           </select>
+          <label for="award-select"><span>Award</span></label>
+          <select id="award-select" name="award">
+            {% for key, option in award_options.items() %}
+              <option value="{{ key }}" {% if key == award_key %}selected{% endif %}>{{ option.name }}</option>
+            {% endfor %}
+          </select>
           <button type="submit">Start this era</button>
         </form>
       </section>
@@ -42,6 +48,7 @@
         {% if not finished %}
           <form method="post" class="guess-form">
             <input type="hidden" name="decade" value="{{ decade }}">
+            <input type="hidden" name="award" value="{{ award_key }}">
             <label for="award-guess" class="sr-only">Guess an award winner</label>
             <div class="autocomplete">
               <input id="award-guess" name="player" type="search" placeholder="Guess a player's name…" autocomplete="off" aria-autocomplete="list" aria-controls="award-suggestions" aria-expanded="false" required>
@@ -51,6 +58,7 @@
           </form>
           <form method="post" class="forfeit-form">
             <input type="hidden" name="decade" value="{{ decade }}">
+            <input type="hidden" name="award" value="{{ award_key }}">
             <input type="hidden" name="action" value="forfeit">
             <button type="submit" class="forfeit-button">Forfeit and reveal winners</button>
           </form>
@@ -92,7 +100,7 @@
     const guessInput = document.querySelector('#award-guess');
     const suggestions = document.querySelector('#award-suggestions');
     const playerNames = {{ player_names|tojson }};
-    const scrollKey = `award-scroll:${location.pathname}:{{ decade }}`;
+    const scrollKey = `award-scroll:${location.pathname}:{{ award_key }}:{{ decade }}`;
 
     const savedScroll = sessionStorage.getItem(scrollKey);
     if (savedScroll !== null) {

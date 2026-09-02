@@ -190,20 +190,24 @@ def _challenge(sport_key):
 
 def _award_game(sport_key):
     sport = SPORTS[sport_key]
+    award_options = awards_service.AWARDS[sport_key]
+    award_key = request.values.get("award", next(iter(award_options)))
+    if award_key not in award_options:
+        award_key = next(iter(award_options))
     try:
-        decades = awards_service.get_decades(sport_key)
+        decades = awards_service.get_decades(sport_key, award_key)
         decade = request.values.get("decade", decades[0], type=int)
         if decade not in decades:
             decade = decades[0]
-        winners = awards_service.get_decade_winners(sport_key, decade)
-        player_names = awards_service.get_player_names(sport_key)
+        winners = awards_service.get_decade_winners(sport_key, award_key, decade)
+        player_names = awards_service.get_player_names(sport_key, award_key)
         error = None
     except (OSError, ValueError, KeyError, awards_service.requests.RequestException) as exc:
         app.logger.warning("Could not load %s award history: %s", sport["name"], exc)
         decades, decade, winners, player_names = (), None, [], ()
         error = "Award history is temporarily unavailable. Please try again."
 
-    game_key = f"award:{sport_key}:{decade}"
+    game_key = f"award:{sport_key}:{award_key}:{decade}"
     if session.get("award_game_key") != game_key:
         session["award_game_key"], session["award_guesses"] = game_key, []
         session["award_forfeited"] = False
@@ -236,7 +240,8 @@ def _award_game(sport_key):
     completed = bool(winners) and guessed_slots == len(winners)
     return render_template(
         "awards.html", sport_name=sport["name"], decade=decade, decades=decades, winners=winners,
-        award=awards_service.AWARDS[sport_key], player_names=player_names, guessed=guessed,
+        award=award_options[award_key], award_key=award_key, award_options=award_options,
+        player_names=player_names, guessed=guessed,
         forfeited=forfeited, finished=completed or forfeited, completed=completed,
         final_score=guessed_slots, message=message, message_type=message_type, error=error,
         home_endpoint=sport["home"], awards_endpoint=sport["awards"],
