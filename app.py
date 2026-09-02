@@ -2,6 +2,7 @@ from datetime import date
 import os
 import random
 import unicodedata
+from urllib.parse import urlencode
 
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
@@ -44,13 +45,27 @@ def _normalized_name(name):
     return " ".join(plain.casefold().split())
 
 
-def _random_selection(sport_key):
+def _random_selection(sport_key, minimum=None, maximum=None, groups=None, stats=None):
     sport, options = SPORTS[sport_key], SPORTS[sport_key]["service"].STAT_OPTIONS
-    group = random.choice(list(options))
-    stat_key = random.choice(list(options[group]))
-    stat_min = getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])(group, stat_key)
-    latest = sport["max"]() - (sport_key == "mlb" and stat_key == "war")
-    return random.randint(stat_min, latest), group, stat_key
+    minimum = sport["min"] if minimum is None else max(sport["min"], minimum)
+    maximum = sport["max"]() if maximum is None else min(sport["max"](), maximum)
+    if minimum > maximum:
+        minimum, maximum = maximum, minimum
+    groups = [group for group in (groups or options) if group in options]
+    selected_stats = set(stats or ())
+    candidates = []
+    for group in groups:
+        for stat_key in options[group]:
+            if selected_stats and f"{group}:{stat_key}" not in selected_stats:
+                continue
+            stat_min = getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])(group, stat_key)
+            stat_max = maximum - (sport_key == "mlb" and stat_key == "war")
+            if max(minimum, stat_min) <= stat_max:
+                candidates.append((group, stat_key, max(minimum, stat_min), stat_max))
+    if not candidates:
+        raise ValueError("No statistics are available inside those parameters.")
+    group, stat_key, stat_min, stat_max = random.choice(candidates)
+    return random.randint(stat_min, stat_max), group, stat_key
 
 
 def _valid_selection(sport, season, group, stat_key):
@@ -102,19 +117,54 @@ def _leaderboard(sport_key):
         leaders, error = [], f'{sport["name"]} data is temporarily unavailable. Please try again.'
     stat_minimums = {f"{option_group}:{key}": getattr(sport["service"], "stat_min_season", lambda _group, _stat: sport["min"])(option_group, key)
                      for option_group, stats in options.items() for key in stats}
+    randomized = request.args.get("randomized") == "1"
+    random_min_year = request.args.get("min_year", sport["min"], type=int)
+    random_max_year = request.args.get("max_year", max_season, type=int)
+    random_groups = request.args.getlist("groups") or list(options)
+    random_stats = request.args.getlist("stats") or [f"{option_group}:{key}" for option_group, stats in options.items() for key in stats]
+    respin_url = None
+    if randomized:
+        query = urlencode({"spin": 1, "min_year": random_min_year, "max_year": random_max_year,
+                           "groups": random_groups, "stats": random_stats}, doseq=True)
+        respin_url = f'{url_for(sport["random"])}?{query}'
     return render_template("index.html", sport_name=sport["name"], season=season, min_season=sport["min"],
                            current_year=max_season, group=group, stat_key=stat_key, stat_options=options,
                            season_choices=range(max_season, sport["min"] - 1, -1), stat_minimums=stat_minimums,
-                           leaders=leaders, error=error, randomized=request.args.get("randomized") == "1",
+                           leaders=leaders, error=error, randomized=randomized, respin_url=respin_url,
                            supports_min_games=sport.get("supports_min_games", False), min_games=min_games,
                            home_endpoint=sport["home"], leaderboard_endpoint=sport["leaderboard"],
                            random_endpoint=sport["random"])
 
 
 def _random_redirect(sport_key):
-    sport, selection = SPORTS[sport_key], _random_selection(sport_key)
-    return redirect(url_for(sport["leaderboard"], season=selection[0], group=selection[1], stat=selection[2],
-                            randomized=1, min_games=sport.get("default_min_games", 0)))
+    sport, options = SPORTS[sport_key], SPORTS[sport_key]["service"].STAT_OPTIONS
+    minimum = request.values.get("min_year", sport["min"], type=int)
+    maximum = request.values.get("max_year", sport["max"](), type=int)
+    minimum, maximum = max(sport["min"], minimum), min(sport["max"](), maximum)
+    if minimum > maximum:
+        minimum, maximum = maximum, minimum
+    groups, stats = request.values.getlist("groups"), request.values.getlist("stats")
+    if request.method == "GET" and request.args.get("spin") != "1":
+        return render_template("random_setup.html", sport_name=sport["name"], min_year=minimum, max_year=maximum,
+                               sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
+                               selected_groups=list(options), selected_stats=[], error=None,
+                               home_endpoint=sport["home"], random_endpoint=sport["random"])
+    if not groups or not stats:
+        return render_template("random_setup.html", sport_name=sport["name"], min_year=minimum, max_year=maximum,
+                               sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
+                               selected_groups=groups, selected_stats=stats, error="Select at least one category and one statistic.",
+                               home_endpoint=sport["home"], random_endpoint=sport["random"]), 400
+    try:
+        selection = _random_selection(sport_key, minimum, maximum, groups, stats)
+    except ValueError as exc:
+        return render_template("random_setup.html", sport_name=sport["name"], min_year=minimum, max_year=maximum,
+                               sport_min=sport["min"], sport_max=sport["max"](), stat_options=options,
+                               selected_groups=groups, selected_stats=stats, error=str(exc),
+                               home_endpoint=sport["home"], random_endpoint=sport["random"]), 400
+    query = urlencode({"season": selection[0], "group": selection[1], "stat": selection[2], "randomized": 1,
+                       "min_games": sport.get("default_min_games", 0), "min_year": minimum, "max_year": maximum,
+                       "groups": groups, "stats": stats}, doseq=True)
+    return redirect(f'{url_for(sport["leaderboard"])}?{query}')
 
 
 def _new_challenge(sport_key):
@@ -302,7 +352,7 @@ def home(): return render_template("sports_home.html")
 def mlb_home(): return _sport_home("mlb")
 @app.route("/mlb/leaderboard")
 def mlb_leaderboard(): return _leaderboard("mlb")
-@app.route("/mlb/random")
+@app.route("/mlb/random", methods=["GET", "POST"])
 def mlb_random(): return _random_redirect("mlb")
 @app.route("/mlb/challenge/new")
 def mlb_new_challenge(): return _new_challenge("mlb")
@@ -318,7 +368,7 @@ def mlb_diamond(): return _war_diamond()
 def nfl_home(): return _sport_home("nfl")
 @app.route("/nfl/leaderboard")
 def nfl_leaderboard(): return _leaderboard("nfl")
-@app.route("/nfl/random")
+@app.route("/nfl/random", methods=["GET", "POST"])
 def nfl_random(): return _random_redirect("nfl")
 @app.route("/nfl/challenge/new")
 def nfl_new_challenge(): return _new_challenge("nfl")
@@ -332,7 +382,7 @@ def nfl_awards(): return _award_game("nfl")
 def nba_home(): return _sport_home("nba")
 @app.route("/nba/leaderboard")
 def nba_leaderboard(): return _leaderboard("nba")
-@app.route("/nba/random")
+@app.route("/nba/random", methods=["GET", "POST"])
 def nba_random(): return _random_redirect("nba")
 @app.route("/nba/challenge/new")
 def nba_new_challenge(): return _new_challenge("nba")
@@ -346,7 +396,7 @@ def nba_awards(): return _award_game("nba")
 def cfb_home(): return _sport_home("cfb")
 @app.route("/college-football/leaderboard")
 def cfb_leaderboard(): return _leaderboard("cfb")
-@app.route("/college-football/random")
+@app.route("/college-football/random", methods=["GET", "POST"])
 def cfb_random(): return _random_redirect("cfb")
 @app.route("/college-football/challenge/new")
 def cfb_new_challenge(): return _new_challenge("cfb")

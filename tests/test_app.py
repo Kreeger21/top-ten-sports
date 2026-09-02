@@ -155,11 +155,24 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Batting Average Leaders", response.data)
 
-    def test_random_choice_redirects_to_leaderboard(self):
+    def test_random_setup_renders_parameter_controls(self):
         response = app.test_client().get("/mlb/random")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Customize Your Surprise", response.data)
+        self.assertIn(b'name="min_year"', response.data)
+        self.assertIn(b'name="max_year"', response.data)
+        self.assertIn(b'name="groups"', response.data)
+        self.assertIn(b'name="stats"', response.data)
+
+    def test_random_choice_redirects_to_leaderboard(self):
+        response = app.test_client().post("/mlb/random", data={
+            "min_year": 2000, "max_year": 2025, "groups": "hitting", "stats": "hitting:avg"
+        })
         self.assertEqual(response.status_code, 302)
         self.assertIn("/mlb/leaderboard?", response.headers["Location"])
         self.assertIn("randomized=1", response.headers["Location"])
+        self.assertIn("min_year=2000", response.headers["Location"])
+        self.assertIn("groups=hitting", response.headers["Location"])
 
     @patch("mlb_service.get_leaders", return_value=[])
     def test_randomized_screen_has_respin_button(self, _leaders):
@@ -169,6 +182,13 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Respin", response.data)
         self.assertIn(b"Your randomized leaderboard", response.data)
+        self.assertIn(b"locked-controls", response.data)
+        self.assertNotIn(b'id="season-select"', response.data)
+
+    def test_random_parameters_require_category_and_statistic(self):
+        response = app.test_client().post("/nba/random", data={"min_year": 2000, "max_year": 2025})
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(b"Select at least one category and one statistic", response.data)
 
     @patch("mlb_service.get_leaders", return_value=[
         {"name": "Aaron Judge", "team": "New York Yankees", "value": "50"},

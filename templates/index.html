@@ -11,18 +11,24 @@
     <nav class="top-nav">
       <a href="{{ url_for(home_endpoint) }}">← {{ sport_name }} Home</a>
       {% if randomized %}
-        <a class="respin-button" href="{{ url_for(random_endpoint) }}">↻ Respin</a>
+        <a class="respin-button" href="{{ respin_url }}">↻ Respin</a>
       {% endif %}
     </nav>
     <header class="hero">
       <p class="eyebrow">{% if randomized %}Your randomized leaderboard{% else %}Explore the league leaders{% endif %}</p>
       <h1>{{ sport_name }} Top Ten</h1>
-      <p class="intro">Choose a season and statistic to generate a top-ten leaderboard.</p>
+      <p class="intro">{% if randomized %}These locked selections were drawn from your chosen parameters.{% else %}Choose a season and statistic to generate a top-ten leaderboard.{% endif %}</p>
     </header>
 
     <section class="card controls-card" aria-labelledby="controls-title">
       <h2 id="controls-title" class="sr-only">Leaderboard options</h2>
-      <form method="get" action="{{ url_for(leaderboard_endpoint) }}" class="controls">
+      {% if randomized %}
+      <div class="controls locked-controls" aria-label="Randomized leaderboard selections">
+        <div class="locked-option"><span>Season</span><strong>{{ season }}</strong></div>
+        <div class="locked-option"><span>Category</span><strong>{{ group|title }}</strong></div>
+        <div class="locked-option"><span>Statistic</span><strong>{{ stat_options[group][stat_key].label }}</strong></div>
+      </div>
+      {% else %}<form method="get" action="{{ url_for(leaderboard_endpoint) }}" class="controls">
         <label>
           <span>Season</span>
           <select name="season" id="season-select" required>
@@ -56,7 +62,7 @@
         </label>
 
         <button type="submit">Generate top 10</button>
-      </form>
+      </form>{% endif %}
     </section>
 
     <section class="card leaderboard" aria-live="polite">
@@ -105,7 +111,7 @@
     </section>
   </main>
 
-  <script>
+  {% if not randomized %}<script>
     const groupSelect = document.querySelector('#group-select');
     const statSelect = document.querySelector('#stat-select');
     const seasonSelect = document.querySelector('#season-select');
@@ -133,6 +139,6 @@
     groupSelect.addEventListener('change', showMatchingStats);
     seasonSelect.addEventListener('change', showMatchingStats);
     showMatchingStats();
-  </script>
+  </script>{% endif %}
 </body>
 </html>
