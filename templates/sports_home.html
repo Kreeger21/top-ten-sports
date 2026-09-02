@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top Ten Sports</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="page-shell home-shell">
+    <header class="hero home-hero">
+      <p class="eyebrow">Choose your league</p>
+      <h1>Top Ten Sports</h1>
+      <p class="intro">Explore the leaders, discover a random season, or test your sports knowledge.</p>
+    </header>
+    <section class="league-grid" aria-label="Choose a sports league">
+      <a class="league-card mlb-card" href="{{ url_for('mlb_home') }}">
+        <span class="league-mark">MLB</span>
+        <div><p class="eyebrow">Baseball</p><h2>MLB Top Ten</h2><p>Explore more than a century of hitting and pitching leaders.</p></div>
+        <span class="path-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="league-card nfl-card" href="{{ url_for('nfl_home') }}">
+        <span class="league-mark">NFL</span>
+        <div><p class="eyebrow">Football</p><h2>NFL Top Ten</h2><p>Rank passing, rushing, receiving, and fantasy performances.</p></div>
+        <span class="path-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="league-card nba-card" href="{{ url_for('nba_home') }}">
+        <span class="league-mark">NBA</span>
+        <div><p class="eyebrow">Basketball</p><h2>NBA Top Ten</h2><p>Rank scoring, rebounding, playmaking, and defensive leaders.</p></div>
+        <span class="path-arrow" aria-hidden="true">→</span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

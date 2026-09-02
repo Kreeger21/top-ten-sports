@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ sport_name }} Top Ten</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="page-shell">
+    <nav class="top-nav">
+      <a href="{{ url_for(home_endpoint) }}">← {{ sport_name }} Home</a>
+      {% if randomized %}
+        <a class="respin-button" href="{{ url_for(random_endpoint) }}">↻ Respin</a>
+      {% endif %}
+    </nav>
+    <header class="hero">
+      <p class="eyebrow">{% if randomized %}Your randomized leaderboard{% else %}Explore the league leaders{% endif %}</p>
+      <h1>{{ sport_name }} Top Ten</h1>
+      <p class="intro">Choose a season and statistic to generate a top-ten leaderboard.</p>
+    </header>
+
+    <section class="card controls-card" aria-labelledby="controls-title">
+      <h2 id="controls-title" class="sr-only">Leaderboard options</h2>
+      <form method="get" action="{{ url_for(leaderboard_endpoint) }}" class="controls">
+        <label>
+          <span>Season</span>
+          <input type="number" name="season" min="{{ min_season }}" max="{{ current_year }}" value="{{ season }}" required>
+        </label>
+
+        <label>
+          <span>Category</span>
+          <select name="group" id="group-select">
+            {% for option_group in stat_options %}
+              <option value="{{ option_group }}" {% if group == option_group %}selected{% endif %}>{{ option_group|title }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          <span>Statistic</span>
+          <select name="stat" id="stat-select">
+            {% for option_group, options in stat_options.items() %}
+              {% for key, definition in options.items() %}
+                <option value="{{ key }}" data-group="{{ option_group }}"
+                  {% if option_group == group and key == stat_key %}selected{% endif %}>
+                  {{ definition.label }}
+                </option>
+              {% endfor %}
+            {% endfor %}
+          </select>
+        </label>
+
+        <button type="submit">Generate top 10</button>
+      </form>
+    </section>
+
+    <section class="card leaderboard" aria-live="polite">
+      <div class="table-heading">
+        <div>
+          <p class="eyebrow">{{ season }} {{ sport_name }}</p>
+          <h2>{{ stat_options[group][stat_key].label }} Leaders</h2>
+        </div>
+        <span class="stat-badge">{{ stat_options[group][stat_key].short }}</span>
+      </div>
+
+      {% if error %}
+        <p class="message error">{{ error }}</p>
+      {% elif leaders %}
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Rank</th><th>Player</th><th>Team</th><th>{{ stat_options[group][stat_key].short }}</th></tr></thead>
+            <tbody>
+              {% for player in leaders %}
+                <tr>
+                  <td><span class="rank">{{ loop.index }}</span></td>
+                  <td class="player-name">{{ player.name }}</td>
+                  <td>{{ player.team }}</td>
+                  <td class="stat-value">{{ player.value }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="message">No qualifying players were found for this selection.</p>
+      {% endif %}
+      {% if stat_options[group][stat_key].qualified %}
+        <p class="qualification-note">Only MLB-qualified players are included for this rate statistic.</p>
+      {% endif %}
+      {% if stat_options[group][stat_key].provider %}
+        <p class="qualification-note">
+          Source: {{ stat_options[group][stat_key].provider }} bWAR. WAR formulas differ by provider and completed-season data may update after the season.
+        </p>
+      {% endif %}
+      {% if supports_min_games %}
+        <p class="qualification-note">
+          Qualification: players must have appeared in at least {{ min_games }} games.
+        </p>
+      {% endif %}
+    </section>
+  </main>
+
+  <script>
+    const groupSelect = document.querySelector('#group-select');
+    const statSelect = document.querySelector('#stat-select');
+
+    function showMatchingStats() {
+      const selectedGroup = groupSelect.value;
+      const options = [...statSelect.options];
+      options.forEach(option => option.hidden = option.dataset.group !== selectedGroup);
+      if (statSelect.selectedOptions[0].hidden) {
+        statSelect.value = options.find(option => option.dataset.group === selectedGroup).value;
+      }
+    }
+
+    groupSelect.addEventListener('change', showMatchingStats);
+    showMatchingStats();
+  </script>
+</body>
+</html>

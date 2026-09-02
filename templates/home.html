@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ sport_name }} Top Ten</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="page-shell home-shell">
+    <header class="hero home-hero">
+      <nav class="top-nav"><a href="{{ url_for('home') }}">← All sports</a></nav>
+      <p class="eyebrow">{{ eyebrow }}</p>
+      <h1>{{ sport_name }} Top Ten</h1>
+      <p class="intro">{{ intro }}</p>
+    </header>
+
+    <section class="path-grid" aria-label="Choose how to create a leaderboard">
+      <a class="path-card" href="{{ url_for(leaderboard_endpoint) }}">
+        <span class="path-number">01</span>
+        <div>
+          <p class="eyebrow">Choose your stats</p>
+          <h2>Build Your Own</h2>
+          <p>Select the season, category, and statistic.</p>
+        </div>
+        <span class="path-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="path-card surprise-card" href="{{ url_for(random_endpoint) }}">
+        <span class="path-number">02</span>
+        <div>
+          <p class="eyebrow">Roll the dice</p>
+          <h2>Surprise Me</h2>
+          <p>Instantly generate a random top ten from the available seasons and stats.</p>
+        </div>
+        <span class="path-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="path-card challenge-card" href="{{ url_for(new_challenge_endpoint) }}">
+        <span class="path-number">03</span>
+        <div>
+          <p class="eyebrow">Test your {{ sport_name }} knowledge</p>
+          <h2>Top Ten Challenge</h2>
+          <p>Guess the players who belong in a hidden randomized leaderboard.</p>
+        </div>
+        <span class="path-arrow" aria-hidden="true">?</span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>
