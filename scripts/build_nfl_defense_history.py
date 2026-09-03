@@ -27,11 +27,6 @@ TEAM_CODES = {
     "TAM": "TB", "SDG": "LAC", "RAI": "LV", "OAK": "LV", "RAM": "LAR",
 }
 DEFENSIVE_POSITIONS = {"DE", "DT", "NT", "DL", "LB", "ILB", "MLB", "OLB", "CB", "S", "FS", "SS", "SAF", "DB"}
-# Sports Reference occasionally revises historical season records after an
-# archive is published. Keep audited changes explicit and source-reviewable.
-OFFICIAL_CORRECTIONS = {
-    ("Robert Porcher", 1994, "DET"): {"def_sacks": 3.0},
-}
 
 
 def normalize_team(team, year):
@@ -49,7 +44,7 @@ def normalize_team(team, year):
 def load_profiles(path):
     with path.open("rb") as source:
         return {
-            int(row["player_id"]): (row["name"], str(row.get("position") or ""))
+            int(row["player_id"]): (str(row["name"]).strip(), str(row.get("position") or ""))
             for row in ijson.items(source, "item")
         }
 
@@ -82,6 +77,9 @@ def build(games_path, profiles_path, roster_cache, output_path):
             year = int(row["year"])
             if year < FIRST_SEASON or year > LAST_SEASON:
                 continue
+            regular_games = 9 if year == 1982 else 15 if year == 1987 else 16
+            if int(row["game_number"]) > regular_games:
+                continue
             player_id = int(row["player_id"])
             team = normalize_team(row["team"], year)
             values = totals[(player_id, year, team)]
@@ -104,8 +102,6 @@ def build(games_path, profiles_path, roster_cache, output_path):
             position_tokens = set(str(position).upper().replace("/", "-").split("-"))
             if not position_tokens.intersection(DEFENSIVE_POSITIONS):
                 continue
-            correction = OFFICIAL_CORRECTIONS.get((name, year, team), {})
-            sacks = correction.get("def_sacks", sacks)
             writer.writerow([f"archive-{player_id}", name, position, team, year,
                              sacks, tackles if year >= 1994 else 0, interceptions if year >= 1994 else 0])
 

@@ -385,20 +385,27 @@ def _nfl_fill_field():
     team_key = request.values.get("team", "KC")
     if team_key not in nfl_field_service.TEAMS:
         team_key = "KC"
-    metric = request.values.get("metric", "yardage")
-    if metric not in nfl_field_service.METRIC_OPTIONS:
-        metric = "yardage"
     timeframe = request.values.get("timeframe", "single_season")
     if timeframe not in nfl_field_service.TIMEFRAME_OPTIONS:
         timeframe = "single_season"
+    legacy_metric = request.values.get("metric")
+    selected_stats = {}
+    for group, default in nfl_field_service.DEFAULT_STATS.items():
+        legacy_stat = default.replace("yards", "tds") if legacy_metric == "touchdowns" else default
+        selected = request.values.get(f"{group.lower()}_stat", legacy_stat)
+        if selected not in nfl_field_service.POSITION_STAT_OPTIONS[group]:
+            selected = default
+        selected_stats[group] = selected
+    lineup_args = (team_key, timeframe, selected_stats["QB"], selected_stats["RB"],
+                   selected_stats["WR"], selected_stats["TE"])
     try:
-        lineup = [dict(player) for player in nfl_field_service.get_lineup(team_key, timeframe, metric)]
+        lineup = [dict(player) for player in nfl_field_service.get_lineup(*lineup_args)]
         player_names = nfl_field_service.get_player_names(team_key)
         error = None
     except (OSError, ValueError, KeyError) as exc:
         app.logger.warning("Could not load NFL Fill the Field: %s", exc)
         lineup, player_names, error = [], (), "NFL data is temporarily unavailable. Please try again."
-    game_key = f"nfl-fill-field:{team_key}:{timeframe}:{metric}"
+    game_key = f'nfl-fill-field:{team_key}:{timeframe}:{":".join(selected_stats.values())}'
     if session.get("nfl_field_game_key") != game_key:
         session["nfl_field_game_key"], session["nfl_field_guesses"] = game_key, []
         session["nfl_field_forfeited"] = False
@@ -426,8 +433,9 @@ def _nfl_fill_field():
             message, message_type = "That player does not lead a position for this franchise.", "error"
     completed = bool(lineup) and len(guessed) == len(lineup)
     return render_template("nfl_fill_field.html", team_key=team_key, teams=nfl_field_service.TEAMS,
-                           team_name=nfl_field_service.TEAMS[team_key][0], metric=metric,
-                           metric_options=nfl_field_service.METRIC_OPTIONS, timeframe=timeframe,
+                           team_name=nfl_field_service.TEAMS[team_key][0], selected_stats=selected_stats,
+                           group_options=nfl_field_service.GROUP_OPTIONS,
+                           position_stat_options=nfl_field_service.POSITION_STAT_OPTIONS, timeframe=timeframe,
                            timeframe_options=nfl_field_service.TIMEFRAME_OPTIONS, lineup=lineup,
                            player_names=player_names, guessed=guessed, forfeited=forfeited,
                            finished=completed or forfeited, final_score=len(guessed), message=message,

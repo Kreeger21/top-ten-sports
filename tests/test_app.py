@@ -401,13 +401,20 @@ class LeaderTests(unittest.TestCase):
     ])
     def test_nfl_fill_field_reveals_natural_position_stat(self, lineup, names):
         response = app.test_client().post("/nfl/fill-the-field", data={
-            "team": "KC", "metric": "yardage", "timeframe": "single_season", "player": "Patrick Mahomes"
+            "team": "KC", "qb_stat": "passing_yards", "rb_stat": "rushing_yards",
+            "wr_stat": "receiving_yards", "te_stat": "receiving_yards",
+            "timeframe": "single_season", "player": "Patrick Mahomes"
         })
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Patrick Mahomes", response.data)
         self.assertIn(b"5,250 YDS", response.data)
         self.assertIn(b"nfl-pos-qb", response.data)
-        lineup.assert_called_once_with("KC", "single_season", "yardage")
+        self.assertIn(b'id="qb-offense-stat-select"', response.data)
+        self.assertIn(b'id="rb-offense-stat-select"', response.data)
+        self.assertIn(b'id="wr-offense-stat-select"', response.data)
+        self.assertIn(b'id="te-offense-stat-select"', response.data)
+        lineup.assert_called_once_with("KC", "single_season", "passing_yards", "rushing_yards",
+                                       "receiving_yards", "receiving_yards")
         names.assert_called_once_with("KC")
 
     @patch("nfl_service._weekly_data", return_value=pd.DataFrame([
@@ -428,11 +435,21 @@ class LeaderTests(unittest.TestCase):
         {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "TE", "player_id": "te",
          "player_display_name": "Tight End", "receiving_yards": 900, "receiving_tds": 10},
     ]))
-    def test_nfl_fill_field_uses_natural_stats_for_seven_positions(self, _data):
+    @patch("nfl_field_service._historical_data", return_value=pd.DataFrame(columns=[
+        "player_id", "player_display_name", "field_position", "recent_team", "season",
+        "passing_yards", "passing_tds", "rushing_yards", "rushing_tds", "receiving_yards", "receiving_tds",
+    ]))
+    @patch("nfl_field_service._latest_data", return_value=pd.DataFrame(columns=[
+        "player_id", "player_display_name", "position", "recent_team", "season",
+        "passing_yards", "passing_tds", "rushing_yards", "rushing_tds", "receiving_yards", "receiving_tds",
+    ]))
+    def test_nfl_fill_field_uses_natural_stats_for_seven_positions(self, _latest, _history, _data):
         from nfl_field_service import get_lineup
         get_lineup.cache_clear()
-        yardage = {player["position"]: player for player in get_lineup("KC", "single_season", "yardage")}
-        touchdowns = {player["position"]: player for player in get_lineup("KC", "single_season", "touchdowns")}
+        yardage = {player["position"]: player for player in get_lineup("KC", "single_season")}
+        touchdowns = {player["position"]: player for player in get_lineup(
+            "KC", "single_season", "passing_tds", "rushing_tds", "receiving_tds", "receiving_tds"
+        )}
         self.assertEqual(set(yardage), {"QB", "RB1", "RB2", "WR1", "WR2", "WR3", "TE"})
         self.assertEqual(yardage["QB"]["display"], "5,000 YDS")
         self.assertEqual(yardage["RB1"]["display"], "1,500 YDS")
@@ -449,6 +466,20 @@ class LeaderTests(unittest.TestCase):
             styles = styles_file.read()
         self.assertIn(".nfl-pos-wr1{left:13%;top:27%}.nfl-pos-wr2{left:87%;top:27%}", styles)
         self.assertIn(".nfl-pos-wr3{left:25%;top:47%}.nfl-pos-te{left:75%;top:47%}", styles)
+
+    def test_nfl_offense_history_uses_regular_season_franchise_totals(self):
+        from nfl_field_service import _historical_data
+        history = _historical_data()
+        barry = history.loc[
+            (history["player_display_name"] == "Barry Sanders") & (history["recent_team"] == "DET"),
+            "rushing_yards",
+        ].sum()
+        dawson = history.loc[
+            (history["player_display_name"] == "Len Dawson") & (history["recent_team"] == "KC"),
+            "passing_yards",
+        ].sum()
+        self.assertEqual(barry, 15269)
+        self.assertEqual(dawson, 28507)
 
     @patch("nfl_service.get_leaders", return_value=[{"name": "Tom Brady", "team": "NE", "value": "5,000"}])
     def test_nfl_leaderboard_renders(self, _leaders):

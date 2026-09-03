@@ -49,7 +49,7 @@ WAR uses Baseball-Reference bWAR through pybaseball and may differ from FanGraph
 - Receiving: yards, touchdowns, receptions
 - Fantasy: standard and PPR fantasy points
 
-NFL regular-season leaderboards use nflverse and currently cover 1999–2025. Defensive Fill the Field combines current nflverse data with a checked-in historical Sports Reference extract. Its stat-specific reliable windows are official sacks from 1982, tackles and position-specific interceptions from 1994, and tackles for loss and forced fumbles from 1999, all through 2025. The historical file can be reproduced with `scripts/build_nfl_defense_history.py`; audited source revisions are recorded explicitly in that builder and the service.
+NFL regular-season leaderboards use nflverse and currently cover 1999–2025. Offensive Fill the Field combines nflverse with a checked-in historical Sports Reference extract for regular-season passing, rushing, and receiving records from 1950–2025. Defensive Fill the Field uses official sacks from 1982, tackles and position-specific interceptions from 1994, and tackles for loss and forced fumbles from 1999, all through 2025. The compact historical files can be reproduced with the scripts in `scripts/`.
 
 ### NBA
 
