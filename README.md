@@ -61,6 +61,8 @@ NFL regular-season leaderboards use nflverse and currently cover 1999–2025. Of
 NBA regular-season leader data comes from the official NBA statistics service. Enter the season's starting year; for example, `2023` represents 2023–24.
 NBA leaderboards use a fixed qualification of at least 65 games played.
 
+NBA Fill the Court uses position-aware regular-season totals compiled from Basketball Reference. It covers completed NBA seasons from 1949–50 through 2024–25, with later-introduced statistics beginning in their official recording seasons.
+
 ### College Football
 
 - Passing: yards, touchdowns, completions, attempts, interceptions

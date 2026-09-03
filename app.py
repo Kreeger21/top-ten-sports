@@ -14,6 +14,7 @@ import awards_service
 import war_diamond_service
 import nfl_field_service
 import nfl_defense_service
+import nba_court_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -103,7 +104,8 @@ def _sport_home(sport_key):
                            new_challenge_endpoint=sport["new_challenge"], awards_endpoint=sport["awards"],
                            diamond_endpoint="mlb_diamond" if sport_key == "mlb" else None,
                            nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None,
-                           nfl_defense_endpoint="nfl_defense_field" if sport_key == "nfl" else None)
+                           nfl_defense_endpoint="nfl_defense_field" if sport_key == "nfl" else None,
+                           nba_court_endpoint="nba_fill_court" if sport_key == "nba" else None)
 
 
 def _leaderboard(sport_key):
@@ -500,6 +502,63 @@ def _nfl_defense_field():
                            message_type=message_type, error=error)
 
 
+def _nba_fill_court():
+    team_key = request.values.get("team", "BOS")
+    if team_key not in nba_court_service.TEAMS:
+        team_key = "BOS"
+    timeframe = request.values.get("timeframe", "single_season")
+    if timeframe not in nba_court_service.TIMEFRAME_OPTIONS:
+        timeframe = "single_season"
+    selected_stats = {}
+    for position, default in nba_court_service.DEFAULT_STATS.items():
+        selected = request.values.get(f"{position.lower()}_stat", default)
+        selected_stats[position] = selected if selected in nba_court_service.STAT_OPTIONS else default
+    lineup_args = (team_key, timeframe, *(selected_stats[position] for position in nba_court_service.POSITIONS))
+    try:
+        lineup = [dict(player) for player in nba_court_service.get_lineup(*lineup_args)]
+        player_names = nba_court_service.get_player_names(team_key)
+        error = None if len(lineup) == len(nba_court_service.POSITIONS) else "No qualifying leader is available for one or more selections."
+    except (OSError, ValueError, KeyError) as exc:
+        app.logger.warning("Could not load NBA Fill the Court: %s", exc)
+        lineup, player_names, error = [], (), "NBA court data is temporarily unavailable. Please try again."
+    game_key = "nba-court:" + ":".join(lineup_args)
+    if session.get("nba_court_game_key") != game_key:
+        session["nba_court_game_key"], session["nba_court_guesses"] = game_key, []
+        session["nba_court_forfeited"] = False
+    guessed = set(session.get("nba_court_guesses", []))
+    forfeited = session.get("nba_court_forfeited", False)
+    message = message_type = None
+    if request.method == "POST" and request.form.get("action") == "forfeit":
+        forfeited = True
+        session["nba_court_forfeited"] = True
+        message, message_type = "Game over — the remaining positions are shown in red.", "error"
+    elif request.method == "POST" and lineup and not forfeited:
+        submitted = _normalized_name(request.form.get("player", ""))
+        matches = [player for player in lineup if submitted in {
+            _normalized_name(player["name"]), _normalized_name(player["name"]).rsplit(" ", 1)[-1]
+        }]
+        if matches:
+            new_positions = [player["position"] for player in matches if player["position"] not in guessed]
+            if not new_positions:
+                message, message_type = "You already filled that player’s position.", "neutral"
+            else:
+                guessed.update(new_positions)
+                session["nba_court_guesses"] = list(guessed)
+                message, message_type = f'Correct — {matches[0]["name"]} filled {", ".join(new_positions)}!', "success"
+        else:
+            message, message_type = "That player does not lead a position for this franchise.", "error"
+    completed = bool(lineup) and len(guessed) == len(lineup)
+    return render_template(
+        "nba_fill_court.html", team_key=team_key, teams=nba_court_service.TEAMS,
+        team_name=nba_court_service.TEAMS[team_key][0], positions=nba_court_service.POSITIONS,
+        stat_options=nba_court_service.STAT_OPTIONS, selected_stats=selected_stats,
+        timeframe=timeframe, timeframe_options=nba_court_service.TIMEFRAME_OPTIONS,
+        lineup=lineup, player_names=player_names, guessed=guessed, forfeited=forfeited,
+        finished=completed or forfeited, final_score=len(guessed), message=message,
+        message_type=message_type, error=error,
+    )
+
+
 @app.route("/")
 def home(): return render_template("sports_home.html")
 @app.route("/mlb")
@@ -550,6 +609,8 @@ def nba_challenge(): return _challenge("nba")
 def nba_player_search(): return _player_search("nba")
 @app.route("/nba/awards", methods=["GET", "POST"])
 def nba_awards(): return _award_game("nba")
+@app.route("/nba/fill-the-court", methods=["GET", "POST"])
+def nba_fill_court(): return _nba_fill_court()
 @app.route("/college-football")
 def cfb_home(): return _sport_home("cfb")
 @app.route("/college-football/leaderboard")

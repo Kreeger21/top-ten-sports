@@ -501,6 +501,45 @@ class LeaderTests(unittest.TestCase):
         response = app.test_client().get("/nba")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"NBA Top Ten", response.data)
+        self.assertIn(b"Fill the Court", response.data)
+
+    def test_nba_fill_court_has_position_stat_controls(self):
+        response = app.test_client().get(
+            "/nba/fill-the-court?team=BOS&pg_stat=ast&sg_stat=pts&sf_stat=x3p&pf_stat=trb&c_stat=blk"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Fill the Court", response.data)
+        for field in (b"pg_stat", b"sg_stat", b"sf_stat", b"pf_stat", b"c_stat"):
+            self.assertIn(b'name="' + field + b'"', response.data)
+        for position in (b"PG", b"SG", b"SF", b"PF", b"C"):
+            self.assertIn(b">" + position + b"<", response.data)
+
+    def test_nba_fill_court_uses_franchise_career_totals(self):
+        from nba_court_service import get_lineup
+        lineup = {player["position"]: player for player in get_lineup(
+            "LAL", "career", "ast", "pts", "pts", "trb", "blk"
+        )}
+        self.assertEqual(lineup["PG"]["name"], "Magic Johnson")
+        self.assertEqual(lineup["PG"]["value"], 10141)
+        self.assertEqual(lineup["SG"]["name"], "Kobe Bryant")
+        self.assertEqual(lineup["SG"]["value"], 33643)
+
+    @patch("nba_court_service.get_player_names", return_value=("Magic Johnson",))
+    @patch("nba_court_service.get_lineup", return_value=tuple({
+        "position": position, "name": "Magic Johnson" if position == "PG" else f"Player {position}",
+        "season": None, "years": "1979–1990", "value": 10141 if position == "PG" else 100,
+        "display": "10,141 AST" if position == "PG" else "100 PTS",
+        "stat_label": "Assists" if position == "PG" else "Points", "team": "Los Angeles Lakers",
+    } for position in ("PG", "SG", "SF", "PF", "C")))
+    def test_nba_fill_court_reveals_guess(self, _lineup, _names):
+        client = app.test_client()
+        response = client.post("/nba/fill-the-court", data={
+            "team": "LAL", "timeframe": "career", "pg_stat": "ast", "sg_stat": "pts",
+            "sf_stat": "pts", "pf_stat": "trb", "c_stat": "blk", "player": "Magic Johnson",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Correct", response.data)
+        self.assertIn(b"10,141 AST", response.data)
 
     @patch("nba_service.get_leaders", return_value=[{"name": "Nikola Jokic", "team": "DEN", "value": "29.6"}])
     def test_nba_leaderboard_renders(self, _leaders):

@@ -76,6 +76,13 @@
         <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
       {% endif %}
+      {% if nba_court_endpoint %}
+      <a class="path-card nba-court-card" href="{{ url_for(nba_court_endpoint) }}">
+        <span class="path-number">05</span>
+        <div><p class="eyebrow">Build the franchise lineup</p><h2>Fill the Court</h2><p>Choose a statistic for every position, then guess all five franchise leaders.</p></div>
+        <span class="path-arrow" aria-hidden="true">◆</span>
+      </a>
+      {% endif %}
     </section>
   </main>
 </body>
