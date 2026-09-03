@@ -380,6 +380,12 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(touchdowns["TE"]["display"], "10 TD")
         get_lineup.cache_clear()
 
+    def test_nfl_receiver_formation_is_balanced(self):
+        with open("static/styles.css", encoding="utf-8") as styles_file:
+            styles = styles_file.read()
+        self.assertIn(".nfl-pos-wr1{left:13%;top:27%}.nfl-pos-wr2{left:87%;top:27%}", styles)
+        self.assertIn(".nfl-pos-wr3{left:25%;top:47%}.nfl-pos-te{left:75%;top:47%}", styles)
+
     @patch("nfl_service.get_leaders", return_value=[{"name": "Tom Brady", "team": "NE", "value": "5,000"}])
     def test_nfl_leaderboard_renders(self, _leaders):
         response = app.test_client().get("/nfl/leaderboard?season=2020&group=passing&stat=passing_yards")
