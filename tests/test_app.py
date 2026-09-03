@@ -503,24 +503,19 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"NBA Top Ten", response.data)
         self.assertIn(b"Fill the Court", response.data)
 
-    def test_nba_fill_court_has_position_stat_controls(self):
-        response = app.test_client().get(
-            "/nba/fill-the-court?team=BOS&pg_stat=ast&sg_stat=pts&sf_stat=x3p&pf_stat=trb&c_stat=blk"
-        )
+    def test_nba_fill_court_has_one_stat_control(self):
+        response = app.test_client().get("/nba/fill-the-court?team=BOS&stat=ast")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Fill the Court", response.data)
+        self.assertEqual(response.data.count(b'<select id="court-stat-select" name="stat">'), 1)
         for field in (b"pg_stat", b"sg_stat", b"sf_stat", b"pf_stat", b"c_stat"):
-            self.assertIn(b'name="' + field + b'"', response.data)
+            self.assertNotIn(b'name="' + field + b'"', response.data)
         for position in (b"PG", b"SG", b"SF", b"PF", b"C"):
             self.assertIn(b">" + position + b"<", response.data)
 
     def test_nba_fill_court_uses_franchise_career_totals(self):
         from nba_court_service import get_lineup
-        lineup = {player["position"]: player for player in get_lineup(
-            "LAL", "career", "ast", "pts", "pts", "trb", "blk"
-        )}
-        self.assertEqual(lineup["PG"]["name"], "Magic Johnson")
-        self.assertEqual(lineup["PG"]["value"], 10141)
+        lineup = {player["position"]: player for player in get_lineup("LAL", "career", "pts")}
         self.assertEqual(lineup["SG"]["name"], "Kobe Bryant")
         self.assertEqual(lineup["SG"]["value"], 33643)
 
@@ -534,8 +529,7 @@ class LeaderTests(unittest.TestCase):
     def test_nba_fill_court_reveals_guess(self, _lineup, _names):
         client = app.test_client()
         response = client.post("/nba/fill-the-court", data={
-            "team": "LAL", "timeframe": "career", "pg_stat": "ast", "sg_stat": "pts",
-            "sf_stat": "pts", "pf_stat": "trb", "c_stat": "blk", "player": "Magic Johnson",
+            "team": "LAL", "timeframe": "career", "stat": "ast", "player": "Magic Johnson",
         })
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Correct", response.data)

@@ -49,7 +49,7 @@ STAT_OPTIONS = {
     "blk": {"label": "Blocks", "short": "BLK", "first": 1974},
     "x3p": {"label": "Three-Pointers Made", "short": "3PM", "first": 1980},
 }
-DEFAULT_STATS = {"PG": "ast", "SG": "pts", "SF": "pts", "PF": "trb", "C": "blk"}
+DEFAULT_STAT = "pts"
 TIMEFRAME_OPTIONS = {"single_season": "Single-Season Leaders", "career": "Career with Franchise"}
 DATA_PATH = Path(__file__).with_name("data") / "nba_court_history.csv"
 
@@ -73,14 +73,11 @@ def _eligible_positions(value):
 
 
 @lru_cache(maxsize=512)
-def get_lineup(team_key, timeframe="single_season", pg_stat="ast", sg_stat="pts",
-               sf_stat="pts", pf_stat="trb", c_stat="blk"):
-    selected = dict(zip(POSITIONS, (pg_stat, sg_stat, sf_stat, pf_stat, c_stat)))
+def get_lineup(team_key, timeframe="single_season", stat="pts"):
     rows = _data().loc[lambda frame: frame["team"].isin(TEAMS[team_key][1])].copy()
     rows["eligible_positions"] = rows["pos"].map(_eligible_positions)
     lineup = []
     for position in POSITIONS:
-        stat = selected[position]
         definition = STAT_OPTIONS[stat]
         eligible = rows.loc[
             rows["eligible_positions"].map(lambda choices: position in choices)

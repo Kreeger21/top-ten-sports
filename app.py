@@ -509,11 +509,10 @@ def _nba_fill_court():
     timeframe = request.values.get("timeframe", "single_season")
     if timeframe not in nba_court_service.TIMEFRAME_OPTIONS:
         timeframe = "single_season"
-    selected_stats = {}
-    for position, default in nba_court_service.DEFAULT_STATS.items():
-        selected = request.values.get(f"{position.lower()}_stat", default)
-        selected_stats[position] = selected if selected in nba_court_service.STAT_OPTIONS else default
-    lineup_args = (team_key, timeframe, *(selected_stats[position] for position in nba_court_service.POSITIONS))
+    stat_key = request.values.get("stat", nba_court_service.DEFAULT_STAT)
+    if stat_key not in nba_court_service.STAT_OPTIONS:
+        stat_key = nba_court_service.DEFAULT_STAT
+    lineup_args = (team_key, timeframe, stat_key)
     try:
         lineup = [dict(player) for player in nba_court_service.get_lineup(*lineup_args)]
         player_names = nba_court_service.get_player_names(team_key)
@@ -551,7 +550,7 @@ def _nba_fill_court():
     return render_template(
         "nba_fill_court.html", team_key=team_key, teams=nba_court_service.TEAMS,
         team_name=nba_court_service.TEAMS[team_key][0], positions=nba_court_service.POSITIONS,
-        stat_options=nba_court_service.STAT_OPTIONS, selected_stats=selected_stats,
+        stat_options=nba_court_service.STAT_OPTIONS, stat_key=stat_key,
         timeframe=timeframe, timeframe_options=nba_court_service.TIMEFRAME_OPTIONS,
         lineup=lineup, player_names=player_names, guessed=guessed, forfeited=forfeited,
         finished=completed or forfeited, final_score=len(guessed), message=message,
