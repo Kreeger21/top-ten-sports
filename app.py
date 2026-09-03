@@ -106,10 +106,8 @@ def _sport_home(sport_key):
                            new_challenge_endpoint=sport["new_challenge"], awards_endpoint=sport["awards"],
                            diamond_endpoint="mlb_diamond" if sport_key == "mlb" else None,
                            nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None,
-                           nfl_defense_endpoint="nfl_defense_field" if sport_key == "nfl" else None,
                            nba_court_endpoint="nba_fill_court" if sport_key == "nba" else None,
-                           cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None,
-                           cfb_defense_endpoint="cfb_defense_field" if sport_key == "cfb" else None)
+                           cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None)
 
 
 def _leaderboard(sport_key):

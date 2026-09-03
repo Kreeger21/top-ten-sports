@@ -65,15 +65,8 @@
       {% if nfl_field_endpoint %}
       <a class="path-card nfl-field-card" href="{{ url_for(nfl_field_endpoint) }}">
         <span class="path-number">05</span>
-        <div><p class="eyebrow">Build the franchise offense</p><h2>Fill the Field</h2><p>Choose a statistic for every offensive position group and guess all seven leaders.</p></div>
+        <div><p class="eyebrow">Build the franchise lineup</p><h2>Fill the Field</h2><p>Choose offense or defense, set the statistics, and guess every position leader.</p></div>
         <span class="path-arrow" aria-hidden="true">◇</span>
-      </a>
-      {% endif %}
-      {% if nfl_defense_endpoint %}
-      <a class="path-card nfl-defense-card" href="{{ url_for(nfl_defense_endpoint) }}">
-        <span class="path-number">06</span>
-        <div><p class="eyebrow">Build the franchise defense</p><h2>Defensive Fill the Field</h2><p>Choose a statistic for every defensive position group and guess all 11 leaders.</p></div>
-        <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
       {% endif %}
       {% if nba_court_endpoint %}
@@ -86,15 +79,8 @@
       {% if cfb_field_endpoint %}
       <a class="path-card cfb-field-card" href="{{ url_for(cfb_field_endpoint) }}">
         <span class="path-number">05</span>
-        <div><p class="eyebrow">Build the program offense</p><h2>Fill the Field</h2><p>Choose offensive stats and guess all seven position leaders for an FBS program.</p></div>
+        <div><p class="eyebrow">Build the program lineup</p><h2>Fill the Field</h2><p>Choose offense or defense, set the statistics, and guess every position leader.</p></div>
         <span class="path-arrow" aria-hidden="true">◇</span>
-      </a>
-      {% endif %}
-      {% if cfb_defense_endpoint %}
-      <a class="path-card nfl-defense-card" href="{{ url_for(cfb_defense_endpoint) }}">
-        <span class="path-number">06</span>
-        <div><p class="eyebrow">Build the program defense</p><h2>Defensive Fill the Field</h2><p>Choose defensive stats and guess all 11 position leaders for an FBS program.</p></div>
-        <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
       {% endif %}
     </section>

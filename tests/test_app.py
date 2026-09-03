@@ -327,7 +327,8 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"NFL Top Ten", response.data)
         self.assertIn(b"Fill the Field", response.data)
-        self.assertIn(b"Defensive Fill the Field", response.data)
+        self.assertEqual(response.data.count(b"<h2>Fill the Field</h2>"), 1)
+        self.assertNotIn(b"Defensive Fill the Field</h2>", response.data)
 
     @patch("nfl_defense_service.get_player_names", return_value=("Chris Jones", "Trent McDuffie"))
     @patch("nfl_defense_service.get_lineup", return_value=[
@@ -572,6 +573,8 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"College Football Top Ten", response.data)
         self.assertIn(b"Fill the Field", response.data)
+        self.assertEqual(response.data.count(b"<h2>Fill the Field</h2>"), 1)
+        self.assertNotIn(b"Defensive Fill the Field</h2>", response.data)
 
     def test_cfb_fill_field_has_program_and_group_controls(self):
         response = app.test_client().get(
@@ -581,6 +584,8 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Program Offense Challenge", response.data)
         self.assertIn(b"Alabama", response.data)
+        self.assertIn(b">Offense</a>", response.data)
+        self.assertIn(b">Defense</a>", response.data)
         for field in (b"qb_stat", b"rb_stat", b"wr_stat", b"te_stat"):
             self.assertIn(b'name="' + field + b'"', response.data)
 
