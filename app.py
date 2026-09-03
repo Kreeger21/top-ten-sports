@@ -13,6 +13,7 @@ import cfb_service
 import awards_service
 import war_diamond_service
 import nfl_field_service
+import nfl_defense_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -101,7 +102,8 @@ def _sport_home(sport_key):
                            leaderboard_endpoint=sport["leaderboard"], random_endpoint=sport["random"],
                            new_challenge_endpoint=sport["new_challenge"], awards_endpoint=sport["awards"],
                            diamond_endpoint="mlb_diamond" if sport_key == "mlb" else None,
-                           nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None)
+                           nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None,
+                           nfl_defense_endpoint="nfl_defense_field" if sport_key == "nfl" else None)
 
 
 def _leaderboard(sport_key):
@@ -432,6 +434,64 @@ def _nfl_fill_field():
                            message_type=message_type, error=error)
 
 
+def _nfl_defense_field():
+    team_key = request.values.get("team", "KC")
+    if team_key not in nfl_defense_service.TEAMS:
+        team_key = "KC"
+    timeframe = request.values.get("timeframe", "single_season")
+    if timeframe not in nfl_defense_service.TIMEFRAME_OPTIONS:
+        timeframe = "single_season"
+    defaults = {"DL": "sacks", "LB": "tackles", "CB": "interceptions", "S": "interceptions"}
+    selected_stats = {}
+    for group, default in defaults.items():
+        value = request.values.get(f"{group.lower()}_stat", default)
+        selected_stats[group] = value if value in nfl_defense_service.STAT_OPTIONS else default
+    lineup_args = (team_key, timeframe, selected_stats["DL"], selected_stats["LB"],
+                   selected_stats["CB"], selected_stats["S"])
+    try:
+        lineup = [dict(player) for player in nfl_defense_service.get_lineup(*lineup_args)]
+        player_names = nfl_defense_service.get_player_names(team_key)
+        error = None
+    except (OSError, ValueError, KeyError) as exc:
+        app.logger.warning("Could not load NFL defensive Fill the Field: %s", exc)
+        lineup, player_names, error = [], (), "NFL defensive data is temporarily unavailable. Please try again."
+    game_key = "nfl-defense:" + ":".join(lineup_args)
+    if session.get("nfl_defense_game_key") != game_key:
+        session["nfl_defense_game_key"], session["nfl_defense_guesses"] = game_key, []
+        session["nfl_defense_forfeited"] = False
+    guessed = set(session.get("nfl_defense_guesses", []))
+    forfeited = session.get("nfl_defense_forfeited", False)
+    message = message_type = None
+    if request.method == "POST" and request.form.get("action") == "forfeit":
+        forfeited = True
+        session["nfl_defense_forfeited"] = True
+        message, message_type = "Game over — the remaining positions are shown in red.", "error"
+    elif request.method == "POST" and lineup and not forfeited:
+        submitted = _normalized_name(request.form.get("player", ""))
+        matches = [player for player in lineup if submitted in {
+            _normalized_name(player["name"]), _normalized_name(player["name"]).rsplit(" ", 1)[-1]
+        }]
+        if matches:
+            new_positions = [player["position"] for player in matches if player["position"] not in guessed]
+            if not new_positions:
+                message, message_type = "You already filled that player’s position.", "neutral"
+            else:
+                guessed.update(new_positions)
+                session["nfl_defense_guesses"] = list(guessed)
+                message, message_type = f'Correct — {matches[0]["name"]} filled {", ".join(new_positions)}!', "success"
+        else:
+            message, message_type = "That player does not lead a position group for this franchise.", "error"
+    completed = bool(lineup) and len(guessed) == len(lineup)
+    return render_template("nfl_defense_field.html", team_key=team_key, teams=nfl_defense_service.TEAMS,
+                           team_name=nfl_defense_service.TEAMS[team_key][0], timeframe=timeframe,
+                           timeframe_options=nfl_defense_service.TIMEFRAME_OPTIONS,
+                           stat_options=nfl_defense_service.STAT_OPTIONS,
+                           group_options=nfl_defense_service.GROUP_OPTIONS, selected_stats=selected_stats,
+                           lineup=lineup, player_names=player_names, guessed=guessed, forfeited=forfeited,
+                           finished=completed or forfeited, final_score=len(guessed), message=message,
+                           message_type=message_type, error=error)
+
+
 @app.route("/")
 def home(): return render_template("sports_home.html")
 @app.route("/mlb")
@@ -466,6 +526,8 @@ def nfl_player_search(): return _player_search("nfl")
 def nfl_awards(): return _award_game("nfl")
 @app.route("/nfl/fill-the-field", methods=["GET", "POST"])
 def nfl_fill_field(): return _nfl_fill_field()
+@app.route("/nfl/fill-the-field/defense", methods=["GET", "POST"])
+def nfl_defense_field(): return _nfl_defense_field()
 @app.route("/nba")
 def nba_home(): return _sport_home("nba")
 @app.route("/nba/leaderboard")

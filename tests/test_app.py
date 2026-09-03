@@ -327,6 +327,48 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"NFL Top Ten", response.data)
         self.assertIn(b"Fill the Field", response.data)
+        self.assertIn(b"Defensive Fill the Field", response.data)
+
+    @patch("nfl_defense_service.get_player_names", return_value=("Chris Jones", "Trent McDuffie"))
+    @patch("nfl_defense_service.get_lineup", return_value=[
+        {"position": "DL1", "group": "DL", "name": "Chris Jones", "season": 2022, "years": None,
+         "display": "15.5 SCK", "stat_label": "Sacks", "team": "Kansas City Chiefs"},
+        {"position": "CB1", "group": "CB", "name": "Trent McDuffie", "season": 2024, "years": None,
+         "display": "2 INT", "stat_label": "Interceptions", "team": "Kansas City Chiefs"},
+    ])
+    def test_nfl_defense_field_has_per_group_stats_and_reveals_guess(self, lineup, names):
+        response = app.test_client().post("/nfl/fill-the-field/defense", data={
+            "team": "KC", "timeframe": "single_season", "dl_stat": "sacks", "lb_stat": "tackles",
+            "cb_stat": "interceptions", "s_stat": "interceptions", "player": "Chris Jones",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Chris Jones", response.data)
+        self.assertIn(b"15.5 SCK", response.data)
+        self.assertIn(b'id="dl-stat-select"', response.data)
+        self.assertIn(b'id="lb-stat-select"', response.data)
+        self.assertIn(b'id="cb-stat-select"', response.data)
+        self.assertIn(b'id="s-stat-select"', response.data)
+        lineup.assert_called_once_with("KC", "single_season", "sacks", "tackles", "interceptions", "interceptions")
+        names.assert_called_once_with("KC")
+
+    def test_nfl_defense_field_builds_twelve_position_slots(self):
+        from nfl_defense_service import get_lineup
+        rows = []
+        positions = ["DE"] * 4 + ["LB"] * 3 + ["CB"] * 3 + ["S"] * 2
+        for index, position in enumerate(positions, start=1):
+            rows.append({"player_id": f"def{index}", "player_display_name": f"Defender {index}",
+                         "position": position, "recent_team": "KC", "season": 2022,
+                         "def_sacks": 20 - index, "tackles": 100 - index,
+                         "def_interceptions": 15 - index, "def_tackles_for_loss": 25 - index,
+                         "def_fumbles_forced": 20 - index})
+        with patch("nfl_defense_service._defensive_data", return_value=pd.DataFrame(rows)):
+            get_lineup.cache_clear()
+            lineup = get_lineup("KC", "single_season", "sacks", "tackles", "interceptions", "forced_fumbles")
+            self.assertEqual(len(lineup), 12)
+            self.assertEqual({player["position"] for player in lineup},
+                             {"DL1", "DL2", "DL3", "DL4", "LB1", "LB2", "LB3",
+                              "CB1", "CB2", "CB3", "S1", "S2"})
+            get_lineup.cache_clear()
 
     @patch("nfl_field_service.get_player_names", return_value=("Patrick Mahomes", "Jamaal Charles"))
     @patch("nfl_field_service.get_lineup", return_value=[
