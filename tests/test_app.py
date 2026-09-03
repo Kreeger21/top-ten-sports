@@ -621,7 +621,17 @@ class LeaderTests(unittest.TestCase):
 
     def test_cfb_defense_field_builds_eleven_slots_for_every_fbs_program(self):
         from cfb_defense_service import TEAMS, get_lineup
-        self.assertTrue(all(len(get_lineup(team)) == 11 for team in TEAMS))
+        for team in TEAMS:
+            lineup = get_lineup(team)
+            self.assertEqual(len(lineup), 11, team)
+            self.assertEqual(len({player["name"] for player in lineup}), 11, team)
+
+    def test_cfb_defensive_secondary_player_only_fills_one_position_group(self):
+        from cfb_defense_service import get_lineup
+        lineup = get_lineup("Alabama")
+        corners = {player["name"] for player in lineup if player["group"] == "CB"}
+        safeties = {player["name"] for player in lineup if player["group"] == "S"}
+        self.assertTrue(corners.isdisjoint(safeties))
 
     @patch("cfb_defense_service.get_player_names", return_value=("Defender One",))
     @patch("cfb_defense_service.get_lineup", return_value=tuple({

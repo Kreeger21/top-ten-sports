@@ -48,12 +48,27 @@ def get_lineup(team_key, timeframe="single_season", dl_stat="sacks", lb_stat="ta
     selected = {"DL": dl_stat, "LB": lb_stat, "CB": cb_stat, "S": s_stat}
     rows = _data().loc[lambda frame: frame["team"] == team_key].copy()
     lineup = []
+    used_players = set()
+    # A player occasionally has different secondary labels across seasons. Keep
+    # them in the position ESPN listed most often; a generic DB is allocated to
+    # only one secondary group below and can never appear at both CB and S.
+    secondary = rows.loc[rows["field_group"].isin({"CB", "S"})]
+    counts = secondary.groupby(["player", "field_group"])["season"].nunique()
+    preferred_secondary = {
+        player: player_counts.sort_values(ascending=False).index[0][1]
+        for player, player_counts in counts.groupby(level=0)
+    }
     for group_key, group in GROUP_OPTIONS.items():
         stat = selected[group_key]
         eligible_groups = {group_key, "DB"} if group_key in {"CB", "S"} else {group_key}
         eligible = rows.loc[
             rows["field_group"].isin(eligible_groups) & (rows["season"] >= STAT_OPTIONS[stat]["start"])
-        ]
+            & ~rows["player"].isin(used_players)
+        ].copy()
+        if group_key in {"CB", "S"}:
+            eligible = eligible.loc[
+                eligible["player"].map(preferred_secondary).fillna(group_key) == group_key
+            ]
         if timeframe == "career":
             ranked = eligible.groupby("player", as_index=False).agg(
                 value=(stat, "sum"), first_year=("season", "min"), last_year=("season", "max")
@@ -64,7 +79,9 @@ def get_lineup(team_key, timeframe="single_season", dl_stat="sacks", lb_stat="ta
             )
             ranked = ranked.sort_values(["value", "player"], ascending=[False, True]).drop_duplicates("player")
         ranked = ranked.loc[ranked["value"] > 0].sort_values(["value", "player"], ascending=[False, True])
-        for index, (_, row) in enumerate(ranked.head(group["count"]).iterrows(), start=1):
+        leaders = ranked.head(group["count"])
+        used_players.update(leaders["player"])
+        for index, (_, row) in enumerate(leaders.iterrows(), start=1):
             lineup.append({
                 "position": f"{group_key}{index}", "group": group_key, "name": row["player"],
                 "season": int(row["season"]) if timeframe == "single_season" else None,
