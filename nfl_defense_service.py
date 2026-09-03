@@ -1,5 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from functools import lru_cache
+from pathlib import Path
 
 import pandas as pd
 
@@ -8,6 +9,7 @@ from nfl_service import MIN_SEASON, MAX_SEASON
 
 
 DATA_URL = "https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_reg_{year}.csv"
+HISTORY_PATH = Path(__file__).with_name("data") / "nfl_defense_history.csv"
 STAT_OPTIONS = {
     "tfl": {"label": "Tackles for Loss", "short": "TFL"},
     "tackles": {"label": "Tackles", "short": "TCK"},
@@ -23,10 +25,20 @@ GROUP_OPTIONS = {
     "DL": {"label": "Defensive Line", "positions": {"DE", "DT", "NT", "DL"}, "count": 4},
     "LB": {"label": "Linebackers", "positions": {"LB", "ILB", "MLB", "OLB"}, "count": 3},
     "CB": {"label": "Cornerbacks", "positions": {"CB"}, "count": 2},
-    "S": {"label": "Safeties", "positions": {"S", "FS", "SS"}, "count": 2},
+    "S": {"label": "Safeties", "positions": {"S", "FS", "SS", "SAF"}, "count": 2},
+}
+STAT_START_SEASONS = {
+    "tfl": 1999,
+    "tackles": 1994,
+    "interceptions": 1994,
+    "sacks": 1982,
+    "forced_fumbles": 1999,
 }
 USE_COLUMNS = ["player_id", "player_display_name", "position", "recent_team", "season",
                "def_tackles_solo", "def_tackles_with_assist", *STAT_COLUMNS.values()]
+AUDITED_CORRECTIONS = {
+    ("Robert Porcher", 2003, "DET"): {"def_sacks": 4.5},
+}
 
 
 def _read_season(year):
@@ -40,8 +52,38 @@ def _defensive_data():
     data = pd.concat(seasons, ignore_index=True)
     for column in USE_COLUMNS[5:]:
         data[column] = pd.to_numeric(data[column], errors="coerce").fillna(0)
+    for (name, season, team), corrections in AUDITED_CORRECTIONS.items():
+        mask = ((data["player_display_name"] == name) & (data["season"] == season)
+                & (data["recent_team"] == team))
+        for column, value in corrections.items():
+            data.loc[mask, column] = value
     data["tackles"] = data["def_tackles_solo"] + data["def_tackles_with_assist"]
     return data
+
+
+@lru_cache(maxsize=1)
+def _historical_data():
+    data = pd.read_csv(HISTORY_PATH)
+    for column in ("def_sacks", "tackles", "def_interceptions"):
+        data[column] = pd.to_numeric(data[column], errors="coerce").fillna(0)
+    return data
+
+
+def _position_matches(position, group_key):
+    tokens = set(str(position).upper().replace("/", "-").split("-"))
+    return bool(tokens.intersection(GROUP_OPTIONS[group_key]["positions"]))
+
+
+def _rows_for_group(rows, historical_rows, group_key, stat_key):
+    eligible = rows.loc[rows["position"].map(lambda position: _position_matches(position, group_key))]
+    start = STAT_START_SEASONS[stat_key]
+    if start >= MIN_SEASON:
+        return eligible
+    history = historical_rows.loc[
+        (historical_rows["season"] >= start)
+        & (historical_rows["position"].map(lambda position: _position_matches(position, group_key)).astype(bool))
+    ]
+    return pd.concat([history, eligible], ignore_index=True, sort=False)
 
 
 def _year_range(row):
@@ -60,19 +102,24 @@ def get_lineup(team_key, timeframe="single_season", dl_stat="sacks", lb_stat="ta
                cb_stat="interceptions", s_stat="interceptions"):
     selected_stats = {"DL": dl_stat, "LB": lb_stat, "CB": cb_stat, "S": s_stat}
     rows = _defensive_data().loc[lambda data: data["recent_team"].isin(TEAMS[team_key][1])].copy()
+    historical_rows = _historical_data().loc[
+        lambda data: data["recent_team"].isin(TEAMS[team_key][1] | {team_key})
+    ].copy()
     lineup = []
     for group_key, group in GROUP_OPTIONS.items():
         stat_key = selected_stats[group_key]
         column = "tackles" if stat_key == "tackles" else STAT_COLUMNS[stat_key]
-        eligible = rows.loc[rows["position"].astype(str).str.upper().isin(group["positions"])]
-        group_columns = ["player_id", "player_display_name"] + ([] if timeframe == "career" else ["season"])
+        eligible = _rows_for_group(rows, historical_rows, group_key, stat_key)
+        # Historical Sports Reference IDs and current nflverse IDs differ, so a
+        # franchise player's name is the stable join key across the 1998/1999 boundary.
+        group_columns = ["player_display_name"] + ([] if timeframe == "career" else ["season"])
         if timeframe == "career":
             ranked = eligible.groupby(group_columns, as_index=False).agg(
                 value=(column, "sum"), first_year=("season", "min"), last_year=("season", "max")
             )
         else:
             ranked = eligible.groupby(group_columns, as_index=False)[column].sum().rename(columns={column: "value"})
-            ranked = ranked.sort_values(["value", "player_display_name"], ascending=[False, True]).drop_duplicates("player_id")
+            ranked = ranked.sort_values(["value", "player_display_name"], ascending=[False, True]).drop_duplicates("player_display_name")
         ranked = ranked.loc[ranked["value"] > 0].sort_values(["value", "player_display_name"], ascending=[False, True])
         for index, (_, row) in enumerate(ranked.head(group["count"]).iterrows(), start=1):
             lineup.append({"position": f"{group_key}{index}", "group": group_key,
@@ -87,6 +134,10 @@ def get_lineup(team_key, timeframe="single_season", dl_stat="sacks", lb_stat="ta
 @lru_cache(maxsize=64)
 def get_player_names(team_key):
     rows = _defensive_data().loc[lambda data: data["recent_team"].isin(TEAMS[team_key][1])]
-    defensive_positions = set().union(*(group["positions"] for group in GROUP_OPTIONS.values()))
-    names = rows.loc[rows["position"].astype(str).str.upper().isin(defensive_positions), "player_display_name"].dropna()
+    history = _historical_data().loc[lambda data: data["recent_team"].isin(TEAMS[team_key][1] | {team_key})]
+    rows = pd.concat([history, rows], ignore_index=True, sort=False)
+    names = rows.loc[
+        rows["position"].map(lambda position: any(_position_matches(position, key) for key in GROUP_OPTIONS)),
+        "player_display_name",
+    ].dropna()
     return tuple(sorted(set(names), key=str.casefold))

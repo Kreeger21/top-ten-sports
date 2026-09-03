@@ -361,13 +361,35 @@ class LeaderTests(unittest.TestCase):
                          "def_sacks": 20 - index, "tackles": 100 - index,
                          "def_interceptions": 15 - index, "def_tackles_for_loss": 25 - index,
                          "def_fumbles_forced": 20 - index})
-        with patch("nfl_defense_service._defensive_data", return_value=pd.DataFrame(rows)):
+        with patch("nfl_defense_service._defensive_data", return_value=pd.DataFrame(rows)), \
+             patch("nfl_defense_service._historical_data", return_value=pd.DataFrame(columns=pd.DataFrame(rows).columns)):
             get_lineup.cache_clear()
             lineup = get_lineup("KC", "single_season", "sacks", "tackles", "interceptions", "forced_fumbles")
             self.assertEqual(len(lineup), 11)
             self.assertEqual({player["position"] for player in lineup},
                              {"DL1", "DL2", "DL3", "DL4", "LB1", "LB2", "LB3",
                               "CB1", "CB2", "S1", "S2"})
+            get_lineup.cache_clear()
+
+    def test_nfl_defense_career_combines_official_sacks_across_1999_boundary(self):
+        from nfl_defense_service import get_lineup
+        current = pd.DataFrame([{
+            "player_id": "current-1", "player_display_name": "Boundary Defender", "position": "DE",
+            "recent_team": "DET", "season": 1999, "def_sacks": 6, "tackles": 0,
+            "def_interceptions": 0, "def_tackles_for_loss": 0, "def_fumbles_forced": 0,
+        }])
+        historical = pd.DataFrame([{
+            "player_id": "archive-1", "player_display_name": "Boundary Defender", "position": "DE",
+            "recent_team": "DET", "season": 1998, "def_sacks": 9, "tackles": 0,
+            "def_interceptions": 0,
+        }])
+        with patch("nfl_defense_service._defensive_data", return_value=current), \
+             patch("nfl_defense_service._historical_data", return_value=historical):
+            get_lineup.cache_clear()
+            lineup = get_lineup("DET", "career", "sacks", "tfl", "tfl", "tfl")
+            self.assertEqual(lineup[0]["name"], "Boundary Defender")
+            self.assertEqual(lineup[0]["display"], "15 SCK")
+            self.assertEqual(lineup[0]["years"], "1998–1999")
             get_lineup.cache_clear()
 
     @patch("nfl_field_service.get_player_names", return_value=("Patrick Mahomes", "Jamaal Charles"))
