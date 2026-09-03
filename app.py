@@ -16,6 +16,7 @@ import nfl_field_service
 import nfl_defense_service
 import nba_court_service
 import cfb_field_service
+import cfb_defense_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -107,7 +108,8 @@ def _sport_home(sport_key):
                            nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None,
                            nfl_defense_endpoint="nfl_defense_field" if sport_key == "nfl" else None,
                            nba_court_endpoint="nba_fill_court" if sport_key == "nba" else None,
-                           cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None)
+                           cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None,
+                           cfb_defense_endpoint="cfb_defense_field" if sport_key == "cfb" else None)
 
 
 def _leaderboard(sport_key):
@@ -617,6 +619,63 @@ def _cfb_fill_field():
     )
 
 
+def _cfb_defense_field():
+    team_key = request.values.get("team", "Alabama")
+    if team_key not in cfb_defense_service.TEAMS:
+        team_key = "Alabama"
+    timeframe = request.values.get("timeframe", "single_season")
+    if timeframe not in cfb_defense_service.TIMEFRAME_OPTIONS:
+        timeframe = "single_season"
+    selected_stats = {}
+    for group, default in cfb_defense_service.DEFAULT_STATS.items():
+        value = request.values.get(f"{group.lower()}_stat", default)
+        selected_stats[group] = value if value in cfb_defense_service.STAT_OPTIONS else default
+    lineup_args = (team_key, timeframe, selected_stats["DL"], selected_stats["LB"],
+                   selected_stats["CB"], selected_stats["S"])
+    try:
+        lineup = [dict(player) for player in cfb_defense_service.get_lineup(*lineup_args)]
+        player_names = cfb_defense_service.get_player_names(team_key)
+        error = None if len(lineup) == 11 else "No qualifying leader is available for one or more selections."
+    except (OSError, ValueError, KeyError) as exc:
+        app.logger.warning("Could not load CFB defensive Fill the Field: %s", exc)
+        lineup, player_names, error = [], (), "College football defensive data is temporarily unavailable."
+    game_key = "cfb-defense:" + ":".join(lineup_args)
+    if session.get("cfb_defense_game_key") != game_key:
+        session["cfb_defense_game_key"], session["cfb_defense_guesses"] = game_key, []
+        session["cfb_defense_forfeited"] = False
+    guessed = set(session.get("cfb_defense_guesses", []))
+    forfeited = session.get("cfb_defense_forfeited", False)
+    message = message_type = None
+    if request.method == "POST" and request.form.get("action") == "forfeit":
+        forfeited = True
+        session["cfb_defense_forfeited"] = True
+        message, message_type = "Game over — the remaining positions are shown in red.", "error"
+    elif request.method == "POST" and lineup and not forfeited:
+        submitted = _normalized_name(request.form.get("player", ""))
+        matches = [player for player in lineup if submitted in {
+            _normalized_name(player["name"]), _normalized_name(player["name"]).rsplit(" ", 1)[-1]
+        }]
+        if matches:
+            new_positions = [player["position"] for player in matches if player["position"] not in guessed]
+            if not new_positions:
+                message, message_type = "You already filled that player’s position.", "neutral"
+            else:
+                guessed.update(new_positions)
+                session["cfb_defense_guesses"] = list(guessed)
+                message, message_type = f'Correct — {matches[0]["name"]} filled {", ".join(new_positions)}!', "success"
+        else:
+            message, message_type = "That player does not lead a position group for this program.", "error"
+    completed = bool(lineup) and len(guessed) == len(lineup)
+    return render_template(
+        "cfb_defense_field.html", team_key=team_key, teams=cfb_defense_service.TEAMS,
+        team_name=team_key, timeframe=timeframe, timeframe_options=cfb_defense_service.TIMEFRAME_OPTIONS,
+        stat_options=cfb_defense_service.STAT_OPTIONS, group_options=cfb_defense_service.GROUP_OPTIONS,
+        selected_stats=selected_stats, lineup=lineup, player_names=player_names, guessed=guessed,
+        forfeited=forfeited, finished=completed or forfeited, final_score=len(guessed),
+        message=message, message_type=message_type, error=error,
+    )
+
+
 @app.route("/")
 def home(): return render_template("sports_home.html")
 @app.route("/mlb")
@@ -685,6 +744,8 @@ def cfb_player_search(): return _player_search("cfb")
 def cfb_awards(): return _award_game("cfb")
 @app.route("/college-football/fill-the-field", methods=["GET", "POST"])
 def cfb_fill_field(): return _cfb_fill_field()
+@app.route("/college-football/fill-the-field/defense", methods=["GET", "POST"])
+def cfb_defense_field(): return _cfb_defense_field()
 
 if __name__ == "__main__":
     app.run(

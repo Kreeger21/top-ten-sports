@@ -90,6 +90,13 @@
         <span class="path-arrow" aria-hidden="true">◇</span>
       </a>
       {% endif %}
+      {% if cfb_defense_endpoint %}
+      <a class="path-card nfl-defense-card" href="{{ url_for(cfb_defense_endpoint) }}">
+        <span class="path-number">06</span>
+        <div><p class="eyebrow">Build the program defense</p><h2>Defensive Fill the Field</h2><p>Choose defensive stats and guess all 11 position leaders for an FBS program.</p></div>
+        <span class="path-arrow" aria-hidden="true">◆</span>
+      </a>
+      {% endif %}
     </section>
   </main>
 </body>

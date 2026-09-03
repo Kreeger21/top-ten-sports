@@ -611,6 +611,34 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Correct", response.data)
         self.assertIn(b"4,872 YDS", response.data)
 
+    def test_cfb_defense_field_has_program_and_group_controls(self):
+        response = app.test_client().get("/college-football/fill-the-field/defense?team=Alabama")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Program Defense Challenge", response.data)
+        self.assertIn(b"Passes Defended", response.data)
+        for field in (b"dl_stat", b"lb_stat", b"cb_stat", b"s_stat"):
+            self.assertIn(b'name="' + field + b'"', response.data)
+
+    def test_cfb_defense_field_builds_eleven_slots_for_every_fbs_program(self):
+        from cfb_defense_service import TEAMS, get_lineup
+        self.assertTrue(all(len(get_lineup(team)) == 11 for team in TEAMS))
+
+    @patch("cfb_defense_service.get_player_names", return_value=("Defender One",))
+    @patch("cfb_defense_service.get_lineup", return_value=tuple({
+        "position": position, "group": position.rstrip("1234"), "name": "Defender One",
+        "season": 2024, "years": None, "display": "10 SCK", "stat_label": "Sacks",
+        "team": "Alabama",
+    } for position in ("DL1", "DL2", "DL3", "DL4", "LB1", "LB2", "LB3", "CB1", "CB2", "S1", "S2")))
+    def test_cfb_defense_field_reveals_guess(self, _lineup, _names):
+        response = app.test_client().post("/college-football/fill-the-field/defense", data={
+            "team": "Alabama", "timeframe": "single_season", "dl_stat": "sacks",
+            "lb_stat": "tackles", "cb_stat": "interceptions", "s_stat": "interceptions",
+            "player": "Defender One",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Correct", response.data)
+        self.assertIn(b"10 SCK", response.data)
+
     @patch("cfb_service.get_leaders", return_value=[{"name": "Player One", "team": "Georgia", "value": "4,000"}])
     def test_college_football_leaderboard_renders(self, _leaders):
         response = app.test_client().get(
