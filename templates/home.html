@@ -62,6 +62,13 @@
         <span class="path-arrow" aria-hidden="true">◇</span>
       </a>
       {% endif %}
+      {% if nfl_field_endpoint %}
+      <a class="path-card nfl-field-card" href="{{ url_for(nfl_field_endpoint) }}">
+        <span class="path-number">05</span>
+        <div><p class="eyebrow">Build the franchise offense</p><h2>Fill the Field</h2><p>Guess the passing, rushing, and receiving leaders at each offensive skill position.</p></div>
+        <span class="path-arrow" aria-hidden="true">◇</span>
+      </a>
+      {% endif %}
     </section>
   </main>
 </body>
