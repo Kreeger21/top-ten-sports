@@ -351,27 +351,31 @@ class LeaderTests(unittest.TestCase):
          "player_display_name": "Quarterback", "passing_yards": 5000, "passing_tds": 40},
         {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "RB", "player_id": "rb",
          "player_display_name": "Running Back", "rushing_yards": 1500, "rushing_tds": 15},
-        {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "FB", "player_id": "fb",
-         "player_display_name": "Full Back", "rushing_yards": 100, "rushing_tds": 3},
+        {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "RB", "player_id": "rb2",
+         "player_display_name": "Second Back", "rushing_yards": 900, "rushing_tds": 8},
         {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "WR", "player_id": "wr1",
          "player_display_name": "Wide One", "receiving_yards": 1400, "receiving_tds": 12},
         {"season": 2021, "season_type": "REG", "recent_team": "KC", "position": "WR", "player_id": "wr1",
          "player_display_name": "Wide One", "receiving_yards": 1300, "receiving_tds": 11},
         {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "WR", "player_id": "wr2",
          "player_display_name": "Wide Two", "receiving_yards": 1100, "receiving_tds": 9},
+        {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "WR", "player_id": "wr3",
+         "player_display_name": "Wide Three", "receiving_yards": 1000, "receiving_tds": 8},
         {"season": 2022, "season_type": "REG", "recent_team": "KC", "position": "TE", "player_id": "te",
          "player_display_name": "Tight End", "receiving_yards": 900, "receiving_tds": 10},
     ]))
-    def test_nfl_fill_field_uses_natural_stats_for_six_positions(self, _data):
+    def test_nfl_fill_field_uses_natural_stats_for_seven_positions(self, _data):
         from nfl_field_service import get_lineup
         get_lineup.cache_clear()
         yardage = {player["position"]: player for player in get_lineup("KC", "single_season", "yardage")}
         touchdowns = {player["position"]: player for player in get_lineup("KC", "single_season", "touchdowns")}
-        self.assertEqual(set(yardage), {"QB", "RB", "FB", "WR1", "WR2", "TE"})
+        self.assertEqual(set(yardage), {"QB", "RB1", "RB2", "WR1", "WR2", "WR3", "TE"})
         self.assertEqual(yardage["QB"]["display"], "5,000 YDS")
-        self.assertEqual(yardage["RB"]["display"], "1,500 YDS")
+        self.assertEqual(yardage["RB1"]["display"], "1,500 YDS")
+        self.assertEqual(yardage["RB2"]["name"], "Second Back")
         self.assertEqual(yardage["WR1"]["display"], "1,400 YDS")
         self.assertEqual(yardage["WR2"]["name"], "Wide Two")
+        self.assertEqual(yardage["WR3"]["name"], "Wide Three")
         self.assertEqual(touchdowns["QB"]["display"], "40 TD")
         self.assertEqual(touchdowns["TE"]["display"], "10 TD")
         get_lineup.cache_clear()

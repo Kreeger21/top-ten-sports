@@ -35,11 +35,12 @@ TIMEFRAME_OPTIONS = {
 }
 
 POSITION_STATS = {
-    "yardage": {"QB": "passing_yards", "RB": "rushing_yards", "FB": "rushing_yards",
+    "yardage": {"QB": "passing_yards", "RB": "rushing_yards",
                  "WR": "receiving_yards", "TE": "receiving_yards"},
-    "touchdowns": {"QB": "passing_tds", "RB": "rushing_tds", "FB": "rushing_tds",
+    "touchdowns": {"QB": "passing_tds", "RB": "rushing_tds",
                     "WR": "receiving_tds", "TE": "receiving_tds"},
 }
+POSITION_COUNTS = {"QB": 1, "RB": 2, "WR": 3, "TE": 1}
 
 
 def _normalized_position(position):
@@ -74,11 +75,11 @@ def get_lineup(team_key, timeframe="single_season", metric="yardage"):
         else:
             ranked = eligible.groupby(group_columns, as_index=False)[stat_column].sum().rename(columns={stat_column: "value"})
         ranked = ranked.loc[ranked["value"] > 0].sort_values(["value", "player_display_name"], ascending=[False, True])
-        if timeframe == "single_season" and base_position == "WR":
+        count = POSITION_COUNTS[base_position]
+        if timeframe == "single_season" and count > 1:
             ranked = ranked.drop_duplicates("player_id", keep="first")
-        count = 2 if base_position == "WR" else 1
         for index, (_, row) in enumerate(ranked.head(count).iterrows(), start=1):
-            position = f"WR{index}" if base_position == "WR" else base_position
+            position = f"{base_position}{index}" if count > 1 else base_position
             value = int(round(float(row["value"])))
             lineup.append({"position": position, "name": row["player_display_name"],
                            "season": int(row["season"]) if timeframe == "single_season" else None,
