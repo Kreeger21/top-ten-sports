@@ -92,6 +92,15 @@ tbody tr:first-child .rank { border-color: var(--accent); color: var(--accent-da
 @media(max-width:650px){.defense-stat-strip{grid-template-columns:1fr 1fr}.defense-field{min-height:680px}.defense-field .football-position{width:96px}.def-pos-dl1{left:14%}.def-pos-dl2{left:38%}.def-pos-dl3{left:62%}.def-pos-dl4{left:86%}.def-pos-cb1{left:16%}.def-pos-cb2{left:84%}}
 @media(max-width:650px){.court-controls{grid-template-columns:1fr 1fr}.basketball-court{min-height:570px}.court-position{width:112px;min-height:78px;padding:8px}.court-position strong{font-size:.82rem}.court-position small{font-size:.64rem}.court-clues{grid-template-columns:1fr 1fr}.nba-pos-sg{left:17%}.nba-pos-sf{left:83%}.nba-pos-pf{left:26%}.nba-pos-c{left:70%}}
 .court-controls{grid-template-columns:1fr 1fr}
+.basketball-court{max-width:850px;min-height:700px;border-radius:8px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 2px,transparent 2px,transparent 72px),linear-gradient(145deg,#c9773f,#a9562e)}
+.basketball-court:before{content:"";position:absolute;z-index:1;top:auto;bottom:-82px;left:50%;width:164px;height:164px;transform:translateX(-50%);border:4px solid rgba(255,255,255,.72);border-radius:50%}
+.court-three-line{position:absolute;z-index:1;top:-4px;left:9%;width:82%;height:455px;border:4px solid rgba(255,255,255,.78);border-top:0;border-radius:0 0 50% 50%}
+.court-key{z-index:1;width:240px;height:245px;border-color:rgba(255,255,255,.78)}
+.court-circle{z-index:1;top:245px;width:150px;height:150px;border-color:rgba(255,255,255,.78)}
+.court-backboard{position:absolute;z-index:2;top:48px;left:50%;width:94px;transform:translateX(-50%);border-top:6px solid #fff}
+.court-rim{position:absolute;z-index:2;top:58px;left:50%;width:32px;height:20px;transform:translateX(-50%);border:4px solid #ff7a28;border-radius:50%}
+.court-position{z-index:3}.nba-pos-pg{left:50%;top:82%}.nba-pos-sg{left:17%;top:61%}.nba-pos-sf{left:83%;top:61%}.nba-pos-pf{left:29%;top:36%}.nba-pos-c{left:58%;top:20%}
+@media(max-width:650px){.basketball-court{min-height:600px}.court-three-line{left:5%;width:90%;height:390px}.court-key{width:190px;height:210px}.court-circle{top:210px;width:125px;height:125px}.nba-pos-pg{top:83%}.nba-pos-sg{left:16%;top:62%}.nba-pos-sf{left:84%;top:62%}.nba-pos-pf{left:25%;top:38%}.nba-pos-c{left:61%;top:20%}}
 .league-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
 .league-card:hover { transform: translateY(-5px); border-color: var(--accent); }
