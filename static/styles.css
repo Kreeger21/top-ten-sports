@@ -99,8 +99,8 @@ tbody tr:first-child .rank { border-color: var(--accent); color: var(--accent-da
 .court-circle{z-index:1;top:245px;width:150px;height:150px;border-color:rgba(255,255,255,.78)}
 .court-backboard{position:absolute;z-index:2;top:48px;left:50%;width:94px;transform:translateX(-50%);border-top:6px solid #fff}
 .court-rim{position:absolute;z-index:2;top:58px;left:50%;width:32px;height:20px;transform:translateX(-50%);border:4px solid #ff7a28;border-radius:50%}
-.court-position{z-index:3}.nba-pos-pg{left:50%;top:82%}.nba-pos-sg{left:17%;top:61%}.nba-pos-sf{left:83%;top:61%}.nba-pos-pf{left:29%;top:36%}.nba-pos-c{left:58%;top:20%}
-@media(max-width:650px){.basketball-court{min-height:600px}.court-three-line{left:5%;width:90%;height:390px}.court-key{width:190px;height:210px}.court-circle{top:210px;width:125px;height:125px}.nba-pos-pg{top:83%}.nba-pos-sg{left:16%;top:62%}.nba-pos-sf{left:84%;top:62%}.nba-pos-pf{left:25%;top:38%}.nba-pos-c{left:61%;top:20%}}
+.court-position{z-index:3}.nba-pos-pg{left:50%;top:82%}.nba-pos-sg{left:17%;top:61%}.nba-pos-sf{left:83%;top:61%}.nba-pos-pf{left:29%;top:36%}.nba-pos-c{left:71%;top:36%}
+@media(max-width:650px){.basketball-court{min-height:600px}.court-three-line{left:5%;width:90%;height:390px}.court-key{width:190px;height:210px}.court-circle{top:210px;width:125px;height:125px}.nba-pos-pg{top:83%}.nba-pos-sg{left:16%;top:62%}.nba-pos-sf{left:84%;top:62%}.nba-pos-pf{left:25%;top:38%}.nba-pos-c{left:75%;top:38%}}
 .league-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
 .league-card:hover { transform: translateY(-5px); border-color: var(--accent); }
