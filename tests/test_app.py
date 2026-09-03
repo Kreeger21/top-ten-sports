@@ -329,6 +329,33 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Fill the Field", response.data)
         self.assertEqual(response.data.count(b"<h2>Fill the Field</h2>"), 1)
         self.assertNotIn(b"Defensive Fill the Field</h2>", response.data)
+        self.assertIn(b"Guess the Team", response.data)
+
+    def test_nfl_guess_team_shows_seven_college_logo_clues(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nfl_logo_target"] = "KC"
+        response = client.get("/nfl/guess-the-team")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Current Teams", response.data)
+        self.assertEqual(response.data.count(b'alt="College logo clue"'), 7)
+        self.assertNotIn(b"Patrick Mahomes", response.data)
+
+    def test_nfl_guess_team_reveals_players_after_correct_guess(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nfl_logo_target"] = "KC"
+        response = client.post("/nfl/guess-the-team", data={"team": "KC"})
+        self.assertIn(b"Correct", response.data)
+        self.assertIn(b"Patrick Mahomes", response.data)
+
+    def test_nba_guess_team_shows_five_college_logo_clues(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nba_logo_target"] = "BOS"
+        response = client.get("/nba/guess-the-team")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.count(b'alt="College logo clue"'), 5)
 
     @patch("nfl_defense_service.get_player_names", return_value=("Chris Jones", "Trent McDuffie"))
     @patch("nfl_defense_service.get_lineup", return_value=[

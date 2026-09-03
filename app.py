@@ -17,6 +17,7 @@ import nfl_defense_service
 import nba_court_service
 import cfb_field_service
 import cfb_defense_service
+import team_logo_game_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -107,7 +108,8 @@ def _sport_home(sport_key):
                            diamond_endpoint="mlb_diamond" if sport_key == "mlb" else None,
                            nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None,
                            nba_court_endpoint="nba_fill_court" if sport_key == "nba" else None,
-                           cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None)
+                           cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None,
+                           team_logo_endpoint=f"{sport_key}_guess_team" if sport_key in {"nfl", "nba"} else None)
 
 
 def _leaderboard(sport_key):
@@ -674,6 +676,46 @@ def _cfb_defense_field():
     )
 
 
+def _guess_team(sport):
+    available = team_logo_game_service.teams(sport)
+    target_key = session.get(f"{sport}_logo_target")
+    if request.args.get("new") == "1" or target_key not in available:
+        choices = [key for key in available if key != target_key] or list(available)
+        target_key = random.choice(choices)
+        session[f"{sport}_logo_target"] = target_key
+        session[f"{sport}_logo_guesses"] = []
+        session[f"{sport}_logo_finished"] = False
+        session[f"{sport}_logo_forfeited"] = False
+    clues = team_logo_game_service.get_clues(sport, target_key)
+    guesses = list(session.get(f"{sport}_logo_guesses", []))
+    finished = bool(session.get(f"{sport}_logo_finished", False))
+    forfeited = bool(session.get(f"{sport}_logo_forfeited", False))
+    message = message_type = None
+    if request.method == "POST" and not finished:
+        if request.form.get("action") == "forfeit":
+            finished = forfeited = True
+            session[f"{sport}_logo_finished"] = True
+            session[f"{sport}_logo_forfeited"] = True
+            message, message_type = f'The team was the {available[target_key]}.', "error"
+        else:
+            guess = request.form.get("team", "")
+            if guess in available and guess not in guesses:
+                guesses.append(guess)
+                session[f"{sport}_logo_guesses"] = guesses
+            if guess == target_key:
+                finished = True
+                session[f"{sport}_logo_finished"] = True
+                message, message_type = f'Correct — it is the {available[target_key]}!', "success"
+            else:
+                message, message_type = "That is not the team. Use the college logos and try again.", "error"
+    return render_template(
+        "team_logo_game.html", sport=sport, sport_name=sport.upper(), teams=available,
+        clues=clues, finished=finished, forfeited=forfeited, guesses=guesses,
+        target_name=available[target_key], message=message, message_type=message_type,
+        home_endpoint=f"{sport}_home", game_endpoint=f"{sport}_guess_team",
+    )
+
+
 @app.route("/")
 def home(): return render_template("sports_home.html")
 @app.route("/mlb")
@@ -710,6 +752,8 @@ def nfl_awards(): return _award_game("nfl")
 def nfl_fill_field(): return _nfl_fill_field()
 @app.route("/nfl/fill-the-field/defense", methods=["GET", "POST"])
 def nfl_defense_field(): return _nfl_defense_field()
+@app.route("/nfl/guess-the-team", methods=["GET", "POST"])
+def nfl_guess_team(): return _guess_team("nfl")
 @app.route("/nba")
 def nba_home(): return _sport_home("nba")
 @app.route("/nba/leaderboard")
@@ -726,6 +770,8 @@ def nba_player_search(): return _player_search("nba")
 def nba_awards(): return _award_game("nba")
 @app.route("/nba/fill-the-court", methods=["GET", "POST"])
 def nba_fill_court(): return _nba_fill_court()
+@app.route("/nba/guess-the-team", methods=["GET", "POST"])
+def nba_guess_team(): return _guess_team("nba")
 @app.route("/college-football")
 def cfb_home(): return _sport_home("cfb")
 @app.route("/college-football/leaderboard")
