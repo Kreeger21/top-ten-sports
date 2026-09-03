@@ -5,7 +5,7 @@ import pandas as pd
 
 NFL_DATA_URL = "https://github.com/nflverse/nflverse-data/releases/download/player_stats/player_stats.csv"
 MIN_SEASON = 1999
-MAX_SEASON = 2024
+MAX_SEASON = 2025
 
 STAT_OPTIONS = {
     "passing": {
@@ -84,4 +84,3 @@ def get_player_names(season, group):
     group_stats = list(STAT_OPTIONS[group])
     eligible = data.loc[data[group_stats].sum(axis=1) > 0, "player_display_name"].dropna()
     return tuple(sorted(set(eligible), key=str.casefold))
-

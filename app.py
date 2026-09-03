@@ -93,7 +93,7 @@ def _sport_home(sport_key):
     sport = SPORTS[sport_key]
     intros = {
         "mlb": "Build baseball leaderboards or test your knowledge.",
-        "nfl": "Explore NFL seasonal leaders from 1999 through 2024.",
+        "nfl": "Explore NFL seasonal leaders from 1999 through 2025.",
         "nba": "Explore NBA regular-season leaders across scoring, rebounding, playmaking, and defense.",
         "cfb": "Explore player leaders from every FBS conference and team.",
     }

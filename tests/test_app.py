@@ -351,7 +351,7 @@ class LeaderTests(unittest.TestCase):
         lineup.assert_called_once_with("KC", "single_season", "sacks", "tackles", "interceptions", "interceptions")
         names.assert_called_once_with("KC")
 
-    def test_nfl_defense_field_builds_twelve_position_slots(self):
+    def test_nfl_defense_field_builds_eleven_position_slots(self):
         from nfl_defense_service import get_lineup
         rows = []
         positions = ["DE"] * 4 + ["LB"] * 3 + ["CB"] * 3 + ["S"] * 2
@@ -364,10 +364,10 @@ class LeaderTests(unittest.TestCase):
         with patch("nfl_defense_service._defensive_data", return_value=pd.DataFrame(rows)):
             get_lineup.cache_clear()
             lineup = get_lineup("KC", "single_season", "sacks", "tackles", "interceptions", "forced_fumbles")
-            self.assertEqual(len(lineup), 12)
+            self.assertEqual(len(lineup), 11)
             self.assertEqual({player["position"] for player in lineup},
                              {"DL1", "DL2", "DL3", "DL4", "LB1", "LB2", "LB3",
-                              "CB1", "CB2", "CB3", "S1", "S2"})
+                              "CB1", "CB2", "S1", "S2"})
             get_lineup.cache_clear()
 
     @patch("nfl_field_service.get_player_names", return_value=("Patrick Mahomes", "Jamaal Charles"))

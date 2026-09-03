@@ -22,7 +22,7 @@ STAT_COLUMNS = {
 GROUP_OPTIONS = {
     "DL": {"label": "Defensive Line", "positions": {"DE", "DT", "NT", "DL"}, "count": 4},
     "LB": {"label": "Linebackers", "positions": {"LB", "ILB", "MLB", "OLB"}, "count": 3},
-    "CB": {"label": "Cornerbacks", "positions": {"CB"}, "count": 3},
+    "CB": {"label": "Cornerbacks", "positions": {"CB"}, "count": 2},
     "S": {"label": "Safeties", "positions": {"S", "FS", "SS"}, "count": 2},
 }
 USE_COLUMNS = ["player_id", "player_display_name", "position", "recent_team", "season",
