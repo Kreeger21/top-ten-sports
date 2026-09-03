@@ -73,6 +73,8 @@ NBA Fill the Court uses position-aware regular-season totals compiled from Baske
 
 College Football rushing data covers 1996–2026. Other College Football categories cover 2014–2026. Results are restricted to Division I FBS conferences and teams. Rushing uses official season-summary totals from the D1SportsNet NCAA statistics archive so postseason games and official corrections are included. Other categories use cfbfastR play data.
 
+College Football Fill the Field uses official ESPN game box totals joined to matching SportsDataverse season rosters for all current FBS programs. Single-season and program-career offense records cover completed 2004–2025 seasons.
+
 ## Public deployment
 
 The included `render.yaml` deploys the `main` branch as a Render web service. Render installs `requirements.txt`, starts the app with Gunicorn, generates the Flask session secret, and redeploys production whenever `main` is updated.

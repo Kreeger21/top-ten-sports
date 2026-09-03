@@ -92,6 +92,7 @@ tbody tr:first-child .rank { border-color: var(--accent); color: var(--accent-da
 @media(max-width:650px){.defense-stat-strip{grid-template-columns:1fr 1fr}.defense-field{min-height:680px}.defense-field .football-position{width:96px}.def-pos-dl1{left:14%}.def-pos-dl2{left:38%}.def-pos-dl3{left:62%}.def-pos-dl4{left:86%}.def-pos-cb1{left:16%}.def-pos-cb2{left:84%}}
 @media(max-width:650px){.court-controls{grid-template-columns:1fr 1fr}.basketball-court{min-height:570px}.court-position{width:112px;min-height:78px;padding:8px}.court-position strong{font-size:.82rem}.court-position small{font-size:.64rem}.court-clues{grid-template-columns:1fr 1fr}.nba-pos-sg{left:17%}.nba-pos-sf{left:83%}.nba-pos-pf{left:26%}.nba-pos-c{left:70%}}
 .court-controls{grid-template-columns:1fr 1fr}
+.cfb-field-card{grid-column:1/-1;min-height:230px;background:linear-gradient(120deg,rgba(39,78,31,.96),rgba(18,31,39,.96))}
 .basketball-court{max-width:850px;min-height:700px;border-radius:8px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 2px,transparent 2px,transparent 72px),linear-gradient(145deg,#c9773f,#a9562e)}
 .basketball-court:before{content:"";position:absolute;z-index:1;top:auto;bottom:-82px;left:50%;width:164px;height:164px;transform:translateX(-50%);border:4px solid rgba(255,255,255,.72);border-radius:50%}
 .court-three-line{position:absolute;z-index:1;top:-4px;left:9%;width:82%;height:455px;border:4px solid rgba(255,255,255,.78);border-top:0;border-radius:0 0 50% 50%}

@@ -83,6 +83,13 @@
         <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
       {% endif %}
+      {% if cfb_field_endpoint %}
+      <a class="path-card cfb-field-card" href="{{ url_for(cfb_field_endpoint) }}">
+        <span class="path-number">05</span>
+        <div><p class="eyebrow">Build the program offense</p><h2>Fill the Field</h2><p>Choose offensive stats and guess all seven position leaders for an FBS program.</p></div>
+        <span class="path-arrow" aria-hidden="true">◇</span>
+      </a>
+      {% endif %}
     </section>
   </main>
 </body>

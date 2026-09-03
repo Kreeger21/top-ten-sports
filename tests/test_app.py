@@ -571,6 +571,45 @@ class LeaderTests(unittest.TestCase):
         response = app.test_client().get("/college-football")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"College Football Top Ten", response.data)
+        self.assertIn(b"Fill the Field", response.data)
+
+    def test_cfb_fill_field_has_program_and_group_controls(self):
+        response = app.test_client().get(
+            "/college-football/fill-the-field?team=Alabama&qb_stat=passing_yards&"
+            "rb_stat=rushing_yards&wr_stat=receiving_yards&te_stat=receiving_yards"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Program Offense Challenge", response.data)
+        self.assertIn(b"Alabama", response.data)
+        for field in (b"qb_stat", b"rb_stat", b"wr_stat", b"te_stat"):
+            self.assertIn(b'name="' + field + b'"', response.data)
+
+    def test_cfb_fill_field_uses_official_box_totals(self):
+        from cfb_field_service import get_lineup
+        season = {player["position"]: player for player in get_lineup("Alabama")}
+        career = {player["position"]: player for player in get_lineup("Alabama", "career")}
+        self.assertEqual(season["RB1"]["name"], "Derrick Henry")
+        self.assertEqual(season["RB1"]["value"], 2219)
+        self.assertEqual(career["RB1"]["name"], "Najee Harris")
+        self.assertEqual(career["RB1"]["value"], 3843)
+
+    @patch("cfb_field_service.get_player_names", return_value=("Bryce Young",))
+    @patch("cfb_field_service.get_lineup", return_value=tuple({
+        "position": position, "group": position.rstrip("123"),
+        "name": "Bryce Young" if position == "QB" else f"Player {position}",
+        "season": 2021, "years": None, "value": 4872 if position == "QB" else 100,
+        "display": "4,872 YDS" if position == "QB" else "100 YDS",
+        "stat_label": "Passing Yards" if position == "QB" else "Yards", "team": "Alabama",
+    } for position in ("QB", "RB1", "RB2", "WR1", "WR2", "WR3", "TE")))
+    def test_cfb_fill_field_reveals_guess(self, _lineup, _names):
+        response = app.test_client().post("/college-football/fill-the-field", data={
+            "team": "Alabama", "timeframe": "single_season", "qb_stat": "passing_yards",
+            "rb_stat": "rushing_yards", "wr_stat": "receiving_yards",
+            "te_stat": "receiving_yards", "player": "Bryce Young",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Correct", response.data)
+        self.assertIn(b"4,872 YDS", response.data)
 
     @patch("cfb_service.get_leaders", return_value=[{"name": "Player One", "team": "Georgia", "value": "4,000"}])
     def test_college_football_leaderboard_renders(self, _leaders):
