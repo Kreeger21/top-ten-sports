@@ -682,13 +682,17 @@ def _guess_team(sport):
     if side not in {"offense", "defense"}:
         side = "offense"
     target_key = session.get(f"{sport}_logo_target")
-    if request.args.get("new") == "1" or target_key not in available:
+    new_game = request.args.get("new") == "1"
+    if new_game or target_key not in available:
         choices = [key for key in available if key != target_key] or list(available)
         target_key = random.choice(choices)
         session[f"{sport}_logo_target"] = target_key
         session[f"{sport}_logo_guesses"] = []
         session[f"{sport}_logo_finished"] = False
         session[f"{sport}_logo_forfeited"] = False
+    if new_game:
+        clean_args = {"side": side} if sport == "nfl" else {}
+        return redirect(url_for(f"{sport}_guess_team", **clean_args))
     clues = team_logo_game_service.get_clues(sport, target_key, side)
     guesses = list(session.get(f"{sport}_logo_guesses", []))
     finished = bool(session.get(f"{sport}_logo_finished", False))

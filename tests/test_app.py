@@ -385,6 +385,18 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(lineup["PG"], "Luka Doncic")
         self.assertEqual(lineup["SG"], "Austin Reaves")
 
+    @patch("app.random.choice", return_value="LAL")
+    def test_new_nba_team_redirects_to_clean_url_before_guessing(self, _choice):
+        client = app.test_client()
+        response = client.get("/nba/guess-the-team?new=1")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers["Location"], "/nba/guess-the-team")
+        with client.session_transaction() as state:
+            self.assertEqual(state["nba_logo_target"], "LAL")
+        response = client.post("/nba/guess-the-team", data={"team": "LAL"})
+        self.assertIn(b"Correct", response.data)
+        self.assertIn(b"Luka Doncic", response.data)
+
     @patch("nfl_defense_service.get_player_names", return_value=("Chris Jones", "Trent McDuffie"))
     @patch("nfl_defense_service.get_lineup", return_value=[
         {"position": "DL1", "group": "DL", "name": "Chris Jones", "season": 2022, "years": None,
