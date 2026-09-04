@@ -98,6 +98,17 @@ def nfl_depth_players(depth):
     return players
 
 
+def nba_depth(team_id):
+    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/{team_id}/depthcharts"
+    payload = requests.get(url, timeout=30).json()
+    chart = next(iter(payload.get("depthchart", [])), {})
+    positions = chart.get("positions", {})
+    return {
+        slot: [athlete.get("id") for athlete in positions.get(slot.lower(), {}).get("athletes", [])]
+        for slot in ("PG", "SG", "SF", "PF", "C")
+    }
+
+
 def main():
     result = {}
     for sport, (sport_path, teams) in SPORTS.items():
@@ -111,7 +122,7 @@ def main():
             print(f"Loading {sport.upper()} roster: {team_name}", flush=True)
             espn_key = ESPN_ABBREVIATIONS.get(sport, {}).get(team_key, team_key)
             team_id = ids[espn_key]
-            depth = nfl_depth(team_id) if sport == "nfl" else {}
+            depth = nfl_depth(team_id) if sport == "nfl" else nba_depth(team_id)
             players = roster(sport_path, team_id)
             if sport == "nfl" and not players:
                 players = nfl_depth_players(depth)

@@ -379,6 +379,12 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'aria-label="International player"', response.data)
 
+    def test_nba_guess_team_uses_depth_chart_starters(self):
+        from team_logo_game_service import get_clues
+        lineup = {player["position"]: player["name"] for player in get_clues("nba", "LAL")}
+        self.assertEqual(lineup["PG"], "Luka Doncic")
+        self.assertEqual(lineup["SG"], "Austin Reaves")
+
     @patch("nfl_defense_service.get_player_names", return_value=("Chris Jones", "Trent McDuffie"))
     @patch("nfl_defense_service.get_lineup", return_value=[
         {"position": "DL1", "group": "DL", "name": "Chris Jones", "season": 2022, "years": None,

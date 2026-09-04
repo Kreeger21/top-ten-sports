@@ -53,9 +53,13 @@ def get_clues(sport, team_key, side="offense"):
         return tuple(clues)
 
     chosen, used = [], set()
+    by_id = {player["id"]: player for player in players}
     groups = (("PG", "G"), ("SG", "G"), ("SF", "F"), ("PF", "F"), ("C", "C"))
     for slot, position in groups:
-        player = next((item for item in players if item["position"] == position and item["id"] not in used), None)
+        player = next((by_id[player_id] for player_id in team["depth"].get(slot, [])
+                       if player_id in by_id and player_id not in used), None)
+        if not player:
+            player = next((item for item in players if item["position"] == position and item["id"] not in used), None)
         if not player:
             player = next((item for item in players if item["id"] not in used), None)
         if player:
