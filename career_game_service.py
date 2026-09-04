@@ -13,7 +13,7 @@ CONFIG = {
         "eligible": lambda row: row.seasons >= 5 and (row.hits >= 700 or row.strikeouts >= 700),
     },
     "nfl": {
-        "files": ("nfl_offense_history.csv", "nfl_defense_history.csv"),
+        "file": "nfl_career_history.csv",
         "name": "player_display_name", "team": "recent_team", "position": "position",
         "stats": (("passing_yards", "PASS YDS"), ("passing_tds", "PASS TD"),
                   ("rushing_yards", "RUSH YDS"), ("rushing_tds", "RUSH TD"),
