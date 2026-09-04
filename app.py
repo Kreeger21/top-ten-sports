@@ -18,6 +18,7 @@ import nba_court_service
 import cfb_field_service
 import cfb_defense_service
 import team_logo_game_service
+import nba_player_game_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -109,7 +110,52 @@ def _sport_home(sport_key):
                            nfl_field_endpoint="nfl_fill_field" if sport_key == "nfl" else None,
                            nba_court_endpoint="nba_fill_court" if sport_key == "nba" else None,
                            cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None,
-                           team_logo_endpoint=f"{sport_key}_guess_team" if sport_key in {"nfl", "nba"} else None)
+                           team_logo_endpoint=f"{sport_key}_guess_team" if sport_key in {"nfl", "nba"} else None,
+                           player_game_endpoint="nba_guess_player" if sport_key == "nba" else None)
+
+
+def _nba_guess_player():
+    choices = nba_player_game_service.player_choices()
+    choice_ids = {player["id"] for player in choices}
+    if request.args.get("new") == "1":
+        previous = session.get("nba_player_target")
+        candidates = [player["id"] for player in choices if player["id"] != previous] or list(choice_ids)
+        session["nba_player_target"] = random.choice(candidates)
+        for key in ("nba_player_guesses", "nba_player_finished", "nba_player_forfeited"):
+            session.pop(key, None)
+        return redirect(url_for("nba_guess_player"))
+    target_id = session.get("nba_player_target")
+    if target_id not in choice_ids:
+        target_id = random.choice(tuple(choice_ids))
+        session["nba_player_target"] = target_id
+    guesses = session.get("nba_player_guesses", [])
+    finished = session.get("nba_player_finished", False)
+    forfeited = session.get("nba_player_forfeited", False)
+    message = message_type = None
+    player_names = {player["id"]: player["name"] for player in choices}
+    if request.method == "POST" and not finished:
+        if request.form.get("action") == "forfeit":
+            finished = forfeited = True
+            session["nba_player_finished"] = True
+            session["nba_player_forfeited"] = True
+            message, message_type = f'The player was {player_names[target_id]}.', "error"
+        else:
+            guess = request.form.get("player", "")
+            if guess in choice_ids and guess not in guesses:
+                guesses.append(guess)
+                session["nba_player_guesses"] = guesses
+            if guess == target_id:
+                finished = True
+                session["nba_player_finished"] = True
+                message, message_type = f'Correct — it is {player_names[target_id]}!', "success"
+            else:
+                message, message_type = "That is not the player. Follow the career trail and try again.", "error"
+    return render_template(
+        "nba_guess_player.html", career=nba_player_game_service.career(target_id),
+        players=choices, player_names=player_names, guesses=guesses, finished=finished,
+        forfeited=forfeited, message=message, message_type=message_type,
+        stat_columns=nba_player_game_service.STAT_COLUMNS,
+    )
 
 
 def _leaderboard(sport_key):
@@ -779,6 +825,8 @@ def nba_awards(): return _award_game("nba")
 def nba_fill_court(): return _nba_fill_court()
 @app.route("/nba/guess-the-team", methods=["GET", "POST"])
 def nba_guess_team(): return _guess_team("nba")
+@app.route("/nba/guess-the-player", methods=["GET", "POST"])
+def nba_guess_player(): return _nba_guess_player()
 @app.route("/college-football")
 def cfb_home(): return _sport_home("cfb")
 @app.route("/college-football/leaderboard")

@@ -584,6 +584,39 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"NBA Top Ten", response.data)
         self.assertIn(b"Fill the Court", response.data)
 
+    def test_nba_home_links_to_guess_player(self):
+        response = app.test_client().get("/nba")
+        self.assertIn(b"Guess the Player", response.data)
+        self.assertIn(b"/nba/guess-the-player", response.data)
+
+    def test_nba_guess_player_shows_career_without_revealing_answer_card(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nba_player_target"] = "jamesle01"
+        response = client.get("/nba/guess-the-player")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Career History", response.data)
+        self.assertIn(b"CLE", response.data)
+        self.assertIn(b"MIA", response.data)
+        self.assertNotIn(b'class="player-reveal"', response.data)
+
+    def test_nba_guess_player_accepts_correct_guess(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nba_player_target"] = "jamesle01"
+        response = client.post("/nba/guess-the-player", data={"player": "jamesle01"})
+        self.assertIn(b"Correct", response.data)
+        self.assertIn(b'class="player-reveal"', response.data)
+        self.assertIn(b"LeBron James", response.data)
+
+    def test_nba_guess_player_forfeit_reveals_player(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nba_player_target"] = "jamesle01"
+        response = client.post("/nba/guess-the-player", data={"action": "forfeit"})
+        self.assertIn(b"Player revealed", response.data)
+        self.assertIn(b"LeBron James", response.data)
+
     def test_nba_fill_court_has_one_stat_control(self):
         response = app.test_client().get("/nba/fill-the-court?team=BOS&stat=ast")
         self.assertEqual(response.status_code, 200)

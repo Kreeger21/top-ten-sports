@@ -90,6 +90,13 @@
         <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
       {% endif %}
+      {% if player_game_endpoint %}
+      <a class="path-card player-career-game-card" href="{{ url_for(player_game_endpoint) }}">
+        <span class="path-number">07</span>
+        <div><p class="eyebrow">Trace an NBA career</p><h2>Guess the Player</h2><p>Study a mystery player's team history and career statistics, then identify them.</p></div>
+        <span class="path-arrow" aria-hidden="true">?</span>
+      </a>
+      {% endif %}
     </section>
   </main>
 </body>
