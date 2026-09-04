@@ -27,6 +27,14 @@ COUNTRY_FLAGS = {
     "Spain": "🇪🇸", "Switzerland": "🇨🇭", "Trinidad & Tobago": "🇹🇹", "T�rkiye": "🇹🇷",
     "Türkiye": "🇹🇷", "USA": "🇺🇸",
 }
+COUNTRY_CODES = {
+    "Australia": "au", "Bosnia & Herzegovina": "ba", "Brazil": "br", "Canada": "ca",
+    "Croatia": "hr", "Czech Republic": "cz", "France": "fr", "Georgia": "ge",
+    "Germany": "de", "Greece": "gr", "Israel": "il", "Italy": "it", "Latvia": "lv",
+    "Mexico": "mx", "Russia": "ru", "Senegal": "sn", "Serbia": "rs", "Slovenia": "si",
+    "Spain": "es", "Switzerland": "ch", "Trinidad & Tobago": "tt", "T�rkiye": "tr",
+    "Türkiye": "tr", "USA": "us",
+}
 
 
 def roster(sport_path, team_id):
@@ -46,9 +54,11 @@ def roster(sport_path, team_id):
         college_name = college.get("shortName") or college.get("name")
         players.append({
             "id": player.get("id"), "name": player.get("displayName"), "position": position,
-            "college": college_name or f"International — {country}",
+            "college": college_name or "International",
             "college_logo": logos[0].get("href") if logos else None,
             "country_flag": None if logos else COUNTRY_FLAGS.get(country, "🌐"),
+            "country": None if logos else country,
+            "country_code": None if logos else COUNTRY_CODES.get(country),
         })
     return players
 
@@ -94,6 +104,8 @@ def nfl_depth_players(depth):
                 "college": college.get("shortName") or college.get("name"),
                 "college_logo": f'https://a.espncdn.com/i/teamlogos/ncaa/500/{college["id"]}.png',
                 "country_flag": None,
+                "country": None,
+                "country_code": None,
             })
     return players
 

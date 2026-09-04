@@ -377,8 +377,9 @@ class LeaderTests(unittest.TestCase):
             state["nba_logo_target"] = "LAL"
         response = client.get("/nba/guess-the-team")
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'<div class="international-clue">International</div>', response.data)
-        self.assertNotIn(b"Slovenia", response.data)
+        self.assertIn(b'https://flagcdn.com/w160/si.png', response.data)
+        self.assertIn(b'alt="Slovenia flag"', response.data)
+        self.assertIn(b"Slovenia", response.data)
 
     def test_nba_guess_team_uses_depth_chart_starters(self):
         from team_logo_game_service import get_clues
