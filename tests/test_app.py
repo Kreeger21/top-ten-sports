@@ -368,7 +368,7 @@ class LeaderTests(unittest.TestCase):
         response = client.get("/nba/guess-the-team")
         self.assertEqual(response.status_code, 200)
         clue_count = response.data.count(b'alt="College logo clue"')
-        clue_count += response.data.count(b'aria-label="International player"')
+        clue_count += response.data.count(b'class="international-clue"')
         self.assertEqual(clue_count, 5)
 
     def test_nba_guess_team_can_show_international_flag_clue(self):
@@ -377,7 +377,8 @@ class LeaderTests(unittest.TestCase):
             state["nba_logo_target"] = "LAL"
         response = client.get("/nba/guess-the-team")
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'aria-label="International player"', response.data)
+        self.assertIn(b'<div class="international-clue">International</div>', response.data)
+        self.assertNotIn(b"Slovenia", response.data)
 
     def test_nba_guess_team_uses_depth_chart_starters(self):
         from team_logo_game_service import get_clues

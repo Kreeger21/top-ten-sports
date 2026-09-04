@@ -19,9 +19,11 @@ def teams(sport):
 
 
 def _clue(slot, player):
+    college_logo = player.get("college_logo")
     return {
-        "position": slot, "name": player["name"], "college": player["college"],
-        "college_logo": player.get("college_logo"), "country_flag": player.get("country_flag"),
+        "position": slot, "name": player["name"],
+        "college": player["college"] if college_logo else "International",
+        "college_logo": college_logo,
     }
 
 
