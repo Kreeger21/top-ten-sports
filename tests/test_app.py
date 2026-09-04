@@ -391,6 +391,11 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(lineup["C"], "Yves Missi")
         self.assertNotEqual(lineup["C"], "Herbert Jones")
 
+    def test_nba_guess_team_allows_a_guard_wing_to_start_at_small_forward(self):
+        from team_logo_game_service import get_clues
+        lineup = {player["position"]: player["name"] for player in get_clues("nba", "PHI")}
+        self.assertEqual(lineup["SF"], "Jaylen Brown")
+
     @patch("app.random.choice", return_value="LAL")
     def test_new_nba_team_redirects_to_clean_url_before_guessing(self, _choice):
         client = app.test_client()
