@@ -29,12 +29,12 @@
   <section class="card guess-card player-guess-controls">
     {% if not finished %}
     <form method="post" class="guess-form">
-      <label for="player-guess"><span class="sr-only">Choose a player</span>
-        <select id="player-guess" name="player" required>
-          <option value="" selected disabled>Select your guess…</option>
-          {% for player in players %}<option value="{{ player.id }}" {% if player.id in guesses %}disabled{% endif %}>{{ player.name }}</option>{% endfor %}
-        </select>
-      </label>
+      <label for="player-guess" class="sr-only">Type a player's name</label>
+      <div class="autocomplete">
+        <input id="player-guess" name="player_name" type="search" placeholder="Type a player's name…" autocomplete="off" aria-autocomplete="list" aria-controls="player-suggestions" aria-expanded="false" autofocus required>
+        <input id="player-id" name="player_id" type="hidden">
+        <div id="player-suggestions" class="suggestions" role="listbox" hidden></div>
+      </div>
       <button>Guess player</button>
     </form>
     <form method="post" class="forfeit-form"><input type="hidden" name="action" value="forfeit"><button class="forfeit-button">Forfeit and reveal player</button></form>
@@ -51,5 +51,69 @@
     </table></div>
   </section>
 </main>
+<script>
+  const guessInput = document.querySelector('#player-guess');
+  const playerId = document.querySelector('#player-id');
+  const suggestions = document.querySelector('#player-suggestions');
+  let requestNumber = 0;
+
+  function closeSuggestions() {
+    suggestions.hidden = true;
+    suggestions.replaceChildren();
+    guessInput?.setAttribute('aria-expanded', 'false');
+  }
+
+  async function updateSuggestions() {
+    playerId.value = '';
+    const query = guessInput.value.trim();
+    if (query.length < 2) {
+      closeSuggestions();
+      return;
+    }
+    const thisRequest = ++requestNumber;
+    const response = await fetch(`{{ url_for('nba_career_player_search') }}?q=${encodeURIComponent(query)}`);
+    if (!response.ok || thisRequest !== requestNumber) return;
+    const players = await response.json();
+    suggestions.replaceChildren();
+    players.forEach(player => {
+      const option = document.createElement('button');
+      option.type = 'button';
+      option.className = 'suggestion-option';
+      option.setAttribute('role', 'option');
+      option.textContent = player.name;
+      option.addEventListener('click', () => {
+        guessInput.value = player.name;
+        playerId.value = player.id;
+        closeSuggestions();
+      });
+      suggestions.append(option);
+    });
+    suggestions.hidden = players.length === 0;
+    guessInput.setAttribute('aria-expanded', String(players.length > 0));
+  }
+
+  guessInput?.addEventListener('input', updateSuggestions);
+  guessInput?.addEventListener('keydown', event => {
+    const options = [...suggestions.querySelectorAll('.suggestion-option')];
+    if (event.key === 'ArrowDown' && options.length) {
+      event.preventDefault(); options[0].focus();
+    } else if (event.key === 'Escape') closeSuggestions();
+  });
+  suggestions?.addEventListener('keydown', event => {
+    const options = [...suggestions.querySelectorAll('.suggestion-option')];
+    const index = options.indexOf(document.activeElement);
+    if (event.key === 'ArrowDown' && index < options.length - 1) {
+      event.preventDefault(); options[index + 1].focus();
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (index > 0) options[index - 1].focus(); else guessInput.focus();
+    } else if (event.key === 'Escape') {
+      closeSuggestions(); guessInput.focus();
+    }
+  });
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.autocomplete')) closeSuggestions();
+  });
+</script>
 </body>
 </html>

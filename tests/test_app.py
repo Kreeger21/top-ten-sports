@@ -604,10 +604,19 @@ class LeaderTests(unittest.TestCase):
         client = app.test_client()
         with client.session_transaction() as state:
             state["nba_player_target"] = "jamesle01"
-        response = client.post("/nba/guess-the-player", data={"player": "jamesle01"})
+        response = client.post("/nba/guess-the-player", data={"player_id": "jamesle01", "player_name": "LeBron James"})
         self.assertIn(b"Correct", response.data)
         self.assertIn(b'class="player-reveal"', response.data)
         self.assertIn(b"LeBron James", response.data)
+
+    def test_nba_guess_player_uses_filtered_name_search(self):
+        client = app.test_client()
+        page = client.get("/nba/guess-the-player")
+        self.assertIn(b'type="search"', page.data)
+        self.assertNotIn(b'<select id="player-guess"', page.data)
+        self.assertEqual(client.get("/nba/api/career-player-search?q=L").json, [])
+        matches = client.get("/nba/api/career-player-search?q=LeBr").json
+        self.assertEqual(matches[0], {"id": "jamesle01", "name": "LeBron James"})
 
     def test_nba_guess_player_forfeit_reveals_player(self):
         client = app.test_client()

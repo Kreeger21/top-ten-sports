@@ -140,7 +140,12 @@ def _nba_guess_player():
             session["nba_player_forfeited"] = True
             message, message_type = f'The player was {player_names[target_id]}.', "error"
         else:
-            guess = request.form.get("player", "")
+            guess = request.form.get("player_id", "")
+            if guess not in choice_ids:
+                typed_name = _normalized_name(request.form.get("player_name", ""))
+                exact_matches = [player["id"] for player in choices
+                                 if _normalized_name(player["name"]) == typed_name]
+                guess = exact_matches[0] if len(exact_matches) == 1 else ""
             if guess in choice_ids and guess not in guesses:
                 guesses.append(guess)
                 session["nba_player_guesses"] = guesses
@@ -156,6 +161,21 @@ def _nba_guess_player():
         forfeited=forfeited, message=message, message_type=message_type,
         stat_columns=nba_player_game_service.STAT_COLUMNS,
     )
+
+
+def _nba_career_player_search():
+    query = _normalized_name(request.args.get("q", ""))
+    if len(query) < 2:
+        return jsonify([])
+    starts, contains = [], []
+    for player in nba_player_game_service.player_choices():
+        normalized = _normalized_name(player["name"])
+        target = starts if normalized.startswith(query) or any(
+            part.startswith(query) for part in normalized.split()
+        ) else contains if query in normalized else None
+        if target is not None:
+            target.append(player)
+    return jsonify((starts + contains)[:8])
 
 
 def _leaderboard(sport_key):
@@ -827,6 +847,8 @@ def nba_fill_court(): return _nba_fill_court()
 def nba_guess_team(): return _guess_team("nba")
 @app.route("/nba/guess-the-player", methods=["GET", "POST"])
 def nba_guess_player(): return _nba_guess_player()
+@app.route("/nba/api/career-player-search")
+def nba_career_player_search(): return _nba_career_player_search()
 @app.route("/college-football")
 def cfb_home(): return _sport_home("cfb")
 @app.route("/college-football/leaderboard")
