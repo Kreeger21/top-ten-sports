@@ -678,6 +678,9 @@ def _cfb_defense_field():
 
 def _guess_team(sport):
     available = team_logo_game_service.teams(sport)
+    side = request.values.get("side", "offense") if sport == "nfl" else "court"
+    if side not in {"offense", "defense"}:
+        side = "offense"
     target_key = session.get(f"{sport}_logo_target")
     if request.args.get("new") == "1" or target_key not in available:
         choices = [key for key in available if key != target_key] or list(available)
@@ -686,7 +689,7 @@ def _guess_team(sport):
         session[f"{sport}_logo_guesses"] = []
         session[f"{sport}_logo_finished"] = False
         session[f"{sport}_logo_forfeited"] = False
-    clues = team_logo_game_service.get_clues(sport, target_key)
+    clues = team_logo_game_service.get_clues(sport, target_key, side)
     guesses = list(session.get(f"{sport}_logo_guesses", []))
     finished = bool(session.get(f"{sport}_logo_finished", False))
     forfeited = bool(session.get(f"{sport}_logo_forfeited", False))
@@ -712,7 +715,7 @@ def _guess_team(sport):
         "team_logo_game.html", sport=sport, sport_name=sport.upper(), teams=available,
         clues=clues, finished=finished, forfeited=forfeited, guesses=guesses,
         target_name=available[target_key], message=message, message_type=message_type,
-        home_endpoint=f"{sport}_home", game_endpoint=f"{sport}_guess_team",
+        home_endpoint=f"{sport}_home", game_endpoint=f"{sport}_guess_team", side=side,
     )
 
 

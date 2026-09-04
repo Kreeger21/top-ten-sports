@@ -331,15 +331,27 @@ class LeaderTests(unittest.TestCase):
         self.assertNotIn(b"Defensive Fill the Field</h2>", response.data)
         self.assertIn(b"Guess the Team", response.data)
 
-    def test_nfl_guess_team_shows_seven_college_logo_clues(self):
+    def test_nfl_guess_team_shows_full_offense_college_logo_clues(self):
         client = app.test_client()
         with client.session_transaction() as state:
             state["nfl_logo_target"] = "KC"
         response = client.get("/nfl/guess-the-team")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Current Teams", response.data)
-        self.assertEqual(response.data.count(b'alt="College logo clue"'), 7)
+        self.assertEqual(response.data.count(b'alt="College logo clue"'), 12)
+        for position in (b"LT", b"LG", b"C", b"RG", b"RT"):
+            self.assertIn(b">" + position + b"</span>", response.data)
         self.assertNotIn(b"Patrick Mahomes", response.data)
+
+    def test_nfl_guess_team_has_defensive_tab_and_eleven_clues(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nfl_logo_target"] = "KC"
+        response = client.get("/nfl/guess-the-team?side=defense")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b">Offense</a>", response.data)
+        self.assertIn(b">Defense</a>", response.data)
+        self.assertEqual(response.data.count(b'alt="College logo clue"'), 11)
 
     def test_nfl_guess_team_reveals_players_after_correct_guess(self):
         client = app.test_client()
@@ -355,7 +367,17 @@ class LeaderTests(unittest.TestCase):
             state["nba_logo_target"] = "BOS"
         response = client.get("/nba/guess-the-team")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data.count(b'alt="College logo clue"'), 5)
+        clue_count = response.data.count(b'alt="College logo clue"')
+        clue_count += response.data.count(b'aria-label="International player"')
+        self.assertEqual(clue_count, 5)
+
+    def test_nba_guess_team_can_show_international_flag_clue(self):
+        client = app.test_client()
+        with client.session_transaction() as state:
+            state["nba_logo_target"] = "LAL"
+        response = client.get("/nba/guess-the-team")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'aria-label="International player"', response.data)
 
     @patch("nfl_defense_service.get_player_names", return_value=("Chris Jones", "Trent McDuffie"))
     @patch("nfl_defense_service.get_lineup", return_value=[

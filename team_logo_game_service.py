@@ -4,7 +4,8 @@ from pathlib import Path
 
 
 DATA_PATH = Path(__file__).with_name("data") / "team_logo_rosters.json"
-NFL_SLOTS = ("QB", "RB1", "RB2", "WR1", "WR2", "WR3", "TE")
+NFL_OFFENSE_SLOTS = ("QB", "RB1", "RB2", "WR1", "WR2", "WR3", "TE", "LT", "LG", "C", "RG", "RT")
+NFL_DEFENSE_SLOTS = ("DL1", "DL2", "DL3", "DL4", "LB1", "LB2", "LB3", "CB1", "CB2", "S1", "S2")
 NBA_SLOTS = ("PG", "SG", "SF", "PF", "C")
 
 
@@ -20,22 +21,32 @@ def teams(sport):
 def _clue(slot, player):
     return {
         "position": slot, "name": player["name"], "college": player["college"],
-        "college_logo": player["college_logo"],
+        "college_logo": player.get("college_logo"), "country_flag": player.get("country_flag"),
     }
 
 
 @lru_cache(maxsize=128)
-def get_clues(sport, team_key):
+def get_clues(sport, team_key, side="offense"):
     team = _data()[sport][team_key]
     players = team["players"]
     if sport == "nfl":
         by_id = {player["id"]: player for player in players}
         clues, used = [], set()
-        for slot in NFL_SLOTS:
+        slots = NFL_DEFENSE_SLOTS if side == "defense" else NFL_OFFENSE_SLOTS
+        for slot in slots:
             source = slot.rstrip("12") if slot.startswith("RB") else slot
             choices = team["depth"].get(source, [])
             player = next((by_id[player_id] for player_id in choices
                            if player_id in by_id and player_id not in used), None)
+            if not player and side == "defense":
+                group = slot.rstrip("1234")
+                eligible_positions = {
+                    "DL": {"DE", "DT", "NT", "EDGE", "DL"},
+                    "LB": {"LB", "ILB", "MLB", "OLB"},
+                    "CB": {"CB"}, "S": {"S", "FS", "SS"},
+                }[group]
+                player = next((item for item in players
+                               if item["position"] in eligible_positions and item["id"] not in used), None)
             if player:
                 used.add(player["id"])
                 clues.append(_clue(slot, player))

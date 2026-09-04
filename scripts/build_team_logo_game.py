@@ -19,6 +19,14 @@ ESPN_ABBREVIATIONS = {
     "nfl": {"WAS": "WSH"},
     "nba": {"GSW": "GS", "NOP": "NO", "NYK": "NY", "SAS": "SA", "UTA": "UTAH", "WAS": "WSH"},
 }
+COUNTRY_FLAGS = {
+    "Australia": "🇦🇺", "Bosnia & Herzegovina": "🇧🇦", "Brazil": "🇧🇷", "Canada": "🇨🇦",
+    "Croatia": "🇭🇷", "Czech Republic": "🇨🇿", "France": "🇫🇷", "Georgia": "🇬🇪",
+    "Germany": "🇩🇪", "Greece": "🇬🇷", "Israel": "🇮🇱", "Italy": "🇮🇹", "Latvia": "🇱🇻",
+    "Mexico": "🇲🇽", "Russia": "🇷🇺", "Senegal": "🇸🇳", "Serbia": "🇷🇸", "Slovenia": "🇸🇮",
+    "Spain": "🇪🇸", "Switzerland": "🇨🇭", "Trinidad & Tobago": "🇹🇹", "T�rkiye": "🇹🇷",
+    "Türkiye": "🇹🇷", "USA": "🇺🇸",
+}
 
 
 def roster(sport_path, team_id):
@@ -32,12 +40,15 @@ def roster(sport_path, team_id):
         college = player.get("college") or {}
         logos = college.get("logos") or []
         position = (player.get("position") or {}).get("abbreviation")
-        if not position or not logos:
+        if not position:
             continue
+        country = (player.get("birthPlace") or {}).get("country") or "Unknown"
+        college_name = college.get("shortName") or college.get("name")
         players.append({
             "id": player.get("id"), "name": player.get("displayName"), "position": position,
-            "college": college.get("shortName") or college.get("name"),
-            "college_logo": logos[0].get("href"),
+            "college": college_name or f"International — {country}",
+            "college_logo": logos[0].get("href") if logos else None,
+            "country_flag": None if logos else COUNTRY_FLAGS.get(country, "🌐"),
         })
     return players
 
@@ -45,13 +56,28 @@ def roster(sport_path, team_id):
 def nfl_depth(team_id):
     url = f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/{team_id}/depthcharts"
     payload = requests.get(url, timeout=30).json()
-    offense = next((group for group in payload.get("depthchart", []) if "WR" in group.get("name", "")), {})
-    positions = offense.get("positions", {})
+    groups = payload.get("depthchart", [])
+    offense = next((group for group in groups if "WR" in group.get("name", "")), {})
+    defense = next((group for group in groups if group.get("name", "").startswith("Base")), {})
+    positions = {**offense.get("positions", {}), **defense.get("positions", {})}
+    sources = {
+        "QB": "qb", "RB": "rb", "WR1": "wr1", "WR2": "wr2", "WR3": "wr3", "TE": "te",
+        "LT": "lt", "LG": "lg", "C": "c", "RG": "rg", "RT": "rt",
+        "CB1": "lcb", "CB2": "rcb", "S1": "ss", "S2": "fs",
+    }
+    if "3-4" in defense.get("name", ""):
+        sources.update({
+            "DL1": "lde", "DL2": "nt", "DL3": "rde", "DL4": "wlb",
+            "LB1": "lilb", "LB2": "rilb", "LB3": "slb",
+        })
+    else:
+        sources.update({
+            "DL1": "lde", "DL2": "ldt", "DL3": "rdt", "DL4": "rde",
+            "LB1": "wlb", "LB2": "mlb", "LB3": "slb",
+        })
     return {
         slot: [athlete.get("id") for athlete in positions.get(source, {}).get("athletes", [])]
-        for slot, source in {
-            "QB": "qb", "RB": "rb", "WR1": "wr1", "WR2": "wr2", "WR3": "wr3", "TE": "te",
-        }.items()
+        for slot, source in sources.items()
     }
 
 
@@ -67,6 +93,7 @@ def nfl_depth_players(depth):
                 "id": player_id, "name": athlete.get("displayName"), "position": position,
                 "college": college.get("shortName") or college.get("name"),
                 "college_logo": f'https://a.espncdn.com/i/teamlogos/ncaa/500/{college["id"]}.png',
+                "country_flag": None,
             })
     return players
 
