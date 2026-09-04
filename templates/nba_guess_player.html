@@ -19,6 +19,7 @@
     <div><span>Career span</span><strong>{{ career.years }}</strong></div>
     <div><span>NBA seasons</span><strong>{{ career.seasons }}</strong></div>
     <div><span>Primary position</span><strong>{{ career.position }}</strong></div>
+    <div><span>Draft</span><strong>{{ career.draft }}</strong></div>
     <div{% if finished %} class="player-reveal"{% endif %}><span>The player</span><strong>{% if finished %}{{ career.name }}{% else %}Mystery player{% endif %}</strong></div>
   </section>
 

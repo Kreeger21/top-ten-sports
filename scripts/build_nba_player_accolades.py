@@ -6,6 +6,7 @@ import pandas as pd
 
 BASE = "https://raw.githubusercontent.com/cmuchina3/nba-stats-1947-present-curated/main/data/raw/"
 OUTPUT = Path(__file__).resolve().parents[1] / "data" / "nba_player_accolades.csv"
+DRAFT_OUTPUT = OUTPUT.with_name("nba_player_drafts.csv")
 AWARD_LABELS = {
     "aba mvp": "ABA MVP", "aba roy": "ABA Rookie of the Year",
     "baa roy": "BAA Rookie of the Year", "nba clutch_poy": "Clutch Player of the Year",
@@ -35,6 +36,7 @@ def main():
     all_stars = pd.read_csv(BASE + "All-Star%20Selections.csv")
     teams = pd.read_csv(BASE + "End%20of%20Season%20Teams.csv")
     awards = pd.read_csv(BASE + "Player%20Award%20Shares.csv")
+    drafts = pd.read_csv(BASE + "Draft%20Pick%20History.csv")
     records = {}
     totals = pd.read_csv(OUTPUT.with_name("nba_court_history.csv"), usecols=["player", "player_id"])
     ids_by_name = dict(totals.drop_duplicates("player").set_index("player")["player_id"])
@@ -66,7 +68,16 @@ def main():
             "accolades": "|".join(dict.fromkeys(values["accolades"])),
         })
     pd.DataFrame(rows).to_csv(OUTPUT, index=False)
+    drafts = drafts.loc[drafts["player_id"].notna(), [
+        "player_id", "season", "round", "overall_pick", "tm",
+    ]].copy()
+    drafts = drafts.sort_values(["player_id", "season"]).drop_duplicates("player_id")
+    drafts = drafts.rename(columns={"season": "year", "overall_pick": "pick", "tm": "team"})
+    for column in ("year", "round", "pick"):
+        drafts[column] = pd.to_numeric(drafts[column], errors="coerce").astype("Int64")
+    drafts.to_csv(DRAFT_OUTPUT, index=False)
     print(f"Wrote {len(rows):,} accolade seasons to {OUTPUT}")
+    print(f"Wrote {len(drafts):,} draft records to {DRAFT_OUTPUT}")
 
 
 if __name__ == "__main__":

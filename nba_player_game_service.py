@@ -6,6 +6,7 @@ from nba_court_service import DATA_PATH
 
 
 ACCOLADES_PATH = DATA_PATH.with_name("nba_player_accolades.csv")
+DRAFT_PATH = DATA_PATH.with_name("nba_player_drafts.csv")
 
 
 STAT_COLUMNS = (
@@ -33,6 +34,12 @@ def _accolades():
     frame["season"] = pd.to_numeric(frame["season"], errors="coerce").astype("Int64")
     frame["all_star"] = frame["all_star"].astype(str).str.casefold().eq("true")
     return frame
+
+
+@lru_cache(maxsize=1)
+def _drafts():
+    frame = pd.read_csv(DRAFT_PATH)
+    return frame.set_index("player_id").to_dict("index")
 
 
 @lru_cache(maxsize=1)
@@ -90,11 +97,20 @@ def career(player_id):
     positions = rows["pos"].dropna().astype(str)
     position = positions.mode().iloc[0] if not positions.empty else "—"
     first, last = int(rows["season"].min()), int(rows["season"].max())
+    draft_record = _drafts().get(player_id)
+    if draft_record and not pd.isna(draft_record.get("round")) and not pd.isna(draft_record.get("pick")):
+        draft = (
+            f'Round {int(draft_record["round"])} · Pick {int(draft_record["pick"])} · '
+            f'{int(draft_record["year"])}'
+        )
+    else:
+        draft = "Undrafted"
     return {
         "id": player_id,
         "name": rows.iloc[0]["player"],
         "position": position,
         "years": f"{first - 1} to {last}",
+        "draft": draft,
         "seasons": len(history),
         "history": tuple(history),
         "totals": tuple(totals),
