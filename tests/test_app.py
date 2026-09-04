@@ -598,6 +598,9 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Career History", response.data)
         self.assertIn(b"CLE", response.data)
         self.assertIn(b"MIA", response.data)
+        self.assertIn(b"2003 to 2025", response.data)
+        self.assertIn(b"Career Accolades", response.data)
+        self.assertIn(b"All-Star", response.data)
         self.assertNotIn(b'class="player-reveal"', response.data)
 
     def test_nba_guess_player_accepts_correct_guess(self):

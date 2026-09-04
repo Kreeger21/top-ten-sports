@@ -5,6 +5,9 @@ import pandas as pd
 from nba_court_service import DATA_PATH
 
 
+ACCOLADES_PATH = DATA_PATH.with_name("nba_player_accolades.csv")
+
+
 STAT_COLUMNS = (
     ("pts", "PTS"), ("trb", "REB"), ("ast", "AST"),
     ("stl", "STL"), ("blk", "BLK"), ("x3p", "3PM"),
@@ -21,6 +24,14 @@ def _data():
     frame = pd.read_csv(DATA_PATH)
     for column, _ in STAT_COLUMNS:
         frame[column] = pd.to_numeric(frame[column], errors="coerce")
+    return frame
+
+
+@lru_cache(maxsize=1)
+def _accolades():
+    frame = pd.read_csv(ACCOLADES_PATH, keep_default_na=False)
+    frame["season"] = pd.to_numeric(frame["season"], errors="coerce").astype("Int64")
+    frame["all_star"] = frame["all_star"].astype(str).str.casefold().eq("true")
     return frame
 
 
@@ -42,11 +53,14 @@ def career(player_id):
     if rows.empty:
         raise KeyError(player_id)
     rows = rows.sort_values(["season", "team"])
+    player_accolades = _accolades().loc[lambda frame: frame["player_id"] == player_id]
+    accolade_by_season = {int(row.season): row for row in player_accolades.itertuples()}
     history = []
     for season, season_rows in rows.groupby("season", sort=True):
         item = {
             "season": _season_label(season),
             "teams": " / ".join(dict.fromkeys(season_rows["team"].astype(str))),
+            "all_star": bool(getattr(accolade_by_season.get(int(season)), "all_star", False)),
         }
         for column, _ in STAT_COLUMNS:
             value = season_rows[column].sum(min_count=1)
@@ -56,6 +70,23 @@ def career(player_id):
     for column, label in STAT_COLUMNS:
         value = rows[column].sum(min_count=1)
         totals.append({"label": label, "value": None if pd.isna(value) else int(round(value))})
+    accolade_counts = {}
+    all_star_count = int(player_accolades["all_star"].sum())
+    if all_star_count:
+        accolade_counts["All-Star"] = all_star_count
+    for packed in player_accolades["accolades"]:
+        for accolade in filter(None, str(packed).split("|")):
+            if accolade.startswith(("All-NBA ", "All-ABA ", "All-BAA ")):
+                accolade = "All-League Team"
+            elif accolade.startswith("All-Defense "):
+                accolade = "All-Defensive Team"
+            elif accolade.startswith("All-Rookie "):
+                accolade = "All-Rookie Team"
+            accolade_counts[accolade] = accolade_counts.get(accolade, 0) + 1
+    accolades = tuple(
+        {"label": label, "count": count}
+        for label, count in sorted(accolade_counts.items(), key=lambda item: (-item[1], item[0]))
+    )
     positions = rows["pos"].dropna().astype(str)
     position = positions.mode().iloc[0] if not positions.empty else "—"
     first, last = int(rows["season"].min()), int(rows["season"].max())
@@ -63,8 +94,9 @@ def career(player_id):
         "id": player_id,
         "name": rows.iloc[0]["player"],
         "position": position,
-        "years": f"{_season_label(first)} to {_season_label(last)}",
+        "years": f"{first - 1} to {last}",
         "seasons": len(history),
         "history": tuple(history),
         "totals": tuple(totals),
+        "accolades": accolades,
     }

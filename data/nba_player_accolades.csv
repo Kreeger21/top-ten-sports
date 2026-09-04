@@ -1,0 +1,2954 @@
+season,player_id,all_star,accolades
+1947,baumhfr01,False,All-BAA 2nd Team
+1947,calveer01,False,All-BAA 2nd Team
+1947,feeribo01,False,All-BAA 1st Team
+1947,fulksjo01,False,All-BAA 1st Team
+1947,halbech01,False,All-BAA 2nd Team
+1947,loganjo01,False,All-BAA 2nd Team
+1947,mckinbo01,False,All-BAA 1st Team
+1947,miasest01,False,All-BAA 1st Team
+1947,scolafr01,False,All-BAA 2nd Team
+1947,zasloma01,False,All-BAA 1st Team
+1948,braunca01,False,All-BAA 2nd Team
+1948,dallmho01,False,All-BAA 1st Team
+1948,feeribo01,False,All-BAA 1st Team
+1948,fulksjo01,False,All-BAA 1st Team
+1948,hoffmpa01,False,BAA Rookie of the Year
+1948,jeannbu01,False,All-BAA 2nd Team
+1948,loganjo01,False,All-BAA 2nd Team
+1948,miasest01,False,All-BAA 2nd Team
+1948,sadowed01,False,All-BAA 1st Team
+1948,scolafr01,False,All-BAA 2nd Team
+1948,zasloma01,False,All-BAA 1st Team
+1949,daviebo01,False,All-BAA 1st Team
+1949,feeribo01,False,All-BAA 2nd Team
+1949,fulksjo01,False,All-BAA 1st Team
+1949,loganjo01,False,All-BAA 2nd Team
+1949,mckinbo01,False,All-BAA 2nd Team
+1949,mikange01,False,All-BAA 1st Team
+1949,pollaji01,False,All-BAA 1st Team
+1949,risenar01,False,All-BAA 2nd Team
+1949,sailoke01,False,All-BAA 2nd Team
+1949,shannho01,False,BAA Rookie of the Year
+1949,zasloma01,False,All-BAA 1st Team
+1950,beardra01,False,All-NBA 2nd Team
+1950,brianfr01,False,All-NBA 2nd Team
+1950,cervial01,False,All-NBA 2nd Team
+1950,daviebo01,False,All-NBA 1st Team
+1950,grozaal01,False,All-NBA 1st Team|Rookie of the Year
+1950,mikange01,False,All-NBA 1st Team
+1950,pollaji01,False,All-NBA 1st Team
+1950,schaufr01,False,All-NBA 2nd Team
+1950,schaydo01,False,All-NBA 2nd Team
+1950,zasloma01,False,All-NBA 1st Team
+1951,arizipa01,True,Rookie of the Year
+1951,beardra01,True,All-NBA 1st Team
+1951,borylvi01,True,
+1951,brianfr01,True,All-NBA 2nd Team
+1951,cousybo01,True,
+1951,daviebo01,True,All-NBA 1st Team
+1951,eddledi01,True,
+1951,foustla01,True,
+1951,fulksjo01,True,All-NBA 2nd Team
+1951,gallaha01,True,
+1951,grozaal01,True,All-NBA 1st Team
+1951,macaued01,True,All-NBA 1st Team
+1951,mcguidi01,True,All-NBA 2nd Team
+1951,mikange01,True,All-NBA 1st Team
+1951,mikkeve01,True,All-NBA 2nd Team
+1951,phillan01,True,
+1951,pollaji01,True,
+1951,rochare01,True,
+1951,schaufr01,True,
+1951,schaydo01,True,All-NBA 2nd Team
+1952,arizipa01,True,All-NBA 1st Team
+1952,barnhle01,True,
+1952,brianfr01,True,
+1952,cousybo01,True,All-NBA 1st Team
+1952,daviebo01,True,All-NBA 1st Team
+1952,eddledi01,True,
+1952,foustla01,True,All-NBA 2nd Team
+1952,fulksjo01,True,
+1952,gallaha01,True,
+1952,hutchme01,False,Rookie of the Year
+1952,macaued01,True,All-NBA 1st Team
+1952,mcguidi01,True,
+1952,mikange01,True,All-NBA 1st Team
+1952,mikkeve01,True,All-NBA 2nd Team
+1952,phillan01,True,All-NBA 2nd Team
+1952,pollaji01,True,All-NBA 2nd Team
+1952,risenar01,True,
+1952,rochare01,True,
+1952,schaydo01,True,All-NBA 1st Team
+1952,scolafr01,True,
+1952,toshebi01,False,Rookie of the Year
+1952,walthpa01,True,
+1952,wanzebo01,True,All-NBA 2nd Team
+1952,zasloma01,True,
+1953,barksdo01,True,
+1953,barnhle01,True,
+1953,braunca01,True,
+1953,cousybo01,True,All-NBA 1st Team
+1953,daviebo01,True,All-NBA 2nd Team
+1953,foustla01,True,
+1953,gaborbi01,True,
+1953,gallaha01,True,
+1953,hutchme01,True,
+1953,johnsne01,True,All-NBA 1st Team
+1953,macaued01,True,All-NBA 1st Team
+1953,martisl01,True,
+1953,meinemo01,False,Rookie of the Year
+1953,mikange01,True,All-NBA 1st Team
+1953,mikkeve01,True,All-NBA 2nd Team
+1953,phillan01,True,All-NBA 2nd Team
+1953,risenar01,True,
+1953,schaydo01,True,All-NBA 1st Team
+1953,scolafr01,True,
+1953,seymopa01,True,
+1953,sharmbi01,True,All-NBA 2nd Team
+1953,wanzebo01,True,All-NBA 2nd Team
+1954,braunca01,True,All-NBA 2nd Team
+1954,cousybo01,True,All-NBA 1st Team
+1954,daviebo01,True,
+1954,felixra01,True,Rookie of the Year
+1954,foustla01,True,
+1954,gallaha01,True,All-NBA 1st Team
+1954,hutchme01,True,
+1954,johnsne01,True,All-NBA 1st Team
+1954,macaued01,True,All-NBA 2nd Team
+1954,martisl01,True,
+1954,mcguidi01,True,
+1954,mikange01,True,All-NBA 1st Team
+1954,molinja01,True,
+1954,phillan01,True,
+1954,pollaji01,True,All-NBA 2nd Team
+1954,risenar01,True,
+1954,schaydo01,True,All-NBA 1st Team
+1954,seymopa01,True,All-NBA 2nd Team
+1954,sharmbi01,True,
+1954,sundedo01,True,
+1954,wanzebo01,True,All-NBA 2nd Team
+1955,arizipa01,True,
+1955,braunca01,True,
+1955,colemja01,True,
+1955,cousybo01,True,All-NBA 1st Team
+1955,foustla01,True,All-NBA 1st Team
+1955,gallaha01,True,All-NBA 2nd Team
+1955,johnsne01,True,All-NBA 1st Team
+1955,macaued01,True,
+1955,martisl01,True,All-NBA 2nd Team
+1955,mcguidi01,True,
+1955,mikkeve01,True,All-NBA 2nd Team
+1955,pettibo01,True,All-NBA 1st Team|Rookie of the Year
+1955,phillan01,True,
+1955,pollaji01,True,
+1955,risenar01,True,
+1955,schaydo01,True,All-NBA 1st Team
+1955,selvyfr01,True,
+1955,seymopa01,True,All-NBA 2nd Team
+1955,sharmbi01,True,All-NBA 2nd Team
+1955,wanzebo01,True,
+1955,yardlge01,True,
+1956,arizipa01,True,All-NBA 1st Team
+1956,braunca01,True,
+1956,cousybo01,True,All-NBA 1st Team
+1956,foustla01,True,
+1956,gallaha01,True,
+1956,georgja01,True,All-NBA 2nd Team
+1956,harribo02,True,
+1956,hutchme01,True,
+1956,johnsne01,True,All-NBA 1st Team
+1956,kerrre01,True,
+1956,lovelcl01,True,All-NBA 2nd Team
+1956,macaued01,True,
+1956,martisl01,True,All-NBA 2nd Team
+1956,mcguidi01,True,
+1956,mikkeve01,True,
+1956,pettibo01,True,All-NBA 1st Team|NBA MVP
+1956,schaydo01,True,All-NBA 2nd Team
+1956,sharmbi01,True,All-NBA 1st Team
+1956,stokema01,True,All-NBA 2nd Team|Rookie of the Year
+1956,wanzebo01,True,
+1956,yardlge01,True,
+1957,arizipa01,True,All-NBA 1st Team
+1957,braunca01,True,
+1957,cliftna01,True,
+1957,cousybo01,True,All-NBA 1st Team|NBA MVP
+1957,gallaha01,True,
+1957,garmadi01,True,All-NBA 2nd Team
+1957,georgja01,True,
+1957,heinsto01,True,Rookie of the Year
+1957,hutchme01,True,
+1957,johnsne01,True,All-NBA 2nd Team
+1957,lovelcl01,True,
+1957,macaued01,True,
+1957,martisl01,True,All-NBA 2nd Team
+1957,mikkeve01,True,
+1957,pettibo01,True,All-NBA 1st Team
+1957,reganri01,True,
+1957,schaydo01,True,All-NBA 1st Team
+1957,sharmbi01,True,All-NBA 1st Team
+1957,stokema01,True,All-NBA 2nd Team
+1957,twymaja01,True,
+1957,yardlge01,True,All-NBA 2nd Team
+1958,arizipa01,True,
+1958,costela01,True,
+1958,cousybo01,True,All-NBA 1st Team
+1958,foustla01,True,
+1958,garmadi01,True,
+1958,golato01,False,All-NBA 2nd Team
+1958,gueriri01,True,
+1958,hagancl01,True,All-NBA 2nd Team
+1958,johnsne01,True,
+1958,martisl01,True,All-NBA 2nd Team
+1958,mcguidi01,True,
+1958,naullwi01,True,
+1958,pettibo01,True,All-NBA 1st Team
+1958,russebi01,True,All-NBA 2nd Team|NBA MVP
+1958,sauldwo01,False,Rookie of the Year
+1958,schaydo01,True,All-NBA 1st Team
+1958,searske01,True,
+1958,sharmbi01,True,All-NBA 1st Team
+1958,shuege01,True,
+1958,stokema01,True,All-NBA 2nd Team
+1958,twymaja01,True,
+1958,yardlge01,True,All-NBA 1st Team
+1959,arizipa01,True,All-NBA 2nd Team
+1959,bayloel01,True,All-NBA 1st Team|Rookie of the Year
+1959,costela01,True,
+1959,cousybo01,True,All-NBA 1st Team
+1959,foustla01,True,
+1959,garmadi01,True,
+1959,gueriri01,True,All-NBA 2nd Team
+1959,hagancl01,True,All-NBA 2nd Team
+1959,kerrre01,True,
+1959,martisl01,True,All-NBA 2nd Team
+1959,mcguidi01,True,
+1959,pettibo01,True,All-NBA 1st Team|NBA MVP
+1959,russebi01,True,All-NBA 1st Team
+1959,sauldwo01,True,
+1959,schaydo01,True,All-NBA 2nd Team
+1959,searske01,True,
+1959,sharmbi01,True,All-NBA 1st Team
+1959,shuege01,True,
+1959,twymaja01,True,
+1959,yardlge01,True,
+1960,arizipa01,True,
+1960,bayloel01,True,All-NBA 1st Team
+1960,chambwi01,True,All-NBA 1st Team|NBA MVP|Rookie of the Year
+1960,costela01,True,
+1960,cousybo01,True,All-NBA 1st Team
+1960,dukeswa01,True,
+1960,garmadi01,True,
+1960,golato01,True,
+1960,gueriri01,True,All-NBA 2nd Team
+1960,hagancl01,True,
+1960,hundlho01,True,
+1960,lovelcl01,True,
+1960,naullwi01,True,
+1960,noblech01,True,
+1960,pettibo01,True,All-NBA 1st Team
+1960,russebi01,True,All-NBA 2nd Team
+1960,schaydo01,True,All-NBA 2nd Team
+1960,sharmbi01,True,All-NBA 2nd Team
+1960,shuege01,True,All-NBA 1st Team
+1960,twymaja01,True,All-NBA 2nd Team
+1960,yardlge01,True,
+1961,arizipa01,True,
+1961,bayloel01,True,All-NBA 1st Team
+1961,chambwi01,True,All-NBA 1st Team
+1961,costela01,True,All-NBA 2nd Team
+1961,cousybo01,True,All-NBA 1st Team
+1961,dukeswa01,True,
+1961,embrywa01,True,
+1961,golato01,True,
+1961,greerha01,True,
+1961,gueriri01,True,
+1961,hagancl01,True,
+1961,heinsto01,True,All-NBA 2nd Team
+1961,howelba01,True,
+1961,hundlho01,True,
+1961,lovelcl01,True,
+1961,naullwi01,True,
+1961,pettibo01,True,All-NBA 1st Team
+1961,roberos01,True,All-NBA 1st Team|Rookie of the Year
+1961,russebi01,True,All-NBA 2nd Team|NBA MVP
+1961,schaydo01,True,All-NBA 2nd Team
+1961,shuege01,True,All-NBA 2nd Team
+1961,westje01,True,
+1962,arizipa01,True,
+1962,bayloel01,True,All-NBA 1st Team
+1962,bellawa01,True,Rookie of the Year
+1962,chambwi01,True,All-NBA 1st Team
+1962,costela01,True,
+1962,cousybo01,True,All-NBA 2nd Team
+1962,embrywa01,True,
+1962,golato01,True,
+1962,greenjo01,True,
+1962,greerha01,True,
+1962,gueriri01,True,All-NBA 2nd Team
+1962,hagancl01,True,
+1962,heinsto01,True,All-NBA 2nd Team
+1962,howelba01,True,
+1962,jonessa01,True,
+1962,larusru01,True,
+1962,naullwi01,True,
+1962,pettibo01,True,All-NBA 1st Team
+1962,roberos01,True,All-NBA 1st Team
+1962,russebi01,True,All-NBA 2nd Team|NBA MVP
+1962,schaydo01,True,
+1962,selvyfr01,True,
+1962,shuege01,True,
+1962,twymaja01,True,All-NBA 2nd Team
+1962,westje01,True,All-NBA 1st Team
+1963,bayloel01,True,All-NBA 1st Team
+1963,beatyze01,False,All-Rookie 1st Team
+1963,bellawa01,True,
+1963,chambwi01,True,All-NBA 2nd Team
+1963,cousybo01,True,All-NBA 2nd Team
+1963,debusda01,False,All-Rookie 1st Team
+1963,dischte01,True,All-Rookie 1st Team|Rookie of the Year
+1963,embrywa01,True,
+1963,golato01,True,
+1963,greenjo01,True,
+1963,greerha01,True,All-NBA 2nd Team
+1963,gueriri01,True,
+1963,havlijo01,False,All-Rookie 1st Team
+1963,heinsto01,True,All-NBA 2nd Team
+1963,howelba01,True,All-NBA 2nd Team
+1963,kerrre01,True,
+1963,larusru01,True,
+1963,meschto01,True,
+1963,ohldo01,True,
+1963,pettibo01,True,All-NBA 1st Team
+1963,roberos01,True,All-NBA 1st Team
+1963,rodgegu01,True,
+1963,russebi01,True,All-NBA 1st Team|NBA MVP
+1963,shaffle01,True,
+1963,twymaja01,True,
+1963,walkech01,False,All-Rookie 1st Team
+1963,westje01,True,All-NBA 1st Team
+1963,wilkele01,True,
+1964,bayloel01,True,All-NBA 1st Team
+1964,bellawa01,True,
+1964,chambwi01,True,All-NBA 1st Team
+1964,chapple01,True,
+1964,dischte01,True,
+1964,embrywa01,True,
+1964,golato01,True,
+1964,greerha01,True,All-NBA 2nd Team
+1964,havlijo01,False,All-NBA 2nd Team
+1964,heinsto01,True,All-NBA 2nd Team
+1964,heymaar01,False,All-Rookie 1st Team
+1964,howelba01,True,
+1964,johnsgu01,False,All-Rookie 1st Team
+1964,jonessa01,True,
+1964,lucasje01,True,All-NBA 2nd Team|All-Rookie 1st Team|Rookie of the Year
+1964,ohldo01,True,
+1964,pettibo01,True,All-NBA 1st Team
+1964,roberos01,True,All-NBA 1st Team|NBA MVP
+1964,rodgegu01,True,
+1964,russebi01,True,All-NBA 2nd Team
+1964,thornro01,False,All-Rookie 1st Team
+1964,thurmna01,False,All-Rookie 1st Team
+1964,walkech01,True,
+1964,westje01,True,All-NBA 1st Team
+1964,wilkele01,True,
+1965,barneji01,False,All-Rookie 1st Team
+1965,bayloel01,True,All-NBA 1st Team
+1965,bellawa01,True,
+1965,caldwjo01,False,All-Rookie 1st Team
+1965,chambwi01,True,All-NBA 2nd Team
+1965,costela01,True,
+1965,dischte01,True,
+1965,embrywa01,True,
+1965,greenjo01,True,
+1965,greerha01,True,All-NBA 2nd Team
+1965,heinsto01,True,
+1965,jackslu01,True,All-Rookie 1st Team
+1965,johnsgu01,True,All-NBA 2nd Team
+1965,jonessa01,True,All-NBA 2nd Team
+1965,joneswa02,False,All-Rookie 1st Team
+1965,komivho01,False,All-Rookie 1st Team
+1965,lucasje01,True,All-NBA 1st Team
+1965,ohldo01,True,
+1965,pettibo01,True,All-NBA 2nd Team
+1965,reedwi01,True,All-Rookie 1st Team|Rookie of the Year
+1965,roberos01,True,All-NBA 1st Team
+1965,russebi01,True,All-NBA 1st Team|NBA MVP
+1965,thurmna01,True,
+1965,westje01,True,All-NBA 1st Team
+1965,wilkele01,True,
+1966,barryri01,True,All-NBA 1st Team|All-Rookie 1st Team|Rookie of the Year
+1966,beatyze01,True,
+1966,chambwi01,True,All-NBA 1st Team|NBA MVP
+1966,cunnibi01,False,All-Rookie 1st Team
+1966,debusda01,True,
+1966,greerha01,True,All-NBA 2nd Team
+1966,havlijo01,True,All-NBA 2nd Team
+1966,hetzefr01,False,All-Rookie 1st Team
+1966,howelba01,True,
+1966,johnsgu01,False,All-NBA 2nd Team
+1966,jonessa01,True,All-NBA 2nd Team
+1966,larusru01,True,
+1966,lucasje01,True,All-NBA 1st Team
+1966,milesed01,True,
+1966,ohldo01,True,
+1966,reedwi01,True,
+1966,roberos01,True,All-NBA 1st Team
+1966,rodgegu01,True,
+1966,russebi01,True,All-NBA 2nd Team
+1966,smithad01,True,
+1966,thurmna01,True,
+1966,vanardi01,False,All-Rookie 1st Team
+1966,vanarto01,False,All-Rookie 1st Team
+1966,walkech01,True,
+1966,westje01,True,All-NBA 1st Team
+1967,barryri01,True,All-NBA 1st Team
+1967,bayloel01,True,All-NBA 1st Team
+1967,bingda01,False,All-Rookie 1st Team|Rookie of the Year
+1967,bridgbi01,True,
+1967,chambwi01,True,All-NBA 1st Team|NBA MVP
+1967,debusda01,True,
+1967,greerha01,True,All-NBA 2nd Team
+1967,havlijo01,True,
+1967,howelba01,True,
+1967,hudsolo01,False,All-Rookie 1st Team
+1967,imhofda01,True,
+1967,jonessa01,False,All-NBA 2nd Team
+1967,lucasje01,True,All-NBA 2nd Team
+1967,marinja01,False,All-Rookie 1st Team
+1967,mueller01,False,All-Rookie 1st Team
+1967,ohldo01,True,
+1967,reedwi01,True,All-NBA 2nd Team
+1967,roberos01,True,All-NBA 1st Team
+1967,rodgegu01,True,
+1967,russebi01,True,All-NBA 2nd Team
+1967,russeca01,False,All-Rookie 1st Team
+1967,sloanje01,True,
+1967,thurmna01,True,
+1967,walkech01,True,
+1967,westje01,True,All-NBA 1st Team
+1967,wilkele01,True,
+1968,abdulma01,True,
+1968,barnedi01,True,
+1968,bayloel01,True,All-NBA 1st Team
+1968,beasljo01,True,All-ABA 2nd Team
+1968,beatyze01,True,
+1968,beckear01,True,
+1968,bingda01,True,All-NBA 1st Team
+1968,boozebo01,True,
+1968,bridgbi01,True,
+1968,brownla01,True,All-ABA 2nd Team
+1968,brownro01,True,All-ABA 2nd Team
+1968,buncela01,True,
+1968,carrida01,True,
+1968,chambwi01,True,All-NBA 1st Team|NBA MVP
+1968,clarkar01,True,
+1968,dampilo01,True,All-ABA 2nd Team|All-Rookie 1st Team
+1968,danieme01,True,All-ABA 1st Team|All-Rookie 1st Team|ABA Rookie of the Year
+1968,debusda01,True,
+1968,fraziwa01,False,All-Rookie 1st Team
+1968,freemdo01,True,
+1968,greerha01,True,All-NBA 2nd Team
+1968,hagancl01,True,
+1968,havlijo01,True,All-NBA 2nd Team
+1968,hawkico01,True,All-ABA 1st Team|ABA MVP
+1968,huntele01,True,
+1968,jacksph01,False,All-Rookie 1st Team
+1968,jacksto01,True,
+1968,johnsgu01,True,
+1968,jonesji01,True,All-Rookie 1st Team
+1968,jonesla01,True,All-ABA 1st Team
+1968,jonessa01,True,
+1968,kingji01,True,
+1968,kojisdo01,True,
+1968,larusru01,True,
+1968,leecl01,True,
+1968,lewisfr02,True,
+1968,lucasje01,True,All-NBA 1st Team
+1968,mahafra01,True,
+1968,menyade01,True,
+1968,moedo01,True,All-ABA 1st Team
+1968,monroea01,False,All-Rookie 1st Team|Rookie of the Year
+1968,netolbo01,True,All-Rookie 1st Team
+1968,powelci01,False,All-ABA 2nd Team
+1968,reedwi01,True,All-NBA 2nd Team
+1968,robbire01,True,
+1968,roberos01,True,All-NBA 1st Team
+1968,rulebo01,False,All-Rookie 1st Team
+1968,russebi01,True,All-NBA 2nd Team
+1968,tartle01,True,
+1968,thurmna01,True,
+1968,tuckeal01,False,All-Rookie 1st Team
+1968,vaughch01,True,
+1968,vergabo01,True,
+1968,warlebe01,True,
+1968,washitr01,False,All-Rookie 1st Team
+1968,westje01,True,All-NBA 2nd Team
+1968,wilkele01,True,
+1968,willich01,False,All-ABA 1st Team
+1969,barryri01,True,All-ABA 1st Team
+1969,bayloel01,True,All-NBA 1st Team
+1969,beasljo01,True,All-ABA 2nd Team
+1969,beckby01,True,
+1969,bingda01,True,
+1969,boonero01,False,All-Rookie 1st Team
+1969,bridgbi01,False,All-Defense 2nd Team
+1969,brownla01,True,
+1969,caldwjo01,True,
+1969,carrida01,True,
+1969,chambwi01,True,
+1969,cunnibi01,True,All-NBA 1st Team
+1969,dampilo01,True,All-ABA 2nd Team
+1969,danieme01,True,All-ABA 1st Team|ABA MVP
+1969,daviswa02,True,
+1969,debusda01,False,All-Defense 1st Team|All-NBA 2nd Team
+1969,fraziwa01,False,All-Defense 1st Team
+1969,freemdo01,True,All-ABA 2nd Team
+1969,goodrga01,True,
+1969,greerha01,True,All-NBA 2nd Team
+1969,gregoga01,False,All-Rookie 1st Team
+1969,harriar01,False,All-Rookie 1st Team
+1969,havlijo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1969,hawkico01,True,All-ABA 1st Team
+1969,hayesel01,True,All-Rookie 1st Team
+1969,hewitbi01,False,All-Rookie 1st Team
+1969,heymaar01,True,
+1969,hightwa01,True,
+1969,hudsolo01,True,
+1969,huntele01,True,
+1969,jabalwa01,False,All-Rookie 1st Team|ABA Rookie of the Year
+1969,jacksme01,True,
+1969,johnsgu01,True,
+1969,jonesji01,True,All-ABA 1st Team
+1969,jonesla01,True,All-ABA 1st Team
+1969,kojisdo01,True,
+1969,larusru01,True,All-Defense 2nd Team
+1969,ligongo01,True,
+1969,lucasje01,True,
+1969,mcglojo01,True,
+1969,millela01,False,All-Rookie 1st Team
+1969,moedo01,True,All-ABA 2nd Team
+1969,monroea01,True,All-NBA 1st Team
+1969,moorege01,False,All-Rookie 1st Team
+1969,mullije01,True,
+1969,netolbo01,True,
+1969,piatkwa01,False,All-Rookie 1st Team
+1969,reedwi01,True,All-NBA 2nd Team
+1969,robbire01,True,All-ABA 2nd Team
+1969,roberos01,True,All-NBA 1st Team
+1969,russebi01,True,All-Defense 1st Team
+1969,sandeto01,False,All-Defense 2nd Team
+1969,simonwa01,True,
+1969,sloanje01,True,All-Defense 1st Team
+1969,somerwi01,True,
+1969,thoresk01,True,
+1969,thurmna01,False,All-Defense 1st Team
+1969,unselwe01,True,All-NBA 1st Team|All-Rookie 1st Team|NBA MVP|Rookie of the Year
+1969,vanardi01,True,
+1969,washitr01,True,
+1969,westje01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1969,wilkele01,True,
+1969,willich01,True,
+1970,abdulka01,True,All-Defense 2nd Team|All-NBA 2nd Team|All-Rookie 1st Team|Rookie of the Year
+1970,barremi01,False,All-Rookie 1st Team
+1970,barryri01,True,All-ABA 1st Team
+1970,bayloel01,True,
+1970,beasljo01,True,
+1970,bridgbi01,True,All-Defense 2nd Team
+1970,briskjo01,False,All-Rookie 1st Team
+1970,brownla01,True,
+1970,brownro01,True,All-ABA 2nd Team
+1970,caldwjo01,True,All-Defense 2nd Team
+1970,calvima01,False,All-Rookie 1st Team
+1970,carrida01,True,
+1970,combsgl01,True,
+1970,cunnibi01,True,All-NBA 1st Team
+1970,dampilo01,True,All-ABA 2nd Team
+1970,dandrbo01,False,All-Rookie 1st Team
+1970,danieme01,True,All-ABA 1st Team
+1970,davismi01,False,All-Rookie 1st Team
+1970,daviswa02,True,
+1970,debusda01,True,All-Defense 1st Team
+1970,fraziwa01,True,All-Defense 1st Team|All-NBA 1st Team
+1970,freemdo01,True,All-ABA 2nd Team
+1970,garredi01,False,All-Rookie 1st Team
+1970,govange01,True,
+1970,greerha01,True,
+1970,havlijo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1970,hawkico01,True,All-NBA 1st Team
+1970,hayesel01,True,
+1970,haywosp01,True,All-ABA 1st Team|All-Rookie 1st Team|ABA MVP|ABA Rookie of the Year
+1970,hudsolo01,True,All-NBA 2nd Team
+1970,jabalwa01,True,
+1970,johnsgu01,True,All-Defense 1st Team|All-NBA 2nd Team
+1970,jonesji01,True,
+1970,jonesla01,True,All-ABA 1st Team
+1970,jonesst01,True,
+1970,lewismi01,True,
+1970,moedo01,True,
+1970,moorege01,True,
+1970,mullije01,True,
+1970,netolbo01,True,All-ABA 2nd Team
+1970,powelci01,True,
+1970,reedwi01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1970,robbire01,True,All-ABA 2nd Team
+1970,roberos01,True,All-NBA 2nd Team
+1970,robinfl01,True,
+1970,rulebo01,True,
+1970,sloanje01,False,All-Defense 2nd Team
+1970,tartle01,True,
+1970,thurmna01,True,
+1970,vanardi01,True,
+1970,vanarto01,True,
+1970,vergabo01,True,All-ABA 1st Team
+1970,walkech01,True,
+1970,walkeji01,True,
+1970,westje01,True,All-Defense 1st Team|All-NBA 1st Team
+1970,whitejo01,False,All-Rookie 1st Team
+1970,wilkele01,True,
+1970,willich01,True,
+1970,wisewi01,False,All-Rookie 1st Team
+1971,abdulka01,True,All-Defense 2nd Team|All-NBA 1st Team|NBA MVP
+1971,barryri01,True,All-ABA 1st Team
+1971,beatyze01,True,All-ABA 2nd Team
+1971,bingda01,True,All-NBA 1st Team
+1971,boonero01,True,
+1971,briskjo01,True,All-ABA 2nd Team
+1971,brownro01,True,All-ABA 1st Team
+1971,caldwjo01,True,All-ABA 2nd Team
+1971,calvima01,True,All-ABA 1st Team
+1971,cannola01,False,All-ABA 2nd Team
+1971,cartege01,True,
+1971,chambwi01,True,
+1971,combsgl01,True,
+1971,cowenda01,False,All-Rookie 1st Team|Rookie of the Year
+1971,cunnibi01,True,All-NBA 1st Team
+1971,danieme01,True,All-ABA 1st Team|ABA MVP
+1971,debusda01,True,All-Defense 1st Team
+1971,fraziwa01,True,All-Defense 1st Team|All-NBA 2nd Team
+1971,freemdo01,True,All-ABA 2nd Team
+1971,greenjo01,True,
+1971,hamiljo01,False,All-Rookie 1st Team
+1971,havlijo01,True,All-Defense 2nd Team|All-NBA 1st Team
+1971,hawkico01,True,
+1971,hayesel01,True,
+1971,hudsolo01,True,
+1971,isselda01,True,All-ABA 2nd Team|All-Rookie 1st Team|ABA Rookie of the Year
+1971,johnsgu01,True,All-Defense 1st Team|All-NBA 2nd Team
+1971,johnsjo01,True,
+1971,johnsne02,True,
+1971,jonesji01,True,
+1971,jonesla01,True,
+1971,jonesst01,True,
+1971,kauffbo01,True,
+1971,keyeju01,True,
+1971,ladnewe01,True,All-Rookie 1st Team
+1971,laniebo01,False,All-Rookie 1st Team
+1971,lewismi01,True,
+1971,lovebo01,True,All-NBA 2nd Team
+1971,lucasje01,True,
+1971,maravpe01,False,All-Rookie 1st Team
+1971,melchbi01,True,
+1971,monroea01,True,
+1971,mullije01,True,
+1971,murphca01,False,All-Rookie 1st Team
+1971,netolbo01,True,
+1971,petrige01,True,All-Rookie 1st Team|Rookie of the Year
+1971,powelci01,True,
+1971,reedwi01,True,All-NBA 2nd Team
+1971,robbire01,True,
+1971,roberos01,True,All-NBA 2nd Team
+1971,robinsa01,False,All-Rookie 1st Team
+1971,scottch01,True,All-ABA 1st Team|All-Rookie 1st Team|ABA Rookie of the Year
+1971,silaspa01,False,All-Defense 2nd Team
+1971,sloanje01,False,All-Defense 2nd Team
+1971,thurmna01,False,All-Defense 1st Team
+1971,unselwe01,True,
+1971,vanardi01,True,
+1971,vanarto01,True,
+1971,vanlino01,False,All-Defense 2nd Team
+1971,walkech01,True,
+1971,westje01,True,All-Defense 1st Team|All-NBA 1st Team
+1971,whitejo01,True,
+1971,wilkele01,True,
+1972,abdulka01,True,All-NBA 1st Team|NBA MVP
+1972,architi01,False,All-NBA 2nd Team
+1972,barryri01,True,All-ABA 1st Team
+1972,beardbu01,True,
+1972,beatyze01,True,All-ABA 2nd Team
+1972,beckear01,True,
+1972,briskjo01,True,
+1972,brownro01,True,
+1972,calvima01,True,
+1972,carrau01,False,All-Rookie 1st Team
+1972,chambwi01,True,All-Defense 1st Team|All-NBA 2nd Team
+1972,chanedo01,False,All-Defense 2nd Team
+1972,cheniph01,False,All-Rookie 1st Team
+1972,clarkar01,True,All-NBA 2nd Team
+1972,combsgl01,True,
+1972,cowenda01,True,
+1972,cunnibi01,True,All-NBA 2nd Team
+1972,dampilo01,True,
+1972,danieme01,True,
+1972,debusda01,True,All-Defense 1st Team
+1972,ervinju01,True,All-ABA 2nd Team|All-Rookie 1st Team
+1972,fraziwa01,True,All-Defense 1st Team|All-NBA 1st Team
+1972,freemdo01,True,All-ABA 1st Team
+1972,gilmoar01,True,All-ABA 1st Team|All-Rookie 1st Team|ABA MVP|ABA Rookie of the Year
+1972,goodrga01,True,
+1972,havlijo01,True,All-Defense 1st Team|All-NBA 1st Team
+1972,hawkico01,True,
+1972,hayesel01,True,
+1972,haywosp01,True,All-NBA 1st Team
+1972,hudsolo01,True,
+1972,isselda01,True,All-ABA 1st Team
+1972,jabalwa01,True,
+1972,johnsjo01,True,
+1972,jonesst01,True,
+1972,joneswi02,True,
+1972,kauffbo01,True,
+1972,ladnewe01,True,
+1972,laniebo01,True,
+1972,lewisfr02,True,
+1972,lovebo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1972,marinja01,True,
+1972,mcdanji01,True,
+1972,mcginge01,False,All-Rookie 1st Team
+1972,melchbi01,True,All-ABA 1st Team
+1972,neumajo01,False,All-Rookie 1st Team
+1972,raycl01,False,All-Rookie 1st Team
+1972,roberos01,True,
+1972,rochejo01,False,All-Rookie 1st Team
+1972,russeca01,True,
+1972,scottch01,True,All-ABA 2nd Team
+1972,silaspa01,True,All-Defense 2nd Team
+1972,simpsra01,True,All-ABA 2nd Team
+1972,sloanje01,False,All-Defense 1st Team
+1972,smithel01,False,All-Rookie 1st Team
+1972,thompge01,True,
+1972,thurmna01,False,All-Defense 2nd Team
+1972,unselwe01,True,
+1972,vanarto01,True,
+1972,vanlino01,False,All-Defense 2nd Team
+1972,walkeji01,True,
+1972,westje01,True,All-Defense 1st Team|All-NBA 1st Team
+1972,whitejo01,True,
+1972,wickssi01,True,All-Rookie 1st Team|Rookie of the Year
+1972,wisewi01,True,All-ABA 2nd Team
+1973,abdulka01,True,All-NBA 1st Team
+1973,architi01,True,All-NBA 1st Team
+1973,barryri01,True,All-NBA 2nd Team
+1973,beatyze01,True,
+1973,bingda01,True,
+1973,blockjo01,True,
+1973,boydfr01,False,All-Rookie 1st Team
+1973,bradlbi01,True,
+1973,caldwjo01,True,All-Defense 1st Team
+1973,calvima01,True,All-ABA 2nd Team
+1973,chambwi01,True,All-Defense 1st Team
+1973,chanedo01,False,All-Defense 2nd Team
+1973,choneji01,False,All-Rookie 1st Team
+1973,cowenda01,True,All-NBA 2nd Team|NBA MVP
+1973,cunnibi01,True,All-ABA 1st Team|ABA MVP
+1973,dampilo01,True,
+1973,dandrbo01,True,
+1973,danieme01,True,All-ABA 2nd Team
+1973,davisdw01,False,All-Rookie 1st Team
+1973,debusda01,True,All-Defense 1st Team
+1973,ervinju01,True,All-ABA 1st Team
+1973,fraziwa01,True,All-Defense 1st Team|All-NBA 2nd Team
+1973,galemi01,False,All-Defense 1st Team
+1973,gervige01,False,All-Rookie 1st Team
+1973,gilmoar01,True,All-ABA 1st Team|All-Defense 1st Team
+1973,goodrga01,True,
+1973,havlijo01,True,All-Defense 1st Team|All-NBA 1st Team
+1973,hawkico01,True,
+1973,hayesel01,True,All-NBA 2nd Team
+1973,haywosp01,True,All-NBA 1st Team
+1973,hudsolo01,True,
+1973,isselda01,True,All-ABA 2nd Team
+1973,jabalwa01,True,All-ABA 1st Team
+1973,johnsst01,True,
+1973,jonesji01,True,All-ABA 1st Team
+1973,jonesri01,True,
+1973,kauffbo01,True,
+1973,keyeju01,False,All-Defense 1st Team
+1973,laniebo01,True,
+1973,lovebo01,True,
+1973,maravpe01,True,All-NBA 2nd Team
+1973,marinja01,True,
+1973,mcadobo01,False,All-Rookie 1st Team|Rookie of the Year
+1973,mcginge01,True,All-ABA 2nd Team
+1973,melchbi01,True,
+1973,nealll01,False,All-Rookie 1st Team
+1973,paultbi01,True,
+1973,priceji01,False,All-Rookie 1st Team
+1973,riordmi01,False,All-Defense 2nd Team
+1973,scottch01,True,
+1973,silasja01,False,All-Rookie 1st Team
+1973,silaspa01,False,All-Defense 2nd Team
+1973,simpsra01,True,All-ABA 2nd Team
+1973,taylobr01,False,All-Rookie 1st Team|ABA Rookie of the Year
+1973,taylofa01,False,All-Defense 1st Team
+1973,thompge01,True,
+1973,thurmna01,True,All-Defense 2nd Team
+1973,unselwe01,True,
+1973,vanlino01,False,All-Defense 2nd Team
+1973,walkech01,True,
+1973,westje01,True,All-Defense 1st Team|All-NBA 1st Team
+1973,whitejo01,True,
+1973,wickssi01,True,
+1973,wilkele01,True,
+1973,willich02,True,
+1973,wisewi01,True,All-Defense 1st Team
+1973,wuycide01,False,All-Rookie 1st Team
+1974,abdulka01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1974,bantomi01,False,All-Rookie 1st Team
+1974,barryri01,True,All-NBA 1st Team
+1974,behagro01,False,All-Rookie 1st Team
+1974,bingda01,True,All-NBA 2nd Team
+1974,boonero01,True,All-ABA 2nd Team
+1974,brownjo01,False,All-Rookie 1st Team
+1974,calvima01,True,All-ABA 1st Team
+1974,carrau01,True,
+1974,chanedo01,False,All-Defense 2nd Team
+1974,cheniph01,True,
+1974,cowenda01,True,
+1974,dampilo01,True,All-ABA 2nd Team
+1974,danieme01,True,
+1974,debusda01,True,All-Defense 1st Team
+1974,digreer01,False,All-Rookie 1st Team|Rookie of the Year
+1974,eakinji01,True,
+1974,ervinju01,True,All-ABA 1st Team|ABA MVP
+1974,fraziwa01,True,All-Defense 1st Team|All-NBA 1st Team
+1974,galemi01,False,All-Defense 1st Team
+1974,gervige01,True,
+1974,gilmoar01,True,All-ABA 1st Team|All-Defense 1st Team
+1974,goodrga01,True,All-NBA 1st Team
+1974,greenmi01,False,All-Rookie 1st Team
+1974,havlijo01,True,All-Defense 1st Team|All-NBA 1st Team
+1974,hayesel01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1974,haywosp01,True,All-NBA 2nd Team
+1974,hudsolo01,True,
+1974,isselda01,True,All-ABA 2nd Team
+1974,jabalwa01,True,
+1974,johnsst01,True,
+1974,jonesji01,True,All-ABA 1st Team
+1974,jonesri01,True,
+1974,kenonla01,True,All-Rookie 1st Team
+1974,keyeju01,False,All-Defense 1st Team
+1974,lamarbo01,False,All-Rookie 1st Team
+1974,laniebo01,True,
+1974,lovebo01,False,All-Defense 2nd Team
+1974,maravpe01,True,
+1974,mcadobo01,True,All-NBA 2nd Team
+1974,mcclate01,True,All-Defense 1st Team
+1974,mcginge01,True,All-ABA 1st Team
+1974,natersw01,True,All-ABA 2nd Team|All-Rookie 1st Team|ABA Rookie of the Year
+1974,paultbi01,True,
+1974,petrige01,True,
+1974,priceji01,False,All-Defense 2nd Team
+1974,scottch01,True,
+1974,simpsra01,True,
+1974,sloanje01,False,All-Defense 1st Team
+1974,taylofa01,False,All-Defense 1st Team
+1974,thompge01,True,
+1974,thurmna01,True,All-Defense 2nd Team
+1974,tomjaru01,True,
+1974,vanardi01,False,All-Defense 2nd Team
+1974,vanlino01,True,All-Defense 1st Team|All-NBA 2nd Team
+1974,walkech01,True,
+1974,weathni01,False,All-Rookie 1st Team
+1974,westje01,True,
+1974,whitejo01,True,
+1974,wickssi01,True,
+1974,willijo01,False,All-Rookie 1st Team
+1974,wisewi01,True,All-ABA 2nd Team|All-Defense 1st Team
+1975,abdulka01,True,All-Defense 1st Team
+1975,architi01,True,All-NBA 1st Team
+1975,barnema01,True,All-ABA 2nd Team|All-Rookie 1st Team|ABA Rookie of the Year
+1975,barryri01,True,All-NBA 1st Team
+1975,bingda01,True,
+1975,boonero01,True,All-ABA 1st Team
+1975,burleto01,False,All-Rookie 1st Team
+1975,busedo01,False,All-Defense 1st Team
+1975,calvima01,True,All-ABA 1st Team
+1975,chanedo01,False,All-Defense 2nd Team
+1975,cheniph01,True,All-NBA 2nd Team
+1975,cowenda01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1975,dampilo01,True,
+1975,dandrbo01,True,
+1975,drewjo01,False,All-Rookie 1st Team
+1975,ervinju01,True,All-ABA 1st Team|ABA MVP
+1975,fraziwa01,True,All-Defense 1st Team|All-NBA 1st Team
+1975,gerargu01,False,All-Rookie 1st Team
+1975,gervige01,True,All-ABA 2nd Team
+1975,gilmoar01,True,All-ABA 1st Team|All-Defense 1st Team
+1975,goodrga01,True,
+1975,greenmi01,True,
+1975,havlijo01,True,All-Defense 1st Team|All-NBA 2nd Team
+1975,hayesel01,True,All-Defense 2nd Team|All-NBA 1st Team
+1975,haywosp01,True,All-NBA 2nd Team
+1975,isselda01,True,
+1975,johnsst01,True,
+1975,jonesbo01,False,All-Defense 1st Team|All-Rookie 1st Team
+1975,jonesca01,True,
+1975,joneswi02,False,All-Defense 1st Team
+1975,kenonla01,True,
+1975,knighbi01,False,All-Rookie 1st Team
+1975,laceysa01,True,
+1975,laniebo01,True,
+1975,lewisfr02,True,
+1975,lovebo01,False,All-Defense 2nd Team
+1975,malonmo01,True,All-Rookie 1st Team
+1975,mcadobo01,True,All-NBA 1st Team|NBA MVP
+1975,mcginge01,True,All-ABA 1st Team|ABA MVP
+1975,mixst01,True,
+1975,monroea01,True,
+1975,natersw01,True,All-ABA 2nd Team
+1975,paultbi01,True,
+1975,priceji01,True,
+1975,scottch01,True,
+1975,silasja01,True,All-ABA 2nd Team
+1975,silaspa01,True,All-Defense 1st Team
+1975,simpsra01,True,
+1975,sloanje01,False,All-Defense 1st Team
+1975,taylobr01,True,All-ABA 2nd Team|All-Defense 1st Team
+1975,tomjaru01,True,
+1975,twardda01,True,
+1975,unselwe01,True,
+1975,vanlino01,False,All-Defense 2nd Team
+1975,wedmasc01,False,All-Rookie 1st Team
+1975,whitejo01,True,All-NBA 2nd Team
+1975,wickssi01,True,
+1975,wilkeja01,False,All-Rookie 1st Team|Rookie of the Year
+1975,wintebr01,False,All-Rookie 1st Team
+1976,abdulka01,True,All-Defense 2nd Team|All-NBA 1st Team|NBA MVP
+1976,adamsal01,True,All-Rookie 1st Team|Rookie of the Year
+1976,architi01,True,All-NBA 1st Team
+1976,barnema01,True,
+1976,barryri01,True,All-NBA 1st Team
+1976,beckby01,True,
+1976,bingda01,True,
+1976,boonero01,True,
+1976,breweji01,False,All-Defense 2nd Team
+1976,brownfr01,True,
+1976,brownro02,True,
+1976,burdeti01,False,All-Rookie 1st Team
+1976,busedo01,True,All-ABA 2nd Team|All-Defense 1st Team
+1976,carrml01,False,All-Rookie 1st Team
+1976,cleamji01,False,All-Defense 2nd Team
+1976,collido01,True,
+1976,cowenda01,True,All-Defense 1st Team|All-NBA 2nd Team
+1976,dandrbo01,True,
+1976,drewjo01,True,
+1976,ervinju01,True,All-ABA 1st Team|All-Defense 1st Team|ABA MVP
+1976,fosteja01,True,
+1976,fraziwa01,True,
+1976,gerargu01,True,
+1976,gervige01,True,All-ABA 2nd Team
+1976,gilmoar01,True,All-ABA 1st Team|All-Defense 1st Team
+1976,havlijo01,True,All-Defense 1st Team|All-NBA 2nd Team
+1976,hayesel01,True,All-NBA 2nd Team
+1976,hollili01,False,All-Rookie 1st Team
+1976,hugheki01,False,All-Rookie 1st Team
+1976,isselda01,True,All-ABA 2nd Team
+1976,jonesbo01,True,All-ABA 2nd Team|All-Defense 1st Team
+1976,kenonla01,True,
+1976,knighbi01,True,All-ABA 1st Team
+1976,lucasma01,True,
+1976,maravpe01,False,All-NBA 1st Team
+1976,mcadobo01,True,
+1976,mcginge01,True,All-NBA 1st Team
+1976,meriwjo01,False,All-Rookie 1st Team
+1976,olberma01,False,All-Rookie 1st Team
+1976,paultbi01,True,
+1976,rowecu01,True,
+1976,shumajo01,False,All-Rookie 1st Team
+1976,silasja01,True,All-ABA 1st Team
+1976,silaspa01,False,All-Defense 1st Team
+1976,simpsra01,True,All-ABA 1st Team
+1976,smithph01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1976,smithra01,True,All-NBA 2nd Team
+1976,taylobr01,True,All-Defense 1st Team
+1976,terrycl01,True,
+1976,thompda01,True,All-ABA 2nd Team|All-Rookie 1st Team|ABA Rookie of the Year
+1976,tomjaru01,True,
+1976,towemo01,True,
+1976,vanlino01,True,All-Defense 1st Team
+1976,wattssl01,False,All-Defense 1st Team
+1976,wedmasc01,True,
+1976,whitejo01,True,
+1976,wilkeja01,True,All-Defense 2nd Team
+1976,willich02,True,
+1976,willigu01,False,All-Rookie 1st Team
+1976,wintebr01,True,
+1977,abdulka01,True,All-Defense 2nd Team|All-NBA 1st Team|NBA MVP
+1977,barryri01,True,
+1977,breweji01,False,All-Defense 2nd Team
+1977,busedo01,True,All-Defense 1st Team
+1977,chanedo01,False,All-Defense 2nd Team
+1977,cheniph01,True,
+1977,colemec01,False,All-Defense 1st Team
+1977,collido01,True,
+1977,cowenda01,True,
+1977,dantlad01,False,All-Rookie 1st Team|Rookie of the Year
+1977,ervinju01,True,All-NBA 2nd Team
+1977,gervige01,True,All-NBA 2nd Team
+1977,havlijo01,True,
+1977,hayesel01,True,All-NBA 1st Team
+1977,isselda01,True,
+1977,jonesbo01,True,All-Defense 1st Team
+1977,knighbi01,True,
+1977,kupchmi01,False,All-Rookie 1st Team
+1977,laniebo01,True,
+1977,leero01,False,All-Rookie 1st Team
+1977,lucasjo01,False,All-Rookie 1st Team
+1977,lucasma01,True,
+1977,maravpe01,True,All-NBA 1st Team
+1977,maysc01,False,All-Rookie 1st Team
+1977,mcadobo01,True,
+1977,mcginge01,True,All-NBA 2nd Team
+1977,monroea01,True,
+1977,smithph01,True,
+1977,taylobr01,False,All-Defense 2nd Team
+1977,thompda01,True,All-NBA 1st Team
+1977,tomjaru01,True,
+1977,vanlino01,True,All-Defense 1st Team
+1977,waltobi01,True,All-Defense 1st Team|All-NBA 2nd Team
+1977,westppa01,True,All-NBA 1st Team
+1977,whitejo01,True,All-NBA 2nd Team
+1977,wilkeja01,False,All-Defense 2nd Team
+1978,abdulka01,False,All-Defense 2nd Team|All-NBA 2nd Team
+1978,barryri01,True,
+1978,bucknqu01,False,All-Defense 2nd Team
+1978,busedo01,False,All-Defense 1st Team
+1978,colemec01,False,All-Defense 2nd Team
+1978,collido01,True,
+1978,cowenda01,True,
+1978,daviswa03,True,All-NBA 2nd Team|All-Rookie 1st Team|Rookie of the Year
+1978,ervinju01,True,All-NBA 1st Team
+1978,gervige01,True,All-NBA 1st Team
+1978,gilmoar01,True,All-Defense 2nd Team
+1978,grossbo01,False,All-Defense 2nd Team
+1978,havlijo01,True,
+1978,hayesel01,True,
+1978,hollili01,True,All-Defense 1st Team
+1978,johnsma01,False,All-Rookie 1st Team
+1978,jonesbo01,True,All-Defense 1st Team
+1978,kenonla01,True,
+1978,kingbe01,False,All-Rookie 1st Team
+1978,knighbi01,True,
+1978,laniebo01,True,
+1978,lucasma01,True,All-Defense 1st Team|All-NBA 2nd Team
+1978,malonmo01,True,
+1978,maravpe01,True,All-NBA 2nd Team
+1978,mcadobo01,True,
+1978,nixonno01,False,All-Rookie 1st Team
+1978,robintr01,True,All-NBA 1st Team
+1978,sikmaja01,False,All-Rookie 1st Team
+1978,smithra01,True,
+1978,thompda01,True,All-NBA 1st Team
+1978,vanlino01,False,All-Defense 2nd Team
+1978,waltobi01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1978,westppa01,True,All-NBA 2nd Team
+1978,wintebr01,True,
+1979,abdulka01,True,All-Defense 1st Team|All-NBA 2nd Team
+1979,birdsot01,True,
+1979,brewero01,False,All-Rookie 1st Team
+1979,busedo01,False,All-Defense 1st Team
+1979,carrml01,False,All-Defense 2nd Team
+1979,collido01,True,
+1979,dandrbo01,True,All-Defense 1st Team|All-NBA 2nd Team
+1979,daviswa03,True,All-NBA 2nd Team
+1979,ervinju01,True,
+1979,fordph01,False,All-NBA 2nd Team|All-Rookie 1st Team|Rookie of the Year
+1979,freewo01,False,All-NBA 2nd Team
+1979,gervige01,True,All-NBA 1st Team
+1979,gilmoar01,True,
+1979,hayesel01,True,All-NBA 1st Team
+1979,hollili01,False,All-Defense 2nd Team
+1979,johnsde01,True,All-Defense 1st Team
+1979,johnsed02,False,All-Defense 2nd Team
+1979,johnsma01,True,All-NBA 1st Team
+1979,jonesbo01,False,All-Defense 1st Team
+1979,kenonla01,True,
+1979,laniebo01,True,
+1979,lucasma01,True,All-Defense 2nd Team
+1979,malonmo01,True,All-Defense 2nd Team|All-NBA 1st Team|NBA MVP
+1979,maravpe01,True,
+1979,mcginge01,True,
+1979,murphca01,True,
+1979,russeca02,True,
+1979,sikmaja01,True,
+1979,theusre01,False,All-Rookie 1st Team
+1979,thompda01,True,
+1979,thompmy01,False,All-Rookie 1st Team
+1979,tomjaru01,True,
+1979,tylerte01,False,All-Rookie 1st Team
+1979,westppa01,True,All-NBA 1st Team
+1980,abdulka01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1980,architi01,True,
+1980,birdla01,True,All-NBA 1st Team|All-Rookie 1st Team|Rookie of the Year
+1980,birdsot01,True,
+1980,bucknqu01,False,All-Defense 2nd Team
+1980,busedo01,False,All-Defense 1st Team
+1980,cartwbi01,True,All-Rookie 1st Team
+1980,cowenda01,True,All-Defense 2nd Team
+1980,dantlad01,True,
+1980,daviswa03,True,
+1980,drewjo01,True,
+1980,ervinju01,True,All-NBA 1st Team
+1980,freewo01,True,
+1980,gervige01,True,All-NBA 1st Team
+1980,greenda01,False,All-Rookie 1st Team
+1980,hayesel01,True,
+1980,johnsde01,True,All-Defense 1st Team|All-NBA 2nd Team
+1980,johnsed02,True,All-Defense 2nd Team
+1980,johnsma01,True,All-NBA 2nd Team
+1980,johnsma02,True,All-Rookie 1st Team
+1980,jonesbo01,False,All-Defense 1st Team
+1980,malonmo01,True,All-NBA 2nd Team
+1980,nattca01,False,All-Rookie 1st Team
+1980,richami01,True,All-Defense 1st Team
+1980,roundda01,True,All-Defense 1st Team|All-NBA 2nd Team
+1980,sikmaja01,True,
+1980,washike01,True,All-Defense 2nd Team
+1980,wedmasc01,True,All-Defense 2nd Team
+1980,westppa01,True,All-NBA 1st Team
+1980,willigu01,False,All-NBA 2nd Team
+1981,abdulka01,True,All-Defense 1st Team|All-NBA 1st Team
+1981,architi01,True,All-NBA 2nd Team
+1981,birdla01,True,All-NBA 1st Team
+1981,birdsot01,True,All-NBA 2nd Team
+1981,bradldu01,False,All-Defense 2nd Team
+1981,bucknqu01,False,All-Defense 2nd Team
+1981,carrojo01,False,All-Rookie 1st Team
+1981,coopemi01,False,All-Defense 2nd Team
+1981,dantlad01,True,All-NBA 2nd Team
+1981,daviswa03,True,
+1981,ervinju01,True,All-NBA 1st Team|NBA MVP
+1981,gervige01,True,All-NBA 1st Team
+1981,gilmoar01,True,
+1981,griffda01,False,All-Rookie 1st Team|Rookie of the Year
+1981,johnsde01,True,All-Defense 1st Team|All-NBA 1st Team
+1981,johnsed02,True,
+1981,johnsge02,False,All-Defense 2nd Team
+1981,johnsma01,True,All-NBA 2nd Team
+1981,jonesbo01,True,All-Defense 1st Team
+1981,jonesca01,False,All-Defense 1st Team
+1981,malonmo01,True,All-NBA 2nd Team
+1981,mchalke01,False,All-Rookie 1st Team
+1981,mitchmi01,True,
+1981,parisro01,True,
+1981,ranseke01,False,All-Rookie 1st Team
+1981,richami01,True,All-Defense 1st Team
+1981,robintr01,True,
+1981,roundda01,True,All-Defense 2nd Team
+1981,sikmaja01,True,
+1981,smithla01,False,All-Rookie 1st Team
+1981,theusre01,True,
+1981,washike01,False,All-Defense 2nd Team
+1981,westppa01,True,
+1981,wilkeja01,True,
+1982,abdulka01,True,
+1982,architi01,True,
+1982,birdla01,True,All-Defense 2nd Team|All-NBA 1st Team
+1982,bucknqu01,False,All-Defense 2nd Team
+1982,coopemi01,False,All-Defense 1st Team
+1982,dantlad01,True,
+1982,englial01,True,All-NBA 2nd Team
+1982,ervinju01,True,All-NBA 1st Team
+1982,gervige01,True,All-NBA 1st Team
+1982,gilmoar01,True,
+1982,johnsde01,True,All-Defense 1st Team
+1982,johnsma02,True,All-NBA 2nd Team
+1982,jonesbo01,True,All-Defense 1st Team
+1982,jonesca01,False,All-Defense 1st Team
+1982,kingbe01,True,All-NBA 2nd Team
+1982,laniebo01,True,
+1982,malonmo01,True,All-NBA 1st Team|NBA MVP
+1982,moncrsi01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1982,nixonno01,True,
+1982,parisro01,True,All-NBA 2nd Team
+1982,richami01,True,
+1982,roundda01,True,All-Defense 1st Team
+1982,rulanje01,False,All-Rookie 1st Team
+1982,sheltlo01,True,All-Defense 2nd Team
+1982,sikmaja01,True,All-Defense 2nd Team
+1982,thomais01,True,All-Rookie 1st Team
+1982,tripuke01,True,All-Rookie 1st Team
+1982,vinceja01,False,All-Rookie 1st Team
+1982,willibu01,True,All-Rookie 1st Team|Rookie of the Year
+1982,willigu01,True,All-NBA 1st Team
+1983,abdulka01,True,All-NBA 2nd Team
+1983,birdla01,True,All-Defense 2nd Team|All-NBA 1st Team
+1983,cheekma01,True,All-Defense 1st Team
+1983,coopemi01,False,All-Defense 2nd Team
+1983,cummite01,False,All-Rookie 1st Team|Rookie of the Year
+1983,dailequ01,False,All-Rookie 1st Team
+1983,dunntr01,False,All-Defense 2nd Team
+1983,englial01,True,All-NBA 2nd Team
+1983,ervinju01,True,All-NBA 1st Team
+1983,gervige01,True,All-NBA 2nd Team
+1983,gilmoar01,True,
+1983,johnsde01,False,All-Defense 1st Team
+1983,johnsma01,True,
+1983,johnsma02,True,All-NBA 1st Team
+1983,jonesbo01,False,All-Defense 1st Team
+1983,kellocl01,False,All-Rookie 1st Team
+1983,laimbbi01,True,
+1983,lucasma01,True,
+1983,malonmo01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1983,mchalke01,False,All-Defense 2nd Team
+1983,moncrsi01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+1983,nan,False,Sixth Man of the Year
+1983,parisro01,True,
+1983,paxsoji02,True,
+1983,rollitr01,False,All-Defense 2nd Team
+1983,roundda01,False,All-Defense 1st Team
+1983,sikmaja01,True,
+1983,theusre01,True,
+1983,thomais01,True,All-NBA 2nd Team
+1983,thompda01,True,
+1983,toneyan01,True,
+1983,vandeki01,True,
+1983,wilkeja01,True,
+1983,wilkido01,False,All-Rookie 1st Team
+1983,willibu01,True,All-NBA 2nd Team
+1983,willigu01,True,
+1983,worthja01,False,All-Rookie 1st Team
+1984,abdulka01,True,All-Defense 2nd Team|All-NBA 1st Team
+1984,aguirma01,True,
+1984,baileth01,False,All-Rookie 1st Team
+1984,birdla01,True,All-Defense 2nd Team|All-NBA 1st Team|NBA MVP
+1984,birdsot01,True,
+1984,cheekma01,False,All-Defense 1st Team
+1984,coopemi01,False,All-Defense 1st Team
+1984,dantlad01,True,All-NBA 2nd Team
+1984,daviswa03,True,
+1984,dunntr01,False,All-Defense 2nd Team
+1984,englial01,True,
+1984,ervinju01,True,All-NBA 2nd Team
+1984,gervige01,True,
+1984,greenri01,True,
+1984,johnsde01,False,All-Defense 2nd Team
+1984,johnsma02,True,All-NBA 1st Team
+1984,jonesbo01,False,All-Defense 1st Team
+1984,kingbe01,True,All-NBA 1st Team
+1984,laimbbi01,True,
+1984,malonje01,False,All-Rookie 1st Team
+1984,malonmo01,True,All-NBA 2nd Team
+1984,mchalke01,True,Sixth Man of the Year
+1984,moncrsi01,True,All-Defense 1st Team|All-NBA 2nd Team|Defensive Player of the Year
+1984,parisro01,True,
+1984,paxsoji02,True,All-NBA 2nd Team
+1984,rollitr01,False,All-Defense 1st Team
+1984,roundda01,False,All-Defense 2nd Team
+1984,rulanje01,True,
+1984,sampsra01,True,All-Rookie 1st Team|Rookie of the Year
+1984,scottby01,False,All-Rookie 1st Team
+1984,sikmaja01,True,
+1984,stipast01,False,All-Rookie 1st Team
+1984,thomais01,True,All-NBA 1st Team
+1984,toneyan01,True,
+1984,tripuke01,True,
+1984,vandeki01,True,
+1984,walkeda01,False,All-Rookie 1st Team
+1985,abdulka01,True,All-NBA 2nd Team
+1985,barklch01,False,All-Rookie 1st Team
+1985,birdla01,True,All-NBA 1st Team|NBA MVP
+1985,blackro01,True,
+1985,bowiesa01,False,All-Rookie 1st Team
+1985,cheekma01,False,All-Defense 1st Team
+1985,coopemi01,False,All-Defense 1st Team
+1985,cummite01,True,All-NBA 2nd Team
+1985,dantlad01,True,
+1985,dunntr01,False,All-Defense 2nd Team
+1985,eatonma01,False,All-Defense 1st Team|Defensive Player of the Year
+1985,englial01,True,
+1985,ervinju01,True,
+1985,gervige01,True,
+1985,johnsde01,True,All-Defense 2nd Team
+1985,johnsma02,True,All-NBA 1st Team
+1985,jonesbo01,False,All-Defense 2nd Team
+1985,jordami01,True,All-NBA 2nd Team|All-Rookie 1st Team|Rookie of the Year
+1985,kingbe01,True,All-NBA 1st Team
+1985,laimbbi01,True,
+1985,malonmo01,True,All-NBA 1st Team
+1985,mchalke01,False,Sixth Man of the Year
+1985,moncrsi01,True,All-Defense 1st Team|All-NBA 2nd Team
+1985,nancela01,True,
+1985,nattca01,True,
+1985,nixonno01,True,
+1985,olajuha01,True,All-Defense 2nd Team|All-Rookie 1st Team
+1985,parisro01,True,
+1985,perkisa01,False,All-Rookie 1st Team
+1985,presspa01,False,All-Defense 1st Team
+1985,richami01,True,
+1985,rulanje01,True,
+1985,sampsra01,True,All-NBA 2nd Team
+1985,sikmaja01,True,
+1985,thomais01,True,All-NBA 1st Team
+1985,vraneda01,False,All-Defense 2nd Team
+1986,abdulka01,True,All-NBA 1st Team
+1986,barklch01,False,All-NBA 2nd Team
+1986,birdla01,True,All-NBA 1st Team|NBA MVP
+1986,blackro01,True,
+1986,bolma01,False,All-Defense 2nd Team
+1986,cheekma01,True,All-Defense 1st Team
+1986,coopemi01,False,All-Defense 2nd Team
+1986,dantlad01,True,
+1986,drexlcl01,True,
+1986,dumarjo01,False,All-Rookie 1st Team
+1986,eatonma01,False,All-Defense 1st Team
+1986,englial01,True,All-NBA 2nd Team
+1986,ervinju01,True,
+1986,ewingpa01,True,All-Rookie 1st Team|Rookie of the Year
+1986,gilmoar01,True,
+1986,hanzlbi01,False,All-Defense 2nd Team
+1986,johnsde01,False,All-Defense 2nd Team
+1986,johnsma01,True,
+1986,johnsma02,True,All-NBA 1st Team
+1986,jordami01,True,
+1986,malonje01,True,
+1986,malonka01,False,All-Rookie 1st Team
+1986,malonmo01,True,
+1986,mcdanxa01,False,All-Rookie 1st Team
+1986,mchalke01,True,All-Defense 1st Team
+1986,moncrsi01,True,All-Defense 1st Team|All-NBA 2nd Team
+1986,oaklech01,False,All-Rookie 1st Team
+1986,olajuha01,True,All-NBA 2nd Team
+1986,parisro01,True,
+1986,presspa01,False,All-Defense 1st Team
+1986,roberal01,True,All-Defense 2nd Team|All-NBA 2nd Team|Defensive Player of the Year|Most Improved Player
+1986,sampsra01,True,
+1986,thomais01,True,All-NBA 1st Team
+1986,waltobi01,False,Sixth Man of the Year
+1986,wilkido01,True,All-NBA 1st Team
+1986,willibu01,True,
+1986,worthja01,True,
+1987,abdulka01,True,
+1987,aguirma01,True,
+1987,barklch01,True,All-NBA 2nd Team
+1987,birdla01,True,All-NBA 1st Team
+1987,blackro01,True,
+1987,carrojo01,True,
+1987,chambto01,True,
+1987,cheekma01,True,All-Defense 2nd Team
+1987,coopemi01,False,All-Defense 1st Team|Defensive Player of the Year
+1987,daughbr01,False,All-Rookie 1st Team
+1987,daviswa03,True,
+1987,eatonma01,False,All-Defense 2nd Team
+1987,ellisda01,False,Most Improved Player
+1987,englial01,True,
+1987,ervinju01,True,
+1987,floydsl01,True,
+1987,harpede01,False,All-Defense 2nd Team
+1987,harpero01,False,All-Rookie 1st Team
+1987,johnsde01,False,All-Defense 1st Team
+1987,johnsma02,True,All-NBA 1st Team|NBA MVP
+1987,jordami01,True,All-NBA 1st Team
+1987,laimbbi01,True,
+1987,leverfa01,False,All-NBA 2nd Team
+1987,malonje01,True,
+1987,malonmo01,True,All-NBA 2nd Team
+1987,mccraro01,False,All-Defense 2nd Team
+1987,mchalke01,True,All-Defense 1st Team|All-NBA 1st Team
+1987,olajuha01,True,All-Defense 1st Team|All-NBA 1st Team
+1987,parisro01,True,
+1987,persoch01,False,All-Rookie 1st Team|Rookie of the Year
+1987,piercri01,False,Sixth Man of the Year
+1987,presspa01,False,All-Defense 2nd Team
+1987,roberal01,True,All-Defense 1st Team
+1987,sampsra01,True,
+1987,tarplro01,False,All-Rookie 1st Team
+1987,thomais01,True,All-NBA 2nd Team
+1987,wilkido01,True,All-NBA 2nd Team
+1987,williho01,False,All-Rookie 1st Team
+1987,worthja01,True,
+1988,abdulka01,True,
+1988,aguirma01,True,
+1988,aingeda01,True,
+1988,andergr01,False,All-Rookie 1st Team
+1988,barklch01,True,All-NBA 1st Team
+1988,birdla01,True,All-NBA 1st Team
+1988,cheekma01,True,
+1988,coopemi01,False,All-Defense 1st Team
+1988,daughbr01,True,
+1988,donalja01,True,
+1988,drexlcl01,True,All-NBA 2nd Team
+1988,duckwke01,False,Most Improved Player
+1988,eatonma01,False,All-Defense 2nd Team
+1988,englial01,True,
+1988,ewingpa01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1988,gilliar01,False,All-Rookie 1st Team
+1988,jacksma01,False,All-Rookie 1st Team|Rookie of the Year
+1988,johnsma02,True,All-NBA 1st Team
+1988,johnsst03,True,
+1988,jordami01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year|NBA MVP
+1988,leverfa01,True,All-Defense 2nd Team
+1988,malonka01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1988,malonmo01,True,
+1988,mccraro01,False,All-Defense 1st Team
+1988,mcdanxa01,True,
+1988,mchalke01,True,All-Defense 1st Team
+1988,mckeyde01,False,All-Rookie 1st Team
+1988,olajuha01,True,All-Defense 1st Team|All-NBA 1st Team
+1988,riverdo01,True,
+1988,roberal01,True,All-Defense 2nd Team
+1988,smithke01,False,All-Rookie 1st Team
+1988,stockjo01,False,All-NBA 2nd Team
+1988,tarplro01,False,Sixth Man of the Year
+1988,thomais01,True,
+1988,wilkido01,True,All-NBA 2nd Team
+1988,willibu01,False,All-Defense 2nd Team
+1988,worthja01,True,
+1989,abdulka01,True,
+1989,anderwi01,False,All-Rookie 1st Team
+1989,barklch01,True,All-NBA 1st Team
+1989,chambto01,True,All-NBA 2nd Team
+1989,cummite01,True,All-NBA 3rd Team
+1989,daughbr01,True,
+1989,drexlcl01,True,
+1989,duckwke01,True,
+1989,dumarjo01,False,All-Defense 1st Team
+1989,eatonma01,True,All-Defense 1st Team|Defensive Player of the Year
+1989,ellisda01,True,All-NBA 3rd Team
+1989,englial01,True,
+1989,ewingpa01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1989,greenac01,False,All-Defense 2nd Team
+1989,hawkihe01,False,All-Rookie 1st Team
+1989,jacksma01,True,
+1989,johnsed03,False,Sixth Man of the Year
+1989,johnske02,False,All-NBA 2nd Team|Most Improved Player
+1989,johnsma02,True,All-NBA 1st Team|NBA MVP
+1989,jordami01,True,All-Defense 1st Team|All-NBA 1st Team
+1989,malonka01,True,All-NBA 1st Team
+1989,malonmo01,True,
+1989,mchalke01,True,All-Defense 2nd Team
+1989,mullich01,True,All-NBA 2nd Team
+1989,nancela01,True,All-Defense 1st Team
+1989,olajuha01,True,All-NBA 1st Team
+1989,parisro01,False,All-NBA 3rd Team
+1989,pricema01,True,All-NBA 3rd Team
+1989,richmmi01,False,All-Rookie 1st Team|Rookie of the Year
+1989,roberal01,False,All-Defense 2nd Team
+1989,rodmade01,False,All-Defense 1st Team
+1989,smithch01,False,All-Rookie 1st Team
+1989,smitsri01,False,All-Rookie 1st Team
+1989,stockjo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1989,thomais01,True,
+1989,wilkido01,True,All-NBA 3rd Team
+1989,worthja01,True,
+1990,barklch01,True,All-NBA 1st Team
+1990,birdla01,True,All-NBA 2nd Team
+1990,blackro01,True,
+1990,chambto01,True,All-NBA 2nd Team
+1990,divacvl01,False,All-Rookie 1st Team
+1990,douglsh01,False,All-Rookie 1st Team
+1990,drexlcl01,True,All-NBA 3rd Team
+1990,dumarjo01,True,All-Defense 1st Team|All-NBA 3rd Team
+1990,edwarbl01,False,All-Rookie 2nd Team
+1990,elliose01,False,All-Rookie 2nd Team
+1990,ewingpa01,True,All-NBA 1st Team
+1990,greenac01,True,
+1990,hardati01,False,All-Rookie 1st Team
+1990,harpede01,False,All-Defense 2nd Team
+1990,johnske02,True,All-NBA 2nd Team
+1990,johnsma02,True,All-NBA 1st Team|NBA MVP
+1990,jordami01,True,All-Defense 1st Team|All-NBA 1st Team
+1990,kingst01,False,All-Rookie 2nd Team
+1990,leverfa01,True,
+1990,mahorri01,False,All-Defense 2nd Team
+1990,malonka01,True,All-NBA 1st Team
+1990,mchalke01,True,All-Defense 2nd Team
+1990,millere01,True,
+1990,mullich01,True,All-NBA 3rd Team
+1990,olajuha01,True,All-Defense 1st Team|All-NBA 2nd Team
+1990,parisro01,True,
+1990,piercri01,False,Sixth Man of the Year
+1990,pippesc01,True,
+1990,reidjr01,False,All-Rookie 2nd Team
+1990,ricegl01,False,All-Rookie 2nd Team
+1990,richapo01,False,All-Rookie 1st Team
+1990,roberal01,False,All-Defense 2nd Team
+1990,robinda01,True,All-Defense 2nd Team|All-NBA 3rd Team|All-Rookie 1st Team|Rookie of the Year
+1990,rodmade01,True,All-Defense 1st Team|Defensive Player of the Year
+1990,seikaro01,False,Most Improved Player
+1990,stockjo01,True,All-NBA 2nd Team
+1990,thomais01,True,
+1990,wilkido01,True,
+1990,willibu01,False,All-Defense 1st Team
+1990,worthja01,True,All-NBA 3rd Team
+1991,abdulma02,False,All-Rookie 2nd Team
+1991,barklch01,True,All-NBA 1st Team
+1991,birdla01,True,
+1991,brownde01,False,All-Rookie 1st Team
+1991,burtowi01,False,All-Rookie 2nd Team
+1991,chambto01,True,
+1991,colemde01,False,All-Rookie 1st Team|Rookie of the Year
+1991,daughbr01,True,
+1991,drexlcl01,True,All-NBA 2nd Team
+1991,duckwke01,True,
+1991,dumarjo01,True,All-Defense 2nd Team|All-NBA 3rd Team
+1991,ewingpa01,True,All-NBA 2nd Team
+1991,gillke01,False,All-Rookie 1st Team
+1991,hardati01,True,
+1991,hawkihe01,True,
+1991,johnske02,True,All-NBA 2nd Team
+1991,johnsma02,True,All-NBA 1st Team
+1991,jordami01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1991,kingbe01,True,All-NBA 3rd Team
+1991,majerda01,False,All-Defense 2nd Team
+1991,malonka01,True,All-NBA 1st Team
+1991,maystr01,False,All-Rookie 2nd Team
+1991,mchalke01,True,
+1991,mullich01,True,All-NBA 2nd Team
+1991,olajuha01,False,All-Defense 2nd Team|All-NBA 3rd Team
+1991,parisro01,True,
+1991,paytoga01,False,All-Rookie 2nd Team
+1991,piercri01,True,
+1991,pippesc01,False,All-Defense 2nd Team
+1991,portete01,True,
+1991,roberal01,True,All-Defense 1st Team
+1991,robinda01,True,All-Defense 1st Team|All-NBA 1st Team
+1991,rodmade01,False,All-Defense 1st Team|Defensive Player of the Year
+1991,schrede01,False,Sixth Man of the Year
+1991,scottde01,False,All-Rookie 1st Team
+1991,simmoli01,False,All-Rookie 1st Team
+1991,skilesc01,False,Most Improved Player
+1991,spencfe01,False,All-Rookie 2nd Team
+1991,stockjo01,True,All-Defense 2nd Team|All-NBA 3rd Team
+1991,thomais01,True,
+1991,wilkido01,True,All-NBA 2nd Team
+1991,willibu01,False,All-Defense 1st Team
+1991,worthja01,True,All-NBA 3rd Team
+1992,adamsmi01,True,
+1992,augmost01,False,All-Rookie 1st Team
+1992,barklch01,True,All-NBA 2nd Team
+1992,birdla01,True,
+1992,brandte01,False,All-Rookie 2nd Team
+1992,daughbr01,True,All-NBA 3rd Team
+1992,drexlcl01,True,All-NBA 1st Team
+1992,dumarjo01,True,All-Defense 1st Team
+1992,ellispe01,False,Most Improved Player
+1992,ewingpa01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1992,foxri01,False,All-Rookie 2nd Team
+1992,hardati01,True,All-NBA 2nd Team
+1992,hornaje01,True,
+1992,johnske02,False,All-NBA 3rd Team
+1992,johnsla02,False,All-Rookie 1st Team|Rookie of the Year
+1992,johnsma02,True,
+1992,jordami01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1992,lewisre01,True,
+1992,maconma01,False,All-Rookie 2nd Team
+1992,majerda01,True,
+1992,malonka01,True,All-NBA 1st Team
+1992,mullich01,True,All-NBA 1st Team
+1992,mutomdi01,True,All-Rookie 1st Team
+1992,nancela01,False,All-Defense 2nd Team
+1992,olajuha01,True,
+1992,owensbi01,False,All-Rookie 1st Team
+1992,pippesc01,True,All-Defense 1st Team|All-NBA 2nd Team
+1992,pricema01,True,All-NBA 3rd Team
+1992,roberst01,False,All-Rookie 2nd Team
+1992,robinda01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+1992,rodmade01,True,All-Defense 1st Team|All-NBA 3rd Team
+1992,schrede01,False,Sixth Man of the Year
+1992,smithst01,False,All-Rookie 1st Team
+1992,stewala01,False,All-Rookie 2nd Team
+1992,stockjo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1992,thomais01,True,
+1992,thorpot01,True,
+1992,wilkido01,True,
+1992,willibu01,False,All-Defense 2nd Team
+1992,willike02,True,All-NBA 3rd Team
+1992,willimi02,False,All-Defense 2nd Team
+1992,worthja01,True,
+1993,abdulma02,False,Most Improved Player
+1993,barklch01,True,All-NBA 1st Team|NBA MVP
+1993,colemde01,False,All-NBA 3rd Team
+1993,daughbr01,True,
+1993,drexlcl01,True,
+1993,dumarjo01,True,All-Defense 1st Team|All-NBA 2nd Team
+1993,dumasri02,False,All-Rookie 2nd Team
+1993,elliose01,True,
+1993,ellisla01,False,All-Rookie 1st Team
+1993,ewingpa01,True,All-NBA 2nd Team
+1993,grantho01,False,All-Defense 2nd Team
+1993,guglito01,False,All-Rookie 1st Team
+1993,hardati01,True,All-NBA 3rd Team
+1993,horryro01,False,All-Rookie 2nd Team
+1993,johnsla02,True,All-NBA 2nd Team
+1993,jordami01,True,All-Defense 1st Team|All-NBA 1st Team
+1993,kempsh01,True,
+1993,laettch01,False,All-Rookie 1st Team
+1993,majerda01,True,All-Defense 2nd Team
+1993,malonka01,True,All-NBA 1st Team
+1993,mannida01,True,
+1993,mournal01,False,All-Rookie 1st Team
+1993,mullich01,True,
+1993,nancela01,True,All-Defense 2nd Team
+1993,olajuha01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+1993,onealsh01,True,All-Rookie 1st Team|Rookie of the Year
+1993,petrodr01,False,All-NBA 3rd Team
+1993,pippesc01,True,All-Defense 1st Team|All-NBA 3rd Team
+1993,portete01,True,
+1993,pricema01,True,All-NBA 1st Team
+1993,richmmi01,True,
+1993,robincl02,False,Sixth Man of the Year
+1993,robinda01,True,All-Defense 2nd Team|All-NBA 3rd Team
+1993,rodmade01,False,All-Defense 1st Team
+1993,schrede01,True,
+1993,sprewla01,False,All-Rookie 2nd Team
+1993,starkjo01,False,All-Defense 2nd Team
+1993,stockjo01,True,All-NBA 2nd Team
+1993,thomais01,True,
+1993,weathcl01,False,All-Rookie 2nd Team
+1993,wilkido01,True,All-NBA 2nd Team
+1993,williwa02,False,All-Rookie 2nd Team
+1994,anderke01,True,
+1994,armstbj01,True,
+1994,bakervi01,False,All-Rookie 1st Team
+1994,barklch01,True,All-NBA 2nd Team
+1994,blaylmo01,True,All-Defense 1st Team
+1994,bradlsh01,False,All-Rookie 2nd Team
+1994,colemde01,True,All-NBA 3rd Team
+1994,curryde01,False,Sixth Man of the Year
+1994,drexlcl01,True,
+1994,ewingpa01,True,
+1994,grantho01,True,All-Defense 2nd Team
+1994,hardaan01,False,All-Rookie 1st Team
+1994,hunteli01,False,All-Rookie 2nd Team
+1994,johnske02,True,All-NBA 2nd Team
+1994,kempsh01,True,All-NBA 2nd Team
+1994,kukocto01,False,All-Rookie 2nd Team
+1994,macledo01,False,Most Improved Player
+1994,malonka01,True,All-NBA 1st Team
+1994,mannida01,True,
+1994,mashbja01,False,All-Rookie 1st Team
+1994,mcmilna01,False,All-Defense 2nd Team
+1994,mournal01,True,
+1994,oaklech01,True,All-Defense 1st Team
+1994,olajuha01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year|NBA MVP
+1994,onealsh01,True,All-NBA 3rd Team
+1994,paytoga01,True,All-Defense 1st Team|All-NBA 3rd Team
+1994,pippesc01,True,All-Defense 1st Team|All-NBA 1st Team
+1994,pricema01,True,All-NBA 3rd Team
+1994,radjadi01,False,All-Rookie 2nd Team
+1994,richmmi01,True,All-NBA 2nd Team
+1994,rideris01,False,All-Rookie 1st Team
+1994,robincl02,True,
+1994,robinda01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1994,rodmade01,False,All-Defense 2nd Team
+1994,sprewla01,True,All-Defense 2nd Team|All-NBA 1st Team
+1994,starkjo01,True,
+1994,stockjo01,True,All-NBA 1st Team
+1994,vanexni01,False,All-Rookie 2nd Team
+1994,webbech01,False,All-Rookie 1st Team|Rookie of the Year
+1994,wilkido01,True,All-NBA 3rd Team
+1995,bakervi01,True,
+1995,barklch01,True,All-NBA 2nd Team
+1995,barroda01,True,Most Improved Player
+1995,blaylmo01,False,All-Defense 1st Team
+1995,cebalce01,True,
+1995,drexlcl01,False,All-NBA 3rd Team
+1995,dumarjo01,True,
+1995,ewingpa01,True,
+1995,grantbr01,False,All-Rookie 1st Team
+1995,grantho01,False,All-Defense 2nd Team
+1995,hardaan01,True,All-NBA 1st Team
+1995,hillgr01,True,All-Rookie 1st Team|Rookie of the Year
+1995,hillty01,True,
+1995,howarju01,False,All-Rookie 2nd Team
+1995,johnsla02,True,
+1995,jonesed02,False,All-Rookie 1st Team
+1995,kempsh01,True,All-NBA 2nd Team
+1995,kiddja01,False,All-Rookie 1st Team|Rookie of the Year
+1995,majerda01,True,
+1995,malonka01,True,All-NBA 1st Team
+1995,marshdo01,False,All-Rookie 2nd Team
+1995,masonan01,False,Sixth Man of the Year
+1995,mckeyde01,False,All-Defense 2nd Team
+1995,mcmilna01,False,All-Defense 2nd Team
+1995,millere01,True,All-NBA 3rd Team
+1995,montrer01,False,All-Rookie 2nd Team
+1995,mournal01,True,
+1995,mutomdi01,True,All-Defense 2nd Team|Defensive Player of the Year
+1995,olajuha01,True,All-NBA 3rd Team
+1995,onealsh01,True,All-NBA 2nd Team
+1995,paytoga01,True,All-Defense 1st Team|All-NBA 2nd Team
+1995,persowe01,False,All-Rookie 2nd Team
+1995,pippesc01,True,All-Defense 1st Team|All-NBA 1st Team
+1995,richmmi01,True,All-NBA 2nd Team
+1995,robinda01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1995,robingl01,False,All-Rookie 1st Team
+1995,rodmade01,False,All-Defense 1st Team|All-NBA 3rd Team
+1995,roseja01,False,All-Rookie 2nd Team
+1995,schrede01,True,All-NBA 3rd Team
+1995,sprewla01,True,
+1995,stockjo01,True,All-Defense 2nd Team|All-NBA 1st Team
+1995,wrighsh01,False,All-Rookie 2nd Team
+1996,bakervi01,True,
+1996,barklch01,True,All-NBA 3rd Team
+1996,barrybr01,False,All-Rookie 2nd Team
+1996,blaylmo01,False,All-Defense 2nd Team
+1996,brandte01,True,
+1996,drexlcl01,True,
+1996,edneyty01,False,All-Rookie 2nd Team
+1996,elliose01,True,
+1996,ewingpa01,True,
+1996,finlemi01,False,All-Rookie 1st Team
+1996,garneke01,False,All-Rookie 2nd Team
+1996,grantho01,False,All-Defense 2nd Team
+1996,hardaan01,True,All-NBA 1st Team
+1996,hillgr01,True,All-NBA 2nd Team
+1996,howarju01,True,All-NBA 3rd Team
+1996,jordami01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1996,kempsh01,True,All-NBA 2nd Team
+1996,kiddja01,True,
+1996,kukocto01,False,Sixth Man of the Year
+1996,malonka01,True,All-NBA 1st Team
+1996,mcdyean01,False,All-Rookie 1st Team
+1996,mckeyde01,False,All-Defense 2nd Team
+1996,millere01,True,All-NBA 3rd Team
+1996,mournal01,True,
+1996,muresgh01,False,Most Improved Player
+1996,mutomdi01,True,
+1996,olajuha01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1996,onealsh01,True,All-NBA 3rd Team
+1996,paytoga01,True,All-Defense 1st Team|All-NBA 2nd Team|Defensive Player of the Year
+1996,phillbo01,False,All-Defense 2nd Team
+1996,pippesc01,True,All-Defense 1st Team|All-NBA 1st Team
+1996,reevebr01,False,All-Rookie 2nd Team
+1996,ricegl01,True,
+1996,richmmi01,True,All-NBA 3rd Team
+1996,robinda01,True,All-Defense 1st Team|All-NBA 1st Team
+1996,rodmade01,False,All-Defense 1st Team
+1996,sabonar01,False,All-Rookie 1st Team
+1996,smithjo02,False,All-Rookie 1st Team
+1996,stackje01,False,All-Rookie 1st Team
+1996,stockjo01,True,All-NBA 2nd Team
+1996,stoudda01,False,All-Rookie 1st Team|Rookie of the Year
+1996,wallara01,False,All-Rookie 2nd Team
+1997,abdursh01,False,All-Rookie 1st Team
+1997,allenra02,False,All-Rookie 2nd Team
+1997,austiis01,False,Most Improved Player
+1997,bakervi01,True,All-NBA 3rd Team
+1997,barklch01,True,
+1997,blaylmo01,False,All-Defense 2nd Team
+1997,brandte01,True,
+1997,brownpj01,False,All-Defense 2nd Team
+1997,bryanko01,False,All-Rookie 2nd Team
+1997,cambyma01,False,All-Rookie 1st Team
+1997,drexlcl01,True,
+1997,dumarjo01,True,
+1997,ewingpa01,True,All-NBA 2nd Team
+1997,garneke01,True,
+1997,gatlich01,True,
+1997,guglito01,True,
+1997,hardaan01,True,All-NBA 3rd Team
+1997,hardati01,True,All-NBA 1st Team
+1997,hillgr01,True,All-NBA 1st Team
+1997,iversal01,False,All-Rookie 1st Team|Rookie of the Year
+1997,jonesed02,True,
+1997,jordami01,True,All-Defense 1st Team|All-NBA 1st Team
+1997,kempsh01,True,
+1997,kittlke01,False,All-Rookie 2nd Team
+1997,knightr01,False,All-Rookie 2nd Team
+1997,laettch01,True,
+1997,malonka01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1997,malonma01,False,All-Rookie 2nd Team
+1997,marbust01,False,All-Rookie 1st Team
+1997,masonan01,False,All-Defense 2nd Team|All-NBA 3rd Team
+1997,mournal01,True,
+1997,mutomdi01,True,All-Defense 1st Team|Defensive Player of the Year
+1997,olajuha01,True,All-Defense 2nd Team|All-NBA 1st Team
+1997,onealsh01,True,All-NBA 3rd Team
+1997,paytoga01,True,All-Defense 1st Team|All-NBA 2nd Team
+1997,pippesc01,True,All-Defense 1st Team|All-NBA 2nd Team
+1997,ricegl01,True,All-NBA 2nd Team
+1997,richmmi01,True,All-NBA 2nd Team
+1997,schrede01,True,
+1997,sprewla01,True,
+1997,starkjo01,False,Sixth Man of the Year
+1997,stockjo01,True,All-Defense 2nd Team|All-NBA 3rd Team
+1997,walkean02,False,All-Rookie 1st Team
+1997,webbech01,True,
+1998,anderde01,False,All-Rookie 2nd Team
+1998,bakervi01,True,All-NBA 2nd Team
+1998,blaylmo01,False,All-Defense 2nd Team
+1998,bryanko01,True,
+1998,duncati01,True,All-Defense 2nd Team|All-NBA 1st Team|All-Rookie 1st Team|Rookie of the Year
+1998,garneke01,True,
+1998,hardaan01,True,
+1998,hardati01,True,All-NBA 2nd Team
+1998,hendeal01,False,Most Improved Player
+1998,hendece02,False,All-Rookie 2nd Team
+1998,hillgr01,True,All-NBA 2nd Team
+1998,ilgauzy01,False,All-Rookie 1st Team
+1998,jacksbo01,False,All-Rookie 2nd Team
+1998,jonesed02,True,All-Defense 2nd Team
+1998,jordami01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1998,kempsh01,True,
+1998,kiddja01,True,
+1998,knighbr01,False,All-Rookie 1st Team
+1998,malonka01,True,All-Defense 1st Team|All-NBA 1st Team
+1998,mannida01,False,Sixth Man of the Year
+1998,mercero01,False,All-Rookie 1st Team
+1998,millere01,True,All-NBA 3rd Team
+1998,mutomdi01,True,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+1998,oaklech01,False,All-Defense 2nd Team
+1998,onealsh01,True,All-NBA 1st Team
+1998,paytoga01,True,All-Defense 1st Team|All-NBA 1st Team
+1998,pippesc01,False,All-Defense 1st Team|All-NBA 3rd Team
+1998,ricegl01,True,All-NBA 3rd Team
+1998,richmmi01,True,All-NBA 3rd Team
+1998,robinda01,True,All-Defense 2nd Team|All-NBA 2nd Team
+1998,smithst01,True,
+1998,smitsri01,True,
+1998,stricro02,False,All-NBA 2nd Team
+1998,tayloma01,False,All-Rookie 2nd Team
+1998,thomati01,False,All-Rookie 2nd Team
+1998,vanexni01,True,
+1998,vanhoke01,False,All-Rookie 1st Team
+1998,walkean02,True,
+1998,willija01,True,
+1999,armstda01,False,Most Improved Player|Sixth Man of the Year
+1999,bibbymi01,False,All-Rookie 1st Team
+1999,blaylmo01,False,All-Defense 2nd Team
+1999,brownpj01,False,All-Defense 2nd Team
+1999,bryanko01,False,All-NBA 3rd Team
+1999,cartevi01,False,All-Rookie 1st Team|Rookie of the Year
+1999,dickemi01,False,All-Rookie 2nd Team
+1999,doleami01,False,All-Rookie 2nd Team
+1999,duncati01,False,All-Defense 1st Team|All-NBA 1st Team
+1999,garneke01,False,All-NBA 3rd Team
+1999,hardati01,False,All-NBA 2nd Team
+1999,harprma01,False,All-Rookie 1st Team
+1999,hillgr01,False,All-NBA 2nd Team
+1999,iversal01,False,All-NBA 1st Team
+1999,jamisan01,False,All-Rookie 2nd Team
+1999,jonesed02,False,All-Defense 2nd Team
+1999,kiddja01,False,All-Defense 1st Team|All-NBA 1st Team
+1999,malonka01,False,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+1999,mcdyean01,False,All-NBA 3rd Team
+1999,moblecu01,False,All-Rookie 2nd Team
+1999,mournal01,False,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+1999,mutomdi01,False,All-Defense 2nd Team
+1999,olajuha01,False,All-NBA 3rd Team
+1999,olowomi01,False,All-Rookie 2nd Team
+1999,onealsh01,False,All-NBA 2nd Team
+1999,paytoga01,False,All-Defense 1st Team|All-NBA 2nd Team
+1999,piercpa01,False,All-Rookie 1st Team
+1999,pippesc01,False,All-Defense 1st Team
+1999,ratlith01,False,All-Defense 2nd Team
+1999,stockjo01,False,All-NBA 3rd Team
+1999,webbech01,False,All-NBA 2nd Team
+1999,willija02,False,All-Rookie 1st Team
+2000,allenra02,True,
+2000,artesro01,False,All-Rookie 2nd Team
+2000,atkinch01,False,All-Rookie 2nd Team
+2000,brandel01,False,All-Rookie 1st Team|Rookie of the Year
+2000,bryanko01,True,All-Defense 1st Team|All-NBA 2nd Team
+2000,cartevi01,True,All-NBA 3rd Team
+2000,davisda01,True,
+2000,duncati01,True,All-Defense 1st Team|All-NBA 1st Team
+2000,finlemi01,True,
+2000,francst01,False,All-Rookie 1st Team|Rookie of the Year
+2000,garneke01,True,All-Defense 1st Team|All-NBA 1st Team
+2000,hillgr01,True,All-NBA 2nd Team
+2000,houstal01,True,
+2000,iversal01,True,All-NBA 2nd Team
+2000,jonesed02,True,All-Defense 2nd Team|All-NBA 3rd Team
+2000,kiddja01,True,All-Defense 2nd Team|All-NBA 1st Team
+2000,malonka01,True,All-NBA 2nd Team
+2000,marbust01,False,All-NBA 3rd Team
+2000,mariosh01,False,All-Rookie 2nd Team
+2000,millean02,False,All-Rookie 1st Team
+2000,millere01,True,
+2000,mournal01,True,All-Defense 1st Team|All-NBA 2nd Team|Defensive Player of the Year
+2000,mutomdi01,True,
+2000,odomla01,False,All-Rookie 1st Team
+2000,onealsh01,True,All-Defense 2nd Team|All-NBA 1st Team|NBA MVP
+2000,paytoga01,True,All-Defense 1st Team|All-NBA 1st Team
+2000,pippesc01,False,All-Defense 2nd Team
+2000,poseyja01,False,All-Rookie 2nd Team
+2000,robincl02,False,All-Defense 2nd Team
+2000,robinda01,True,All-NBA 3rd Team
+2000,robingl01,True,
+2000,rogerro01,False,Sixth Man of the Year
+2000,roseja01,False,Most Improved Player
+2000,stackje01,True,
+2000,stockjo01,True,
+2000,szczewa02,False,All-Rookie 1st Team
+2000,terryja01,False,All-Rookie 2nd Team
+2000,wallara01,True,
+2000,webbech01,True,All-NBA 3rd Team
+2001,alexaco02,False,All-Rookie 2nd Team
+2001,allenra02,True,All-NBA 3rd Team
+2001,bowenbr01,False,All-Defense 2nd Team
+2001,brownpj01,False,All-Defense 2nd Team
+2001,bryanko01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2001,cartevi01,True,All-NBA 2nd Team
+2001,chrisdo01,False,All-Defense 2nd Team
+2001,davisan01,True,
+2001,divacvl01,True,
+2001,duncati01,True,All-Defense 1st Team|All-NBA 1st Team
+2001,finlemi01,True,
+2001,fizerma01,False,All-Rookie 2nd Team
+2001,garneke01,True,All-Defense 1st Team|All-NBA 2nd Team
+2001,hillgr01,True,
+2001,houstal01,True,
+2001,iversal01,True,All-NBA 1st Team|NBA MVP
+2001,jacksma02,False,All-Rookie 1st Team
+2001,kiddja01,True,All-Defense 1st Team|All-NBA 1st Team
+2001,malonka01,True,All-NBA 3rd Team
+2001,marbust01,True,
+2001,martike01,False,All-Rookie 1st Team
+2001,masonan01,True,
+2001,masonde01,False,All-Rookie 2nd Team
+2001,mcdyean01,True,
+2001,mcgratr01,True,All-NBA 2nd Team|Most Improved Player
+2001,mckieaa01,False,Sixth Man of the Year
+2001,mihmch01,False,All-Rookie 2nd Team
+2001,milesda01,False,All-Rookie 1st Team
+2001,millemi01,False,All-Rookie 1st Team|Rookie of the Year
+2001,mournal01,True,
+2001,mutomdi01,True,All-Defense 1st Team|All-NBA 2nd Team|Defensive Player of the Year
+2001,nowitdi01,False,All-NBA 3rd Team
+2001,onealsh01,True,All-Defense 2nd Team|All-NBA 1st Team
+2001,paytoga01,True,All-Defense 1st Team|All-NBA 3rd Team
+2001,petermo01,False,All-Rookie 1st Team
+2001,ratlith01,True,
+2001,robinda01,True,All-NBA 3rd Team
+2001,robingl01,True,
+2001,sprewla01,True,
+2001,stackje01,True,
+2001,turkohe01,False,All-Rookie 2nd Team
+2001,wallara01,True,
+2001,webbech01,True,All-NBA 1st Team
+2002,abdursh01,True,
+2002,allenra02,True,
+2002,battish01,False,All-Rookie 1st Team
+2002,bowenbr01,False,All-Defense 2nd Team
+2002,brandel01,True,
+2002,bryanko01,True,All-Defense 2nd Team|All-NBA 1st Team
+2002,cartevi01,True,
+2002,chrisdo01,False,All-Defense 2nd Team
+2002,davisba01,True,
+2002,duncati01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2002,francst01,True,
+2002,garneke01,True,All-Defense 1st Team|All-NBA 2nd Team
+2002,gasolpa01,False,All-Rookie 1st Team|Rookie of the Year
+2002,griffed01,False,All-Rookie 2nd Team
+2002,iversal01,True,All-NBA 2nd Team
+2002,jefferi01,False,All-Rookie 2nd Team
+2002,johnsjo02,False,All-Rookie 2nd Team
+2002,jordami01,True,
+2002,kiddja01,True,All-Defense 1st Team|All-NBA 1st Team
+2002,kirilan01,False,All-Rookie 1st Team
+2002,malonka01,True,
+2002,mcgratr01,True,All-NBA 1st Team
+2002,mournal01,True,
+2002,mutomdi01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2002,nashst01,True,All-NBA 3rd Team
+2002,nowitdi01,True,All-NBA 2nd Team
+2002,onealje01,True,All-NBA 3rd Team|Most Improved Player
+2002,onealsh01,True,All-NBA 1st Team
+2002,parketo01,False,All-Rookie 1st Team
+2002,paytoga01,True,All-Defense 1st Team|All-NBA 2nd Team
+2002,piercpa01,True,All-NBA 3rd Team
+2002,radmavl01,False,All-Rookie 2nd Team
+2002,rebraze01,False,All-Rookie 2nd Team
+2002,richaja01,False,All-Rookie 1st Team
+2002,robincl02,False,All-Defense 2nd Team
+2002,stojape01,True,
+2002,szczewa02,True,
+2002,tinslja01,False,All-Rookie 2nd Team
+2002,walkean02,True,
+2002,wallabe01,False,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+2002,webbech01,True,All-NBA 2nd Team
+2002,willico02,False,Sixth Man of the Year
+2003,arenagi01,False,Most Improved Player
+2003,artesro01,False,All-Defense 2nd Team
+2003,boozeca01,False,All-Rookie 2nd Team
+2003,bowenbr01,False,All-Defense 2nd Team
+2003,bremejr01,False,All-Rookie 2nd Team
+2003,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2003,butleca01,False,All-Rookie 1st Team
+2003,cartevi01,True,
+2003,chrisdo01,False,All-Defense 1st Team
+2003,duncati01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2003,francst01,True,
+2003,garneke01,True,All-Defense 1st Team|All-NBA 1st Team
+2003,ginobma01,False,All-Rookie 2nd Team
+2003,giricgo01,False,All-Rookie 2nd Team
+2003,goodedr01,False,All-Rookie 1st Team
+2003,hilarne01,False,All-Rookie 1st Team
+2003,ilgauzy01,True,
+2003,iversal01,True,All-NBA 2nd Team
+2003,jacksbo01,False,Sixth Man of the Year
+2003,jordami01,True,
+2003,kiddja01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2003,marbust01,True,All-NBA 3rd Team
+2003,mariosh01,True,
+2003,mashbja01,True,All-NBA 3rd Team
+2003,mcgratr01,True,All-NBA 1st Team
+2003,millebr01,True,
+2003,mingya01,True,All-Rookie 1st Team
+2003,nashst01,True,All-NBA 3rd Team
+2003,nowitdi01,True,All-NBA 2nd Team
+2003,onealje01,True,All-NBA 3rd Team
+2003,onealsh01,True,All-Defense 2nd Team|All-NBA 1st Team
+2003,paytoga01,True,
+2003,piercpa01,True,All-NBA 3rd Team
+2003,snower01,False,All-Defense 2nd Team
+2003,stojape01,True,
+2003,stoudam01,False,All-Rookie 1st Team|Rookie of the Year
+2003,walkean02,True,
+2003,wallabe01,True,All-Defense 1st Team|All-NBA 2nd Team|Defensive Player of the Year
+2003,webbech01,True,All-NBA 2nd Team
+2003,willija03,False,All-Rookie 2nd Team
+2004,allenra02,True,
+2004,anthoca01,False,All-Rookie 1st Team
+2004,artesro01,True,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+2004,boshch01,False,All-Rookie 1st Team
+2004,bowenbr01,False,All-Defense 1st Team
+2004,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2004,cartevi01,True,
+2004,cassesa01,True,All-NBA 2nd Team
+2004,chrisdo01,False,All-Defense 2nd Team
+2004,daniema01,False,All-Rookie 2nd Team
+2004,davisba01,True,All-NBA 3rd Team
+2004,duncati01,True,All-Defense 2nd Team|All-NBA 1st Team
+2004,fordtj01,False,All-Rookie 2nd Team
+2004,francst01,True,
+2004,garneke01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2004,hasleud01,False,All-Rookie 2nd Team
+2004,hayesja01,False,All-Rookie 2nd Team
+2004,hinriki01,False,All-Rookie 1st Team
+2004,howarjo01,False,All-Rookie 2nd Team
+2004,iversal01,True,
+2004,jamesle01,False,All-Rookie 1st Team|Rookie of the Year
+2004,jamisan01,False,Sixth Man of the Year
+2004,kiddja01,True,All-Defense 2nd Team|All-NBA 1st Team
+2004,kirilan01,True,All-Defense 2nd Team
+2004,magloja01,True,
+2004,martike01,True,
+2004,mcgratr01,True,All-NBA 2nd Team
+2004,millebr01,True,
+2004,mingya01,True,All-NBA 3rd Team
+2004,nowitdi01,True,All-NBA 3rd Team
+2004,onealje01,True,All-NBA 2nd Team
+2004,onealsh01,True,All-NBA 1st Team
+2004,piercpa01,True,
+2004,randoza01,False,Most Improved Player
+2004,ratlith01,False,All-Defense 2nd Team
+2004,reddmi01,True,All-NBA 3rd Team
+2004,stojape01,True,All-NBA 2nd Team
+2004,wadedw01,False,All-Rookie 1st Team
+2004,wallabe01,True,All-Defense 1st Team|All-NBA 2nd Team
+2005,allenra02,True,All-NBA 2nd Team
+2005,arenagi01,True,All-NBA 3rd Team
+2005,billuch01,False,All-Defense 2nd Team
+2005,bowenbr01,False,All-Defense 1st Team
+2005,bryanko01,True,All-NBA 3rd Team
+2005,cambyma01,False,All-Defense 2nd Team
+2005,cartevi01,True,
+2005,childjo01,False,All-Rookie 2nd Team
+2005,denglu01,False,All-Rookie 1st Team
+2005,duncati01,True,All-Defense 1st Team|All-NBA 1st Team
+2005,garneke01,True,All-Defense 1st Team|All-NBA 2nd Team
+2005,ginobma01,True,
+2005,gordobe01,False,All-Rookie 1st Team|Sixth Man of the Year
+2005,hillgr01,True,
+2005,howardw01,False,All-Rookie 1st Team
+2005,hughela01,False,All-Defense 1st Team
+2005,iguodan01,False,All-Rookie 1st Team
+2005,ilgauzy01,True,
+2005,iversal01,True,All-NBA 1st Team
+2005,jamesle01,True,All-NBA 2nd Team
+2005,jamisan01,True,
+2005,jeffeal01,False,All-Rookie 2nd Team
+2005,kiddja01,False,All-Defense 2nd Team
+2005,kirilan01,False,All-Defense 2nd Team
+2005,krstine01,False,All-Rookie 2nd Team
+2005,lewisra02,True,
+2005,mariosh01,True,All-NBA 3rd Team
+2005,mcgratr01,True,All-NBA 3rd Team
+2005,mingya01,True,
+2005,nashst01,True,All-NBA 1st Team|NBA MVP
+2005,nelsoja01,False,All-Rookie 2nd Team
+2005,nowitdi01,True,All-NBA 1st Team
+2005,okafoem01,False,All-Rookie 1st Team|Rookie of the Year
+2005,onealje01,True,
+2005,onealsh01,True,All-NBA 1st Team
+2005,piercpa01,True,
+2005,princta01,False,All-Defense 2nd Team
+2005,simmobo01,False,Most Improved Player
+2005,smithjo03,False,All-Rookie 2nd Team
+2005,stoudam01,True,All-NBA 2nd Team
+2005,wadedw01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2005,wallabe01,True,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+2006,allenra02,True,
+2006,anthoca01,False,All-NBA 3rd Team
+2006,arenagi01,True,All-NBA 3rd Team
+2006,artesro01,False,All-Defense 1st Team
+2006,billuch01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2006,bogutan01,False,All-Rookie 1st Team
+2006,boshch01,True,
+2006,bowenbr01,False,All-Defense 1st Team
+2006,brandel01,True,All-NBA 2nd Team
+2006,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2006,cambyma01,False,All-Defense 2nd Team
+2006,cartevi01,True,
+2006,diawbo01,False,Most Improved Player
+2006,duncati01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2006,feltora01,False,All-Rookie 2nd Team
+2006,fryech01,False,All-Rookie 1st Team
+2006,garneke01,True,All-Defense 2nd Team
+2006,gasolpa01,True,
+2006,gomesry01,False,All-Rookie 2nd Team
+2006,grangda01,False,All-Rookie 2nd Team
+2006,hamilri01,True,
+2006,headlu01,False,All-Rookie 2nd Team
+2006,iversal01,True,All-NBA 3rd Team
+2006,jamesle01,True,All-NBA 1st Team
+2006,kiddja01,False,All-Defense 1st Team
+2006,kirilan01,False,All-Defense 1st Team
+2006,mariosh01,True,All-NBA 3rd Team
+2006,mcgratr01,True,
+2006,millemi01,False,Sixth Man of the Year
+2006,mingya01,True,All-NBA 3rd Team
+2006,nashst01,True,All-NBA 1st Team|NBA MVP
+2006,nowitdi01,True,All-NBA 1st Team
+2006,onealje01,True,
+2006,onealsh01,True,All-NBA 1st Team
+2006,parketo01,True,
+2006,paulch01,False,All-Rookie 1st Team|Rookie of the Year
+2006,piercpa01,True,
+2006,princta01,False,All-Defense 2nd Team
+2006,villach01,False,All-Rookie 1st Team
+2006,wadedw01,True,All-NBA 2nd Team
+2006,wallabe01,True,All-Defense 1st Team|All-NBA 2nd Team|Defensive Player of the Year
+2006,wallara01,True,
+2006,willide01,False,All-Rookie 1st Team
+2006,willima02,False,All-Rookie 2nd Team
+2007,aldrila01,False,All-Rookie 1st Team
+2007,allenra02,True,
+2007,anthoca01,True,All-NBA 3rd Team
+2007,arenagi01,True,All-NBA 2nd Team
+2007,barbole01,False,Sixth Man of the Year
+2007,bargnan01,False,All-Rookie 1st Team
+2007,bellra01,False,All-Defense 1st Team
+2007,billuch01,True,All-NBA 3rd Team
+2007,boozeca01,True,
+2007,boshch01,True,All-NBA 2nd Team
+2007,bowenbr01,False,All-Defense 1st Team
+2007,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2007,butleca01,True,
+2007,cambyma01,False,All-Defense 1st Team|Defensive Player of the Year
+2007,cartevi01,True,
+2007,duncati01,True,All-Defense 1st Team|All-NBA 1st Team
+2007,ellismo01,False,Most Improved Player
+2007,foyera01,False,All-Rookie 1st Team
+2007,garbajo01,False,All-Rookie 1st Team
+2007,garneke01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2007,gayru01,False,All-Rookie 1st Team
+2007,hamilri01,True,
+2007,herrmwa01,False,All-Rookie 2nd Team
+2007,hinriki01,False,All-Defense 2nd Team
+2007,howardw01,True,All-NBA 3rd Team
+2007,howarjo01,True,
+2007,iversal01,True,
+2007,jamesle01,True,All-NBA 2nd Team
+2007,johnsjo02,True,
+2007,kiddja01,True,All-Defense 2nd Team
+2007,mariosh01,True,
+2007,mcgratr01,True,All-NBA 2nd Team
+2007,millspa01,False,All-Rookie 2nd Team
+2007,mingya01,True,All-NBA 2nd Team
+2007,morriad01,False,All-Rookie 2nd Team
+2007,nashst01,True,All-NBA 1st Team
+2007,nowitdi01,True,All-NBA 1st Team|NBA MVP
+2007,okurme01,True,
+2007,onealje01,True,
+2007,onealsh01,True,
+2007,parketo01,True,
+2007,princta01,False,All-Defense 2nd Team
+2007,rondora01,False,All-Rookie 2nd Team
+2007,roybr01,False,All-Rookie 1st Team|Rookie of the Year
+2007,smithcr01,False,All-Rookie 2nd Team
+2007,stoudam01,True,All-NBA 1st Team
+2007,thomaty01,False,All-Rookie 2nd Team
+2007,wadedw01,True,All-NBA 3rd Team
+2007,wallabe01,False,All-Defense 2nd Team
+2007,willima03,False,All-Rookie 2nd Team
+2008,allenra02,True,
+2008,anthoca01,True,
+2008,battish01,False,All-Defense 2nd Team
+2008,bellra01,False,All-Defense 2nd Team
+2008,billuch01,True,
+2008,boozeca01,True,All-NBA 3rd Team
+2008,boshch01,True,
+2008,bowenbr01,False,All-Defense 1st Team
+2008,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2008,butleca01,True,
+2008,cambyma01,False,All-Defense 1st Team
+2008,duncati01,True,All-Defense 1st Team|All-NBA 2nd Team
+2008,duranke01,False,All-Rookie 1st Team|Rookie of the Year
+2008,garneke01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+2008,ginobma01,False,All-NBA 3rd Team|Sixth Man of the Year
+2008,greenje02,False,All-Rookie 1st Team
+2008,hamilri01,True,
+2008,horfoal01,False,All-Rookie 1st Team
+2008,howardw01,True,All-Defense 2nd Team|All-NBA 1st Team
+2008,iversal01,True,
+2008,jamesle01,True,All-NBA 1st Team
+2008,jamisan01,True,
+2008,johnsjo02,True,
+2008,kiddja01,True,
+2008,landrca01,False,All-Rookie 2nd Team
+2008,mcgratr01,False,All-NBA 3rd Team
+2008,mingya01,True,All-NBA 3rd Team
+2008,moonja01,False,All-Rookie 2nd Team
+2008,nashst01,True,All-NBA 2nd Team
+2008,navarju01,False,All-Rookie 2nd Team
+2008,nowitdi01,True,All-NBA 2nd Team
+2008,paulch01,True,All-Defense 2nd Team|All-NBA 1st Team
+2008,piercpa01,True,All-NBA 3rd Team
+2008,princta01,False,All-Defense 2nd Team
+2008,roybr01,True,
+2008,scolalu01,False,All-Rookie 1st Team
+2008,stoudam01,True,All-NBA 2nd Team
+2008,stuckro01,False,All-Rookie 2nd Team
+2008,thornal01,False,All-Rookie 1st Team
+2008,turkohe01,False,Most Improved Player
+2008,wadedw01,True,
+2008,wallara01,True,
+2008,westda01,True,
+2008,willide01,False,All-NBA 2nd Team
+2008,youngth01,False,All-Rookie 2nd Team
+2009,allenra02,True,
+2009,anthoca01,False,All-NBA 3rd Team
+2009,artesro01,False,All-Defense 2nd Team
+2009,augusdj01,False,All-Rookie 2nd Team
+2009,battish01,False,All-Defense 2nd Team
+2009,beaslmi01,False,All-Rookie 1st Team
+2009,billuch01,True,All-NBA 3rd Team
+2009,boshch01,True,
+2009,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2009,chalmma01,False,All-Rookie 2nd Team
+2009,duncati01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2009,fernaru01,False,All-Rookie 2nd Team
+2009,garneke01,True,All-Defense 1st Team
+2009,gasolma01,False,All-Rookie 2nd Team
+2009,gasolpa01,True,All-NBA 3rd Team
+2009,gordoer01,False,All-Rookie 2nd Team
+2009,grangda01,True,Most Improved Player
+2009,harride01,True,
+2009,howardw01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+2009,iversal01,True,
+2009,jamesle01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2009,johnsjo02,True,
+2009,lewisra02,True,
+2009,lopezbr01,False,All-Rookie 1st Team
+2009,loveke01,False,All-Rookie 2nd Team
+2009,mayooj01,False,All-Rookie 1st Team
+2009,mingya01,True,All-NBA 2nd Team
+2009,nelsoja01,True,
+2009,nowitdi01,True,All-NBA 1st Team
+2009,onealsh01,True,All-NBA 3rd Team
+2009,parketo01,True,All-NBA 3rd Team
+2009,paulch01,True,All-Defense 1st Team|All-NBA 2nd Team
+2009,piercpa01,True,All-NBA 2nd Team
+2009,rondora01,False,All-Defense 2nd Team
+2009,rosede01,False,All-Rookie 1st Team|Rookie of the Year
+2009,roybr01,True,All-NBA 2nd Team
+2009,stoudam01,True,
+2009,terryja01,False,Sixth Man of the Year
+2009,wadedw01,True,All-Defense 2nd Team|All-NBA 1st Team
+2009,westbru01,False,All-Rookie 1st Team
+2009,westda01,True,
+2009,willima01,True,
+2010,anthoca01,True,All-NBA 2nd Team
+2010,billuch01,True,
+2010,blairde01,False,All-Rookie 2nd Team
+2010,bogutan01,False,All-NBA 3rd Team
+2010,boshch01,True,
+2010,brookaa01,False,Most Improved Player
+2010,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2010,collida01,False,All-Rookie 1st Team
+2010,crawfja01,False,Sixth Man of the Year
+2010,curryst01,False,All-Rookie 1st Team
+2010,duncati01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2010,duranke01,True,All-NBA 1st Team
+2010,evansty01,False,All-Rookie 1st Team|Rookie of the Year
+2010,flynnjo01,False,All-Rookie 2nd Team
+2010,garneke01,True,
+2010,gasolpa01,True,All-NBA 3rd Team
+2010,gibsota01,False,All-Rookie 1st Team
+2010,hardeja01,False,All-Rookie 2nd Team
+2010,horfoal01,True,
+2010,howardw01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+2010,iversal01,True,
+2010,jamesle01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2010,jennibr01,False,All-Rookie 1st Team
+2010,jerebjo01,False,All-Rookie 2nd Team
+2010,johnsjo02,True,All-NBA 3rd Team
+2010,kamanch01,True,
+2010,kiddja01,True,
+2010,leeda02,True,
+2010,nashst01,True,All-NBA 2nd Team
+2010,nowitdi01,True,All-NBA 2nd Team
+2010,paulch01,True,
+2010,piercpa01,True,
+2010,randoza01,True,
+2010,rondora01,True,All-Defense 1st Team
+2010,rosede01,True,
+2010,roybr01,True,All-NBA 3rd Team
+2010,sefolth01,False,All-Defense 2nd Team
+2010,smithjo03,False,All-Defense 2nd Team
+2010,stoudam01,True,All-NBA 2nd Team
+2010,thornma01,False,All-Rookie 2nd Team
+2010,varejan01,False,All-Defense 2nd Team
+2010,wadedw01,True,All-Defense 2nd Team|All-NBA 1st Team
+2010,wallage01,True,All-Defense 1st Team
+2010,willide01,True,All-NBA 2nd Team
+2011,aldrila01,False,All-NBA 3rd Team
+2011,allenra02,True,
+2011,allento01,False,All-Defense 2nd Team
+2011,anthoca01,True,
+2011,bledser01,False,All-Rookie 2nd Team
+2011,boshch01,True,
+2011,bryanko01,True,All-Defense 1st Team|All-NBA 1st Team
+2011,chandty01,False,All-Defense 2nd Team
+2011,couside01,False,All-Rookie 1st Team
+2011,duncati01,True,
+2011,duranke01,True,All-NBA 1st Team
+2011,favorde01,False,All-Rookie 2nd Team
+2011,fieldla01,False,All-Rookie 1st Team
+2011,garneke01,True,All-Defense 1st Team
+2011,gasolpa01,True,All-NBA 2nd Team
+2011,georgpa01,False,All-Rookie 2nd Team
+2011,ginobma01,True,All-NBA 3rd Team
+2011,griffbl01,True,All-Rookie 1st Team|Rookie of the Year
+2011,horfoal01,True,All-NBA 3rd Team
+2011,howardw01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+2011,iguodan01,False,All-Defense 2nd Team
+2011,jamesle01,True,All-Defense 1st Team|All-NBA 1st Team
+2011,johnsjo02,True,
+2011,johnswe01,False,All-Rookie 2nd Team
+2011,loveke01,True,Most Improved Player
+2011,mingya01,True,
+2011,monrogr01,False,All-Rookie 2nd Team
+2011,nealga01,False,All-Rookie 1st Team
+2011,noahjo01,False,All-Defense 2nd Team
+2011,nowitdi01,True,All-NBA 2nd Team
+2011,odomla01,False,Sixth Man of the Year
+2011,paulch01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2011,piercpa01,True,
+2011,randoza01,False,All-NBA 3rd Team
+2011,rondora01,True,All-Defense 1st Team
+2011,rosede01,True,All-NBA 1st Team|NBA MVP
+2011,stoudam01,True,All-NBA 2nd Team
+2011,wadedw01,True,All-NBA 2nd Team
+2011,walljo01,False,All-Rookie 1st Team
+2011,westbru01,True,All-NBA 2nd Team
+2011,willide01,True,
+2012,aldrila01,True,
+2012,allento01,False,All-Defense 1st Team
+2012,anderry01,False,Most Improved Player
+2012,anthoca01,True,All-NBA 3rd Team
+2012,boshch01,True,
+2012,brookma01,False,All-Rookie 2nd Team
+2012,bryanko01,True,All-Defense 2nd Team|All-NBA 1st Team
+2012,bynuman01,True,All-NBA 2nd Team
+2012,chandty01,False,All-Defense 2nd Team|All-NBA 3rd Team|Defensive Player of the Year
+2012,denglu01,True,All-Defense 2nd Team
+2012,duranke01,True,All-NBA 1st Team
+2012,farieke01,False,All-Rookie 1st Team
+2012,garneke01,False,All-Defense 2nd Team
+2012,gasolma01,True,
+2012,griffbl01,True,All-NBA 2nd Team
+2012,hardeja01,False,Sixth Man of the Year
+2012,hibbero01,True,
+2012,howardw01,True,All-Defense 1st Team|All-NBA 1st Team
+2012,ibakase01,False,All-Defense 1st Team
+2012,iguodan01,True,
+2012,irvinky01,False,All-Rookie 1st Team|Rookie of the Year
+2012,jamesle01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2012,johnsjo02,True,
+2012,knighbr03,False,All-Rookie 1st Team
+2012,leonaka01,False,All-Rookie 1st Team
+2012,loveke01,True,All-NBA 2nd Team
+2012,nashst01,True,
+2012,nowitdi01,True,All-NBA 3rd Team
+2012,parketo01,True,All-NBA 2nd Team
+2012,parsoch01,False,All-Rookie 2nd Team
+2012,paulch01,True,All-Defense 1st Team|All-NBA 1st Team
+2012,piercpa01,True,
+2012,rondora01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2012,rosede01,True,
+2012,rubiori01,False,All-Rookie 1st Team
+2012,shumpim01,False,All-Rookie 1st Team
+2012,thomais02,False,All-Rookie 2nd Team
+2012,thompkl01,False,All-Rookie 1st Team
+2012,thomptr01,False,All-Rookie 2nd Team
+2012,wadedw01,True,All-NBA 3rd Team
+2012,westbru01,True,All-NBA 2nd Team
+2012,willide01,True,
+2012,willide02,False,All-Rookie 2nd Team
+2013,aldrila01,True,
+2013,allento01,False,All-Defense 1st Team
+2013,anthoca01,True,All-NBA 2nd Team
+2013,barneha02,False,All-Rookie 1st Team
+2013,bealbr01,False,All-Rookie 1st Team
+2013,boshch01,True,
+2013,bradlav01,False,All-Defense 2nd Team
+2013,bryanko01,True,All-NBA 1st Team
+2013,chandty01,True,All-Defense 1st Team
+2013,conlemi01,False,All-Defense 2nd Team
+2013,davisan02,False,All-Rookie 1st Team
+2013,denglu01,True,
+2013,drumman01,False,All-Rookie 2nd Team
+2013,duncati01,True,All-Defense 2nd Team|All-NBA 1st Team
+2013,duranke01,True,All-NBA 1st Team
+2013,garneke01,True,
+2013,gasolma01,False,All-Defense 2nd Team|All-NBA 2nd Team|Defensive Player of the Year
+2013,georgpa01,True,All-Defense 2nd Team|All-NBA 3rd Team|Most Improved Player
+2013,griffbl01,True,All-NBA 2nd Team
+2013,hardeja01,True,All-NBA 3rd Team
+2013,holidjr01,True,
+2013,howardw01,True,All-NBA 3rd Team
+2013,ibakase01,False,All-Defense 1st Team
+2013,irvinky01,True,
+2013,jamesle01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2013,kiddgmi01,False,All-Rookie 2nd Team
+2013,leeda02,True,All-NBA 3rd Team
+2013,lillada01,False,All-Rookie 1st Team|Rookie of the Year
+2013,lopezbr01,True,
+2013,noahjo01,True,All-Defense 1st Team
+2013,parketo01,True,All-NBA 2nd Team
+2013,paulch01,True,All-Defense 1st Team|All-NBA 1st Team
+2013,randoza01,True,
+2013,rondora01,True,
+2013,singlky01,False,All-Rookie 2nd Team
+2013,smithjr01,False,Sixth Man of the Year
+2013,valanjo01,False,All-Rookie 2nd Team
+2013,wadedw01,True,All-NBA 3rd Team
+2013,waitedi01,False,All-Rookie 1st Team
+2013,westbru01,True,All-NBA 2nd Team
+2013,zellety01,False,All-Rookie 2nd Team
+2014,adamsst01,False,All-Rookie 2nd Team
+2014,aldrila01,True,All-NBA 3rd Team
+2014,antetgi01,False,All-Rookie 2nd Team
+2014,anthoca01,True,
+2014,beverpa01,False,All-Defense 2nd Team
+2014,boshch01,True,
+2014,bryanko01,True,
+2014,burketr01,False,All-Rookie 1st Team
+2014,butleji01,False,All-Defense 2nd Team
+2014,cartemi01,False,All-Rookie 1st Team|Rookie of the Year
+2014,crawfja01,False,Sixth Man of the Year
+2014,curryst01,True,All-NBA 2nd Team
+2014,davisan02,True,
+2014,derozde01,True,
+2014,dienggo01,False,All-Rookie 2nd Team
+2014,dragigo01,False,All-NBA 3rd Team|Most Improved Player
+2014,duranke01,True,All-NBA 1st Team|NBA MVP
+2014,georgpa01,True,All-Defense 1st Team|All-NBA 3rd Team
+2014,griffbl01,True,All-NBA 2nd Team
+2014,hardati02,False,All-Rookie 1st Team
+2014,hardeja01,True,All-NBA 1st Team
+2014,hibbero01,True,All-Defense 2nd Team
+2014,howardw01,True,All-NBA 2nd Team
+2014,ibakase01,False,All-Defense 1st Team
+2014,iguodan01,False,All-Defense 1st Team
+2014,irvinky01,True,
+2014,jamesle01,True,All-Defense 2nd Team|All-NBA 1st Team
+2014,jeffeal01,False,All-NBA 3rd Team
+2014,johnsjo02,True,
+2014,leonaka01,False,All-Defense 2nd Team
+2014,lillada01,True,All-NBA 3rd Team
+2014,loveke01,True,All-NBA 2nd Team
+2014,millspa01,True,
+2014,noahjo01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+2014,nowitdi01,True,
+2014,oladivi01,False,All-Rookie 1st Team
+2014,olynyke01,False,All-Rookie 2nd Team
+2014,parketo01,True,All-NBA 2nd Team
+2014,paulch01,True,All-Defense 1st Team|All-NBA 1st Team
+2014,plumlma01,False,All-Rookie 1st Team
+2014,wadedw01,True,
+2014,walljo01,True,
+2014,zelleco01,False,All-Rookie 2nd Team
+2015,aldrila01,True,All-NBA 2nd Team
+2015,allento01,False,All-Defense 1st Team
+2015,anthoca01,True,
+2015,bogdabo02,False,All-Rookie 2nd Team
+2015,bogutan01,False,All-Defense 2nd Team
+2015,boshch01,True,
+2015,bryanko01,True,
+2015,butleji01,True,All-Defense 2nd Team|Most Improved Player
+2015,clarkjo01,False,All-Rookie 1st Team
+2015,couside01,True,All-NBA 2nd Team
+2015,curryst01,True,All-NBA 1st Team|NBA MVP
+2015,davisan02,True,All-Defense 2nd Team|All-NBA 1st Team
+2015,duncati01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2015,duranke01,True,
+2015,gallola01,False,All-Rookie 2nd Team
+2015,gasolma01,True,All-NBA 1st Team
+2015,gasolpa01,True,All-NBA 2nd Team
+2015,greendr01,False,All-Defense 1st Team
+2015,griffbl01,True,All-NBA 3rd Team
+2015,hardeja01,True,All-NBA 1st Team
+2015,horfoal01,True,
+2015,irvinky01,True,All-NBA 3rd Team
+2015,jamesle01,True,All-NBA 1st Team
+2015,jordade01,False,All-Defense 1st Team|All-NBA 3rd Team
+2015,korveky01,True,
+2015,lavinza01,False,All-Rookie 2nd Team
+2015,leonaka01,False,All-Defense 1st Team|Defensive Player of the Year
+2015,lillada01,True,
+2015,lowryky01,True,
+2015,millspa01,True,
+2015,mirotni01,False,All-Rookie 1st Team
+2015,noelne01,False,All-Rookie 1st Team
+2015,nowitdi01,True,
+2015,nurkiju01,False,All-Rookie 2nd Team
+2015,paulch01,True,All-Defense 1st Team|All-NBA 2nd Team
+2015,paytoel01,False,All-Rookie 1st Team
+2015,smartma01,False,All-Rookie 2nd Team
+2015,teaguje01,True,
+2015,thompkl01,True,All-NBA 3rd Team
+2015,wadedw01,True,
+2015,walljo01,True,All-Defense 2nd Team
+2015,westbru01,True,All-NBA 2nd Team
+2015,wiggian01,False,All-Rookie 1st Team|Rookie of the Year
+2015,willilo02,False,Sixth Man of the Year
+2016,aldrila01,True,All-NBA 3rd Team
+2016,allento01,False,All-Defense 2nd Team
+2016,anthoca01,True,
+2016,bookede01,False,All-Rookie 1st Team
+2016,boshch01,True,
+2016,bradlav01,False,All-Defense 1st Team
+2016,bryanko01,True,
+2016,butleji01,True,All-Defense 2nd Team
+2016,caulewi01,False,All-Rookie 2nd Team
+2016,couside01,True,All-NBA 2nd Team
+2016,crawfja01,False,Sixth Man of the Year
+2016,curryst01,True,All-NBA 1st Team|NBA MVP
+2016,davisan02,True,
+2016,derozde01,True,
+2016,drumman01,True,All-NBA 3rd Team
+2016,duranke01,True,All-NBA 2nd Team
+2016,gasolpa01,True,
+2016,georgpa01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2016,greendr01,True,All-Defense 1st Team|All-NBA 2nd Team
+2016,hardeja01,True,
+2016,horfoal01,True,
+2016,jamesle01,True,All-NBA 1st Team
+2016,jokicni01,False,All-Rookie 1st Team
+2016,jordade01,False,All-Defense 1st Team|All-NBA 1st Team
+2016,leonaka01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year
+2016,lillada01,False,All-NBA 2nd Team
+2016,lowryky01,True,All-NBA 3rd Team
+2016,mccolcj01,False,Most Improved Player
+2016,millspa01,True,All-Defense 2nd Team
+2016,mudiaem01,False,All-Rookie 2nd Team
+2016,okafoja01,False,All-Rookie 1st Team
+2016,paulch01,True,All-Defense 1st Team|All-NBA 2nd Team
+2016,porzikr01,False,All-Rookie 1st Team
+2016,russeda01,False,All-Rookie 2nd Team
+2016,thomais02,True,
+2016,thompkl01,True,All-NBA 3rd Team
+2016,townska01,False,All-Rookie 1st Team|Rookie of the Year
+2016,turnemy01,False,All-Rookie 2nd Team
+2016,wadedw01,True,
+2016,walljo01,True,
+2016,westbru01,True,All-NBA 1st Team
+2016,whiteha01,False,All-Defense 2nd Team
+2016,winslju01,False,All-Rookie 2nd Team
+2017,allento01,False,All-Defense 2nd Team
+2017,antetgi01,True,All-Defense 2nd Team|All-NBA 2nd Team|Most Improved Player
+2017,anthoca01,True,
+2017,beverpa01,False,All-Defense 1st Team
+2017,brogdma01,False,All-Rookie 1st Team|Rookie of the Year
+2017,brownja02,False,All-Rookie 2nd Team
+2017,butleji01,True,All-NBA 3rd Team
+2017,chrisma01,False,All-Rookie 2nd Team
+2017,couside01,True,
+2017,curryst01,True,All-NBA 2nd Team
+2017,davisan02,True,All-Defense 2nd Team|All-NBA 1st Team
+2017,derozde01,True,All-NBA 3rd Team
+2017,duranke01,True,All-NBA 2nd Team
+2017,embiijo01,False,All-Rookie 1st Team
+2017,ferreyo01,False,All-Rookie 2nd Team
+2017,gasolma01,True,
+2017,georgpa01,True,
+2017,goberru01,False,All-Defense 1st Team|All-NBA 2nd Team
+2017,gordoer01,False,Sixth Man of the Year
+2017,greenda02,False,All-Defense 2nd Team
+2017,greendr01,True,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+2017,hardeja01,True,All-NBA 1st Team
+2017,haywago01,True,
+2017,hernawi01,False,All-Rookie 1st Team
+2017,hieldbu01,False,All-Rookie 1st Team
+2017,ingrabr01,False,All-Rookie 2nd Team
+2017,irvinky01,True,
+2017,jamesle01,True,All-NBA 1st Team
+2017,jordade01,True,All-NBA 3rd Team
+2017,leonaka01,True,All-Defense 1st Team|All-NBA 1st Team
+2017,loveke01,True,
+2017,lowryky01,True,
+2017,millspa01,True,
+2017,murraja01,False,All-Rookie 2nd Team
+2017,paulch01,False,All-Defense 1st Team
+2017,roberan03,False,All-Defense 2nd Team
+2017,saricda01,False,All-Rookie 1st Team
+2017,thomais02,True,All-NBA 2nd Team
+2017,thompkl01,True,
+2017,walkeke02,True,
+2017,walljo01,True,All-NBA 3rd Team
+2017,westbru01,True,All-NBA 1st Team|NBA MVP
+2018,aldrila01,True,All-NBA 2nd Team
+2018,antetgi01,True,All-NBA 2nd Team
+2018,balllo01,False,All-Rookie 2nd Team
+2018,bealbr01,True,
+2018,bogdabo01,False,All-Rookie 2nd Team
+2018,butleji01,True,All-Defense 2nd Team|All-NBA 3rd Team
+2018,collijo01,False,All-Rookie 2nd Team
+2018,couside01,True,
+2018,covinro01,False,All-Defense 1st Team
+2018,curryst01,True,All-NBA 3rd Team
+2018,davisan02,True,All-Defense 1st Team|All-NBA 1st Team
+2018,derozde01,True,All-NBA 2nd Team
+2018,dragigo01,True,
+2018,drumman01,True,
+2018,duranke01,True,All-NBA 1st Team
+2018,embiijo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2018,georgpa01,True,All-NBA 3rd Team
+2018,goberru01,False,All-Defense 1st Team|Defensive Player of the Year
+2018,greendr01,True,All-Defense 2nd Team
+2018,hardeja01,True,All-NBA 1st Team|NBA MVP
+2018,holidjr01,False,All-Defense 1st Team
+2018,horfoal01,True,All-Defense 2nd Team
+2018,irvinky01,True,
+2018,jacksjo02,False,All-Rookie 2nd Team
+2018,jamesle01,True,All-NBA 1st Team
+2018,kuzmaky01,False,All-Rookie 1st Team
+2018,lillada01,True,All-NBA 1st Team
+2018,loveke01,True,
+2018,lowryky01,True,
+2018,markkla01,False,All-Rookie 1st Team
+2018,mitchdo01,False,All-Rookie 1st Team
+2018,murrade01,False,All-Defense 2nd Team
+2018,oladivi01,True,All-Defense 1st Team|All-NBA 3rd Team|Most Improved Player
+2018,porzikr01,True,
+2018,simmobe01,False,All-Rookie 1st Team|Rookie of the Year
+2018,smithde03,False,All-Rookie 2nd Team
+2018,tatumja01,False,All-Rookie 1st Team
+2018,thompkl01,True,
+2018,townska01,True,All-NBA 3rd Team
+2018,walkeke02,True,
+2018,walljo01,True,
+2018,westbru01,True,All-NBA 2nd Team
+2018,willilo02,False,Sixth Man of the Year
+2019,aldrila01,True,
+2019,antetgi01,True,All-Defense 1st Team|All-NBA 1st Team|NBA MVP
+2019,aytonde01,False,All-Rookie 1st Team
+2019,baglema01,False,All-Rookie 1st Team
+2019,bealbr01,True,
+2019,bledser01,False,All-Defense 1st Team
+2019,curryst01,True,All-NBA 1st Team
+2019,davisan02,True,
+2019,doncilu01,False,All-Rookie 1st Team|Rookie of the Year
+2019,duranke01,True,All-NBA 2nd Team
+2019,embiijo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2019,georgpa01,True,All-Defense 1st Team|All-NBA 1st Team
+2019,gilgesh01,False,All-Rookie 2nd Team
+2019,goberru01,False,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+2019,greendr01,False,All-Defense 2nd Team
+2019,griffbl01,True,All-NBA 3rd Team
+2019,hardeja01,True,All-NBA 1st Team
+2019,holidjr01,False,All-Defense 2nd Team
+2019,huertke01,False,All-Rookie 2nd Team
+2019,irvinky01,True,All-NBA 2nd Team
+2019,jacksja02,False,All-Rookie 1st Team
+2019,jamesle01,True,All-NBA 3rd Team
+2019,jokicni01,True,All-NBA 1st Team
+2019,leonaka01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2019,lillada01,True,All-NBA 2nd Team
+2019,lowryky01,True,
+2019,middlkh01,True,
+2019,nowitdi01,True,
+2019,oladivi01,True,
+2019,robinmi01,False,All-Rookie 2nd Team
+2019,russeda01,True,
+2019,sextoco01,False,All-Rookie 2nd Team
+2019,shamela01,False,All-Rookie 2nd Team
+2019,siakapa01,False,Most Improved Player
+2019,simmobe01,True,
+2019,smartma01,False,All-Defense 1st Team
+2019,thompkl01,True,All-Defense 2nd Team
+2019,townska01,True,
+2019,vucevni01,True,
+2019,wadedw01,True,
+2019,walkeke02,True,All-NBA 3rd Team
+2019,westbru01,True,All-NBA 3rd Team
+2019,willilo02,False,Sixth Man of the Year
+2019,youngtr01,False,All-Rookie 1st Team
+2020,adebaba01,True,All-Defense 2nd Team
+2020,antetgi01,True,All-Defense 1st Team|All-NBA 1st Team|Defensive Player of the Year|NBA MVP
+2020,beverpa01,False,All-Defense 2nd Team
+2020,bledser01,False,All-Defense 2nd Team
+2020,bookede01,True,
+2020,butleji01,True,All-NBA 3rd Team
+2020,clarkbr01,False,All-Rookie 1st Team
+2020,davisan02,True,All-Defense 1st Team|All-NBA 1st Team
+2020,daviste02,False,All-Rookie 2nd Team
+2020,doncilu01,True,All-NBA 1st Team
+2020,embiijo01,True,
+2020,goberru01,True,All-Defense 1st Team|All-NBA 3rd Team
+2020,hachiru01,False,All-Rookie 2nd Team
+2020,hardeja01,True,All-NBA 1st Team
+2020,harremo01,False,Sixth Man of the Year
+2020,herroty01,False,All-Rookie 2nd Team
+2020,ingrabr01,True,Most Improved Player
+2020,jamesle01,True,All-NBA 1st Team
+2020,jokicni01,True,All-NBA 2nd Team
+2020,leonaka01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2020,lillada01,True,All-NBA 2nd Team
+2020,lopezbr01,False,All-Defense 2nd Team
+2020,lowryky01,True,
+2020,middlkh01,True,
+2020,mitchdo01,True,
+2020,moranja01,False,All-Rookie 1st Team|Rookie of the Year
+2020,nunnke01,False,All-Rookie 1st Team
+2020,pascher01,False,All-Rookie 1st Team
+2020,paulch01,True,All-NBA 2nd Team
+2020,sabondo01,True,
+2020,siakapa01,True,All-NBA 2nd Team
+2020,simmobe01,True,All-Defense 1st Team|All-NBA 3rd Team
+2020,smartma01,False,All-Defense 1st Team
+2020,tatumja01,True,All-NBA 3rd Team
+2020,walkeke02,True,
+2020,washipj01,False,All-Rookie 2nd Team
+2020,westbru01,True,All-NBA 3rd Team
+2020,whiteco01,False,All-Rookie 2nd Team
+2020,willizi01,False,All-Rookie 1st Team
+2020,youngtr01,True,
+2021,adebaba01,False,All-Defense 2nd Team
+2021,antetgi01,True,All-Defense 1st Team|All-NBA 1st Team
+2021,ballla01,False,All-Rookie 1st Team|Rookie of the Year
+2021,banede01,False,All-Rookie 2nd Team
+2021,bealbr01,True,All-NBA 3rd Team
+2021,beysa01,False,All-Rookie 1st Team
+2021,bookede01,True,
+2021,brownja02,True,
+2021,butleji01,False,All-Defense 2nd Team|All-NBA 3rd Team
+2021,clarkjo01,False,Sixth Man of the Year
+2021,conlemi01,True,
+2021,curryst01,True,All-NBA 1st Team
+2021,davisan02,True,
+2021,doncilu01,True,All-NBA 1st Team
+2021,duranke01,True,
+2021,edwaran01,False,All-Rookie 1st Team
+2021,embiijo01,True,All-Defense 2nd Team|All-NBA 2nd Team
+2021,georgpa01,True,All-NBA 3rd Team
+2021,goberru01,True,All-Defense 1st Team|All-NBA 3rd Team|Defensive Player of the Year
+2021,greendr01,False,All-Defense 1st Team
+2021,halibty01,False,All-Rookie 1st Team
+2021,hardeja01,True,
+2021,holidjr01,False,All-Defense 1st Team
+2021,irvinky01,True,All-NBA 3rd Team
+2021,jamesle01,True,All-NBA 2nd Team
+2021,jokicni01,True,All-NBA 1st Team|NBA MVP
+2021,lavinza01,True,
+2021,leonaka01,True,All-Defense 2nd Team|All-NBA 1st Team
+2021,lillada01,True,All-NBA 2nd Team
+2021,mitchdo01,True,
+2021,okorois01,False,All-Rookie 2nd Team
+2021,paulch01,True,All-NBA 2nd Team
+2021,quickim01,False,All-Rookie 2nd Team
+2021,randlju01,True,All-NBA 2nd Team|Most Improved Player
+2021,sabondo01,True,
+2021,simmobe01,True,All-Defense 1st Team
+2021,stewais01,False,All-Rookie 2nd Team
+2021,tateja01,False,All-Rookie 1st Team
+2021,tatumja01,True,
+2021,thybuma01,False,All-Defense 2nd Team
+2021,vucevni01,True,
+2021,willipa01,False,All-Rookie 2nd Team
+2021,willizi01,True,
+2022,adebaba01,False,All-Defense 2nd Team
+2022,allenja01,True,
+2022,antetgi01,True,All-Defense 1st Team|All-NBA 1st Team
+2022,ballla01,True,
+2022,barnesc01,False,All-Rookie 1st Team|Rookie of the Year
+2022,bookede01,True,All-NBA 1st Team
+2022,bridgmi01,False,All-Defense 1st Team
+2022,butleji01,True,
+2022,cunnica01,False,All-Rookie 1st Team
+2022,curryst01,True,All-NBA 2nd Team
+2022,derozde01,True,All-NBA 2nd Team
+2022,doncilu01,True,All-NBA 1st Team
+2022,dosunay01,False,All-Rookie 2nd Team
+2022,duartch01,False,All-Rookie 2nd Team
+2022,duranke01,True,All-NBA 2nd Team
+2022,embiijo01,True,All-NBA 2nd Team
+2022,garlada01,True,
+2022,giddejo01,False,All-Rookie 2nd Team
+2022,goberru01,True,All-Defense 1st Team
+2022,greendr01,True,All-Defense 2nd Team
+2022,greenja05,False,All-Rookie 1st Team
+2022,hardeja01,True,
+2022,herroty01,False,Sixth Man of the Year
+2022,holidjr01,False,All-Defense 2nd Team
+2022,hylanbo01,False,All-Rookie 2nd Team
+2022,jacksja02,False,All-Defense 1st Team
+2022,jamesle01,True,All-NBA 3rd Team
+2022,jokicni01,True,All-NBA 1st Team|NBA MVP
+2022,joneshe01,False,All-Rookie 2nd Team
+2022,lavinza01,True,
+2022,middlkh01,True,
+2022,mitchdo01,True,
+2022,mobleev01,False,All-Rookie 1st Team
+2022,moranja01,True,All-NBA 2nd Team|Most Improved Player
+2022,murrade01,True,
+2022,paulch01,True,All-NBA 3rd Team
+2022,siakapa01,False,All-NBA 3rd Team
+2022,smartma01,False,All-Defense 1st Team|Defensive Player of the Year
+2022,tatumja01,True,All-NBA 1st Team
+2022,thybuma01,False,All-Defense 2nd Team
+2022,townska01,True,All-NBA 3rd Team
+2022,vanvlfr01,True,
+2022,wagnefr01,False,All-Rookie 1st Team
+2022,wiggian01,True,
+2022,williro04,False,All-Defense 2nd Team
+2022,youngtr01,True,All-NBA 3rd Team
+2023,adebaba01,True,All-Defense 2nd Team
+2023,antetgi01,True,All-NBA 1st Team
+2023,anunoog01,False,All-Defense 2nd Team
+2023,banchpa01,False,All-Rookie 1st Team|Rookie of the Year
+2023,brogdma01,False,Sixth Man of the Year
+2023,brookdi01,False,All-Defense 2nd Team
+2023,brownja02,True,All-NBA 2nd Team
+2023,butleji01,False,All-NBA 2nd Team
+2023,carusal01,False,All-Defense 1st Team
+2023,curryst01,True,All-NBA 2nd Team
+2023,derozde01,True,
+2023,doncilu01,True,All-NBA 1st Team
+2023,duranke01,True,
+2023,durenja01,False,All-Rookie 2nd Team
+2023,easonta01,False,All-Rookie 2nd Team
+2023,edwaran01,True,
+2023,embiijo01,True,All-NBA 1st Team|NBA MVP
+2023,foxde01,True,All-NBA 3rd Team|Clutch Player of the Year
+2023,georgpa01,True,
+2023,gilgesh01,True,All-NBA 1st Team
+2023,greendr01,False,All-Defense 2nd Team
+2023,halibty01,True,
+2023,holidjr01,True,All-Defense 1st Team
+2023,irvinky01,True,
+2023,iveyja01,False,All-Rookie 2nd Team
+2023,jacksja02,True,All-Defense 1st Team|Defensive Player of the Year
+2023,jamesle01,True,All-NBA 3rd Team
+2023,jokicni01,True,All-NBA 2nd Team
+2023,kesslwa01,False,All-Rookie 1st Team
+2023,lillada01,True,All-NBA 3rd Team
+2023,lopezbr01,False,All-Defense 1st Team
+2023,markkla01,True,Most Improved Player
+2023,mathube01,False,All-Rookie 1st Team
+2023,mitchdo01,True,All-NBA 2nd Team
+2023,mobleev01,False,All-Defense 1st Team
+2023,moranja01,True,
+2023,murrake02,False,All-Rookie 1st Team
+2023,randlju01,True,All-NBA 3rd Team
+2023,sabondo01,True,All-NBA 3rd Team
+2023,siakapa01,True,
+2023,smithja05,False,All-Rookie 2nd Team
+2023,sochaje01,False,All-Rookie 2nd Team
+2023,tatumja01,True,All-NBA 1st Team
+2023,whitede01,False,All-Defense 2nd Team
+2023,willija06,False,All-Rookie 1st Team
+2023,willizi01,True,
+2024,adebaba01,True,All-Defense 1st Team
+2024,antetgi01,True,All-NBA 1st Team
+2024,banchpa01,True,
+2024,barnesc01,True,
+2024,bookede01,True,All-NBA 3rd Team
+2024,brownja02,True,
+2024,brunsja01,True,All-NBA 2nd Team
+2024,carusal01,False,All-Defense 2nd Team
+2024,curryst01,True,All-NBA 3rd Team|Clutch Player of the Year
+2024,davisan02,True,All-Defense 1st Team|All-NBA 2nd Team
+2024,doncilu01,True,All-NBA 1st Team
+2024,duranke01,True,All-NBA 2nd Team
+2024,edwaran01,True,All-NBA 2nd Team
+2024,embiijo01,True,
+2024,georgke01,False,All-Rookie 2nd Team
+2024,georgpa01,True,
+2024,gilgesh01,True,All-NBA 1st Team
+2024,goberru01,False,All-Defense 1st Team|Defensive Player of the Year
+2024,halibty01,True,All-NBA 3rd Team
+2024,holidjr01,False,All-Defense 2nd Team
+2024,holmgch01,False,All-Rookie 1st Team
+2024,jacksgg01,False,All-Rookie 2nd Team
+2024,jamesle01,True,All-NBA 3rd Team
+2024,jaqueja01,False,All-Rookie 1st Team
+2024,jokicni01,True,All-NBA 1st Team|NBA MVP
+2024,joneshe01,False,All-Defense 1st Team
+2024,leonaka01,True,All-NBA 2nd Team
+2024,lillada01,True,
+2024,livelde01,False,All-Rookie 2nd Team
+2024,maxeyty01,True,Most Improved Player
+2024,mcdanja02,False,All-Defense 2nd Team
+2024,millebr02,False,All-Rookie 1st Team
+2024,mitchdo01,True,
+2024,podzibr01,False,All-Rookie 1st Team
+2024,randlju01,True,
+2024,reidna01,False,Sixth Man of the Year
+2024,sabondo01,False,All-NBA 3rd Team
+2024,suggsja01,False,All-Defense 2nd Team
+2024,tatumja01,True,All-NBA 1st Team
+2024,thompam01,False,All-Rookie 2nd Team
+2024,townska01,True,
+2024,wallaca01,False,All-Rookie 2nd Team
+2024,wembavi01,False,All-Defense 1st Team|All-Rookie 1st Team|Rookie of the Year
+2024,whitede01,False,All-Defense 2nd Team
+2024,youngtr01,True,
+2025,antetgi01,True,
+2025,brownja02,True,
+2025,brunsja01,True,Clutch Player of the Year
+2025,castlst01,False,Rookie of the Year
+2025,cunnica01,True,
+2025,curryst01,True,
+2025,daniedy01,False,Most Improved Player
+2025,davisan02,True,
+2025,duranke01,True,
+2025,edwaran01,True,
+2025,garlada01,True,
+2025,gilgesh01,True,NBA MVP
+2025,hardeja01,True,
+2025,herroty01,True,
+2025,irvinky01,True,
+2025,jacksja02,True,
+2025,jamesle01,True,
+2025,jokicni01,True,
+2025,lillada01,True,
+2025,mitchdo01,True,
+2025,mobleev01,True,Defensive Player of the Year
+2025,pritcpa01,False,Sixth Man of the Year
+2025,sengual01,True,
+2025,siakapa01,True,
+2025,tatumja01,True,
+2025,townska01,True,
+2025,wembavi01,True,
+2025,willija06,True,
+2025,youngtr01,True,

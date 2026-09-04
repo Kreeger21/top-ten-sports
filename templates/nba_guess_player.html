@@ -26,6 +26,13 @@
     {% for stat in career.totals %}<article><span>{{ stat.label }}</span><strong>{{ "{:,}".format(stat.value) if stat.value is not none else "—" }}</strong></article>{% endfor %}
   </section>
 
+  <section class="card career-accolades" aria-label="Career accolades">
+    <div><p class="eyebrow">Awards and honors</p><h2>Career Accolades</h2></div>
+    <div class="accolade-list">
+      {% for accolade in career.accolades %}<span><strong>{{ accolade.count }}×</strong> {{ accolade.label }}</span>{% else %}<span>No major recorded accolades</span>{% endfor %}
+    </div>
+  </section>
+
   <section class="card guess-card player-guess-controls">
     {% if not finished %}
     <form method="post" class="guess-form">
@@ -47,7 +54,7 @@
   <section class="table-card career-history-card">
     <div class="table-heading"><div><p class="eyebrow">Season by season</p><h2>Career History</h2></div></div>
     <div class="table-scroll"><table><thead><tr><th>Season</th><th>Team</th>{% for column, label in stat_columns %}<th>{{ label }}</th>{% endfor %}</tr></thead>
-      <tbody>{% for row in career.history %}<tr><td>{{ row.season }}</td><td><strong>{{ row.teams }}</strong></td>{% for column, label in stat_columns %}<td>{{ "{:,}".format(row[column]) if row[column] is not none else "—" }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+      <tbody>{% for row in career.history %}<tr><td>{{ row.season }}{% if row.all_star %}<span class="all-star-badge" title="Selected for the All-Star Game">★ All-Star</span>{% endif %}</td><td><strong>{{ row.teams }}</strong></td>{% for column, label in stat_columns %}<td>{{ "{:,}".format(row[column]) if row[column] is not none else "—" }}</td>{% endfor %}</tr>{% endfor %}</tbody>
     </table></div>
   </section>
 </main>
