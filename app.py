@@ -19,6 +19,7 @@ import cfb_field_service
 import cfb_defense_service
 import team_logo_game_service
 import nba_player_game_service
+import career_game_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -111,7 +112,7 @@ def _sport_home(sport_key):
                            nba_court_endpoint="nba_fill_court" if sport_key == "nba" else None,
                            cfb_field_endpoint="cfb_fill_field" if sport_key == "cfb" else None,
                            team_logo_endpoint=f"{sport_key}_guess_team" if sport_key in {"nfl", "nba"} else None,
-                           player_game_endpoint="nba_guess_player" if sport_key == "nba" else None)
+                           player_game_endpoint=f"{sport_key}_guess_player")
 
 
 def _nba_guess_player():
@@ -173,6 +174,70 @@ def _nba_career_player_search():
         target = starts if normalized.startswith(query) or any(
             part.startswith(query) for part in normalized.split()
         ) else contains if query in normalized else None
+        if target is not None:
+            target.append(player)
+    return jsonify((starts + contains)[:8])
+
+
+def _career_guess_player(sport):
+    choices = career_game_service.player_choices(sport)
+    choice_ids = {player["id"] for player in choices}
+    prefix = f"{sport}_career_player"
+    if request.args.get("new") == "1":
+        previous = session.get(f"{prefix}_target")
+        candidates = [player["id"] for player in choices if player["id"] != previous] or list(choice_ids)
+        session[f"{prefix}_target"] = random.choice(candidates)
+        for suffix in ("guesses", "finished", "forfeited"):
+            session.pop(f"{prefix}_{suffix}", None)
+        return redirect(url_for(f"{sport}_guess_player"))
+    target_id = session.get(f"{prefix}_target")
+    if target_id not in choice_ids:
+        target_id = random.choice(tuple(choice_ids))
+        session[f"{prefix}_target"] = target_id
+    guesses = session.get(f"{prefix}_guesses", [])
+    finished = session.get(f"{prefix}_finished", False)
+    forfeited = session.get(f"{prefix}_forfeited", False)
+    message = message_type = None
+    player_names = {player["id"]: player["name"] for player in choices}
+    if request.method == "POST" and not finished:
+        if request.form.get("action") == "forfeit":
+            finished = forfeited = True
+            session[f"{prefix}_finished"] = session[f"{prefix}_forfeited"] = True
+            message, message_type = f'The player was {player_names[target_id]}.', "error"
+        else:
+            guess = request.form.get("player_id", "")
+            if guess not in choice_ids:
+                typed = _normalized_name(request.form.get("player_name", ""))
+                matches = [player["id"] for player in choices if _normalized_name(player["name"]) == typed]
+                guess = matches[0] if len(matches) == 1 else ""
+            if guess in choice_ids and guess not in guesses:
+                guesses.append(guess)
+                session[f"{prefix}_guesses"] = guesses
+            if guess == target_id:
+                finished = True
+                session[f"{prefix}_finished"] = True
+                message, message_type = f'Correct — it is {player_names[target_id]}!', "success"
+            else:
+                message, message_type = "That is not the player. Follow the career trail and try again.", "error"
+    career = career_game_service.career(sport, target_id)
+    return render_template(
+        "career_guess_player.html", sport_name=SPORTS[sport]["name"],
+        career=career, choices=choices,
+        player_names=player_names, guesses=guesses, finished=finished, forfeited=forfeited,
+        message=message, message_type=message_type, stat_columns=career["stat_columns"],
+        home_endpoint=f"{sport}_home", game_endpoint=f"{sport}_guess_player",
+        search_endpoint=f"{sport}_career_player_search",
+    )
+
+
+def _career_player_search(sport):
+    query = _normalized_name(request.args.get("q", ""))
+    if len(query) < 2:
+        return jsonify([])
+    starts, contains = [], []
+    for player in career_game_service.player_choices(sport):
+        normalized = _normalized_name(player["name"])
+        target = starts if normalized.startswith(query) or any(part.startswith(query) for part in normalized.split()) else contains if query in normalized else None
         if target is not None:
             target.append(player)
     return jsonify((starts + contains)[:8])
@@ -807,6 +872,10 @@ def mlb_player_search(): return _player_search("mlb")
 def mlb_awards(): return _award_game("mlb")
 @app.route("/mlb/war-diamond", methods=["GET", "POST"])
 def mlb_diamond(): return _war_diamond()
+@app.route("/mlb/guess-the-player", methods=["GET", "POST"])
+def mlb_guess_player(): return _career_guess_player("mlb")
+@app.route("/mlb/api/career-player-search")
+def mlb_career_player_search(): return _career_player_search("mlb")
 @app.route("/nfl")
 def nfl_home(): return _sport_home("nfl")
 @app.route("/nfl/leaderboard")
@@ -827,6 +896,10 @@ def nfl_fill_field(): return _nfl_fill_field()
 def nfl_defense_field(): return _nfl_defense_field()
 @app.route("/nfl/guess-the-team", methods=["GET", "POST"])
 def nfl_guess_team(): return _guess_team("nfl")
+@app.route("/nfl/guess-the-player", methods=["GET", "POST"])
+def nfl_guess_player(): return _career_guess_player("nfl")
+@app.route("/nfl/api/career-player-search")
+def nfl_career_player_search(): return _career_player_search("nfl")
 @app.route("/nba")
 def nba_home(): return _sport_home("nba")
 @app.route("/nba/leaderboard")
@@ -867,6 +940,10 @@ def cfb_awards(): return _award_game("cfb")
 def cfb_fill_field(): return _cfb_fill_field()
 @app.route("/college-football/fill-the-field/defense", methods=["GET", "POST"])
 def cfb_defense_field(): return _cfb_defense_field()
+@app.route("/college-football/guess-the-player", methods=["GET", "POST"])
+def cfb_guess_player(): return _career_guess_player("cfb")
+@app.route("/college-football/api/career-player-search")
+def cfb_career_player_search(): return _career_player_search("cfb")
 
 if __name__ == "__main__":
     app.run(

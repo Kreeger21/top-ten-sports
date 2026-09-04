@@ -632,6 +632,28 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Player revealed", response.data)
         self.assertIn(b"LeBron James", response.data)
 
+    def test_other_sports_home_pages_link_to_guess_player(self):
+        for path, endpoint in (("/mlb", b"/mlb/guess-the-player"), ("/nfl", b"/nfl/guess-the-player"),
+                               ("/college-football", b"/college-football/guess-the-player")):
+            response = app.test_client().get(path)
+            self.assertIn(b"Guess the Player", response.data)
+            self.assertIn(endpoint, response.data)
+
+    def test_mlb_nfl_and_cfb_guess_player_games_render(self):
+        client = app.test_client()
+        for path in ("/mlb/guess-the-player", "/nfl/guess-the-player", "/college-football/guess-the-player"):
+            response = client.get(path)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(b"Career History", response.data)
+            self.assertIn(b"Mystery player", response.data)
+
+    def test_other_sport_player_searches_filter_after_two_letters(self):
+        client = app.test_client()
+        self.assertEqual(client.get("/nfl/api/career-player-search?q=T").json, [])
+        self.assertTrue(client.get("/nfl/api/career-player-search?q=Tom").json)
+        self.assertTrue(client.get("/mlb/api/career-player-search?q=Aar").json)
+        self.assertTrue(client.get("/college-football/api/career-player-search?q=Bry").json)
+
     def test_nba_fill_court_has_one_stat_control(self):
         response = app.test_client().get("/nba/fill-the-court?team=BOS&stat=ast")
         self.assertEqual(response.status_code, 200)
