@@ -306,7 +306,7 @@ body.theme-mlb .diamond-card::before {
   border: 5px solid rgba(244,234,210,.7);
 }
 body.theme-mlb .path-card:nth-child(2) {
-  background: linear-gradient(145deg, #12345f, #061a38 66%, #260a18);
+  background: linear-gradient(145deg, #8e1236, #520b24 66%, #260a18);
 }
 body.theme-mlb .path-card:nth-child(2)::before {
   background: linear-gradient(110deg, transparent 0 67%, rgba(191,13,62,.15) 67.5% 68.5%, transparent 69%), radial-gradient(circle at 100% 0%, rgba(255,255,255,.07), transparent 48%);
