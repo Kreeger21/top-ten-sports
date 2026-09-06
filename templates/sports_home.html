@@ -9,27 +9,31 @@
 <body class="main-menu">
   <main class="page-shell home-shell">
     <header class="hero home-hero">
-      <p class="eyebrow">Choose your league</p>
+      <p class="eyebrow">Founders UI · Choose your league</p>
       <h1>Top Ten Sports</h1>
       <p class="intro">Explore the leaders, discover a random season, or test your sports knowledge.</p>
     </header>
     <section class="league-grid" aria-label="Choose a sports league">
       <a class="league-card mlb-card" href="{{ url_for('mlb_home') }}">
+        <span class="league-logo" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/><path d="M28 24c15 14 15 38 0 52M72 24C57 38 57 62 72 76"/><path class="stitches" d="m31 33-8 2m11 7-8 3m9 7-8 3m8 7-8 3m42-32 8 2m-11 7 8 3m-9 7 8 3m-8 7 8 3"/></svg></span>
         <span class="league-mark">MLB</span>
         <div><p class="eyebrow">Baseball</p><h2>MLB Top Ten</h2><p>Explore more than a century of hitting and pitching leaders.</p></div>
         <span class="path-arrow" aria-hidden="true">→</span>
       </a>
       <a class="league-card nfl-card" href="{{ url_for('nfl_home') }}">
+        <span class="league-logo" aria-hidden="true"><svg viewBox="0 0 120 80"><path d="M12 40C28 9 80 4 108 31 89 65 39 75 12 40Z"/><path d="M38 54 82 24M52 48l-7-9m17 2-7-9m17 2-7-9"/></svg></span>
         <span class="league-mark">NFL</span>
         <div><p class="eyebrow">Football</p><h2>NFL Top Ten</h2><p>Rank passing, rushing, receiving, and fantasy performances.</p></div>
         <span class="path-arrow" aria-hidden="true">→</span>
       </a>
       <a class="league-card nba-card" href="{{ url_for('nba_home') }}">
+        <span class="league-logo" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/><path d="M14 50h72M50 14c-18 16-18 56 0 72M50 14c18 16 18 56 0 72M24 24c14 11 38 11 52 0M24 76c14-11 38-11 52 0"/></svg></span>
         <span class="league-mark">NBA</span>
         <div><p class="eyebrow">Basketball</p><h2>NBA Top Ten</h2><p>Rank scoring, rebounding, playmaking, and defensive leaders.</p></div>
         <span class="path-arrow" aria-hidden="true">→</span>
       </a>
       <a class="league-card cfb-card" href="{{ url_for('cfb_home') }}">
+        <span class="league-logo" aria-hidden="true"><svg viewBox="0 0 120 100"><path d="M12 18h62v48H12Z"/><path d="M74 18 108 34 74 50M26 82V18"/><path class="laces" d="M42 42h25m-17-8v16m9-16v16"/></svg></span>
         <span class="league-mark">CFB</span>
         <div><p class="eyebrow">College Football</p><h2>FBS Top Ten</h2><p>Explore leaders from every Division I FBS team and conference.</p></div>
         <span class="path-arrow" aria-hidden="true">→</span>
