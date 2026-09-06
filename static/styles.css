@@ -20,6 +20,41 @@ body {
     linear-gradient(145deg, #07111b 0%, #0b1e2c 55%, #102b38 100%);
 }
 
+/* League identities: Yankees, Falcons, Knicks, and Mississippi State. */
+body.theme-mlb {
+  --accent: #c4ced4;
+  --accent-dark: #0c2340;
+  --panel: rgba(12, 35, 64, .92);
+  --line: rgba(196, 206, 212, .2);
+  background: radial-gradient(circle at 15% 0%, rgba(196, 206, 212, .22), transparent 36rem), linear-gradient(145deg, #050d18 0%, #0c2340 58%, #132f4c 100%);
+}
+body.theme-nfl {
+  --accent: #e03a3e;
+  --accent-dark: #090909;
+  --panel: rgba(18, 18, 18, .93);
+  --line: rgba(167, 25, 48, .3);
+  background: radial-gradient(circle at 15% 0%, rgba(167, 25, 48, .42), transparent 36rem), linear-gradient(145deg, #050505 0%, #151515 55%, #28080e 100%);
+}
+body.theme-nba {
+  --accent: #f58426;
+  --accent-dark: #071b3f;
+  --panel: rgba(0, 43, 92, .93);
+  --line: rgba(245, 132, 38, .25);
+  background: radial-gradient(circle at 15% 0%, rgba(245, 132, 38, .35), transparent 36rem), linear-gradient(145deg, #06152f 0%, #002b5c 58%, #071f45 100%);
+}
+body.theme-cfb {
+  --accent: #ffffff;
+  --accent-dark: #5d1725;
+  --panel: rgba(93, 23, 37, .93);
+  --line: rgba(255, 255, 255, .22);
+  background: radial-gradient(circle at 15% 0%, rgba(255, 255, 255, .16), transparent 36rem), linear-gradient(145deg, #240910 0%, #5d1725 58%, #3d0f19 100%);
+}
+
+body.theme-mlb input, body.theme-mlb select, body.theme-mlb .locked-option, body.theme-mlb .check-menu summary, body.theme-mlb .check-menu-options, body.theme-mlb .war-mode-option span { background: #081a2d; }
+body.theme-nfl input, body.theme-nfl select, body.theme-nfl .locked-option, body.theme-nfl .check-menu summary, body.theme-nfl .check-menu-options, body.theme-nfl .war-mode-option span { background: #0b0b0b; }
+body.theme-nba input, body.theme-nba select, body.theme-nba .locked-option, body.theme-nba .check-menu summary, body.theme-nba .check-menu-options, body.theme-nba .war-mode-option span { background: #061d3b; }
+body.theme-cfb input, body.theme-cfb select, body.theme-cfb .locked-option, body.theme-cfb .check-menu summary, body.theme-cfb .check-menu-options, body.theme-cfb .war-mode-option span { background: #300c14; }
+
 .page-shell { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 64px 0; }
 .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
 .top-nav a { color: var(--muted); font-size: .85rem; font-weight: 750; text-decoration: none; }

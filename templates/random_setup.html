@@ -6,7 +6,7 @@
   <title>Quiz Your Friends · {{ sport_name }} Top Ten</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body><main class="page-shell">
+<body class="{{ theme_class }}"><main class="page-shell">
   <nav class="top-nav"><a href="{{ url_for(home_endpoint) }}">← {{ sport_name }} Home</a></nav>
   <header class="hero"><p class="eyebrow">Set the boundaries</p><h1>Quiz Your Friends</h1><p class="intro">Choose the years, categories, and statistics that can appear. We’ll randomly select one valid combination.</p></header>
   <section class="card random-setup-card">

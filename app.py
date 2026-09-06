@@ -31,6 +31,18 @@ app.config.update(
 )
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "top-ten-sports-local-development")
 
+
+@app.context_processor
+def league_theme():
+    """Give every sport route a consistent, league-specific visual identity."""
+    path = request.path
+    if path.startswith("/college-football"):
+        return {"theme_class": "theme-cfb"}
+    for sport_key in ("mlb", "nfl", "nba"):
+        if path.startswith(f"/{sport_key}"):
+            return {"theme_class": f"theme-{sport_key}"}
+    return {"theme_class": ""}
+
 SPORTS = {
     "mlb": {"name": "MLB", "service": mlb_service, "min": 1901, "max": lambda: date.today().year},
     "nfl": {"name": "NFL", "service": nfl_service, "min": nfl_service.MIN_SEASON, "max": lambda: nfl_service.MAX_SEASON},

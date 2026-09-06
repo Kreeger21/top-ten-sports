@@ -6,7 +6,7 @@
   <title>{{ sport_name }} Top Ten</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+<body class="{{ theme_class }}">
   <main class="page-shell home-shell">
     <header class="hero home-hero">
       <nav class="top-nav"><a href="{{ url_for('home') }}">← All sports</a></nav>
