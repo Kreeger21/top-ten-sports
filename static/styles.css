@@ -211,19 +211,20 @@ body.main-menu .league-card > * { position: relative; z-index: 1; }
 body.main-menu .league-logo {
   position: absolute;
   z-index: 2;
-  top: 24px;
-  left: 26px;
+  top: 20px;
+  right: 24px;
   display: grid;
-  width: 92px;
-  height: 92px;
+  width: 150px;
+  height: 120px;
   place-items: center;
-  border: 2px solid color-mix(in srgb, var(--league-accent) 55%, transparent);
-  border-radius: 24px;
-  background: rgba(0, 0, 0, .22);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 12px 28px rgba(0,0,0,.2);
 }
-body.main-menu .league-logo img { width: 72px; height: 72px; object-fit: contain; filter: drop-shadow(0 5px 8px rgba(0,0,0,.32)); }
-body.main-menu .league-mark { top: 22px; right: 25px; left: auto; font-size: clamp(4.7rem, 9vw, 7rem); }
+body.main-menu .league-logo img {
+  width: 132px;
+  height: 108px;
+  object-fit: contain;
+  filter: drop-shadow(1px 0 rgba(255,255,255,.48)) drop-shadow(-1px 0 rgba(255,255,255,.48)) drop-shadow(0 1px rgba(255,255,255,.48)) drop-shadow(0 -1px rgba(255,255,255,.48)) drop-shadow(0 8px 12px rgba(0,0,0,.38));
+}
+body.main-menu .league-mark { top: 22px; right: auto; left: 25px; font-size: clamp(4.7rem, 9vw, 7rem); }
 body.main-menu .league-card .eyebrow,
 body.main-menu .league-card .path-arrow { color: var(--league-accent); }
 body.main-menu .league-card:hover {
@@ -249,6 +250,11 @@ body.main-menu .cfb-card {
   --league-accent: #ffffff;
   border-color: rgba(255, 255, 255, .34);
   background: linear-gradient(145deg, #8c3545, #5d1725 55%, #280912);
+}
+@media(max-width:650px) {
+  body.main-menu .league-logo { right: 18px; width: 120px; height: 102px; }
+  body.main-menu .league-logo img { width: 108px; height: 90px; }
+  body.main-menu .league-mark { left: 20px; font-size: 4.2rem; }
 }
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
