@@ -24,12 +24,12 @@ body {
 body.theme-mlb {
   --accent: #e0473e;
   --accent-dark: #ffffff;
-  --panel: rgba(15, 43, 35, .94);
+  --panel: rgba(8, 20, 17, .95);
   --line: rgba(239, 226, 194, .22);
   --choice-deep: #0c2b22;
   --choice-bright: #1d6344;
   --choice-soft: #8a4b2d;
-  background: radial-gradient(circle at 12% 2%, rgba(239,226,194,.18), transparent 28rem), repeating-radial-gradient(ellipse at 100% 0%, transparent 0 84px, rgba(224,71,62,.12) 86px 89px, transparent 91px 116px), linear-gradient(145deg, #071b15 0%, #124b34 58%, #0a281f 100%);
+  background: radial-gradient(circle at 12% 2%, rgba(29,99,68,.2), transparent 30rem), repeating-radial-gradient(ellipse at 100% 0%, transparent 0 84px, rgba(224,71,62,.1) 86px 89px, transparent 91px 116px), linear-gradient(145deg, #020706 0%, #081510 56%, #0b2018 100%);
 }
 body.theme-nfl {
   --accent: #f4c542;
@@ -62,7 +62,7 @@ body.theme-cfb {
   background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(255,255,255,.05) calc(10% - 2px) 10%), radial-gradient(circle at 15% 0%, rgba(216,180,90,.24), transparent 32rem), linear-gradient(145deg, #200711 0%, #651a30 58%, #310c19 100%);
 }
 
-body.theme-mlb input, body.theme-mlb select, body.theme-mlb .locked-option, body.theme-mlb .check-menu summary, body.theme-mlb .check-menu-options, body.theme-mlb .war-mode-option span { background: #09271e; }
+body.theme-mlb input, body.theme-mlb select, body.theme-mlb .locked-option, body.theme-mlb .check-menu summary, body.theme-mlb .check-menu-options, body.theme-mlb .war-mode-option span { background: #050e0c; }
 body.theme-nfl input, body.theme-nfl select, body.theme-nfl .locked-option, body.theme-nfl .check-menu summary, body.theme-nfl .check-menu-options, body.theme-nfl .war-mode-option span { background: #0d2819; }
 body.theme-nba input, body.theme-nba select, body.theme-nba .locked-option, body.theme-nba .check-menu summary, body.theme-nba .check-menu-options, body.theme-nba .war-mode-option span { background: #2a170d; }
 body.theme-cfb input, body.theme-cfb select, body.theme-cfb .locked-option, body.theme-cfb .check-menu summary, body.theme-cfb .check-menu-options, body.theme-cfb .war-mode-option span { background: #310c18; }
