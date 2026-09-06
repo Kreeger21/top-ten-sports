@@ -325,7 +325,7 @@ body.theme-mlb .quiz-friends-icon svg { width: 100%; height: 100%; overflow: vis
 body.theme-mlb .quiz-friends-icon .quiz-head,
 body.theme-mlb .quiz-friends-icon .quiz-body { fill: rgba(255,255,255,.1); stroke: #fff; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
 body.theme-mlb .quiz-friends-icon .friend { stroke: #c9d5e5; }
-body.theme-mlb .quiz-friends-icon .quiz-bubble { fill: #4f79a7; stroke: #fff; stroke-width: 3; stroke-linejoin: round; }
+body.theme-mlb .quiz-friends-icon .quiz-bubble { fill: #123f75; stroke: #fff; stroke-width: 3; stroke-linejoin: round; }
 body.theme-mlb .quiz-friends-icon text { fill: #fff; font: 950 30px/1 Inter, sans-serif; text-anchor: middle; }
 body.theme-mlb .path-card:nth-child(3)::before {
   background: repeating-linear-gradient(0deg, transparent 0 31px, rgba(244,234,210,.2) 32px 33px), repeating-linear-gradient(90deg, transparent 0 62px, rgba(244,234,210,.16) 63px 64px);
