@@ -262,17 +262,17 @@ body.main-menu .cfb-card {
 body.theme-mlb .home-hero {
   position: relative;
   min-height: 210px;
-  padding-right: 190px;
+  padding-right: 300px;
 }
 body.theme-mlb .home-hero::after {
   content: none;
 }
 body.theme-mlb .sport-hero-logo {
   position: absolute;
-  top: 42px;
-  right: 20px;
-  width: clamp(140px, 18vw, 190px);
-  height: 130px;
+  top: 22px;
+  right: 10px;
+  width: clamp(220px, 27vw, 300px);
+  height: 190px;
   object-fit: contain;
   filter: drop-shadow(1px 0 rgba(255,255,255,.35)) drop-shadow(-1px 0 rgba(255,255,255,.35)) drop-shadow(0 12px 20px rgba(0,0,0,.38));
 }
@@ -327,7 +327,7 @@ body.theme-mlb .player-career-game-card::before {
 }
 @media(max-width:650px) {
   body.theme-mlb .home-hero { min-height: 0; padding-right: 0; padding-top: 120px; }
-  body.theme-mlb .sport-hero-logo { top: 0; right: 50%; width: 140px; height: 100px; transform: translateX(50%); }
+  body.theme-mlb .sport-hero-logo { top: 0; right: 50%; width: 180px; height: 110px; transform: translateX(50%); }
   body.theme-mlb .path-card::after { font-size: 2.9rem; }
 }
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
