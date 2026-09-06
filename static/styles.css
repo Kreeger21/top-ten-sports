@@ -186,6 +186,42 @@ body[class*="theme-"] .path-number {
 .nfl-card { background: linear-gradient(145deg, #4a251d, #171319); }
 .nba-card { background: linear-gradient(145deg, #6b3516, #201712); }
 .cfb-card { background: linear-gradient(145deg, #314523, #111c16); }
+
+/* Main menu: maroon canvas with a preview of each league's full colorway. */
+body.main-menu {
+  --accent: #ffffff;
+  --accent-dark: #5d1725;
+  --panel: rgba(65, 13, 24, .92);
+  --line: rgba(255, 255, 255, .18);
+  background: radial-gradient(circle at 15% 0%, rgba(255, 255, 255, .14), transparent 36rem), linear-gradient(145deg, #260811 0%, #5d1725 58%, #3a0d17 100%);
+}
+body.main-menu .league-card { border-width: 2px; }
+body.main-menu .league-card .eyebrow,
+body.main-menu .league-card .path-arrow { color: var(--league-accent); }
+body.main-menu .league-card:hover {
+  border-color: var(--league-accent);
+  box-shadow: 0 28px 78px rgba(0, 0, 0, .42), 0 0 0 2px color-mix(in srgb, var(--league-accent) 20%, transparent);
+}
+body.main-menu .mlb-card {
+  --league-accent: #c4ced4;
+  border-color: rgba(196, 206, 212, .38);
+  background: linear-gradient(145deg, #173b61, #0c2340 72%);
+}
+body.main-menu .nfl-card {
+  --league-accent: #e03a3e;
+  border-color: rgba(224, 58, 62, .42);
+  background: linear-gradient(145deg, #a71930, #090909 72%);
+}
+body.main-menu .nba-card {
+  --league-accent: #f58426;
+  border-color: rgba(245, 132, 38, .45);
+  background: linear-gradient(145deg, #0057b8, #002b5c 66%, #7d370d);
+}
+body.main-menu .cfb-card {
+  --league-accent: #ffffff;
+  border-color: rgba(255, 255, 255, .34);
+  background: linear-gradient(145deg, #8c3545, #5d1725 55%, #280912);
+}
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
 .league-card:hover { transform: translateY(-5px); border-color: var(--accent); }
