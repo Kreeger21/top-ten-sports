@@ -29,6 +29,7 @@
 
       <a class="path-card surprise-card" href="{{ url_for(random_endpoint) }}">
         <span class="path-number">02</span>
+        {% if sport_name == 'MLB' %}<span class="quiz-friends-icon" aria-hidden="true"><svg viewBox="0 0 120 105"><circle class="quiz-head host" cx="38" cy="35" r="13"></circle><path class="quiz-body host" d="M14 88c2-22 10-34 24-34s22 12 24 34"></path><circle class="quiz-head friend" cx="86" cy="47" r="11"></circle><path class="quiz-body friend" d="M67 90c2-18 8-28 19-28s18 10 20 28"></path><path class="quiz-bubble" d="M62 8h42c7 0 11 4 11 10v20c0 7-4 10-11 10H89l-10 11 2-11H62c-7 0-11-3-11-10V18c0-6 4-10 11-10Z"></path><text x="83" y="39">?</text></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Roll the dice</p>
           <h2>Quiz Your Friends</h2>

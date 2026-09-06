@@ -306,11 +306,27 @@ body.theme-mlb .diamond-card::before {
   border: 5px solid rgba(244,234,210,.7);
 }
 body.theme-mlb .path-card:nth-child(2) {
-  background: radial-gradient(circle at 82% 28%, #f7f7f5 0 64px, transparent 66px), linear-gradient(145deg, #8e1236, #3b0718 74%);
+  background: linear-gradient(145deg, #12345f, #061a38 66%, #260a18);
 }
 body.theme-mlb .path-card:nth-child(2)::before {
-  background: repeating-radial-gradient(ellipse at 82% 28%, transparent 0 46px, rgba(224,71,62,.9) 48px 51px, transparent 53px 65px);
+  background: linear-gradient(110deg, transparent 0 67%, rgba(191,13,62,.15) 67.5% 68.5%, transparent 69%), radial-gradient(circle at 100% 0%, rgba(255,255,255,.07), transparent 48%);
 }
+body.theme-mlb .surprise-card::after { content: none; }
+body.theme-mlb .quiz-friends-icon {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 22px;
+  width: 112px;
+  height: 102px;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.34));
+}
+body.theme-mlb .quiz-friends-icon svg { width: 100%; height: 100%; overflow: visible; }
+body.theme-mlb .quiz-friends-icon .quiz-head,
+body.theme-mlb .quiz-friends-icon .quiz-body { fill: rgba(255,255,255,.1); stroke: #fff; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+body.theme-mlb .quiz-friends-icon .friend { stroke: #c9d5e5; }
+body.theme-mlb .quiz-friends-icon .quiz-bubble { fill: #bf0d3e; stroke: #fff; stroke-width: 3; stroke-linejoin: round; }
+body.theme-mlb .quiz-friends-icon text { fill: #fff; font: 950 30px/1 Inter, sans-serif; text-anchor: middle; }
 body.theme-mlb .path-card:nth-child(3)::before {
   background: repeating-linear-gradient(0deg, transparent 0 31px, rgba(244,234,210,.2) 32px 33px), repeating-linear-gradient(90deg, transparent 0 62px, rgba(244,234,210,.16) 63px 64px);
 }
