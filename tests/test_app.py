@@ -642,12 +642,16 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b">Easy</strong>", response.data)
         self.assertIn(b"10+ seasons", response.data)
 
-    def test_nba_player_search_respects_difficulty(self):
+    def test_nba_player_search_shows_all_players_at_every_difficulty(self):
         client = app.test_client()
         hard = client.get("/nba/api/career-player-search?difficulty=hard&q=Victor+Wemb").json
         easy = client.get("/nba/api/career-player-search?difficulty=easy&q=Victor+Wemb").json
         self.assertTrue(hard)
-        self.assertEqual(easy, [])
+        self.assertEqual(easy, hard)
+
+    def test_nba_player_search_is_not_limited_to_eight_matches(self):
+        matches = app.test_client().get("/nba/api/career-player-search?q=Jo").json
+        self.assertGreater(len(matches), 8)
 
     def test_nba_guess_player_forfeit_reveals_player(self):
         client = app.test_client()

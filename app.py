@@ -138,24 +138,26 @@ def _nba_guess_player():
             session.pop(key, None)
     else:
         session["nba_player_difficulty"] = difficulty
-    choices = nba_player_game_service.player_choices(difficulty)
-    choice_ids = {player["id"] for player in choices}
+    target_choices = nba_player_game_service.player_choices(difficulty)
+    guess_choices = nba_player_game_service.player_choices("hard")
+    target_ids = {player["id"] for player in target_choices}
+    guess_ids = {player["id"] for player in guess_choices}
     if request.args.get("new") == "1":
         previous = session.get("nba_player_target")
-        candidates = [player["id"] for player in choices if player["id"] != previous] or list(choice_ids)
+        candidates = [player["id"] for player in target_choices if player["id"] != previous] or list(target_ids)
         session["nba_player_target"] = random.choice(candidates)
         for key in ("nba_player_guesses", "nba_player_finished", "nba_player_forfeited"):
             session.pop(key, None)
         return redirect(url_for("nba_guess_player", difficulty=difficulty))
     target_id = session.get("nba_player_target")
-    if target_id not in choice_ids:
-        target_id = random.choice(tuple(choice_ids))
+    if target_id not in target_ids:
+        target_id = random.choice(tuple(target_ids))
         session["nba_player_target"] = target_id
     guesses = session.get("nba_player_guesses", [])
     finished = session.get("nba_player_finished", False)
     forfeited = session.get("nba_player_forfeited", False)
     message = message_type = None
-    player_names = {player["id"]: player["name"] for player in choices}
+    player_names = {player["id"]: player["name"] for player in guess_choices}
     if request.method == "POST" and not finished:
         if request.form.get("action") == "forfeit":
             finished = forfeited = True
@@ -164,12 +166,12 @@ def _nba_guess_player():
             message, message_type = f'The player was {player_names[target_id]}.', "error"
         else:
             guess = request.form.get("player_id", "")
-            if guess not in choice_ids:
+            if guess not in guess_ids:
                 typed_name = _normalized_name(request.form.get("player_name", ""))
-                exact_matches = [player["id"] for player in choices
+                exact_matches = [player["id"] for player in guess_choices
                                  if _normalized_name(player["name"]) == typed_name]
                 guess = exact_matches[0] if len(exact_matches) == 1 else ""
-            if guess in choice_ids and guess not in guesses:
+            if guess in guess_ids and guess not in guesses:
                 guesses.append(guess)
                 session["nba_player_guesses"] = guesses
             if guess == target_id:
@@ -180,7 +182,7 @@ def _nba_guess_player():
                 message, message_type = "That is not the player. Follow the career trail and try again.", "error"
     return render_template(
         "nba_guess_player.html", career=nba_player_game_service.career(target_id),
-        players=choices, player_names=player_names, guesses=guesses, finished=finished,
+        players=guess_choices, player_names=player_names, guesses=guesses, finished=finished,
         forfeited=forfeited, message=message, message_type=message_type,
         stat_columns=nba_player_game_service.STAT_COLUMNS,
         difficulty=difficulty, difficulties=nba_player_game_service.DIFFICULTIES,
@@ -189,20 +191,17 @@ def _nba_guess_player():
 
 def _nba_career_player_search():
     query = _normalized_name(request.args.get("q", ""))
-    difficulty = request.args.get("difficulty", "hard")
-    if difficulty not in nba_player_game_service.DIFFICULTIES:
-        difficulty = "hard"
     if len(query) < 2:
         return jsonify([])
     starts, contains = [], []
-    for player in nba_player_game_service.player_choices(difficulty):
+    for player in nba_player_game_service.player_choices("hard"):
         normalized = _normalized_name(player["name"])
         target = starts if normalized.startswith(query) or any(
             part.startswith(query) for part in normalized.split()
         ) else contains if query in normalized else None
         if target is not None:
             target.append(player)
-    return jsonify((starts + contains)[:8])
+    return jsonify(starts + contains)
 
 
 def _career_guess_player(sport):
@@ -391,7 +390,8 @@ def _player_search(sport_key):
         normalized = _normalized_name(name)
         if normalized.startswith(query) or any(part.startswith(query) for part in normalized.split()): starts.append(name)
         elif query in normalized: contains.append(name)
-    return jsonify((starts + contains)[:8])
+    matches = starts + contains
+    return jsonify(matches if sport_key == "nba" else matches[:8])
 
 
 def _challenge(sport_key):
