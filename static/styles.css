@@ -317,9 +317,25 @@ body.theme-mlb .path-card:nth-child(3)::before {
 body.theme-mlb .path-card:nth-child(4) {
   background: linear-gradient(120deg, #79112f, #08254b 72%);
 }
+body.theme-mlb .awards-card::after { content: none; }
 body.theme-mlb .path-card:nth-child(4)::before {
   background: repeating-linear-gradient(100deg, transparent 0 34px, rgba(244,234,210,.14) 35px 37px);
 }
+body.theme-mlb .hall-of-fame-icon {
+  position: absolute;
+  z-index: 2;
+  top: 13px;
+  right: 26px;
+  width: 94px;
+  height: 108px;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.35));
+}
+body.theme-mlb .hall-of-fame-icon svg { width: 100%; height: 100%; overflow: visible; }
+body.theme-mlb .hall-of-fame-icon .hof-plaque { fill: #c79652; stroke: #f7e6bd; stroke-width: 4; }
+body.theme-mlb .hall-of-fame-icon .hof-ball { fill: #f7f7f5; stroke: #041e42; stroke-width: 3; }
+body.theme-mlb .hall-of-fame-icon .hof-stitches { fill: none; stroke: #bf0d3e; stroke-width: 2.5; stroke-linecap: round; }
+body.theme-mlb .hall-of-fame-icon text { fill: #041e42; font: 900 21px/1 Georgia, serif; text-anchor: middle; }
+body.theme-mlb .hall-of-fame-icon .hof-rule { fill: none; stroke: #041e42; stroke-width: 2; }
 body.theme-mlb .diamond-card { background: linear-gradient(145deg, #15477f, #041e42 72%); }
 body.theme-mlb .diamond-card::after { content: none; }
 body.theme-mlb .baseball-field-icon {

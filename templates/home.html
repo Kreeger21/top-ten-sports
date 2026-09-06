@@ -49,6 +49,7 @@
 
       <a class="path-card awards-card" href="{{ url_for(awards_endpoint) }}">
         <span class="path-number">04</span>
+        {% if sport_name == 'MLB' %}<span class="hall-of-fame-icon" aria-hidden="true"><svg viewBox="0 0 100 112"><path class="hof-plaque" d="M16 102V43C16 20 31 8 50 8s34 12 34 35v59Z"></path><circle class="hof-ball" cx="50" cy="38" r="17"></circle><path class="hof-stitches" d="M39 25c8 7 8 19 0 26M61 25c-8 7-8 19 0 26"></path><text x="50" y="82">HOF</text><path class="hof-rule" d="M30 91h40"></path></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Pick a decade</p>
           <h2>Award Winners</h2>
