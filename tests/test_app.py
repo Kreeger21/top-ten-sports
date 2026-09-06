@@ -679,6 +679,24 @@ class LeaderTests(unittest.TestCase):
         self.assertTrue(client.get("/mlb/api/career-player-search?q=Aar").json)
         self.assertTrue(client.get("/college-football/api/career-player-search?q=Bry").json)
 
+    def test_other_guess_player_modes_render_difficulty_choices(self):
+        client = app.test_client()
+        for path in ("/mlb/guess-the-player", "/nfl/guess-the-player", "/college-football/guess-the-player"):
+            response = client.get(path + "?difficulty=medium")
+            self.assertIn(b">Hard</strong>", response.data)
+            self.assertIn(b">Medium</strong>", response.data)
+            self.assertIn(b">Easy</strong>", response.data)
+
+    def test_other_guess_player_difficulty_pools_are_nested(self):
+        from career_game_service import player_choices
+        for sport in ("mlb", "nfl", "cfb"):
+            hard = {player["id"] for player in player_choices(sport, "hard")}
+            medium = {player["id"] for player in player_choices(sport, "medium")}
+            easy = {player["id"] for player in player_choices(sport, "easy")}
+            self.assertGreater(len(hard), len(medium))
+            self.assertGreater(len(medium), len(easy))
+            self.assertTrue(easy <= medium <= hard)
+
     def test_nba_fill_court_has_one_stat_control(self):
         response = app.test_client().get("/nba/fill-the-court?team=BOS&stat=ast")
         self.assertEqual(response.status_code, 200)

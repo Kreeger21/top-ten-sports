@@ -194,16 +194,25 @@ def _nba_career_player_search():
 
 
 def _career_guess_player(sport):
-    choices = career_game_service.player_choices(sport)
-    choice_ids = {player["id"] for player in choices}
     prefix = f"{sport}_career_player"
+    difficulties = career_game_service.DIFFICULTIES[sport]
+    difficulty = request.args.get("difficulty", session.get(f"{prefix}_difficulty", "hard"))
+    if difficulty not in difficulties:
+        difficulty = "hard"
+    stored_difficulty = session.get(f"{prefix}_difficulty")
+    if stored_difficulty is not None and stored_difficulty != difficulty:
+        for suffix in ("target", "guesses", "finished", "forfeited"):
+            session.pop(f"{prefix}_{suffix}", None)
+    session[f"{prefix}_difficulty"] = difficulty
+    choices = career_game_service.player_choices(sport, difficulty)
+    choice_ids = {player["id"] for player in choices}
     if request.args.get("new") == "1":
         previous = session.get(f"{prefix}_target")
         candidates = [player["id"] for player in choices if player["id"] != previous] or list(choice_ids)
         session[f"{prefix}_target"] = random.choice(candidates)
         for suffix in ("guesses", "finished", "forfeited"):
             session.pop(f"{prefix}_{suffix}", None)
-        return redirect(url_for(f"{sport}_guess_player"))
+        return redirect(url_for(f"{sport}_guess_player", difficulty=difficulty))
     target_id = session.get(f"{prefix}_target")
     if target_id not in choice_ids:
         target_id = random.choice(tuple(choice_ids))
@@ -241,15 +250,19 @@ def _career_guess_player(sport):
         message=message, message_type=message_type, stat_columns=career["stat_columns"],
         home_endpoint=f"{sport}_home", game_endpoint=f"{sport}_guess_player",
         search_endpoint=f"{sport}_career_player_search",
+        difficulty=difficulty, difficulties=difficulties,
     )
 
 
 def _career_player_search(sport):
     query = _normalized_name(request.args.get("q", ""))
+    difficulty = request.args.get("difficulty", "hard")
+    if difficulty not in career_game_service.DIFFICULTIES[sport]:
+        difficulty = "hard"
     if len(query) < 2:
         return jsonify([])
     starts, contains = [], []
-    for player in career_game_service.player_choices(sport):
+    for player in career_game_service.player_choices(sport, difficulty):
         normalized = _normalized_name(player["name"])
         target = starts if normalized.startswith(query) or any(part.startswith(query) for part in normalized.split()) else contains if query in normalized else None
         if target is not None:

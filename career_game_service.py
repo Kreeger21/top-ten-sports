@@ -5,6 +5,23 @@ import pandas as pd
 
 
 DATA_DIR = Path(__file__).with_name("data")
+DIFFICULTIES = {
+    "mlb": {
+        "hard": {"label": "Hard", "description": "All eligible careers", "min_seasons": 1},
+        "medium": {"label": "Medium", "description": "10+ seasons", "min_seasons": 10},
+        "easy": {"label": "Easy", "description": "15+ seasons", "min_seasons": 15},
+    },
+    "nfl": {
+        "hard": {"label": "Hard", "description": "All eligible careers", "min_seasons": 1},
+        "medium": {"label": "Medium", "description": "8+ seasons", "min_seasons": 8},
+        "easy": {"label": "Easy", "description": "12+ seasons", "min_seasons": 12},
+    },
+    "cfb": {
+        "hard": {"label": "Hard", "description": "All eligible careers", "min_seasons": 1},
+        "medium": {"label": "Medium", "description": "3+ seasons", "min_seasons": 3},
+        "easy": {"label": "Easy", "description": "4+ seasons", "min_seasons": 4},
+    },
+}
 CONFIG = {
     "mlb": {
         "file": "mlb_career_history.csv", "name": "player", "team": "team", "position": None,
@@ -71,14 +88,15 @@ def _data(sport):
     return data.groupby(["season", "player_id", "player", "team", "position"], as_index=False)[stats].sum()
 
 
-@lru_cache(maxsize=3)
-def player_choices(sport):
+@lru_cache(maxsize=9)
+def player_choices(sport, difficulty="hard"):
     config, data = CONFIG[sport], _data(sport)
+    minimum = DIFFICULTIES[sport].get(difficulty, DIFFICULTIES[sport]["hard"])["min_seasons"]
     stats = [column for column, _ in config["stats"]]
     summary = data.groupby(["player_id", "player"], as_index=False).agg(
         seasons=("season", "nunique"), **{column: (column, "sum") for column in stats},
     )
-    summary = summary.loc[summary.apply(config["eligible"], axis=1)]
+    summary = summary.loc[summary.apply(config["eligible"], axis=1) & (summary["seasons"] >= minimum)]
     summary = summary.sort_values("player", key=lambda values: values.str.casefold())
     return tuple({"id": row.player_id, "name": row.player} for row in summary.itertuples())
 
