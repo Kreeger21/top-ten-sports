@@ -19,7 +19,7 @@
     <section class="path-grid" aria-label="Choose how to create a leaderboard">
       <a class="path-card" href="{{ url_for(leaderboard_endpoint) }}">
         <span class="path-number">01</span>
-        {% if sport_name == 'NFL' %}<span class="football-stats-icon" aria-hidden="true"><svg viewBox="0 0 120 100"><rect class="playbook" x="10" y="10" width="100" height="80" rx="9"></rect><path class="play-lines" d="M28 28h35M28 43h22M28 64c13-15 29-14 42 1m-7-15 8 15-16 2"></path><path class="mini-football" d="M78 24c10-8 23-6 29 2-5 11-17 16-28 10-3-4-3-8-1-12Z"></path><path class="laces" d="m87 31 10-5m-7 1 4 7"></path></svg></span>{% endif %}
+        {% if sport_name in ('NFL', 'College Football') %}<span class="football-stats-icon" aria-hidden="true"><svg viewBox="0 0 120 100"><rect class="playbook" x="10" y="10" width="100" height="80" rx="9"></rect><path class="play-lines" d="M28 28h35M28 43h22M28 64c13-15 29-14 42 1m-7-15 8 15-16 2"></path><path class="mini-football" d="M78 24c10-8 23-6 29 2-5 11-17 16-28 10-3-4-3-8-1-12Z"></path><path class="laces" d="m87 31 10-5m-7 1 4 7"></path></svg></span>{% elif sport_name == 'NBA' %}<span class="basketball-stats-icon" aria-hidden="true"><svg viewBox="0 0 120 100"><rect class="stat-sheet" x="10" y="10" width="100" height="80" rx="9"></rect><path class="stat-lines" d="M26 29h34M26 45h25M26 63h31"></path><circle class="mini-basketball" cx="84" cy="57" r="21"></circle><path class="ball-lines" d="M63 57h42M84 36c-10 9-10 33 0 42M84 36c10 9 10 33 0 42"></path></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Choose your stats</p>
           <h2>Build Your Own</h2>
@@ -30,6 +30,7 @@
 
       <a class="path-card surprise-card" href="{{ url_for(random_endpoint) }}">
         <span class="path-number">02</span>
+        {% if sport_name in ('NBA', 'College Football') %}<span class="quiz-friends-icon" aria-hidden="true"><svg viewBox="0 0 120 105"><circle class="quiz-head host" cx="38" cy="35" r="13"></circle><path class="quiz-body host" d="M14 88c2-22 10-34 24-34s22 12 24 34"></path><circle class="quiz-head friend" cx="86" cy="47" r="11"></circle><path class="quiz-body friend" d="M67 90c2-18 8-28 19-28s18 10 20 28"></path><path class="quiz-bubble" d="M62 8h42c7 0 11 4 11 10v20c0 7-4 10-11 10H89l-10 11 2-11H62c-7 0-11-3-11-10V18c0-6 4-10 11-10Z"></path><text x="83" y="39">?</text></svg></span>{% endif %}
         {% if sport_name in ('MLB', 'NFL') %}<span class="quiz-friends-icon" aria-hidden="true"><svg viewBox="0 0 120 105"><circle class="quiz-head host" cx="38" cy="35" r="13"></circle><path class="quiz-body host" d="M14 88c2-22 10-34 24-34s22 12 24 34"></path><circle class="quiz-head friend" cx="86" cy="47" r="11"></circle><path class="quiz-body friend" d="M67 90c2-18 8-28 19-28s18 10 20 28"></path><path class="quiz-bubble" d="M62 8h42c7 0 11 4 11 10v20c0 7-4 10-11 10H89l-10 11 2-11H62c-7 0-11-3-11-10V18c0-6 4-10 11-10Z"></path><text x="83" y="39">?</text></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Roll the dice</p>
@@ -41,6 +42,7 @@
 
       <a class="path-card challenge-card" href="{{ url_for(new_challenge_endpoint) }}">
         <span class="path-number">03</span>
+        {% if sport_name in ('NBA', 'College Football') %}<span class="top-ten-challenge-icon" aria-hidden="true"><svg viewBox="0 0 110 112"><path class="challenge-shield" d="M55 6 98 21v36c0 24-17 39-43 50C29 96 12 81 12 57V21Z"></path><path class="challenge-stripe" d="M15 31h80v19H15Z"></path><text class="challenge-top" x="55" y="45">TOP</text><text class="challenge-ten" x="55" y="80">10</text><circle class="challenge-ball" cx="88" cy="88" r="16"></circle><text class="challenge-question" x="88" y="96">?</text></svg></span>{% endif %}
         {% if sport_name in ('MLB', 'NFL') %}<span class="top-ten-challenge-icon" aria-hidden="true"><svg viewBox="0 0 110 112"><path class="challenge-shield" d="M55 6 98 21v36c0 24-17 39-43 50C29 96 12 81 12 57V21Z"></path><path class="challenge-stripe" d="M15 31h80v19H15Z"></path><text class="challenge-top" x="55" y="45">TOP</text><text class="challenge-ten" x="55" y="80">10</text><circle class="challenge-ball" cx="88" cy="88" r="16"></circle><text class="challenge-question" x="88" y="96">?</text></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Test your {{ sport_name }} knowledge</p>
@@ -52,6 +54,7 @@
 
       <a class="path-card awards-card" href="{{ url_for(awards_endpoint) }}">
         <span class="path-number">04</span>
+        {% if sport_name in ('NBA', 'College Football') %}<span class="sport-award-icon" aria-hidden="true"><svg viewBox="0 0 100 110"><path class="trophy-cup" d="M29 12h42v23c0 19-9 31-21 31S29 54 29 35Z"></path><path class="trophy-lines" d="M29 22H14c0 19 7 29 22 30M71 22h15c0 19-7 29-22 30M50 66v18M32 98h36M39 84h22"></path><circle class="trophy-ball" cx="50" cy="35" r="13"></circle><path class="trophy-seam" d="M37 35h26M50 22c-7 7-7 19 0 26M50 22c7 7 7 19 0 26"></path></svg></span>{% endif %}
         {% if sport_name == 'MLB' %}<span class="hall-of-fame-icon" aria-hidden="true"><svg viewBox="0 0 100 112"><path class="hof-plaque" d="M16 102V43C16 20 31 8 50 8s34 12 34 35v59Z"></path><circle class="hof-ball" cx="50" cy="38" r="17"></circle><path class="hof-stitches" d="M39 25c8 7 8 19 0 26M61 25c-8 7-8 19 0 26"></path><text x="50" y="82">HOF</text><path class="hof-rule" d="M30 91h40"></path></svg></span>{% elif sport_name == 'NFL' %}<span class="football-award-icon" aria-hidden="true"><svg viewBox="0 0 100 110"><path class="trophy-cup" d="M29 12h42v23c0 19-9 31-21 31S29 54 29 35Z"></path><path d="M29 22H14c0 19 7 29 22 30M71 22h15c0 19-7 29-22 30M50 66v18M32 98h36M39 84h22"></path><path class="trophy-football" d="M38 32c6-10 20-12 27-4-3 12-16 18-27 10-1-2-1-4 0-6Z"></path></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Pick a decade</p>
@@ -79,6 +82,7 @@
       {% if nba_court_endpoint %}
       <a class="path-card nba-court-card" href="{{ url_for(nba_court_endpoint) }}">
         <span class="path-number">05</span>
+        <span class="basketball-court-icon" aria-hidden="true"><svg viewBox="0 0 120 100"><rect x="8" y="10" width="104" height="80" rx="5"></rect><path d="M60 10v80M8 50h104"></path><circle cx="60" cy="50" r="15"></circle><path d="M8 27h22v46H8M112 27H90v46h22M30 35c14 7 14 23 0 30M90 35c-14 7-14 23 0 30"></path></svg></span>
         <div><p class="eyebrow">Build the franchise lineup</p><h2>Fill the Court</h2><p>Choose one statistic, then guess its franchise leader at all five positions.</p></div>
         <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
@@ -86,6 +90,7 @@
       {% if cfb_field_endpoint %}
       <a class="path-card cfb-field-card" href="{{ url_for(cfb_field_endpoint) }}">
         <span class="path-number">05</span>
+        <span class="football-field-icon" aria-hidden="true"><svg viewBox="0 0 120 100"><rect x="8" y="12" width="104" height="76" rx="6"></rect><path d="M28 12v76M50 12v76M72 12v76M94 12v76M8 50h104"></path><path class="goalpost" d="M50 72v-15m20 15v-15M50 61h20m-10 0v18"></path></svg></span>
         <div><p class="eyebrow">Build the program lineup</p><h2>Fill the Field</h2><p>Choose offense or defense, set the statistics, and guess every position leader.</p></div>
         <span class="path-arrow" aria-hidden="true">◇</span>
       </a>
@@ -93,6 +98,7 @@
       {% if team_logo_endpoint %}
       <a class="path-card team-logo-game-card" href="{{ url_for(team_logo_endpoint) }}">
         <span class="path-number">06</span>
+        {% if sport_name == 'NBA' %}<span class="basketball-team-icon" aria-hidden="true"><svg viewBox="0 0 110 100"><path class="jersey" d="M30 12 12 27l12 20 10-7v49h42V40l10 7 12-20-18-15-13 11H43Z"></path><text x="55" y="66">?</text><path class="neck" d="M43 13c2 13 22 13 24 0"></path></svg></span>{% endif %}
         {% if sport_name == 'NFL' %}<span class="football-team-icon" aria-hidden="true"><svg viewBox="0 0 115 100"><path class="helmet" d="M16 52c0-27 19-43 45-43 25 0 39 14 40 37l-22 1-7 18H50v22H26V65c-7-2-10-6-10-13Z"></path><path d="M72 65h25V49M81 49v13"></path><text x="50" y="47">?</text></svg></span>{% endif %}
         <div><p class="eyebrow">Decode the college logos</p><h2>Guess the Team</h2><p>Study a current lineup's college-logo clues and identify the pro team.</p></div>
         <span class="path-arrow" aria-hidden="true">◆</span>
@@ -101,6 +107,7 @@
       {% if player_game_endpoint %}
       <a class="path-card player-career-game-card" href="{{ url_for(player_game_endpoint) }}">
         <span class="path-number">07</span>
+        {% if sport_name in ('NBA', 'College Football') %}<span class="mystery-player-icon" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="41" cy="30" r="17"></circle><path d="M11 84c3-23 14-34 30-34s27 11 30 34"></path><text x="74" y="49">?</text></svg></span>{% endif %}
         {% if sport_name in ('MLB', 'NFL') %}<span class="mystery-player-icon" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="41" cy="30" r="17"></circle><path d="M11 84c3-23 14-34 30-34s27 11 30 34"></path><text x="74" y="49">?</text></svg></span>{% endif %}
         <div><p class="eyebrow">Trace a {{ sport_name }} career</p><h2>Guess the Player</h2><p>Study a mystery player's team history and career statistics, then identify them.</p></div>
         <span class="path-arrow" aria-hidden="true">?</span>

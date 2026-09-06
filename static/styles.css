@@ -499,11 +499,72 @@ body.theme-nba .team-logo-game-card { background:linear-gradient(145deg,#8e4d24,
 body.theme-nba .player-career-game-card { background:linear-gradient(145deg,#bd672c,#6f3918 58%,#2a160c); }
 body.theme-cfb .cfb-field-card { background:linear-gradient(145deg,#8d2e45,#5a172a 58%,#2a0a15); }
 body.theme-cfb .player-career-game-card { background:linear-gradient(145deg,#7d2940,#4c1324 60%,#260912); }
+body.theme-nba .path-card > span[class$="-icon"],
+body.theme-cfb .path-card > span[class$="-icon"] { position:absolute; z-index:2; top:15px; right:24px; width:106px; height:104px; filter:drop-shadow(0 8px 12px rgba(0,0,0,.38)); }
+body.theme-nba .path-card > span[class$="-icon"] svg,
+body.theme-cfb .path-card > span[class$="-icon"] svg { width:100%; height:100%; overflow:visible; }
+body.theme-nba .basketball-stats-icon .stat-sheet { fill:#4b2815; stroke:#f7dfc2; stroke-width:4; }
+body.theme-nba .basketball-stats-icon .stat-lines { fill:none; stroke:#f7dfc2; stroke-width:4; stroke-linecap:round; }
+body.theme-nba .basketball-stats-icon .mini-basketball { fill:#f47a23; stroke:#241208; stroke-width:3; }
+body.theme-nba .basketball-stats-icon .ball-lines { fill:none; stroke:#241208; stroke-width:2; }
+body.theme-nba .quiz-friends-icon .quiz-head,
+body.theme-nba .quiz-friends-icon .quiz-body,
+body.theme-cfb .quiz-friends-icon .quiz-head,
+body.theme-cfb .quiz-friends-icon .quiz-body { fill:rgba(255,255,255,.1); stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+body.theme-nba .quiz-friends-icon .quiz-bubble { fill:#f47a23; stroke:#fff; stroke-width:3; }
+body.theme-cfb .quiz-friends-icon .quiz-bubble { fill:#d8b45a; stroke:#fff; stroke-width:3; }
+body.theme-nba .quiz-friends-icon text,
+body.theme-cfb .quiz-friends-icon text { fill:#241208; font:950 30px/1 Inter,sans-serif; text-anchor:middle; }
+body.theme-nba .surprise-card > div,
+body.theme-cfb .surprise-card > div { max-width:calc(100% - 112px); }
+body.theme-nba .top-ten-challenge-icon .challenge-shield { fill:#4b2815; stroke:#fff; stroke-width:4; }
+body.theme-nba .top-ten-challenge-icon .challenge-stripe { fill:#f47a23; }
+body.theme-cfb .top-ten-challenge-icon .challenge-shield { fill:#4c1324; stroke:#fff; stroke-width:4; }
+body.theme-cfb .top-ten-challenge-icon .challenge-stripe { fill:#d8b45a; }
+body.theme-nba .top-ten-challenge-icon text,
+body.theme-cfb .top-ten-challenge-icon text { fill:#fff; font-family:Inter,sans-serif; font-weight:950; text-anchor:middle; }
+body.theme-nba .top-ten-challenge-icon .challenge-top,
+body.theme-cfb .top-ten-challenge-icon .challenge-top { font-size:17px; letter-spacing:3px; }
+body.theme-nba .top-ten-challenge-icon .challenge-ten,
+body.theme-cfb .top-ten-challenge-icon .challenge-ten { font-size:42px; }
+body.theme-nba .top-ten-challenge-icon .challenge-ball { fill:#f47a23; stroke:#fff; stroke-width:3; }
+body.theme-cfb .top-ten-challenge-icon .challenge-ball { fill:#d8b45a; stroke:#fff; stroke-width:3; }
+body.theme-nba .top-ten-challenge-icon .challenge-question,
+body.theme-cfb .top-ten-challenge-icon .challenge-question { fill:#241208; font-size:23px; }
+body.theme-nba .sport-award-icon,
+body.theme-cfb .sport-award-icon { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+body.theme-nba .sport-award-icon .trophy-cup { fill:#d99a32; stroke:#ffe2a3; }
+body.theme-cfb .sport-award-icon .trophy-cup { fill:#d8b45a; stroke:#fff0bd; }
+body.theme-nba .sport-award-icon .trophy-ball { fill:#f47a23; stroke:#241208; stroke-width:2; }
+body.theme-cfb .sport-award-icon .trophy-ball { fill:#7b3f20; stroke:#fff; stroke-width:2; }
+body.theme-nba .sport-award-icon .trophy-seam { stroke:#241208; stroke-width:1.8; }
+body.theme-cfb .sport-award-icon .trophy-seam { stroke:#fff; stroke-width:1.8; }
+body.theme-nba .basketball-court-icon rect { fill:#b8642c; stroke:#fff; stroke-width:4; }
+body.theme-nba .basketball-court-icon path,
+body.theme-nba .basketball-court-icon circle { fill:none; stroke:#fff; stroke-width:2.5; }
+body.theme-nba .basketball-team-icon .jersey { fill:#f47a23; stroke:#fff; stroke-width:4; stroke-linejoin:round; }
+body.theme-nba .basketball-team-icon .neck { fill:none; stroke:#241208; stroke-width:3; }
+body.theme-nba .basketball-team-icon text { fill:#fff; font:950 34px/1 Inter,sans-serif; text-anchor:middle; }
+body.theme-cfb .football-stats-icon .playbook { fill:#4c1324; stroke:#fff; stroke-width:4; }
+body.theme-cfb .football-stats-icon .play-lines { fill:none; stroke:#d8b45a; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+body.theme-cfb .football-stats-icon .mini-football { fill:#7b3f20; stroke:#fff; stroke-width:3; }
+body.theme-cfb .football-stats-icon .laces { fill:none; stroke:#fff; stroke-width:2; }
+body.theme-cfb .football-field-icon rect { fill:#5b7135; stroke:#fff; stroke-width:4; }
+body.theme-cfb .football-field-icon path { fill:none; stroke:rgba(255,255,255,.75); stroke-width:2; }
+body.theme-cfb .football-field-icon .goalpost { stroke:#d8b45a; stroke-width:4; stroke-linecap:round; }
+body.theme-nba .mystery-player-icon circle,
+body.theme-nba .mystery-player-icon path,
+body.theme-cfb .mystery-player-icon circle,
+body.theme-cfb .mystery-player-icon path { fill:rgba(255,255,255,.1); stroke:#fff; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
+body.theme-nba .mystery-player-icon text { fill:#f47a23; font:900 52px/1 Inter,sans-serif; }
+body.theme-cfb .mystery-player-icon text { fill:#d8b45a; font:900 52px/1 Inter,sans-serif; }
 @media(max-width:650px) {
   body.theme-nba .home-hero,
   body.theme-cfb .home-hero { min-height:0; padding-right:0; padding-top:130px; }
   body.theme-nba .sport-hero-logo,
   body.theme-cfb .sport-hero-logo { top:0; right:50%; width:170px; height:115px; transform:translateX(50%); }
+  body.theme-nba .surprise-card > div,
+  body.theme-cfb .surprise-card > div { max-width:100%; padding-top:86px; }
 }
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
