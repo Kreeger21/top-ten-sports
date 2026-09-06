@@ -94,6 +94,7 @@
       {% if player_game_endpoint %}
       <a class="path-card player-career-game-card" href="{{ url_for(player_game_endpoint) }}">
         <span class="path-number">07</span>
+        {% if sport_name == 'MLB' %}<span class="mystery-player-icon" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="41" cy="30" r="17"></circle><path d="M11 84c3-23 14-34 30-34s27 11 30 34"></path><text x="74" y="49">?</text></svg></span>{% endif %}
         <div><p class="eyebrow">Trace a {{ sport_name }} career</p><h2>Guess the Player</h2><p>Study a mystery player's team history and career statistics, then identify them.</p></div>
         <span class="path-arrow" aria-hidden="true">?</span>
       </a>
