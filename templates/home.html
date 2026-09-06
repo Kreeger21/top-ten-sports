@@ -39,6 +39,7 @@
 
       <a class="path-card challenge-card" href="{{ url_for(new_challenge_endpoint) }}">
         <span class="path-number">03</span>
+        {% if sport_name == 'MLB' %}<span class="top-ten-challenge-icon" aria-hidden="true"><svg viewBox="0 0 110 112"><path class="challenge-shield" d="M55 6 98 21v36c0 24-17 39-43 50C29 96 12 81 12 57V21Z"></path><path class="challenge-stripe" d="M15 31h80v19H15Z"></path><text class="challenge-top" x="55" y="45">TOP</text><text class="challenge-ten" x="55" y="80">10</text><circle class="challenge-ball" cx="88" cy="88" r="16"></circle><text class="challenge-question" x="88" y="96">?</text></svg></span>{% endif %}
         <div>
           <p class="eyebrow">Test your {{ sport_name }} knowledge</p>
           <h2>Top Ten Challenge</h2>

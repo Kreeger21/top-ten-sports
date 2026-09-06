@@ -314,6 +314,24 @@ body.theme-mlb .path-card:nth-child(2)::before {
 body.theme-mlb .path-card:nth-child(3)::before {
   background: repeating-linear-gradient(0deg, transparent 0 31px, rgba(244,234,210,.2) 32px 33px), repeating-linear-gradient(90deg, transparent 0 62px, rgba(244,234,210,.16) 63px 64px);
 }
+body.theme-mlb .challenge-card::after { content: none; }
+body.theme-mlb .top-ten-challenge-icon {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  right: 24px;
+  width: 104px;
+  height: 108px;
+  filter: drop-shadow(0 9px 13px rgba(0,0,0,.4));
+}
+body.theme-mlb .top-ten-challenge-icon svg { width: 100%; height: 100%; overflow: visible; }
+body.theme-mlb .top-ten-challenge-icon .challenge-shield { fill: #041e42; stroke: #fff; stroke-width: 4; }
+body.theme-mlb .top-ten-challenge-icon .challenge-stripe { fill: #bf0d3e; }
+body.theme-mlb .top-ten-challenge-icon text { fill: #fff; font-family: Inter, sans-serif; font-weight: 950; text-anchor: middle; }
+body.theme-mlb .top-ten-challenge-icon .challenge-top { font-size: 17px; letter-spacing: 3px; }
+body.theme-mlb .top-ten-challenge-icon .challenge-ten { font-size: 42px; }
+body.theme-mlb .top-ten-challenge-icon .challenge-ball { fill: #f7f7f5; stroke: #bf0d3e; stroke-width: 3; }
+body.theme-mlb .top-ten-challenge-icon .challenge-question { fill: #041e42; font-size: 23px; }
 body.theme-mlb .path-card:nth-child(4) {
   background: linear-gradient(120deg, #79112f, #08254b 72%);
 }
