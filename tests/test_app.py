@@ -624,6 +624,31 @@ class LeaderTests(unittest.TestCase):
         matches = client.get("/nba/api/career-player-search?q=LeBr").json
         self.assertEqual(matches[0], {"id": "jamesle01", "name": "LeBron James"})
 
+    def test_nba_guess_player_difficulty_pools_use_career_length(self):
+        from nba_player_game_service import player_choices
+        hard = {player["id"] for player in player_choices("hard")}
+        medium = {player["id"] for player in player_choices("medium")}
+        easy = {player["id"] for player in player_choices("easy")}
+        self.assertGreater(len(hard), len(medium))
+        self.assertGreater(len(medium), len(easy))
+        self.assertIn("jamesle01", easy)
+        self.assertTrue(easy <= medium <= hard)
+
+    def test_nba_guess_player_renders_three_difficulty_choices(self):
+        response = app.test_client().get("/nba/guess-the-player?difficulty=medium")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b">Hard</strong>", response.data)
+        self.assertIn(b">Medium</strong>", response.data)
+        self.assertIn(b">Easy</strong>", response.data)
+        self.assertIn(b"10+ seasons", response.data)
+
+    def test_nba_player_search_respects_difficulty(self):
+        client = app.test_client()
+        hard = client.get("/nba/api/career-player-search?difficulty=hard&q=Victor+Wemb").json
+        easy = client.get("/nba/api/career-player-search?difficulty=easy&q=Victor+Wemb").json
+        self.assertTrue(hard)
+        self.assertEqual(easy, [])
+
     def test_nba_guess_player_forfeit_reveals_player(self):
         client = app.test_client()
         with client.session_transaction() as state:

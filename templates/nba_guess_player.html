@@ -15,6 +15,10 @@
     <p class="intro">Use the season-by-season team history and career totals to identify the NBA player.</p>
   </header>
 
+  <nav class="difficulty-switch" aria-label="Choose difficulty">
+    {% for key, option in difficulties.items() %}<a class="{% if difficulty == key %}active{% endif %}" {% if difficulty == key %}aria-current="page"{% endif %} href="{{ url_for('nba_guess_player', difficulty=key, new=1) }}"><strong>{{ option.label }}</strong><small>{{ option.description }}</small></a>{% endfor %}
+  </nav>
+
   <section class="card player-career-summary">
     <div><span>Career span</span><strong>{{ career.years }}</strong></div>
     <div><span>NBA seasons</span><strong>{{ career.seasons }}</strong></div>
@@ -49,7 +53,7 @@
     {% else %}<div class="final-score"><span>{% if forfeited %}Player revealed{% else %}Solved in{% endif %}</span><strong>{% if forfeited %}{{ career.name }}{% else %}{{ guesses|length }} guess{% if guesses|length != 1 %}es{% endif %}{% endif %}</strong></div>{% endif %}
     {% if message %}<p class="guess-feedback {{ message_type }}">{{ message }}</p>{% endif %}
     {% if guesses and not finished %}<p class="qualification-note">Previous guesses: {% for player_id in guesses %}{{ player_names[player_id] }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
-    <a class="secondary-link" href="{{ url_for('nba_guess_player', new=1) }}">New player</a>
+    <a class="secondary-link" href="{{ url_for('nba_guess_player', difficulty=difficulty, new=1) }}">New player</a>
   </section>
 
   <section class="table-card career-history-card">
@@ -79,7 +83,7 @@
       return;
     }
     const thisRequest = ++requestNumber;
-    const response = await fetch(`{{ url_for('nba_career_player_search') }}?q=${encodeURIComponent(query)}`);
+    const response = await fetch(`{{ url_for('nba_career_player_search') }}?difficulty={{ difficulty }}&q=${encodeURIComponent(query)}`);
     if (!response.ok || thisRequest !== requestNumber) return;
     const players = await response.json();
     suggestions.replaceChildren();

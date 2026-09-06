@@ -13,6 +13,11 @@ STAT_COLUMNS = (
     ("pts", "PTS"), ("trb", "REB"), ("ast", "AST"),
     ("stl", "STL"), ("blk", "BLK"), ("x3p", "3PM"),
 )
+DIFFICULTIES = {
+    "hard": {"label": "Hard", "description": "All-time players", "min_seasons": 1},
+    "medium": {"label": "Medium", "description": "10+ seasons", "min_seasons": 10},
+    "easy": {"label": "Easy", "description": "15+ seasons", "min_seasons": 15},
+}
 
 
 def _season_label(end_year):
@@ -42,14 +47,13 @@ def _drafts():
     return frame.set_index("player_id").to_dict("index")
 
 
-@lru_cache(maxsize=1)
-def player_choices():
+@lru_cache(maxsize=3)
+def player_choices(difficulty="hard"):
+    minimum = DIFFICULTIES.get(difficulty, DIFFICULTIES["hard"])["min_seasons"]
     summary = _data().groupby(["player_id", "player"], as_index=False).agg(
         seasons=("season", "nunique"), points=("pts", "sum"),
     )
-    # Established careers produce a useful trail without making the answer
-    # depend on a one-season player the audience is unlikely to recognize.
-    summary = summary.loc[(summary["seasons"] >= 5) & (summary["points"] >= 5000)]
+    summary = summary.loc[(summary["seasons"] >= minimum) & summary["player"].notna()]
     summary = summary.sort_values("player", key=lambda values: values.str.casefold())
     return tuple({"id": row.player_id, "name": row.player} for row in summary.itertuples())
 
