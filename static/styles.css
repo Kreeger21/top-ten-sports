@@ -276,12 +276,14 @@ body.theme-mlb .sport-hero-logo {
   object-fit: contain;
   filter: drop-shadow(1px 0 rgba(255,255,255,.35)) drop-shadow(-1px 0 rgba(255,255,255,.35)) drop-shadow(0 12px 20px rgba(0,0,0,.38));
 }
+body.theme-mlb .path-card { justify-content: flex-end; }
 body.theme-mlb .path-card > * { position: relative; z-index: 2; }
 body.theme-mlb .path-card .path-number,
 body.theme-mlb .path-card .path-arrow { display: none; }
 body.theme-mlb .path-card h2 { font-size: clamp(2.2rem, 4.6vw, 3.35rem); }
 body.theme-mlb .path-card .eyebrow { font-size: .88rem; }
 body.theme-mlb .path-card p:last-child { max-width: 430px; font-size: 1.08rem; line-height: 1.65; }
+body.theme-mlb .surprise-card > div { max-width: calc(100% - 112px); }
 body.theme-mlb .path-card::before {
   content: "";
   position: absolute;
@@ -415,6 +417,7 @@ body.theme-mlb .mystery-player-icon text { fill: #fff; stroke: #8e1236; stroke-w
   body.theme-mlb .home-hero { min-height: 0; padding-right: 0; padding-top: 120px; }
   body.theme-mlb .sport-hero-logo { top: 0; right: 50%; width: 180px; height: 110px; transform: translateX(50%); }
   body.theme-mlb .path-card::after { font-size: 2.9rem; }
+  body.theme-mlb .surprise-card > div { max-width: 100%; padding-top: 86px; }
 }
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
