@@ -265,15 +265,16 @@ body.theme-mlb .home-hero {
   padding-right: 190px;
 }
 body.theme-mlb .home-hero::after {
-  content: "⚾";
+  content: none;
+}
+body.theme-mlb .sport-hero-logo {
   position: absolute;
   top: 42px;
   right: 20px;
-  color: #f4ead2;
-  font-size: clamp(6rem, 14vw, 10rem);
-  line-height: 1;
-  filter: drop-shadow(0 18px 24px rgba(0,0,0,.34));
-  transform: rotate(-12deg);
+  width: clamp(140px, 18vw, 190px);
+  height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(1px 0 rgba(255,255,255,.35)) drop-shadow(-1px 0 rgba(255,255,255,.35)) drop-shadow(0 12px 20px rgba(0,0,0,.38));
 }
 body.theme-mlb .path-card > * { position: relative; z-index: 2; }
 body.theme-mlb .path-card::before {
@@ -326,7 +327,7 @@ body.theme-mlb .player-career-game-card::before {
 }
 @media(max-width:650px) {
   body.theme-mlb .home-hero { min-height: 0; padding-right: 0; padding-top: 120px; }
-  body.theme-mlb .home-hero::after { top: 8px; right: 50%; font-size: 7rem; transform: translateX(50%) rotate(-12deg); }
+  body.theme-mlb .sport-hero-logo { top: 0; right: 50%; width: 140px; height: 100px; transform: translateX(50%); }
   body.theme-mlb .path-card::after { font-size: 2.9rem; }
 }
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }

@@ -13,6 +13,7 @@
       <p class="eyebrow">{{ eyebrow }}</p>
       <h1>{{ sport_name }} Top Ten</h1>
       <p class="intro">{{ intro }}</p>
+      {% if sport_name == 'MLB' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/mlb.png') }}" alt="Major League Baseball logo">{% endif %}
     </header>
 
     <section class="path-grid" aria-label="Choose how to create a leaderboard">
