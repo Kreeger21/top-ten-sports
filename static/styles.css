@@ -280,9 +280,14 @@ body.theme-mlb .path-card { justify-content: flex-end; }
 body.theme-mlb .path-card > * { position: relative; z-index: 2; }
 body.theme-mlb .path-card .path-number,
 body.theme-mlb .path-card .path-arrow { display: none; }
+body.theme-mlb .path-card > div { display: grid; align-content: end; gap: 10px; width: 100%; }
 body.theme-mlb .path-card h2 { font-size: clamp(2.2rem, 4.6vw, 3.35rem); }
 body.theme-mlb .path-card .eyebrow { font-size: .88rem; }
 body.theme-mlb .path-card p:last-child { max-width: 430px; font-size: 1.08rem; line-height: 1.65; }
+body.theme-mlb .path-card > div .eyebrow,
+body.theme-mlb .path-card > div h2,
+body.theme-mlb .path-card > div p { margin: 0; }
+body.theme-mlb .path-card > div h2 { line-height: 1; }
 body.theme-mlb .surprise-card > div { max-width: calc(100% - 112px); }
 body.theme-mlb .path-card::before {
   content: "";
