@@ -20,52 +20,52 @@ body {
     linear-gradient(145deg, #07111b 0%, #0b1e2c 55%, #102b38 100%);
 }
 
-/* Official league identities: MLB, NFL, NBA, and NCAA. */
+/* Sport identities: baseball, pro football, basketball, and college football. */
 body.theme-mlb {
-  --accent: #bf0d3e;
+  --accent: #e0473e;
   --accent-dark: #ffffff;
-  --panel: rgba(4, 30, 66, .93);
-  --line: rgba(255, 255, 255, .2);
-  --choice-deep: #03152f;
-  --choice-bright: #163c70;
-  --choice-soft: #7d1234;
-  background: radial-gradient(circle at 15% 0%, rgba(191, 13, 62, .34), transparent 36rem), linear-gradient(145deg, #020b19 0%, #041e42 58%, #07152d 100%);
+  --panel: rgba(15, 43, 35, .94);
+  --line: rgba(239, 226, 194, .22);
+  --choice-deep: #0c2b22;
+  --choice-bright: #1d6344;
+  --choice-soft: #8a4b2d;
+  background: radial-gradient(circle at 12% 2%, rgba(239,226,194,.18), transparent 28rem), repeating-radial-gradient(ellipse at 100% 0%, transparent 0 84px, rgba(224,71,62,.12) 86px 89px, transparent 91px 116px), linear-gradient(145deg, #071b15 0%, #124b34 58%, #0a281f 100%);
 }
 body.theme-nfl {
-  --accent: #0074ee;
-  --accent-dark: #ffffff;
-  --panel: rgba(0, 29, 60, .93);
+  --accent: #f4c542;
+  --accent-dark: #241506;
+  --panel: rgba(20, 50, 31, .94);
   --line: rgba(255, 255, 255, .2);
-  --choice-deep: #00152c;
-  --choice-bright: #003369;
-  --choice-soft: #8b0808;
-  background: radial-gradient(circle at 15% 0%, rgba(213, 10, 10, .34), transparent 36rem), linear-gradient(145deg, #000814 0%, #001d3c 55%, #003369 100%);
+  --choice-deep: #10291b;
+  --choice-bright: #25633c;
+  --choice-soft: #743d20;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(255,255,255,.055) calc(10% - 2px) 10%), radial-gradient(circle at 14% 0%, rgba(118,66,36,.38), transparent 32rem), linear-gradient(145deg, #07180f 0%, #1c5834 58%, #0b2b1a 100%);
 }
 body.theme-nba {
-  --accent: #c8102e;
-  --accent-dark: #ffffff;
-  --panel: rgba(29, 66, 138, .93);
-  --line: rgba(255, 255, 255, .2);
-  --choice-deep: #0b2351;
-  --choice-bright: #1d428a;
-  --choice-soft: #8d1027;
-  background: radial-gradient(circle at 15% 0%, rgba(200, 16, 46, .34), transparent 36rem), linear-gradient(145deg, #071329 0%, #1d428a 58%, #0b2450 100%);
+  --accent: #f47a23;
+  --accent-dark: #1d1007;
+  --panel: rgba(48, 29, 18, .94);
+  --line: rgba(240, 201, 151, .23);
+  --choice-deep: #2a180e;
+  --choice-bright: #8e4d24;
+  --choice-soft: #bd672c;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 2px, transparent 2px 78px), radial-gradient(circle at 15% 0%, rgba(244,122,35,.35), transparent 32rem), linear-gradient(145deg, #1e1008 0%, #6f3b1e 58%, #2d180d 100%);
 }
 body.theme-cfb {
-  --accent: #ffffff;
-  --accent-dark: #005eb8;
-  --panel: rgba(0, 94, 184, .93);
-  --line: rgba(255, 255, 255, .22);
-  --choice-deep: #00396f;
-  --choice-bright: #0077c8;
-  --choice-soft: #1687cf;
-  background: radial-gradient(circle at 15% 0%, rgba(255, 255, 255, .18), transparent 36rem), linear-gradient(145deg, #002b55 0%, #005eb8 58%, #003f7a 100%);
+  --accent: #d8b45a;
+  --accent-dark: #241006;
+  --panel: rgba(61, 18, 29, .94);
+  --line: rgba(255, 245, 218, .22);
+  --choice-deep: #320d18;
+  --choice-bright: #741f35;
+  --choice-soft: #9b5b31;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(255,255,255,.05) calc(10% - 2px) 10%), radial-gradient(circle at 15% 0%, rgba(216,180,90,.24), transparent 32rem), linear-gradient(145deg, #200711 0%, #651a30 58%, #310c19 100%);
 }
 
-body.theme-mlb input, body.theme-mlb select, body.theme-mlb .locked-option, body.theme-mlb .check-menu summary, body.theme-mlb .check-menu-options, body.theme-mlb .war-mode-option span { background: #03162f; }
-body.theme-nfl input, body.theme-nfl select, body.theme-nfl .locked-option, body.theme-nfl .check-menu summary, body.theme-nfl .check-menu-options, body.theme-nfl .war-mode-option span { background: #00152c; }
-body.theme-nba input, body.theme-nba select, body.theme-nba .locked-option, body.theme-nba .check-menu summary, body.theme-nba .check-menu-options, body.theme-nba .war-mode-option span { background: #0b2351; }
-body.theme-cfb input, body.theme-cfb select, body.theme-cfb .locked-option, body.theme-cfb .check-menu summary, body.theme-cfb .check-menu-options, body.theme-cfb .war-mode-option span { background: #003b72; }
+body.theme-mlb input, body.theme-mlb select, body.theme-mlb .locked-option, body.theme-mlb .check-menu summary, body.theme-mlb .check-menu-options, body.theme-mlb .war-mode-option span { background: #09271e; }
+body.theme-nfl input, body.theme-nfl select, body.theme-nfl .locked-option, body.theme-nfl .check-menu summary, body.theme-nfl .check-menu-options, body.theme-nfl .war-mode-option span { background: #0d2819; }
+body.theme-nba input, body.theme-nba select, body.theme-nba .locked-option, body.theme-nba .check-menu summary, body.theme-nba .check-menu-options, body.theme-nba .war-mode-option span { background: #2a170d; }
+body.theme-cfb input, body.theme-cfb select, body.theme-cfb .locked-option, body.theme-cfb .check-menu summary, body.theme-cfb .check-menu-options, body.theme-cfb .war-mode-option span { background: #310c18; }
 
 .page-shell { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 64px 0; }
 .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
@@ -233,24 +233,24 @@ body.main-menu .league-card:hover {
   box-shadow: 0 28px 78px rgba(0, 0, 0, .42), 0 0 0 2px color-mix(in srgb, var(--league-accent) 20%, transparent);
 }
 body.main-menu .mlb-card {
-  --league-accent: #bf0d3e;
-  border-color: rgba(191, 13, 62, .55);
-  background: linear-gradient(145deg, #163c70, #041e42 62%, #700a2a);
+  --league-accent: #e0473e;
+  border-color: rgba(224, 71, 62, .55);
+  background: linear-gradient(145deg, #236846, #103c2c 62%, #824329);
 }
 body.main-menu .nfl-card {
-  --league-accent: #0074ee;
-  border-color: rgba(0, 116, 238, .55);
-  background: linear-gradient(145deg, #003369, #001d3c 62%, #8b0808);
+  --league-accent: #f4c542;
+  border-color: rgba(244, 197, 66, .52);
+  background: linear-gradient(145deg, #2b7044, #153d27 62%, #6d371d);
 }
 body.main-menu .nba-card {
-  --league-accent: #c8102e;
-  border-color: rgba(200, 16, 46, .55);
-  background: linear-gradient(145deg, #315aaa, #1d428a 62%, #870d24);
+  --league-accent: #f47a23;
+  border-color: rgba(244, 122, 35, .58);
+  background: linear-gradient(145deg, #b8642c, #663719 62%, #29160c);
 }
 body.main-menu .cfb-card {
-  --league-accent: #ffffff;
-  border-color: rgba(255, 255, 255, .34);
-  background: linear-gradient(145deg, #1687cf, #005eb8 58%, #00396f);
+  --league-accent: #d8b45a;
+  border-color: rgba(216, 180, 90, .5);
+  background: linear-gradient(145deg, #8d2e45, #5a172a 58%, #2a0a15);
 }
 @media(max-width:650px) {
   body.main-menu .league-logo { right: 18px; width: 120px; height: 102px; }
