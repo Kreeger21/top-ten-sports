@@ -13,7 +13,7 @@
       <p class="eyebrow">{{ eyebrow }}</p>
       <h1>{{ sport_name }} Top Ten</h1>
       <p class="intro">{{ intro }}</p>
-      {% if sport_name == 'MLB' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/mlb.png') }}" alt="Major League Baseball logo">{% elif sport_name == 'NFL' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/nfl.png') }}" alt="National Football League logo">{% endif %}
+      {% if sport_name == 'MLB' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/mlb.png') }}" alt="Major League Baseball logo">{% elif sport_name == 'NFL' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/nfl.png') }}" alt="National Football League logo">{% elif sport_name == 'NBA' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/nba.png') }}" alt="National Basketball Association logo">{% elif sport_name == 'College Football' %}<img class="sport-hero-logo" src="{{ url_for('static', filename='league-logos/ncaa.svg') }}" alt="NCAA logo">{% endif %}
     </header>
 
     <section class="path-grid" aria-label="Choose how to create a leaderboard">

@@ -474,6 +474,37 @@ body.theme-nfl .mystery-player-icon text { fill:#f4c542; stroke:#173c27; stroke-
   body.theme-nfl .sport-hero-logo { top:0; right:50%; width:160px; height:115px; transform:translateX(50%); }
   body.theme-nfl .surprise-card > div { max-width:100%; padding-top:86px; }
 }
+
+/* Match the NBA and FBS category organization to the MLB/NFL card system. */
+body.theme-nba .home-hero,
+body.theme-cfb .home-hero { position:relative; min-height:220px; padding-right:270px; }
+body.theme-nba .sport-hero-logo,
+body.theme-cfb .sport-hero-logo { position:absolute; top:18px; right:20px; width:clamp(190px,24vw,260px); height:185px; object-fit:contain; filter:drop-shadow(0 14px 22px rgba(0,0,0,.42)); }
+body.theme-nba .path-card,
+body.theme-cfb .path-card { grid-column:auto; min-height:300px; justify-content:flex-end; }
+body.theme-nba .path-card .path-number,
+body.theme-nba .path-card .path-arrow,
+body.theme-cfb .path-card .path-number,
+body.theme-cfb .path-card .path-arrow { display:none; }
+body.theme-nba .path-card h2,
+body.theme-cfb .path-card h2 { font-size:clamp(2.2rem,4.6vw,3.35rem); }
+body.theme-nba .path-card .eyebrow,
+body.theme-cfb .path-card .eyebrow { font-size:.88rem; }
+body.theme-nba .path-card p:last-child,
+body.theme-cfb .path-card p:last-child { max-width:430px; font-size:1.08rem; line-height:1.65; }
+body.theme-nba .path-card:nth-child(1),
+body.theme-cfb .path-card:nth-child(1) { justify-content:flex-start; }
+body.theme-nba .nba-court-card { background:linear-gradient(145deg,#b8642c,#663719 62%,#29160c); }
+body.theme-nba .team-logo-game-card { background:linear-gradient(145deg,#8e4d24,#42230f 62%,#241208); }
+body.theme-nba .player-career-game-card { background:linear-gradient(145deg,#bd672c,#6f3918 58%,#2a160c); }
+body.theme-cfb .cfb-field-card { background:linear-gradient(145deg,#8d2e45,#5a172a 58%,#2a0a15); }
+body.theme-cfb .player-career-game-card { background:linear-gradient(145deg,#7d2940,#4c1324 60%,#260912); }
+@media(max-width:650px) {
+  body.theme-nba .home-hero,
+  body.theme-cfb .home-hero { min-height:0; padding-right:0; padding-top:130px; }
+  body.theme-nba .sport-hero-logo,
+  body.theme-cfb .sport-hero-logo { top:0; right:50%; width:170px; height:115px; transform:translateX(50%); }
+}
 .league-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .league-card { position: relative; min-height: 390px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; color: var(--ink); text-decoration: none; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); transition: transform .18s ease, border-color .18s ease; }
 .league-card:hover { transform: translateY(-5px); border-color: var(--accent); }
