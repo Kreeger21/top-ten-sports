@@ -871,3 +871,100 @@ body[class*="theme-"] .field-side-switch a { border-radius: 7px; }
   body[class*="theme-"] *::before,
   body[class*="theme-"] *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; }
 }
+
+/* NBA home: arena navy, hardwood orange, warm white, and basketball geometry. */
+body.theme-nba {
+  --accent: #ff7a21;
+  --accent-dark: #1b0c04;
+  --panel: rgba(18, 31, 49, .95);
+  --line: rgba(255, 244, 224, .2);
+  --choice-deep: #101f33;
+  --choice-bright: #1b3a5a;
+  --choice-soft: #9b431c;
+  background:
+    radial-gradient(circle at 14% 2%, rgba(255, 122, 33, .28), transparent 31rem),
+    radial-gradient(circle at 88% 18%, rgba(52, 111, 164, .2), transparent 30rem),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 2px, transparent 2px 82px),
+    linear-gradient(145deg, #080f1a 0%, #132a43 57%, #0a1727 100%);
+}
+body.theme-nba input,
+body.theme-nba select,
+body.theme-nba .locked-option,
+body.theme-nba .check-menu summary,
+body.theme-nba .check-menu-options,
+body.theme-nba .war-mode-option span { background:#0c1929; }
+body.theme-nba .home-hero { min-height:225px; }
+body.theme-nba .home-hero h1 { text-shadow:5px 6px 0 rgba(255,122,33,.24); }
+body.theme-nba .sport-hero-logo {
+  width:clamp(205px,25vw,275px);
+  filter:drop-shadow(1px 0 rgba(255,255,255,.38)) drop-shadow(-1px 0 rgba(255,255,255,.38)) drop-shadow(0 14px 22px rgba(0,0,0,.42));
+}
+body.theme-nba .path-grid { gap:22px; }
+body.theme-nba .path-card {
+  min-height:320px;
+  padding:30px;
+  border-color:rgba(255,122,33,.4);
+  background:
+    radial-gradient(circle at 105% -8%, transparent 0 98px, rgba(255,244,224,.08) 100px 103px, transparent 105px),
+    linear-gradient(145deg,#1b3a5a,#10243b 68%,#0b1828);
+}
+body.theme-nba .path-card:nth-child(even) {
+  background:
+    radial-gradient(circle at 105% -8%, transparent 0 98px, rgba(255,244,224,.1) 100px 103px, transparent 105px),
+    linear-gradient(145deg,#a84b20,#6d2c16 62%,#24120d);
+}
+body.theme-nba .path-card:nth-child(3n) {
+  background:
+    linear-gradient(105deg,transparent 0 72%,rgba(255,122,33,.09) 72.5% 73.5%,transparent 74%),
+    linear-gradient(145deg,#173653,#0e2035 70%,#091624);
+}
+body.theme-nba .path-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.16;
+  background:repeating-linear-gradient(90deg,transparent 0 74px,rgba(255,255,255,.1) 75px 76px);
+}
+body.theme-nba .path-card > * { position:relative; z-index:1; }
+body.theme-nba .path-card > div { width:100%; }
+body.theme-nba .path-card:nth-child(1) > div { max-width:calc(100% - 132px); }
+body.theme-nba .path-card h2 { max-width:calc(100% - 8px); line-height:1.05; }
+body.theme-nba .path-card p:last-child { max-width:410px; }
+body.theme-nba .path-card > span[class$="-icon"] {
+  top:22px;
+  right:26px;
+  width:112px;
+  height:112px;
+  filter:drop-shadow(0 10px 13px rgba(0,0,0,.38));
+}
+body.theme-nba .basketball-stats-icon .stat-sheet { fill:#102b46; stroke:#fff4e0; stroke-width:4; }
+body.theme-nba .basketball-stats-icon .stat-lines { stroke:#ffb06c; }
+body.theme-nba .basketball-stats-icon .mini-basketball { fill:#ff7a21; stroke:#fff4e0; }
+body.theme-nba .basketball-stats-icon .ball-lines { stroke:#4a1e0c; stroke-width:2.4; }
+body.theme-nba .quiz-friends-icon .quiz-head,
+body.theme-nba .quiz-friends-icon .quiz-body { fill:#173653; stroke:#fff4e0; }
+body.theme-nba .quiz-friends-icon .friend { stroke:#ffb06c; }
+body.theme-nba .quiz-friends-icon .quiz-bubble { fill:#ff7a21; stroke:#fff4e0; }
+body.theme-nba .top-ten-challenge-icon .challenge-shield { fill:#102b46; stroke:#fff4e0; }
+body.theme-nba .top-ten-challenge-icon .challenge-stripe { fill:#ff7a21; }
+body.theme-nba .top-ten-challenge-icon .challenge-ball { fill:#ff7a21; stroke:#fff4e0; }
+body.theme-nba .sport-award-icon .trophy-cup { fill:#ff9a43; stroke:#fff0cf; }
+body.theme-nba .sport-award-icon .trophy-ball { fill:#102b46; stroke:#fff4e0; }
+body.theme-nba .sport-award-icon .trophy-seam { stroke:#ff9a43; }
+body.theme-nba .basketball-court-icon rect { fill:#b95a28; stroke:#fff4e0; }
+body.theme-nba .basketball-court-icon path,
+body.theme-nba .basketball-court-icon circle { stroke:#fff4e0; stroke-width:3; }
+body.theme-nba .basketball-team-icon .jersey { fill:#ff7a21; stroke:#fff4e0; }
+body.theme-nba .basketball-team-icon .neck { stroke:#102b46; }
+body.theme-nba .mystery-player-icon circle,
+body.theme-nba .mystery-player-icon path { fill:#173653; stroke:#fff4e0; }
+body.theme-nba .mystery-player-icon text { fill:#ff7a21; stroke:#102b46; stroke-width:1.2; paint-order:stroke; }
+
+@media(max-width:650px) {
+  body.theme-nba .home-hero { min-height:0; }
+  body.theme-nba .path-card { min-height:300px; padding:25px; }
+  body.theme-nba .path-card:nth-child(1) > div { max-width:100%; padding-top:105px; }
+  body.theme-nba .path-card > span[class$="-icon"] { top:16px; right:20px; width:96px; height:96px; }
+}
