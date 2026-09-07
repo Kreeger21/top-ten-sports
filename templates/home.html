@@ -99,7 +99,7 @@
       <a class="path-card team-logo-game-card" href="{{ url_for(team_logo_endpoint) }}">
         <span class="path-number">06</span>
         {% if sport_name == 'NBA' %}<span class="basketball-team-icon" aria-hidden="true"><svg viewBox="0 0 110 100"><path class="jersey" d="M30 12 12 27l12 20 10-7v49h42V40l10 7 12-20-18-15-13 11H43Z"></path><text x="55" y="66">?</text><path class="neck" d="M43 13c2 13 22 13 24 0"></path></svg></span>{% endif %}
-        {% if sport_name == 'NFL' %}<span class="football-team-icon" aria-hidden="true"><svg viewBox="0 0 120 100"><path class="helmet" d="M13 50C13 22 34 7 63 7c28 0 44 16 45 42H82l-9 19H49v20H25V66C17 64 13 59 13 50Z"></path><path class="helmet-ear" d="M60 47h23v20H60Z"></path><path class="helmet-stripe" d="M58 8c9 12 13 25 13 39"></path><path class="facemask" d="M81 53h27v13H79M108 66v12H70M49 76h22"></path><circle class="helmet-rivet" cx="72" cy="57" r="4"></circle></svg></span>{% endif %}
+        {% if sport_name == 'NFL' %}<span class="football-team-icon" aria-hidden="true"><img src="{{ url_for('static', filename='game-icons/nfl-guess-team-helmet.png') }}" alt=""></span>{% endif %}
         <div><p class="eyebrow">Decode the college logos</p><h2>Guess the Team</h2><p>Study a current lineup's college-logo clues and identify the pro team.</p></div>
         <span class="path-arrow" aria-hidden="true">◆</span>
       </a>
