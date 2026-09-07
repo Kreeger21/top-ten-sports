@@ -202,6 +202,8 @@ body.main-menu {
   --line: rgba(255, 255, 255, .18);
   background: radial-gradient(circle at 15% 0%, rgba(255, 255, 255, .14), transparent 36rem), linear-gradient(145deg, #260811 0%, #5d1725 58%, #3a0d17 100%);
 }
+body.main-menu .home-hero { position:relative; min-height:230px; padding-right:250px; }
+body.main-menu .home-brand-logo { position:absolute; top:-20px; right:12px; width:210px; height:230px; object-fit:contain; filter:drop-shadow(0 12px 18px rgba(0,0,0,.28)); }
 body.main-menu .league-card { border-width: 2px; }
 body.main-menu .league-card::before {
   content: "";
@@ -259,6 +261,8 @@ body.main-menu .cfb-card {
   background: linear-gradient(145deg, #8d2e45, #5a172a 58%, #2a0a15);
 }
 @media(max-width:650px) {
+  body.main-menu .home-hero { min-height:190px; padding-right:128px; }
+  body.main-menu .home-brand-logo { top:-8px; right:0; width:112px; height:132px; }
   body.main-menu .league-logo { right: 18px; width: 120px; height: 102px; }
   body.main-menu .league-logo img { width: 108px; height: 90px; }
   body.main-menu .league-mark { left: 20px; font-size: 4.2rem; }
