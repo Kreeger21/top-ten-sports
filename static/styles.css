@@ -900,7 +900,8 @@ body.theme-nba .sport-hero-logo {
   filter:drop-shadow(1px 0 rgba(255,255,255,.38)) drop-shadow(-1px 0 rgba(255,255,255,.38)) drop-shadow(0 14px 22px rgba(0,0,0,.42));
 }
 body.theme-nba .path-grid { gap:22px; }
-body.theme-nba .path-card {
+body.theme-nba .path-card,
+body.theme-nba .path-card:nth-child(odd) {
   min-height:320px;
   padding:30px;
   border-color:rgba(255,122,33,.4);
@@ -912,11 +913,6 @@ body.theme-nba .path-card:nth-child(even) {
   background:
     radial-gradient(circle at 105% -8%, transparent 0 98px, rgba(255,244,224,.1) 100px 103px, transparent 105px),
     linear-gradient(145deg,#a84b20,#6d2c16 62%,#24120d);
-}
-body.theme-nba .path-card:nth-child(3n) {
-  background:
-    linear-gradient(105deg,transparent 0 72%,rgba(255,122,33,.09) 72.5% 73.5%,transparent 74%),
-    linear-gradient(145deg,#173653,#0e2035 70%,#091624);
 }
 body.theme-nba .path-card::before {
   content:"";
@@ -956,8 +952,10 @@ body.theme-nba .sport-award-icon .trophy-seam { stroke:#ff9a43; }
 body.theme-nba .basketball-court-icon rect { fill:#b95a28; stroke:#fff4e0; }
 body.theme-nba .basketball-court-icon path,
 body.theme-nba .basketball-court-icon circle { stroke:#fff4e0; stroke-width:3; }
-body.theme-nba .basketball-team-icon .jersey { fill:#ff7a21; stroke:#fff4e0; }
-body.theme-nba .basketball-team-icon .neck { stroke:#102b46; }
+body.theme-nba .basketball-team-icon .jersey { fill:#ff7a21; stroke:#fff4e0; stroke-width:4; stroke-linejoin:round; }
+body.theme-nba .basketball-team-icon .jersey-trim { fill:none; stroke:#102b46; stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
+body.theme-nba .basketball-team-icon .jersey-panel { fill:#102b46; opacity:.2; }
+body.theme-nba .basketball-team-icon text { fill:#fff4e0; stroke:#102b46; stroke-width:1.1; paint-order:stroke; font:950 35px/1 "Inter Local",sans-serif; text-anchor:middle; }
 body.theme-nba .mystery-player-icon circle,
 body.theme-nba .mystery-player-icon path { fill:#173653; stroke:#fff4e0; }
 body.theme-nba .mystery-player-icon text { fill:#ff7a21; stroke:#102b46; stroke-width:1.2; paint-order:stroke; }
