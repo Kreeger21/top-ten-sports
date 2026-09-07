@@ -194,23 +194,78 @@ body[class*="theme-"] .path-number {
 .nba-card { background: linear-gradient(145deg, #6b3516, #201712); }
 .cfb-card { background: linear-gradient(145deg, #314523, #111c16); }
 
-/* Main menu: maroon canvas with a preview of each league's full colorway. */
+/* Main menu: the Top Ten logo translated into a complete brand system. */
 body.main-menu {
-  --accent: #ffffff;
-  --accent-dark: #5d1725;
-  --panel: rgba(65, 13, 24, .92);
-  --line: rgba(255, 255, 255, .18);
-  background: radial-gradient(circle at 15% 0%, rgba(255, 255, 255, .14), transparent 36rem), linear-gradient(145deg, #260811 0%, #5d1725 58%, #3a0d17 100%);
+  --home-maroon: #641b32;
+  --home-maroon-deep: #250811;
+  --home-navy: #10263b;
+  --home-gold: #ffc857;
+  --home-blue: #39bce8;
+  --home-cream: #fff8e8;
+  --accent: var(--home-gold);
+  --accent-dark: var(--home-maroon-deep);
+  --ink: var(--home-cream);
+  --muted: rgba(255, 248, 232, .76);
+  --panel: rgba(47, 10, 22, .92);
+  --line: rgba(255, 248, 232, .2);
+  background:
+    linear-gradient(118deg, transparent 0 72%, rgba(57, 188, 232, .065) 72.2% 73.1%, transparent 73.3%),
+    radial-gradient(circle at 12% 0%, rgba(255, 200, 87, .16), transparent 31rem),
+    radial-gradient(circle at 91% 18%, rgba(57, 188, 232, .12), transparent 32rem),
+    linear-gradient(145deg, var(--home-maroon-deep) 0%, var(--home-maroon) 56%, #390d1c 100%);
 }
 body.main-menu .home-hero { position:relative; min-height:230px; padding-right:250px; }
-body.main-menu .home-brand-logo { position:absolute; top:-20px; right:12px; width:210px; height:230px; object-fit:contain; filter:drop-shadow(0 12px 18px rgba(0,0,0,.28)); }
-body.main-menu .league-card { border-width: 2px; }
+body.main-menu .home-hero::after {
+  content: "";
+  position: absolute;
+  right: 250px;
+  bottom: 38px;
+  left: 0;
+  height: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--home-gold) 0 35%, var(--home-blue) 35% 58%, rgba(255,248,232,.16) 58% 100%);
+  transform: skewX(-22deg);
+}
+body.main-menu .home-hero .eyebrow { color: var(--home-gold); }
+body.main-menu .home-hero h1 {
+  max-width: 780px;
+  color: var(--home-cream);
+  font-family: "Oswald Sports", "Arial Narrow", sans-serif;
+  font-style: italic;
+  letter-spacing: -.035em;
+  text-shadow: 5px 6px 0 rgba(16, 38, 59, .78);
+  text-transform: uppercase;
+}
+body.main-menu .home-hero .intro { max-width: 670px; color: rgba(255,248,232,.82); }
+body.main-menu .home-brand-logo { position:absolute; top:-20px; right:12px; width:210px; height:230px; object-fit:contain; filter:drop-shadow(0 12px 18px rgba(0,0,0,.32)); }
+body.main-menu .league-grid { gap: 22px; }
+body.main-menu .league-card {
+  min-height: 370px;
+  padding: 32px;
+  border-width: 2px;
+  border-radius: 18px;
+  isolation: isolate;
+  box-shadow: 0 22px 54px rgba(17, 3, 8, .36), inset 0 1px 0 rgba(255,255,255,.08);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
 body.main-menu .league-card::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: .12;
+  opacity: .11;
+}
+body.main-menu .league-card::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 30px;
+  width: 128px;
+  height: 7px;
+  background: var(--league-accent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--league-accent) 32%, transparent);
+  transform: skewX(-25deg);
 }
 body.main-menu .mlb-card::before { background: repeating-linear-gradient(105deg, transparent 0 28px, rgba(255,255,255,.18) 29px 30px); }
 body.main-menu .nfl-card::before { background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 2px), rgba(255,255,255,.22) calc(20% - 2px) 20%); }
@@ -233,39 +288,58 @@ body.main-menu .league-logo img {
   object-fit: contain;
   filter: drop-shadow(1px 0 rgba(255,255,255,.48)) drop-shadow(-1px 0 rgba(255,255,255,.48)) drop-shadow(0 1px rgba(255,255,255,.48)) drop-shadow(0 -1px rgba(255,255,255,.48)) drop-shadow(0 8px 12px rgba(0,0,0,.38));
 }
-body.main-menu .league-mark { top: 22px; right: auto; left: 25px; font-size: clamp(4.7rem, 9vw, 7rem); }
+body.main-menu .league-mark { top: 22px; right: auto; left: 25px; color: color-mix(in srgb, var(--league-accent) 13%, transparent); font-size: clamp(4.7rem, 9vw, 7rem); }
+body.main-menu .league-card h2 {
+  color: var(--home-cream);
+  font-family: "Oswald Sports", "Arial Narrow", sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.35rem);
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+}
 body.main-menu .league-card .eyebrow,
 body.main-menu .league-card .path-arrow { color: var(--league-accent); }
+body.main-menu .league-card .eyebrow { letter-spacing: .16em; }
+body.main-menu .league-card p:last-child { color: rgba(255,248,232,.76); font-size: 1.02rem; }
+body.main-menu .league-card .path-arrow { font-size: 2rem; }
 body.main-menu .league-card:hover {
+  transform: translateY(-4px);
   border-color: var(--league-accent);
-  box-shadow: 0 28px 78px rgba(0, 0, 0, .42), 0 0 0 2px color-mix(in srgb, var(--league-accent) 20%, transparent);
+  box-shadow: 0 28px 66px rgba(17, 3, 8, .48), 0 0 0 2px color-mix(in srgb, var(--league-accent) 22%, transparent);
 }
+body.main-menu .league-card:focus-visible { outline: 3px solid var(--home-cream); outline-offset: 4px; }
 body.main-menu .mlb-card {
-  --league-accent: #e0473e;
-  border-color: rgba(224, 71, 62, .55);
-  background: linear-gradient(145deg, #236846, #103c2c 62%, #824329);
+  --league-accent: var(--home-blue);
+  border-color: rgba(57, 188, 232, .46);
+  background: linear-gradient(145deg, #17344d 0%, #10263b 64%, #321326 100%);
 }
 body.main-menu .nfl-card {
-  --league-accent: #f4c542;
-  border-color: rgba(244, 197, 66, .52);
-  background: linear-gradient(145deg, #2b7044, #153d27 62%, #6d371d);
+  --league-accent: var(--home-gold);
+  border-color: rgba(255, 200, 87, .46);
+  background: linear-gradient(145deg, #72233d 0%, #4a1429 62%, #24101a 100%);
 }
 body.main-menu .nba-card {
-  --league-accent: #f47a23;
-  border-color: rgba(244, 122, 35, .58);
-  background: linear-gradient(145deg, #b8642c, #663719 62%, #29160c);
+  --league-accent: var(--home-gold);
+  border-color: rgba(255, 200, 87, .46);
+  background: linear-gradient(145deg, #72233d 0%, #4a1429 62%, #24101a 100%);
 }
 body.main-menu .cfb-card {
-  --league-accent: #d8b45a;
-  border-color: rgba(216, 180, 90, .5);
-  background: linear-gradient(145deg, #8d2e45, #5a172a 58%, #2a0a15);
+  --league-accent: var(--home-blue);
+  border-color: rgba(57, 188, 232, .46);
+  background: linear-gradient(145deg, #17344d 0%, #10263b 64%, #321326 100%);
 }
 @media(max-width:650px) {
-  body.main-menu .home-hero { min-height:190px; padding-right:128px; }
+  body.main-menu .home-hero { min-height:200px; padding-right:128px; }
+  body.main-menu .home-hero::after { right:128px; bottom:30px; }
+  body.main-menu .home-hero h1 { text-shadow:3px 4px 0 rgba(16,38,59,.78); }
   body.main-menu .home-brand-logo { top:-8px; right:0; width:112px; height:132px; }
   body.main-menu .league-logo { right: 18px; width: 120px; height: 102px; }
   body.main-menu .league-logo img { width: 108px; height: 90px; }
   body.main-menu .league-mark { left: 20px; font-size: 4.2rem; }
+  body.main-menu .league-card { min-height:335px; padding:25px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.main-menu .league-card { transition:none; }
+  body.main-menu .league-card:hover { transform:none; }
 }
 
 /* Founders UI baseball treatment: field geometry, leather, stitches, and scorecards. */
