@@ -966,3 +966,108 @@ body.theme-nba .mystery-player-icon text { fill:#ff7a21; stroke:#102b46; stroke-
   body.theme-nba .path-card:nth-child(1) > div { max-width:100%; padding-top:105px; }
   body.theme-nba .path-card > span[class$="-icon"] { top:16px; right:20px; width:96px; height:96px; }
 }
+
+/* FBS home: Saturday-night stadium tones with playoff-style gold detailing. */
+body.theme-cfb {
+  --accent:#e5bd62;
+  --accent-dark:#211505;
+  --panel:rgba(30,12,20,.95);
+  --line:rgba(255,247,226,.2);
+  --choice-deep:#180a11;
+  --choice-bright:#681d35;
+  --choice-soft:#26333b;
+  background:
+    linear-gradient(90deg,transparent 0 9.8%,rgba(255,255,255,.045) 10% 10.15%,transparent 10.3% 19.8%,rgba(255,255,255,.045) 20% 20.15%,transparent 20.3%),
+    radial-gradient(ellipse at 50% -8%,rgba(229,189,98,.18),transparent 35rem),
+    radial-gradient(circle at 10% 18%,rgba(118,29,54,.34),transparent 30rem),
+    linear-gradient(145deg,#09070a 0%,#2d0b18 54%,#120910 100%);
+}
+body.theme-cfb input,
+body.theme-cfb select,
+body.theme-cfb .locked-option,
+body.theme-cfb .check-menu summary,
+body.theme-cfb .check-menu-options,
+body.theme-cfb .war-mode-option span { background:#170a11; }
+body.theme-cfb .home-hero { min-height:225px; }
+body.theme-cfb .home-hero h1 {
+  color:#fff7e2;
+  font-size:clamp(2.8rem,5.4vw,4.65rem);
+  text-shadow:5px 6px 0 rgba(112,27,52,.5);
+}
+body.theme-cfb .sport-hero-logo {
+  width:clamp(205px,25vw,275px);
+  filter:drop-shadow(1px 0 rgba(255,247,226,.5)) drop-shadow(-1px 0 rgba(255,247,226,.5)) drop-shadow(0 14px 22px rgba(0,0,0,.5));
+}
+body.theme-cfb .path-grid { gap:22px; }
+body.theme-cfb .path-card,
+body.theme-cfb .path-card:nth-child(odd) {
+  min-height:320px;
+  padding:30px;
+  border-color:rgba(229,189,98,.38);
+  background:
+    linear-gradient(112deg,transparent 0 73%,rgba(229,189,98,.07) 73.4% 74.2%,transparent 74.6%),
+    linear-gradient(145deg,#711e39,#461123 66%,#1b0a12);
+}
+body.theme-cfb .path-card:nth-child(even) {
+  background:
+    linear-gradient(112deg,transparent 0 73%,rgba(229,189,98,.08) 73.4% 74.2%,transparent 74.6%),
+    linear-gradient(145deg,#2e3b43,#1c272e 65%,#0c1216);
+}
+body.theme-cfb .path-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.12;
+  background:repeating-linear-gradient(90deg,transparent 0 78px,rgba(255,255,255,.12) 79px 80px);
+}
+body.theme-cfb .path-card::after {
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:28px;
+  width:116px;
+  height:6px;
+  background:var(--accent);
+  transform:skewX(-24deg);
+}
+body.theme-cfb .path-card > * { position:relative; z-index:1; }
+body.theme-cfb .path-card > div { width:100%; }
+body.theme-cfb .path-card:nth-child(1) > div { max-width:calc(100% - 132px); }
+body.theme-cfb .path-card h2 { max-width:calc(100% - 8px); line-height:1.05; color:#fff7e2; }
+body.theme-cfb .path-card p:last-child { max-width:410px; color:rgba(255,247,226,.74); }
+body.theme-cfb .path-card > span[class$="-icon"] {
+  top:22px;
+  right:26px;
+  width:112px;
+  height:112px;
+  filter:drop-shadow(0 10px 13px rgba(0,0,0,.42));
+}
+body.theme-cfb .football-stats-icon .playbook { fill:#241019; stroke:#fff7e2; }
+body.theme-cfb .football-stats-icon .play-lines { stroke:#e5bd62; }
+body.theme-cfb .football-stats-icon .mini-football { fill:#884326; stroke:#fff7e2; }
+body.theme-cfb .quiz-friends-icon .quiz-head,
+body.theme-cfb .quiz-friends-icon .quiz-body { fill:#26333b; stroke:#fff7e2; }
+body.theme-cfb .quiz-friends-icon .friend { stroke:#e5bd62; }
+body.theme-cfb .quiz-friends-icon .quiz-bubble { fill:#e5bd62; stroke:#fff7e2; }
+body.theme-cfb .top-ten-challenge-icon .challenge-shield { fill:#241019; stroke:#fff7e2; }
+body.theme-cfb .top-ten-challenge-icon .challenge-stripe { fill:#e5bd62; }
+body.theme-cfb .top-ten-challenge-icon .challenge-ball { fill:#7d263f; stroke:#fff7e2; }
+body.theme-cfb .sport-award-icon .trophy-cup { fill:#d2a84f; stroke:#fff0bd; }
+body.theme-cfb .sport-award-icon .trophy-ball { fill:#7b3f20; stroke:#fff7e2; }
+body.theme-cfb .football-field-icon rect { fill:#315c3d; stroke:#fff7e2; }
+body.theme-cfb .football-field-icon path { stroke:rgba(255,247,226,.82); }
+body.theme-cfb .football-field-icon .goalpost { stroke:#e5bd62; }
+body.theme-cfb .mystery-player-icon circle,
+body.theme-cfb .mystery-player-icon path { fill:#26333b; stroke:#fff7e2; }
+body.theme-cfb .mystery-player-icon text { fill:#e5bd62; stroke:#241019; stroke-width:1.2; paint-order:stroke; }
+
+@media(max-width:650px) {
+  body.theme-cfb .home-hero { min-height:0; }
+  body.theme-cfb .path-card { min-height:300px; padding:25px; }
+  body.theme-cfb .path-card:nth-child(1) > div { max-width:100%; padding-top:105px; }
+  body.theme-cfb .path-card > span[class$="-icon"] { top:16px; right:20px; width:96px; height:96px; }
+  body.theme-cfb .path-card::after { right:20px; width:86px; }
+}
