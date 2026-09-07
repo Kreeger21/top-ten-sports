@@ -954,11 +954,8 @@ body.theme-nba .basketball-court-icon path,
 body.theme-nba .basketball-court-icon circle { stroke:#fff4e0; stroke-width:3; }
 body.theme-nba .basketball-team-icon .jersey { fill:#ff7a21; stroke:#fff4e0; stroke-width:4; stroke-linejoin:round; }
 body.theme-nba .basketball-team-icon .jersey-trim { fill:none; stroke:#102b46; stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
-body.theme-nba .basketball-team-icon .jersey-panel { fill:#102b46; opacity:.52; }
-body.theme-nba .basketball-team-icon .jersey-neck-inset { fill:none; stroke:#fff4e0; stroke-width:2; stroke-linecap:round; }
 body.theme-nba .basketball-team-icon text { fill:#fff4e0; stroke:#102b46; paint-order:stroke; text-anchor:middle; }
-body.theme-nba .basketball-team-icon .jersey-label { stroke-width:.8; font:800 9px/1 "Inter Local",sans-serif; letter-spacing:1.8px; }
-body.theme-nba .basketball-team-icon .jersey-question { stroke-width:1.2; font:950 34px/1 "Inter Local",sans-serif; }
+body.theme-nba .basketball-team-icon .jersey-question { stroke-width:1.2; font:950 38px/1 "Inter Local",sans-serif; }
 body.theme-nba .mystery-player-icon circle,
 body.theme-nba .mystery-player-icon path { fill:#173653; stroke:#fff4e0; }
 body.theme-nba .mystery-player-icon text { fill:#ff7a21; stroke:#102b46; stroke-width:1.2; paint-order:stroke; }
