@@ -455,7 +455,8 @@ body.theme-nfl .path-card > span[class$="-icon"] svg { width:100%; height:100%; 
 body.theme-nfl .path-card:nth-child(odd) > span[class$="-icon"] { color:#754225; }
 body.theme-nfl .path-card:nth-child(even) > span[class$="-icon"] { color:#17482b; }
 body.theme-nfl .build-football-icon .football-body { fill:currentColor; stroke:#fff; stroke-width:4; stroke-linejoin:round; }
-body.theme-nfl .build-football-icon .football-seam { fill:none; stroke:#fff; stroke-width:3; stroke-linecap:round; }
+body.theme-nfl .build-football-icon .football-stripe { fill:none; stroke:rgba(255,255,255,.82); stroke-width:3; stroke-linecap:round; }
+body.theme-nfl .build-football-icon .football-lace { fill:none; stroke:#fff; stroke-width:3; stroke-linecap:round; }
 body.theme-nfl .football-stats-icon .playbook { fill:#102a1b; stroke:#fff; stroke-width:4; }
 body.theme-nfl .football-stats-icon .play-lines { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
 body.theme-nfl .football-stats-icon .mini-football { fill:#82451f; stroke:#fff; stroke-width:3; }
@@ -467,7 +468,7 @@ body.theme-nfl .quiz-friends-icon .quiz-bubble { fill:currentColor; stroke:#fff;
 body.theme-nfl .quiz-friends-icon text { fill:#fff; font:700 30px/1 "Inter Local",sans-serif; text-anchor:middle; }
 body.theme-nfl .surprise-card > div { max-width:calc(100% - 112px); }
 body.theme-nfl .top-ten-challenge-icon .challenge-shield { fill:currentColor; stroke:#fff; stroke-width:4; }
-body.theme-nfl .top-ten-challenge-icon .challenge-stripe { fill:rgba(255,255,255,.16); }
+body.theme-nfl .top-ten-challenge-icon .challenge-stripe { fill:#247247; }
 body.theme-nfl .top-ten-challenge-icon text { fill:#fff; font-family:"Inter Local",sans-serif; font-weight:700; text-anchor:middle; }
 body.theme-nfl .top-ten-challenge-icon .challenge-top { font-size:17px; letter-spacing:3px; }
 body.theme-nfl .top-ten-challenge-icon .challenge-ten { font-size:42px; }
@@ -482,6 +483,7 @@ body.theme-nfl .football-field-icon .field-ball { fill:#754225; stroke:#fff; str
 body.theme-nfl .football-field-icon .ball-laces { fill:none; stroke:#fff; stroke-width:1.5; stroke-linecap:round; }
 body.theme-nfl .football-field-icon .goalpost { stroke:#fff; stroke-width:4; stroke-linecap:round; }
 body.theme-nfl .football-team-icon .helmet { fill:currentColor; stroke:#fff; stroke-width:4; stroke-linejoin:round; }
+body.theme-nfl .football-team-icon .helmet-ear { fill:#123d25; stroke:#fff; stroke-width:3; }
 body.theme-nfl .football-team-icon .helmet-stripe { fill:none; stroke:rgba(255,255,255,.7); stroke-width:4; }
 body.theme-nfl .football-team-icon .facemask { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
 body.theme-nfl .football-team-icon .helmet-rivet { fill:#fff; stroke:none; }
