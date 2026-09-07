@@ -480,10 +480,11 @@ body.theme-nfl .football-field-icon .field-lines { fill:none; stroke:rgba(255,25
 body.theme-nfl .football-field-icon .field-ball { fill:#754225; stroke:#fff; stroke-width:2; }
 body.theme-nfl .football-field-icon .ball-laces { fill:none; stroke:#fff; stroke-width:1.5; stroke-linecap:round; }
 body.theme-nfl .football-field-icon .goalpost { stroke:#fff; stroke-width:4; stroke-linecap:round; }
-body.theme-nfl .football-team-icon .helmet-shell { fill:#17482b; stroke:#fff; stroke-width:4; stroke-linejoin:round; }
-body.theme-nfl .football-team-icon .facemask-outline { fill:none; stroke:#fff; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; }
-body.theme-nfl .football-team-icon .facemask { fill:none; stroke:#754225; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
-body.theme-nfl .football-team-icon .helmet-rivet { fill:#fff; stroke:#754225; stroke-width:2; }
+body.theme-nfl .football-jersey-icon .jersey-body { fill:#17482b; stroke:#fff; stroke-width:4; stroke-linejoin:round; }
+body.theme-nfl .football-jersey-icon .jersey-sleeves { fill:#754225; stroke:#fff; stroke-width:3; stroke-linejoin:round; }
+body.theme-nfl .football-jersey-icon .jersey-collar,
+body.theme-nfl .football-jersey-icon .jersey-stripes { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; }
+body.theme-nfl .football-jersey-icon .jersey-number { fill:#fff; font:700 38px/1 "Oswald Sports",sans-serif; text-anchor:middle; }
 body.theme-nfl .mystery-player-icon circle,
 body.theme-nfl .mystery-player-icon path { fill:currentColor; stroke:#fff; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
 body.theme-nfl .mystery-player-icon text { fill:#fff; stroke:#173c27; stroke-width:1.5; paint-order:stroke; font:700 52px/1 "Inter Local",sans-serif; }
