@@ -732,3 +732,142 @@ body.theme-cfb .mystery-player-icon text { fill:#d8b45a; font:900 52px/1 Inter,s
   .guess-form button { width: 100%; }
   .career-total-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* Shared Top Ten visual language across every league and game screen. */
+body[class*="theme-"] {
+  font-family: "Inter Local", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+body[class*="theme-"] ::selection {
+  color: var(--accent-dark);
+  background: var(--accent);
+}
+body[class*="theme-"] h1,
+body[class*="theme-"] h2,
+body[class*="theme-"] h3 {
+  font-family: "Oswald Sports", "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+}
+body[class*="theme-"] .hero:not(.home-hero) {
+  position: relative;
+  padding-bottom: 25px;
+}
+body[class*="theme-"] .hero:not(.home-hero)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: min(520px, 72%);
+  height: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent) 0 58%, color-mix(in srgb, var(--accent) 22%, transparent) 58% 100%);
+  transform: skewX(-22deg);
+}
+body[class*="theme-"] .hero h1 {
+  letter-spacing: -.035em;
+  text-shadow: 4px 5px 0 rgba(0, 0, 0, .24);
+}
+body[class*="theme-"] .eyebrow { letter-spacing: .16em; }
+body[class*="theme-"] .top-nav {
+  min-height: 46px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+body[class*="theme-"] .top-nav a:not(.respin-button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 4px;
+}
+body[class*="theme-"] .card,
+body[class*="theme-"] .controls-card,
+body[class*="theme-"] .guess-card,
+body[class*="theme-"] .career-accolades {
+  border-width: 2px;
+  border-radius: 16px;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .055);
+}
+body[class*="theme-"] .controls-card,
+body[class*="theme-"] .guess-card {
+  position: relative;
+}
+body[class*="theme-"] .controls-card::before,
+body[class*="theme-"] .guess-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: 28px;
+  width: 112px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--accent);
+  transform: skewX(-24deg);
+}
+body[class*="theme-"] .path-card {
+  border-width: 2px;
+  border-radius: 16px;
+}
+body[class*="theme-"] .path-card h2,
+body[class*="theme-"] .table-heading h2 {
+  letter-spacing: -.015em;
+}
+body[class*="theme-"] input,
+body[class*="theme-"] select,
+body[class*="theme-"] button,
+body[class*="theme-"] .locked-option,
+body[class*="theme-"] .check-menu summary {
+  border-radius: 8px;
+}
+body[class*="theme-"] input,
+body[class*="theme-"] select {
+  border-width: 2px;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+body[class*="theme-"] input:focus,
+body[class*="theme-"] select:focus,
+body[class*="theme-"] .check-menu summary:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+body[class*="theme-"] button,
+body[class*="theme-"] .respin-button {
+  text-transform: uppercase;
+  letter-spacing: .035em;
+  transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
+}
+body[class*="theme-"] button:focus-visible,
+body[class*="theme-"] a:focus-visible,
+body[class*="theme-"] summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+body[class*="theme-"] .table-heading {
+  position: relative;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 58%);
+}
+body[class*="theme-"] th { font-weight: 800; letter-spacing: .13em; }
+body[class*="theme-"] tbody tr { transition: background-color .14s ease; }
+body[class*="theme-"] tbody tr:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+body[class*="theme-"] .stat-badge,
+body[class*="theme-"] .rank,
+body[class*="theme-"] .all-star-badge { box-shadow: 0 5px 14px rgba(0, 0, 0, .22); }
+body[class*="theme-"] .difficulty-switch,
+body[class*="theme-"] .field-side-switch {
+  border-width: 2px;
+  border-radius: 12px;
+}
+body[class*="theme-"] .difficulty-switch a,
+body[class*="theme-"] .field-side-switch a { border-radius: 7px; }
+
+@media (max-width: 650px) {
+  body[class*="theme-"] .page-shell { padding-top: 30px; }
+  body[class*="theme-"] .hero:not(.home-hero) { padding-bottom: 20px; }
+  body[class*="theme-"] .controls-card::before,
+  body[class*="theme-"] .guess-card::before { right:20px; width:78px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[class*="theme-"] *,
+  body[class*="theme-"] *::before,
+  body[class*="theme-"] *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; }
+}
