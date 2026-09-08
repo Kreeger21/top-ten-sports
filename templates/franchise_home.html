@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Franchise Mode · Top Ten Sports</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="franchise-menu">
+  <main class="page-shell franchise-shell">
+    <nav class="top-nav"><a href="{{ url_for('home') }}">← Game modes</a></nav>
+    <header class="franchise-hero">
+      <p class="eyebrow">A new way to play</p>
+      <h1>Build Your Franchise</h1>
+      <p class="intro">Take control of a team, shape its identity, and make the decisions that define an era.</p>
+      <span class="development-badge">In development</span>
+    </header>
+
+    <section class="franchise-pillars" aria-label="Franchise mode features">
+      <article><span>01</span><strong>Choose a team</strong><p>Take over an existing organization and inherit its identity.</p></article>
+      <article><span>02</span><strong>Build the roster</strong><p>Evaluate personnel and shape a team around your strategy.</p></article>
+      <article><span>03</span><strong>Chase a legacy</strong><p>Turn season-by-season decisions into a championship history.</p></article>
+    </section>
+
+    <section class="franchise-leagues" aria-labelledby="franchise-leagues-title">
+      <div class="section-heading"><div><p class="eyebrow">League experiences coming next</p><h2 id="franchise-leagues-title">Choose the first franchise world</h2></div><p>These league modules are the next step in development.</p></div>
+      <div class="franchise-league-grid">
+        <article><span>MLB</span><strong>Baseball</strong><small>162-game roster building</small></article>
+        <article><span>NFL</span><strong>Football</strong><small>Draft, depth, and Sundays</small></article>
+        <article><span>NBA</span><strong>Basketball</strong><small>Rotation and cap strategy</small></article>
+        <article><span>FBS</span><strong>College Football</strong><small>Recruiting and program legacy</small></article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

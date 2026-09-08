@@ -894,7 +894,11 @@ def _guess_team(sport):
 
 
 @app.route("/")
-def home(): return render_template("sports_home.html")
+def home(): return render_template("product_home.html")
+@app.route("/top-ten")
+def top_ten_home(): return render_template("sports_home.html")
+@app.route("/franchise")
+def franchise_home(): return render_template("franchise_home.html")
 @app.route("/mlb")
 def mlb_home(): return _sport_home("mlb")
 @app.route("/mlb/leaderboard")

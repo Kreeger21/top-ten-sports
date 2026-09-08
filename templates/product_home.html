@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top Ten Sports</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="mode-menu">
+  <main class="page-shell mode-shell">
+    <header class="mode-hero">
+      <div>
+        <p class="eyebrow">Founders UI · Sports games</p>
+        <h1>Choose Your Mode</h1>
+        <p class="intro">Test what you know today—or take control of what happens next.</p>
+      </div>
+      <img class="mode-brand-logo" src="{{ url_for('static', filename='brand/top-ten-logo.png') }}" alt="Top Ten">
+    </header>
+
+    <section class="mode-grid" aria-label="Choose a game mode">
+      <a class="mode-card trivia-mode" href="{{ url_for('top_ten_home') }}">
+        <span class="mode-kicker">Knowledge games</span>
+        <span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 120 120"><path d="M60 8 104 24v37c0 27-18 44-44 53C34 105 16 88 16 61V24Z"></path><path class="mode-icon-accent" d="M20 38h80v20H20Z"></path><text x="60" y="52">TOP</text><text class="mode-icon-number" x="60" y="91">10</text></svg></span>
+        <div><h2>Top Ten</h2><p>Build leaderboards, take challenges, trace careers, and test sports history across four leagues.</p></div>
+        <span class="mode-cta">Choose a sport <b aria-hidden="true">→</b></span>
+      </a>
+
+      <a class="mode-card franchise-mode" href="{{ url_for('franchise_home') }}">
+        <span class="mode-kicker">Team management</span>
+        <span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 120 120"><path d="M22 51 60 14l38 37v53H22Z"></path><path class="mode-icon-accent" d="M45 104V67h30v37M36 50h48"></path><circle cx="60" cy="42" r="8"></circle></svg></span>
+        <div><h2>Franchise Mode</h2><p>Choose an organization, shape its roster, make key decisions, and build a lasting contender.</p></div>
+        <span class="mode-cta">Enter franchise hub <b aria-hidden="true">→</b></span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

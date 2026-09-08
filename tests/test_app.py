@@ -40,10 +40,22 @@ class LeaderTests(unittest.TestCase):
     def test_homepage_renders(self):
         response = app.test_client().get("/")
         self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Choose Your Mode", response.data)
+        self.assertIn(b"Franchise Mode", response.data)
+
+    def test_top_ten_homepage_renders(self):
+        response = app.test_client().get("/top-ten")
+        self.assertEqual(response.status_code, 200)
         self.assertIn(b"MLB Top Ten", response.data)
         self.assertIn(b"NFL Top Ten", response.data)
         self.assertIn(b"NBA Top Ten", response.data)
         self.assertIn(b"FBS Top Ten", response.data)
+
+    def test_franchise_homepage_renders(self):
+        response = app.test_client().get("/franchise")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Build Your Franchise", response.data)
+        self.assertIn(b"League experiences coming next", response.data)
 
     def test_mlb_home_renders(self):
         response = app.test_client().get("/mlb")
