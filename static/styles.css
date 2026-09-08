@@ -1262,6 +1262,17 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .contract-status { display:inline-flex; align-items:center; min-height:24px; padding:4px 8px; border:1px solid currentColor; border-radius:999px; font-size:.64rem; font-weight:850; letter-spacing:.04em; white-space:nowrap; text-transform:uppercase; }
 .contract-status.verified { color:#71d7a1; background:rgba(113,215,161,.08); }
 .contract-status.pending { color:#ffb562; background:rgba(255,181,98,.08); }
+.attribute-roster-table { min-width:1320px; }
+.attribute-roster-table th:nth-child(5) { min-width:430px; }
+.attribute-ratings { display:grid; grid-template-columns:repeat(5,minmax(72px,1fr)); gap:6px; }
+.attribute-ratings span { display:grid; gap:3px; min-width:0; padding:7px 8px; border:1px solid var(--line); border-radius:7px; background:rgba(255,255,255,.025); }
+.attribute-ratings b { overflow:hidden; color:var(--muted); font-size:.58rem; font-weight:850; letter-spacing:.03em; text-overflow:ellipsis; text-transform:uppercase; white-space:nowrap; }
+.attribute-ratings strong { color:var(--ink); font-size:1rem; font-variant-numeric:tabular-nums; }
+.attribute-ratings .strong { border-color:rgba(255,122,33,.45); }
+.attribute-ratings .elite { border-color:#71d7a1; background:rgba(113,215,161,.07); }
+.attribute-ratings .elite strong { color:#71d7a1; }
+.attribute-meta { display:block; margin-top:6px; color:var(--muted); font-size:.62rem; }
+.attribute-unavailable { display:inline-flex; padding:5px 8px; border:1px dashed rgba(255,181,98,.55); border-radius:999px; color:#ffb562; font-size:.68rem; font-weight:800; text-transform:uppercase; }
 .empty-roster { margin:0; padding:28px 26px; color:var(--muted); }
 .data-integrity-note { margin:18px 3px 0; }.data-integrity-note strong { color:var(--accent); }
 @media(max-width:900px){.full-schedule{grid-template-columns:repeat(3,1fr)}.finance-summary{grid-template-columns:1fr 1fr}}

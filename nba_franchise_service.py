@@ -6,6 +6,8 @@ from functools import lru_cache
 from pathlib import Path
 from random import Random
 
+import nba_attribute_service
+
 
 DATA_SNAPSHOT = "2026 offseason"
 RULES_SEASON = "2026–27"
@@ -137,7 +139,8 @@ def roster(team_code):
         remaining = int(float(row["years_remaining"])) if row["years_remaining"] else None
         players.append({**row, "age": int(float(row["age"])) if row["age"] else None,
                         "salary": salary, "years_remaining": remaining,
-                        "contract_verified": salary is not None})
+                        "contract_verified": salary is not None,
+                        "attribute_profile": nba_attribute_service.attributes_for_player(row["player_id"])})
     return tuple(sorted(players, key=lambda player: (player["position"], player["name"])))
 
 
