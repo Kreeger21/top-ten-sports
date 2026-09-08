@@ -65,7 +65,25 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"New York Knicks", response.data)
         self.assertEqual(response.data.count(b"<option value="), 30)
-        self.assertIn(b"Current roster", response.data)
+        self.assertIn(b"Starting lineup", response.data)
+        self.assertNotIn(b"<th>2026\xe2\x80\x9327 salary</th>", response.data)
+
+    def test_nba_franchise_hub_links_to_detail_pages(self):
+        client = app.test_client()
+        home = client.get("/franchise/nba?team=TOR")
+        self.assertIn(b"Current week", home.data)
+        self.assertIn(b"News & transactions", home.data)
+        for path, heading in (("roster", b"Full roster"), ("schedule", b"Full schedule"),
+                              ("news", b"News & transactions")):
+            response = client.get(f"/franchise/nba/{path}?team=TOR")
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(heading, response.data)
+
+    def test_nba_franchise_starting_lineup_has_five_unique_players(self):
+        import nba_franchise_service as franchise
+        lineup = franchise.starting_lineup("TOR")
+        self.assertEqual(len(lineup), 5)
+        self.assertEqual(len({player["name"] for player in lineup}), 5)
 
     def test_nba_franchise_roster_dataset_covers_every_team(self):
         import nba_franchise_service as franchise

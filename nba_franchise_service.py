@@ -92,6 +92,35 @@ def roster(team_code):
     return tuple(sorted(players, key=lambda player: (player["position"], player["name"])))
 
 
+def starting_lineup(team_code):
+    """Return a balanced projected five without inventing unsupported positions."""
+    players = roster(team_code)
+    ranked = sorted(players, key=lambda player: (player["salary"] or 0, player["name"]), reverse=True)
+    lineup = []
+    used = set()
+    for label, position in (("PG", "G"), ("SG", "G"), ("SF", "F"), ("PF", "F"), ("C", "C")):
+        player = next((candidate for candidate in ranked
+                       if candidate["position"] == position and candidate["player_id"] not in used), None)
+        if player is None:
+            player = next((candidate for candidate in ranked if candidate["player_id"] not in used), None)
+        if player:
+            used.add(player["player_id"])
+            lineup.append({"slot": label, "name": player["name"]})
+    return tuple(lineup)
+
+
+def team_updates(team_code):
+    team = TEAM_BY_CODE.get(team_code, TEAM_BY_CODE["ATL"])
+    return (
+        {"type": "Roster", "title": f"{team.city} offseason roster loaded",
+         "detail": "Current player and position records are available for review."},
+        {"type": "Contracts", "title": "Contract verification in progress",
+         "detail": "Unavailable salary terms remain clearly marked and excluded from payroll."},
+        {"type": "League", "title": "2026–27 rules are active",
+         "detail": "Salary-cap, apron, roster, schedule, and postseason rules are enabled."},
+    )
+
+
 def _conference_order(conference):
     """Interleave divisions so symmetric offsets create six non-division rivals."""
     teams = [team for team in TEAMS if team.conference == conference]
@@ -140,6 +169,9 @@ def team_overview(team_code):
         "snapshot": DATA_SNAPSHOT,
         "rules_season": RULES_SEASON,
         "roster": players,
+        "starting_lineup": starting_lineup(team.code),
+        "current_week": regular_season_schedule(team.code)[:4],
+        "team_updates": team_updates(team.code),
         "verified_contracts": len(verified),
         "verified_payroll": sum(player["salary"] for player in verified),
         "snapshot_at": players[0]["snapshot_at"][:10] if players else None,
