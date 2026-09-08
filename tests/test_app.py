@@ -99,16 +99,22 @@ class LeaderTests(unittest.TestCase):
         client = app.test_client()
         home = client.get("/franchise/nba?team=ATL")
         self.assertIn(b"Statistics", home.data)
-        team = client.get("/franchise/nba/statistics?team=ATL&view=team&stat=pts")
-        league = client.get("/franchise/nba/statistics?team=ATL&view=league&stat=ast")
+        team = client.get("/franchise/nba/statistics?team=ATL&view=team&mode=totals")
+        league = client.get("/franchise/nba/statistics?team=ATL&view=league&mode=per_game")
         self.assertEqual(team.status_code, 200)
-        self.assertIn(b"Atlanta Points leaders", team.data)
+        self.assertIn(b"Atlanta player statistics", team.data)
         self.assertIn(b"Team stats", team.data)
+        for heading in (b"GP", b"PTS", b"REB", b"AST", b"STL", b"BLK", b"3PM"):
+            self.assertIn(heading, team.data)
         self.assertEqual(league.status_code, 200)
-        self.assertIn(b"NBA Assists leaders", league.data)
+        self.assertIn(b"NBA player statistics", league.data)
         self.assertIn(b"League leaders", league.data)
+        self.assertIn(b"Per-game averages", league.data)
         import nba_franchise_service as franchise
         self.assertTrue(franchise.statistics("BKN")["leaders"])
+        totals = franchise.statistics("ATL", "totals")["leaders"][0]
+        averages = franchise.statistics("ATL", "per_game")["leaders"][0]
+        self.assertAlmostEqual(averages["stats"]["pts"], round(totals["stats"]["pts"] / totals["stats"]["g"], 1))
 
     def test_nba_franchise_starting_lineup_has_five_unique_players(self):
         import nba_franchise_service as franchise

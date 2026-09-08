@@ -934,11 +934,11 @@ def nba_franchise_assets():
 def nba_franchise_statistics():
     team_code = request.args.get("team", "ATL").upper()
     view = request.args.get("view", "team")
-    stat_key = request.args.get("stat", "pts")
+    mode = request.args.get("mode", "totals")
     context = nba_franchise_service.team_overview(team_code)
     return render_template("nba_franchise_statistics.html", teams=nba_franchise_service.TEAMS,
                            stat_options=nba_franchise_service.STAT_OPTIONS,
-                           stats=nba_franchise_service.statistics(context["team"].code, stat_key, view),
+                           stats=nba_franchise_service.statistics(context["team"].code, mode, view),
                            **context)
 @app.route("/mlb")
 def mlb_home(): return _sport_home("mlb")

@@ -1200,7 +1200,18 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .stats-controls form { min-width:230px; }
 .stats-controls label { display:block; margin-bottom:5px; color:var(--muted); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
 .stats-controls select { width:100%; }
+.stats-scroll { overflow-x:auto; scrollbar-color:var(--accent) rgba(255,255,255,.08); scrollbar-width:auto; }
+.stats-scroll::-webkit-scrollbar { height:12px; }
+.stats-scroll::-webkit-scrollbar-track { background:rgba(255,255,255,.06); }
+.stats-scroll::-webkit-scrollbar-thumb { border:3px solid #0e1d2e; border-radius:999px; background:var(--accent); }
+.stats-table { min-width:1050px; }
 .stats-table td:first-child { color:var(--accent); font-weight:900; }
+.stats-table .sticky-rank,.stats-table .sticky-player { position:sticky; background:#0e1d2e; }
+.stats-table .sticky-rank { left:0; z-index:2; width:54px; min-width:54px; }
+.stats-table .sticky-player { left:54px; z-index:2; width:220px; min-width:220px; box-shadow:8px 0 14px rgba(0,0,0,.16); }
+.stats-table thead .sticky-rank,.stats-table thead .sticky-player { z-index:4; background:#142337; }
+.stats-table tbody tr:hover .sticky-rank,.stats-table tbody tr:hover .sticky-player { background:#14263a; }
+.stat-value { min-width:78px; color:var(--ink); font-weight:750; text-align:right!important; }
 .update-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .update-list article,.team-wire article { padding:16px; border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,.02); }
 .update-list small,.team-wire small { color:var(--accent); font-size:.65rem; font-weight:850; letter-spacing:.09em; text-transform:uppercase; }

@@ -69,10 +69,10 @@ _TEAM_ROWS = (
 TEAMS = tuple(Team(*row) for row in _TEAM_ROWS)
 TEAM_BY_CODE = {team.code: team for team in TEAMS}
 ROSTER_PATH = Path(__file__).with_name("data") / "nba_franchise_rosters.csv"
-STATS_PATH = Path(__file__).with_name("data") / "nba_court_history.csv"
+STATS_PATH = Path(__file__).with_name("data") / "nba_franchise_stats_2025.csv"
 STAT_OPTIONS = {
-    "pts": ("Points", "pts"), "trb": ("Rebounds", "trb"), "ast": ("Assists", "ast"),
-    "stl": ("Steals", "stl"), "blk": ("Blocks", "blk"), "x3p": ("Three-pointers", "x3p"),
+    "g": "GP", "pts": "PTS", "trb": "REB", "ast": "AST",
+    "stl": "STL", "blk": "BLK", "x3p": "3PM",
 }
 STATS_TEAM_CODES = {"BKN": "BRK", "CHA": "CHO", "PHX": "PHO"}
 
@@ -90,22 +90,42 @@ def _stat_rows():
     if not STATS_PATH.exists():
         return ()
     with STATS_PATH.open(encoding="utf-8") as handle:
-        return tuple(row for row in csv.DictReader(handle) if row["season"] == "2025")
+        return tuple(csv.DictReader(handle))
 
 
-def statistics(team_code, stat_key="pts", view="team", limit=15):
+def statistics(team_code, mode="totals", view="team", limit=50):
     view = view if view in {"team", "league"} else "team"
-    label, column = STAT_OPTIONS.get(stat_key, STAT_OPTIONS["pts"])
+    mode = mode if mode in {"totals", "per_game"} else "totals"
     rows = _stat_rows()
     if view == "team":
         rows = tuple(row for row in rows if row["team"] == STATS_TEAM_CODES.get(team_code, team_code))
-    ranked = sorted((row for row in rows if row.get(column)),
-                    key=lambda row: float(row[column]), reverse=True)[:limit]
-    return {"label": label, "key": stat_key if stat_key in STAT_OPTIONS else "pts",
-            "view": view,
-            "leaders": tuple({"rank": rank, "name": row["player"], "team": row["team"],
-                              "position": row["pos"] or "—", "value": int(float(row[column]))}
-                             for rank, row in enumerate(ranked, 1))}
+    else:
+        by_player = {}
+        for row in rows:
+            by_player.setdefault(row["player_id"], []).append(row)
+        combined = []
+        for player_rows in by_player.values():
+            total_row = next((row for row in player_rows if row["team"] == "TOT"), None)
+            if total_row:
+                combined.append(total_row)
+                continue
+            base = dict(player_rows[0])
+            for key in STAT_OPTIONS:
+                base[key] = sum(float(row[key]) for row in player_rows if row.get(key))
+            combined.append(base)
+        rows = tuple(combined)
+    ranked = sorted((row for row in rows if row.get("pts")),
+                    key=lambda row: float(row["pts"]), reverse=True)[:limit]
+    leaders = []
+    for rank, row in enumerate(ranked, 1):
+        games = float(row.get("g") or 0)
+        values = {}
+        for key in STAT_OPTIONS:
+            raw = float(row.get(key) or 0)
+            values[key] = round(raw / games, 1) if mode == "per_game" and key != "g" and games else int(raw)
+        leaders.append({"rank": rank, "name": row["player"], "team": row["team"],
+                        "position": row["pos"] or "—", "stats": values, "value": values["pts"]})
+    return {"mode": mode, "view": view, "leaders": tuple(leaders)}
 
 
 def roster(team_code):
