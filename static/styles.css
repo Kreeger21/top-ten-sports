@@ -1181,8 +1181,29 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .season-path { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }.season-path span { padding:10px 12px; border-radius:7px; color:var(--ink); background:rgba(255,122,33,.12); font-size:.78rem; font-weight:800; }.season-path i { color:var(--accent); font-style:normal; }
 .panel-note,.data-integrity-note { color:var(--muted); font-size:.82rem; line-height:1.55; }
 .schedule-preview { margin-top:20px; }.schedule-preview ol { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0; padding:0; list-style:none; }.schedule-preview li { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; padding:12px; border:1px solid var(--line); border-radius:8px; }.schedule-preview li span { grid-row:span 2; color:var(--accent); font-weight:900; }.schedule-preview li small { color:var(--muted); }
+.roster-panel { margin:20px 0 0; padding:0; overflow:hidden; }
+.roster-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; padding:24px 26px 20px; border-bottom:1px solid var(--line); }
+.roster-heading h2 { margin:3px 0 0; }
+.roster-heading > p { max-width:390px; margin:0; color:var(--muted); font-size:.78rem; line-height:1.45; text-align:right; }
+.roster-table-wrap { overflow-x:auto; scrollbar-color:var(--accent) rgba(255,255,255,.08); }
+.franchise-roster-table { width:100%; min-width:850px; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+.franchise-roster-table th,.franchise-roster-table td { padding:13px 16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:middle; }
+.franchise-roster-table th { color:var(--muted); background:rgba(255,255,255,.025); font-size:.66rem; font-weight:850; letter-spacing:.09em; text-transform:uppercase; }
+.franchise-roster-table tbody tr { transition:background-color .16s ease; }
+.franchise-roster-table tbody tr:hover { background:rgba(255,122,33,.06); }
+.franchise-roster-table tbody tr:last-child td { border-bottom:0; }
+.franchise-roster-table td { font-size:.86rem; }
+.franchise-roster-table td:nth-child(2) strong,.franchise-roster-table td:nth-child(2) small { display:block; }
+.franchise-roster-table td:nth-child(2) strong { color:var(--ink); font-size:.94rem; }
+.franchise-roster-table td:nth-child(2) small { margin-top:3px; color:var(--muted); font-size:.7rem; }
+.salary-cell { color:var(--accent); font-weight:800; }
+.salary-cell > span { color:var(--muted); font-weight:650; }
+.contract-status { display:inline-flex; align-items:center; min-height:24px; padding:4px 8px; border:1px solid currentColor; border-radius:999px; font-size:.64rem; font-weight:850; letter-spacing:.04em; white-space:nowrap; text-transform:uppercase; }
+.contract-status.verified { color:#71d7a1; background:rgba(113,215,161,.08); }
+.contract-status.pending { color:#ffb562; background:rgba(255,181,98,.08); }
+.empty-roster { margin:0; padding:28px 26px; color:var(--muted); }
 .data-integrity-note { margin:18px 3px 0; }.data-integrity-note strong { color:var(--accent); }
-@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-workspace{grid-template-columns:1fr}.schedule-preview ol{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-workspace{grid-template-columns:1fr}.schedule-preview ol{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}}
 @media(max-width:480px){.franchise-status-grid,.schedule-preview ol,.rule-list{grid-template-columns:1fr}}
 @media(max-width:480px) {
   .mode-hero { grid-template-columns:1fr 82px; }

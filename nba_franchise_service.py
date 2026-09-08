@@ -1,6 +1,9 @@
 """NBA franchise simulation rules and deterministic 82-game schedule model."""
 
 from dataclasses import dataclass
+import csv
+from functools import lru_cache
+from pathlib import Path
 from random import Random
 
 
@@ -65,6 +68,28 @@ _TEAM_ROWS = (
 )
 TEAMS = tuple(Team(*row) for row in _TEAM_ROWS)
 TEAM_BY_CODE = {team.code: team for team in TEAMS}
+ROSTER_PATH = Path(__file__).with_name("data") / "nba_franchise_rosters.csv"
+
+
+@lru_cache(maxsize=1)
+def _roster_rows():
+    if not ROSTER_PATH.exists():
+        return ()
+    with ROSTER_PATH.open(encoding="utf-8") as handle:
+        return tuple(csv.DictReader(handle))
+
+
+def roster(team_code):
+    players = []
+    for row in _roster_rows():
+        if row["team"] != team_code:
+            continue
+        salary = int(float(row["salary_2026_27"])) if row["salary_2026_27"] else None
+        remaining = int(float(row["years_remaining"])) if row["years_remaining"] else None
+        players.append({**row, "age": int(float(row["age"])) if row["age"] else None,
+                        "salary": salary, "years_remaining": remaining,
+                        "contract_verified": salary is not None})
+    return tuple(sorted(players, key=lambda player: (player["position"], player["name"])))
 
 
 def _conference_order(conference):
@@ -103,6 +128,8 @@ def regular_season_schedule(team_code, seed=2026):
 
 def team_overview(team_code):
     team = TEAM_BY_CODE.get(team_code, TEAM_BY_CODE["ATL"])
+    players = roster(team.code)
+    verified = [player for player in players if player["contract_verified"]]
     return {
         "team": team,
         "schedule": regular_season_schedule(team.code),
@@ -112,4 +139,8 @@ def team_overview(team_code):
         "schedule_rules": SCHEDULE_RULES,
         "snapshot": DATA_SNAPSHOT,
         "rules_season": RULES_SEASON,
+        "roster": players,
+        "verified_contracts": len(verified),
+        "verified_payroll": sum(player["salary"] for player in verified),
+        "snapshot_at": players[0]["snapshot_at"][:10] if players else None,
     }

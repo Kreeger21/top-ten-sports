@@ -65,6 +65,15 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"New York Knicks", response.data)
         self.assertEqual(response.data.count(b"<option value="), 30)
+        self.assertIn(b"Current roster", response.data)
+
+    def test_nba_franchise_roster_dataset_covers_every_team(self):
+        import nba_franchise_service as franchise
+        self.assertTrue(all(franchise.roster(team.code) for team in franchise.TEAMS))
+        self.assertGreater(sum(len(franchise.roster(team.code)) for team in franchise.TEAMS), 500)
+        player = franchise.roster("NYK")[0]
+        self.assertIn("age", player)
+        self.assertIn("salary", player)
 
     def test_mlb_home_renders(self):
         response = app.test_client().get("/mlb")
