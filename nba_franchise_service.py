@@ -69,6 +69,12 @@ _TEAM_ROWS = (
 TEAMS = tuple(Team(*row) for row in _TEAM_ROWS)
 TEAM_BY_CODE = {team.code: team for team in TEAMS}
 ROSTER_PATH = Path(__file__).with_name("data") / "nba_franchise_rosters.csv"
+STATS_PATH = Path(__file__).with_name("data") / "nba_court_history.csv"
+STAT_OPTIONS = {
+    "pts": ("Points", "pts"), "trb": ("Rebounds", "trb"), "ast": ("Assists", "ast"),
+    "stl": ("Steals", "stl"), "blk": ("Blocks", "blk"), "x3p": ("Three-pointers", "x3p"),
+}
+STATS_TEAM_CODES = {"BKN": "BRK", "CHA": "CHO", "PHX": "PHO"}
 
 
 @lru_cache(maxsize=1)
@@ -77,6 +83,29 @@ def _roster_rows():
         return ()
     with ROSTER_PATH.open(encoding="utf-8") as handle:
         return tuple(csv.DictReader(handle))
+
+
+@lru_cache(maxsize=1)
+def _stat_rows():
+    if not STATS_PATH.exists():
+        return ()
+    with STATS_PATH.open(encoding="utf-8") as handle:
+        return tuple(row for row in csv.DictReader(handle) if row["season"] == "2025")
+
+
+def statistics(team_code, stat_key="pts", view="team", limit=15):
+    view = view if view in {"team", "league"} else "team"
+    label, column = STAT_OPTIONS.get(stat_key, STAT_OPTIONS["pts"])
+    rows = _stat_rows()
+    if view == "team":
+        rows = tuple(row for row in rows if row["team"] == STATS_TEAM_CODES.get(team_code, team_code))
+    ranked = sorted((row for row in rows if row.get(column)),
+                    key=lambda row: float(row[column]), reverse=True)[:limit]
+    return {"label": label, "key": stat_key if stat_key in STAT_OPTIONS else "pts",
+            "view": view,
+            "leaders": tuple({"rank": rank, "name": row["player"], "team": row["team"],
+                              "position": row["pos"] or "—", "value": int(float(row[column]))}
+                             for rank, row in enumerate(ranked, 1))}
 
 
 def roster(team_code):
@@ -173,6 +202,7 @@ def team_overview(team_code):
         "starting_lineup": starting_lineup(team.code),
         "current_week": regular_season_schedule(team.code)[:4],
         "team_updates": team_updates(team.code),
+        "stats_preview": statistics(team.code, limit=3)["leaders"],
         "verified_contracts": len(verified),
         "verified_payroll": verified_payroll,
         "cap_balance": FINANCIAL_RULES["salary_cap"] - verified_payroll,

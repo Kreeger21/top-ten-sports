@@ -95,6 +95,21 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Available picks", assets.data)
         self.assertIn(b"Trade overview", assets.data)
 
+    def test_nba_franchise_statistics_has_team_and_league_views(self):
+        client = app.test_client()
+        home = client.get("/franchise/nba?team=ATL")
+        self.assertIn(b"Statistics", home.data)
+        team = client.get("/franchise/nba/statistics?team=ATL&view=team&stat=pts")
+        league = client.get("/franchise/nba/statistics?team=ATL&view=league&stat=ast")
+        self.assertEqual(team.status_code, 200)
+        self.assertIn(b"Atlanta Points leaders", team.data)
+        self.assertIn(b"Team stats", team.data)
+        self.assertEqual(league.status_code, 200)
+        self.assertIn(b"NBA Assists leaders", league.data)
+        self.assertIn(b"League leaders", league.data)
+        import nba_franchise_service as franchise
+        self.assertTrue(franchise.statistics("BKN")["leaders"])
+
     def test_nba_franchise_starting_lineup_has_five_unique_players(self):
         import nba_franchise_service as franchise
         lineup = franchise.starting_lineup("TOR")

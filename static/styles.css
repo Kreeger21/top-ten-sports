@@ -1178,7 +1178,6 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .franchise-hub-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:20px; }
 .hub-preview { position:relative; display:block; color:var(--ink); text-decoration:none; transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease; }
 .hub-preview:hover,.hub-preview:focus-visible { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 22px 52px rgba(0,0,0,.34); outline:none; }
-.news-hub { grid-column:1/-1; }
 .preview-heading { display:flex; align-items:start; justify-content:space-between; gap:18px; }
 .preview-heading h2 { margin:2px 0 0; }
 .preview-heading > span { color:var(--accent); font-size:.72rem; font-weight:850; letter-spacing:.05em; white-space:nowrap; text-transform:uppercase; }
@@ -1191,6 +1190,17 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .starting-five { display:grid; gap:7px; }
 .starting-five li { display:grid; grid-template-columns:42px 1fr; align-items:center; min-height:42px; padding:0 12px; border:1px solid var(--line); border-radius:8px; }
 .starting-five b { color:var(--accent); font-size:.72rem; }
+.stats-preview { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
+.stats-preview li { display:grid; grid-template-columns:28px 1fr auto; align-items:center; gap:9px; min-height:42px; padding:0 12px; border:1px solid var(--line); border-radius:8px; }
+.stats-preview b,.stats-preview span { color:var(--accent); font-size:.72rem; }
+.stats-controls { display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:18px; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+.stats-tabs { display:flex; gap:6px; }
+.stats-tabs a { padding:11px 15px; border:1px solid transparent; border-radius:8px; color:var(--muted); font-size:.78rem; font-weight:850; text-decoration:none; text-transform:uppercase; }
+.stats-tabs a.active { border-color:var(--accent); color:var(--ink); background:rgba(255,122,33,.1); }
+.stats-controls form { min-width:230px; }
+.stats-controls label { display:block; margin-bottom:5px; color:var(--muted); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+.stats-controls select { width:100%; }
+.stats-table td:first-child { color:var(--accent); font-weight:900; }
 .update-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .update-list article,.team-wire article { padding:16px; border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,.02); }
 .update-list small,.team-wire small { color:var(--accent); font-size:.65rem; font-weight:850; letter-spacing:.09em; text-transform:uppercase; }
@@ -1244,7 +1254,7 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .empty-roster { margin:0; padding:28px 26px; color:var(--muted); }
 .data-integrity-note { margin:18px 3px 0; }.data-integrity-note strong { color:var(--accent); }
 @media(max-width:900px){.full-schedule{grid-template-columns:repeat(3,1fr)}.finance-summary{grid-template-columns:1fr 1fr}}
-@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-status-three,.franchise-hub-grid,.franchise-workspace,.assets-grid{grid-template-columns:1fr}.news-hub{grid-column:auto}.schedule-preview ol,.full-schedule{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}}
+@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-status-three,.franchise-hub-grid,.franchise-workspace,.assets-grid{grid-template-columns:1fr}.schedule-preview ol,.full-schedule{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}.stats-controls{align-items:stretch;flex-direction:column}.stats-controls form{width:100%;min-width:0}}
 @media(max-width:480px){.franchise-status-grid,.finance-summary,.schedule-preview ol,.full-schedule,.rule-list,.week-schedule,.update-list{grid-template-columns:1fr}.preview-heading{align-items:start;flex-direction:column;gap:4px}.preview-heading>span{margin-bottom:8px}}
 @media(max-width:480px) {
   .mode-hero { grid-template-columns:1fr 82px; }

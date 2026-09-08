@@ -930,6 +930,16 @@ def nba_franchise_assets():
     team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_assets.html", teams=nba_franchise_service.TEAMS,
                            **nba_franchise_service.team_overview(team_code))
+@app.route("/franchise/nba/statistics")
+def nba_franchise_statistics():
+    team_code = request.args.get("team", "ATL").upper()
+    view = request.args.get("view", "team")
+    stat_key = request.args.get("stat", "pts")
+    context = nba_franchise_service.team_overview(team_code)
+    return render_template("nba_franchise_statistics.html", teams=nba_franchise_service.TEAMS,
+                           stat_options=nba_franchise_service.STAT_OPTIONS,
+                           stats=nba_franchise_service.statistics(context["team"].code, stat_key, view),
+                           **context)
 @app.route("/mlb")
 def mlb_home(): return _sport_home("mlb")
 @app.route("/mlb/leaderboard")
