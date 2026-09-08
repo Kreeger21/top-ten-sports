@@ -67,6 +67,8 @@ class LeaderTests(unittest.TestCase):
         self.assertEqual(response.data.count(b"<option value="), 30)
         self.assertIn(b"Starting lineup", response.data)
         self.assertNotIn(b"<th>2026\xe2\x80\x9327 salary</th>", response.data)
+        self.assertNotIn(b"Offseason roster", response.data)
+        self.assertIn(b"Week 1 \xc2\xb7 2026\xe2\x80\x9327 season", response.data)
 
     def test_nba_franchise_hub_links_to_detail_pages(self):
         client = app.test_client()
@@ -78,6 +80,20 @@ class LeaderTests(unittest.TestCase):
             response = client.get(f"/franchise/nba/{path}?team=TOR")
             self.assertEqual(response.status_code, 200)
             self.assertIn(heading, response.data)
+
+    def test_nba_franchise_finance_and_asset_centers(self):
+        client = app.test_client()
+        home = client.get("/franchise/nba?team=TOR")
+        self.assertIn(b"Available salary cap", home.data)
+        self.assertIn(b"Draft picks & trade assets", home.data)
+        finances = client.get("/franchise/nba/finances?team=TOR")
+        assets = client.get("/franchise/nba/assets?team=TOR")
+        self.assertEqual(finances.status_code, 200)
+        self.assertIn(b"Player contracts", finances.data)
+        self.assertIn(b"Second-apron room", finances.data)
+        self.assertEqual(assets.status_code, 200)
+        self.assertIn(b"Available picks", assets.data)
+        self.assertIn(b"Trade overview", assets.data)
 
     def test_nba_franchise_starting_lineup_has_five_unique_players(self):
         import nba_franchise_service as franchise

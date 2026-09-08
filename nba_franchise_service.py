@@ -159,6 +159,7 @@ def team_overview(team_code):
     team = TEAM_BY_CODE.get(team_code, TEAM_BY_CODE["ATL"])
     players = roster(team.code)
     verified = [player for player in players if player["contract_verified"]]
+    verified_payroll = sum(player["salary"] for player in verified)
     return {
         "team": team,
         "schedule": regular_season_schedule(team.code),
@@ -173,6 +174,12 @@ def team_overview(team_code):
         "current_week": regular_season_schedule(team.code)[:4],
         "team_updates": team_updates(team.code),
         "verified_contracts": len(verified),
-        "verified_payroll": sum(player["salary"] for player in verified),
+        "verified_payroll": verified_payroll,
+        "cap_balance": FINANCIAL_RULES["salary_cap"] - verified_payroll,
+        "tax_balance": FINANCIAL_RULES["luxury_tax"] - verified_payroll,
+        "first_apron_balance": FINANCIAL_RULES["first_apron"] - verified_payroll,
+        "second_apron_balance": FINANCIAL_RULES["second_apron"] - verified_payroll,
+        "tradeable_players": tuple(player for player in players if player["contract_verified"]),
+        "draft_assets_verified": False,
         "snapshot_at": players[0]["snapshot_at"][:10] if players else None,
     }

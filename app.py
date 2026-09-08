@@ -920,6 +920,16 @@ def nba_franchise_news():
     team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_news.html", teams=nba_franchise_service.TEAMS,
                            **nba_franchise_service.team_overview(team_code))
+@app.route("/franchise/nba/finances")
+def nba_franchise_finances():
+    team_code = request.args.get("team", "ATL").upper()
+    return render_template("nba_franchise_finances.html", teams=nba_franchise_service.TEAMS,
+                           **nba_franchise_service.team_overview(team_code))
+@app.route("/franchise/nba/assets")
+def nba_franchise_assets():
+    team_code = request.args.get("team", "ATL").upper()
+    return render_template("nba_franchise_assets.html", teams=nba_franchise_service.TEAMS,
+                           **nba_franchise_service.team_overview(team_code))
 @app.route("/mlb")
 def mlb_home(): return _sport_home("mlb")
 @app.route("/mlb/leaderboard")
