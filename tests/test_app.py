@@ -57,6 +57,15 @@ class LeaderTests(unittest.TestCase):
         self.assertIn(b"Build Your Franchise", response.data)
         self.assertIn(b"League experiences coming next", response.data)
 
+    def test_nba_franchise_has_all_teams_and_82_game_schedule(self):
+        import nba_franchise_service as franchise
+        self.assertEqual(len(franchise.TEAMS), 30)
+        self.assertEqual(len(franchise.regular_season_schedule("ATL")), 82)
+        response = app.test_client().get("/franchise/nba?team=NYK")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"New York Knicks", response.data)
+        self.assertEqual(response.data.count(b"<option value="), 30)
+
     def test_mlb_home_renders(self):
         response = app.test_client().get("/mlb")
         self.assertEqual(response.status_code, 200)

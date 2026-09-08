@@ -1138,10 +1138,13 @@ body.franchise-menu h2 { font-family:"Oswald Sports","Arial Narrow",sans-serif; 
 .section-heading h2 { margin:0; font-size:clamp(2rem,4vw,3.2rem); line-height:1; }
 .section-heading > p { max-width:300px; margin:0; color:var(--muted); text-align:right; }
 .franchise-league-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-.franchise-league-grid article { min-height:155px; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; border:1px solid var(--line); border-radius:12px; background:linear-gradient(145deg,rgba(16,38,59,.74),rgba(55,15,29,.8)); }
+.franchise-league-grid article,.franchise-league-grid a { min-height:155px; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; border:1px solid var(--line); border-radius:12px; color:var(--ink); background:linear-gradient(145deg,rgba(16,38,59,.74),rgba(55,15,29,.8)); text-decoration:none; }
 .franchise-league-grid span { margin-bottom:auto; color:rgba(255,255,255,.12); font-family:"Oswald Sports","Arial Narrow",sans-serif; font-size:2.8rem; font-weight:700; }
 .franchise-league-grid strong { color:var(--brand-gold); }
 .franchise-league-grid small { margin-top:5px; color:var(--muted); line-height:1.35; }
+.franchise-league-grid .franchise-league-live { border-color:rgba(255,200,87,.55); box-shadow:inset 0 0 0 1px rgba(255,200,87,.08); }
+.franchise-league-live b { margin-top:13px; color:var(--brand-blue); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; }
+.franchise-league-live:hover { border-color:var(--brand-gold); transform:translateY(-2px); }
 
 @media(max-width:760px) {
   .mode-shell { align-content:start; padding-top:34px; }
@@ -1155,6 +1158,32 @@ body.franchise-menu h2 { font-family:"Oswald Sports","Arial Narrow",sans-serif; 
   .section-heading { display:block; }
   .section-heading > p { margin-top:12px; text-align:left; }
 }
+
+body.nba-franchise { --ink:#fff8e8; --muted:rgba(255,248,232,.7); --accent:#ff7a21; --accent-dark:#160a04; --line:rgba(255,248,232,.18); --panel:rgba(14,29,46,.94); font-family:"Inter Local",sans-serif; background:radial-gradient(circle at 12% 0%,rgba(255,122,33,.28),transparent 32rem),linear-gradient(145deg,#080f1a,#132a43 58%,#0a1727); }
+body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial Narrow",sans-serif; text-transform:uppercase; }
+.franchise-dashboard .top-nav { padding-bottom:13px; border-bottom:1px solid var(--line); }
+.franchise-dashboard .top-nav span { color:var(--accent); font-size:.72rem; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
+.franchise-team-hero { display:grid; grid-template-columns:1fr 280px; align-items:end; gap:32px; margin:42px 0 28px; padding-bottom:28px; border-bottom:4px solid var(--accent); }
+.franchise-team-hero h1 { margin:0; font-size:clamp(3rem,6vw,5.6rem); line-height:.94; }
+.franchise-team-hero form span { color:var(--muted); font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.franchise-status-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.franchise-status-grid article,.franchise-panel { border:1px solid var(--line); border-radius:14px; background:var(--panel); box-shadow:0 18px 44px rgba(0,0,0,.24); }
+.franchise-status-grid article { display:grid; gap:7px; padding:18px; }
+.franchise-status-grid span { color:var(--muted); font-size:.68rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.franchise-status-grid strong { font-size:1.12rem; }
+.franchise-status-grid small { color:var(--muted); line-height:1.35; }
+.franchise-workspace { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.franchise-panel { padding:26px; }
+.franchise-panel h2 { margin:0 0 20px; font-size:2rem; }
+.rule-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.rule-list p { margin:0; padding:14px; border:1px solid var(--line); border-radius:9px; }
+.rule-list b,.rule-list span { display:block; }.rule-list b { color:var(--accent); font-size:1.2rem; }.rule-list span { margin-top:4px; color:var(--muted); font-size:.72rem; }
+.season-path { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }.season-path span { padding:10px 12px; border-radius:7px; color:var(--ink); background:rgba(255,122,33,.12); font-size:.78rem; font-weight:800; }.season-path i { color:var(--accent); font-style:normal; }
+.panel-note,.data-integrity-note { color:var(--muted); font-size:.82rem; line-height:1.55; }
+.schedule-preview { margin-top:20px; }.schedule-preview ol { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0; padding:0; list-style:none; }.schedule-preview li { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; padding:12px; border:1px solid var(--line); border-radius:8px; }.schedule-preview li span { grid-row:span 2; color:var(--accent); font-weight:900; }.schedule-preview li small { color:var(--muted); }
+.data-integrity-note { margin:18px 3px 0; }.data-integrity-note strong { color:var(--accent); }
+@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-workspace{grid-template-columns:1fr}.schedule-preview ol{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.franchise-status-grid,.schedule-preview ol,.rule-list{grid-template-columns:1fr}}
 @media(max-width:480px) {
   .mode-hero { grid-template-columns:1fr 82px; }
   .mode-brand-logo { width:78px; height:95px; }

@@ -1,0 +1,115 @@
+"""NBA franchise simulation rules and deterministic 82-game schedule model."""
+
+from dataclasses import dataclass
+from random import Random
+
+
+DATA_SNAPSHOT = "2026 offseason"
+RULES_SEASON = "2026–27"
+
+FINANCIAL_RULES = {
+    "salary_cap": 164_961_000,
+    "minimum_team_salary": 148_465_000,
+    "luxury_tax": 200_428_000,
+    "first_apron": 209_015_000,
+    "second_apron": 221_686_000,
+    "non_taxpayer_mle": 15_044_000,
+    "taxpayer_mle": 6_064_000,
+    "room_mle": 9_366_000,
+}
+
+ROSTER_RULES = {
+    "standard_max": 15,
+    "standard_min": 14,
+    "active_max": 13,
+    "active_min": 8,
+    "two_way_max": 3,
+}
+
+POSTSEASON_RULES = {
+    "automatic_seeds": 6,
+    "play_in_seeds": (7, 8, 9, 10),
+    "playoff_teams_per_conference": 8,
+    "series_best_of": 7,
+    "home_format": "2-2-1-1-1",
+}
+
+SCHEDULE_RULES = {"total_games": 82, "published_games": 80, "nba_cup_assigned_games": 2}
+
+
+@dataclass(frozen=True)
+class Team:
+    code: str
+    name: str
+    city: str
+    conference: str
+    division: str
+
+
+_TEAM_ROWS = (
+    ("BOS", "Celtics", "Boston", "East", "Atlantic"), ("BKN", "Nets", "Brooklyn", "East", "Atlantic"),
+    ("NYK", "Knicks", "New York", "East", "Atlantic"), ("PHI", "76ers", "Philadelphia", "East", "Atlantic"),
+    ("TOR", "Raptors", "Toronto", "East", "Atlantic"), ("CHI", "Bulls", "Chicago", "East", "Central"),
+    ("CLE", "Cavaliers", "Cleveland", "East", "Central"), ("DET", "Pistons", "Detroit", "East", "Central"),
+    ("IND", "Pacers", "Indiana", "East", "Central"), ("MIL", "Bucks", "Milwaukee", "East", "Central"),
+    ("ATL", "Hawks", "Atlanta", "East", "Southeast"), ("CHA", "Hornets", "Charlotte", "East", "Southeast"),
+    ("MIA", "Heat", "Miami", "East", "Southeast"), ("ORL", "Magic", "Orlando", "East", "Southeast"),
+    ("WAS", "Wizards", "Washington", "East", "Southeast"), ("DEN", "Nuggets", "Denver", "West", "Northwest"),
+    ("MIN", "Timberwolves", "Minnesota", "West", "Northwest"), ("OKC", "Thunder", "Oklahoma City", "West", "Northwest"),
+    ("POR", "Trail Blazers", "Portland", "West", "Northwest"), ("UTA", "Jazz", "Utah", "West", "Northwest"),
+    ("GSW", "Warriors", "Golden State", "West", "Pacific"), ("LAC", "Clippers", "LA", "West", "Pacific"),
+    ("LAL", "Lakers", "Los Angeles", "West", "Pacific"), ("PHX", "Suns", "Phoenix", "West", "Pacific"),
+    ("SAC", "Kings", "Sacramento", "West", "Pacific"), ("DAL", "Mavericks", "Dallas", "West", "Southwest"),
+    ("HOU", "Rockets", "Houston", "West", "Southwest"), ("MEM", "Grizzlies", "Memphis", "West", "Southwest"),
+    ("NOP", "Pelicans", "New Orleans", "West", "Southwest"), ("SAS", "Spurs", "San Antonio", "West", "Southwest"),
+)
+TEAMS = tuple(Team(*row) for row in _TEAM_ROWS)
+TEAM_BY_CODE = {team.code: team for team in TEAMS}
+
+
+def _conference_order(conference):
+    """Interleave divisions so symmetric offsets create six non-division rivals."""
+    teams = [team for team in TEAMS if team.conference == conference]
+    divisions = list(dict.fromkeys(team.division for team in teams))
+    groups = [[team for team in teams if team.division == division] for division in divisions]
+    return [groups[division][slot] for slot in range(5) for division in range(3)]
+
+
+def opponent_counts(team_code):
+    """Return the NBA 82-game opponent allocation for one team."""
+    team = TEAM_BY_CODE[team_code]
+    counts = {}
+    conference = _conference_order(team.conference)
+    index = conference.index(team)
+    bonus = {conference[(index + offset) % 15].code for offset in (-4, -2, -1, 1, 2, 4)}
+    for opponent in TEAMS:
+        if opponent.code == team.code:
+            continue
+        if opponent.conference != team.conference:
+            counts[opponent.code] = 2
+        elif opponent.division == team.division:
+            counts[opponent.code] = 4
+        else:
+            counts[opponent.code] = 4 if opponent.code in bonus else 3
+    return counts
+
+
+def regular_season_schedule(team_code, seed=2026):
+    opponents = [code for code, count in opponent_counts(team_code).items() for _ in range(count)]
+    Random(f"{seed}:{team_code}").shuffle(opponents)
+    return tuple({"game": number, "opponent": code, "home": number % 2 == 1}
+                 for number, code in enumerate(opponents, 1))
+
+
+def team_overview(team_code):
+    team = TEAM_BY_CODE.get(team_code, TEAM_BY_CODE["ATL"])
+    return {
+        "team": team,
+        "schedule": regular_season_schedule(team.code),
+        "financial_rules": FINANCIAL_RULES,
+        "roster_rules": ROSTER_RULES,
+        "postseason_rules": POSTSEASON_RULES,
+        "schedule_rules": SCHEDULE_RULES,
+        "snapshot": DATA_SNAPSHOT,
+        "rules_season": RULES_SEASON,
+    }

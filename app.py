@@ -20,6 +20,7 @@ import cfb_defense_service
 import team_logo_game_service
 import nba_player_game_service
 import career_game_service
+import nba_franchise_service
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -899,6 +900,11 @@ def home(): return render_template("product_home.html")
 def top_ten_home(): return render_template("sports_home.html")
 @app.route("/franchise")
 def franchise_home(): return render_template("franchise_home.html")
+@app.route("/franchise/nba")
+def nba_franchise():
+    team_code = request.args.get("team", "ATL").upper()
+    return render_template("nba_franchise.html", teams=nba_franchise_service.TEAMS,
+                           **nba_franchise_service.team_overview(team_code))
 @app.route("/mlb")
 def mlb_home(): return _sport_home("mlb")
 @app.route("/mlb/leaderboard")
