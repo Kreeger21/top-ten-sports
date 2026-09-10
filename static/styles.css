@@ -1273,11 +1273,57 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .attribute-ratings .elite strong { color:#71d7a1; }
 .attribute-meta { display:block; margin-top:6px; color:var(--muted); font-size:.62rem; }
 .attribute-unavailable { display:inline-flex; padding:5px 8px; border:1px dashed rgba(255,181,98,.55); border-radius:999px; color:#ffb562; font-size:.68rem; font-weight:800; text-transform:uppercase; }
+.attribute-profile-link { display:block; color:inherit; text-decoration:none; }
+.attribute-profile-link:focus-visible { border-radius:8px; outline:2px solid var(--accent); outline-offset:4px; }
+.attribute-profile-link:hover .attribute-meta { color:var(--accent); }
+.scouting-hero { display:flex; align-items:end; justify-content:space-between; gap:28px; margin:22px 0 34px; padding:30px 0 24px; border-bottom:4px solid var(--accent); }
+.scouting-hero h1 { margin:4px 0 3px; font-size:clamp(3rem,6vw,5.3rem); line-height:.94; }
+.scouting-hero p { margin:0; color:var(--muted); }
+.model-stamp { display:grid; min-width:220px; gap:4px; padding:16px 18px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+.model-stamp span,.model-stamp small { color:var(--muted); font-size:.68rem; }
+.model-stamp span { font-weight:850; letter-spacing:.09em; text-transform:uppercase; }
+.model-stamp strong { color:var(--accent); }
+.scouting-section-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:15px; }
+.scouting-section-heading h2 { margin:3px 0 0; font-size:2rem; }
+.scouting-section-heading>p { max-width:420px; margin:0; color:var(--muted); font-size:.78rem; text-align:right; }
+.summary-rating-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+.rating-card { display:grid; grid-template-columns:1fr auto; align-items:end; gap:7px 12px; min-height:116px; padding:17px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+.rating-card span { align-self:start; color:var(--muted); font-size:.68rem; font-weight:850; letter-spacing:.07em; text-transform:uppercase; }
+.rating-card strong { grid-row:span 2; color:var(--ink); font-family:"Oswald Sports","Arial Narrow",sans-serif; font-size:3rem; line-height:.85; }
+.rating-card small { color:var(--muted); font-size:.65rem; }
+.rating-card.elite { border-color:#71d7a1; }.rating-card.elite strong { color:#71d7a1; }
+.rating-card.great,.rating-card.good { border-color:rgba(255,122,33,.55); }
+.scouting-insights { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0; }
+.scouting-insights article { padding:22px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+.scouting-insights h2 { margin:4px 0 15px; font-size:1.5rem; }
+.scouting-insights p { color:var(--muted); font-size:.8rem; line-height:1.5; }
+.scouting-insights ul { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
+.scouting-insights li { display:flex; justify-content:space-between; gap:16px; padding:9px 11px; border-radius:7px; background:rgba(255,255,255,.035); }
+.scouting-insights li strong { color:var(--accent); font-variant-numeric:tabular-nums; }
+.attribute-category-nav { position:sticky; top:0; z-index:5; display:flex; gap:7px; margin:26px 0 14px; padding:10px; overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:#0e1d2e; }
+.attribute-category-nav a { flex:0 0 auto; padding:9px 11px; border-radius:7px; color:var(--muted); font-size:.7rem; font-weight:800; text-decoration:none; text-transform:uppercase; }
+.attribute-category-nav a:hover,.attribute-category-nav a:focus-visible { color:var(--ink); background:rgba(255,122,33,.13); outline:none; }
+.attribute-category-list { display:grid; gap:14px; }
+.attribute-category-card { display:grid; grid-template-columns:minmax(220px,.62fr) minmax(0,1.38fr); gap:30px; padding:25px; scroll-margin-top:80px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
+.attribute-category-card h2 { margin:4px 0 8px; font-size:1.75rem; }
+.attribute-category-card>div>p:not(.eyebrow) { margin:0; color:var(--muted); font-size:.79rem; line-height:1.5; }
+.granular-list { display:grid; gap:9px; }
+.granular-list article { display:grid; grid-template-columns:76px 1fr; gap:16px; padding:15px; border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,.025); }
+.attribute-score { display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--line); }
+.attribute-score strong { color:var(--accent); font-family:"Oswald Sports","Arial Narrow",sans-serif; font-size:2.5rem; line-height:1; }
+.attribute-score span { margin-top:5px; color:var(--muted); font-size:.58rem; text-transform:uppercase; }
+.granular-list h3 { margin:0 0 4px; font-size:1rem; }.granular-list p { margin:0; color:var(--muted); font-size:.75rem; line-height:1.4; }
+.granular-list dl { display:flex; flex-wrap:wrap; gap:8px 18px; margin:12px 0 0; }.granular-list dl div { display:grid; gap:2px; }
+.granular-list dt { color:var(--muted); font-size:.57rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }.granular-list dd { margin:0; font-size:.7rem; font-variant-numeric:tabular-nums; }
+.not-tracked-state { align-self:center; padding:20px; border:1px dashed rgba(255,181,98,.48); border-radius:10px; background:rgba(255,181,98,.04); }
+.not-tracked-state strong { color:#ffb562; font-size:.75rem; letter-spacing:.07em; text-transform:uppercase; }.not-tracked-state p { margin:7px 0 0!important; }
+.scouting-data-note { margin:18px 0 0; padding:15px 18px; border-left:3px solid var(--accent); color:var(--muted); background:rgba(255,122,33,.06); font-size:.77rem; line-height:1.5; }
 .empty-roster { margin:0; padding:28px 26px; color:var(--muted); }
 .data-integrity-note { margin:18px 3px 0; }.data-integrity-note strong { color:var(--accent); }
 @media(max-width:900px){.full-schedule{grid-template-columns:repeat(3,1fr)}.finance-summary{grid-template-columns:1fr 1fr}}
-@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-status-three,.franchise-hub-grid,.franchise-workspace,.assets-grid{grid-template-columns:1fr}.schedule-preview ol,.full-schedule{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}.stats-controls{align-items:stretch;flex-direction:column}.stats-controls form{width:100%;min-width:0}}
-@media(max-width:480px){.franchise-status-grid,.finance-summary,.schedule-preview ol,.full-schedule,.rule-list,.week-schedule,.update-list{grid-template-columns:1fr}.preview-heading{align-items:start;flex-direction:column;gap:4px}.preview-heading>span{margin-bottom:8px}}
+@media(max-width:900px){.summary-rating-grid{grid-template-columns:repeat(3,1fr)}.attribute-category-card{grid-template-columns:1fr}.attribute-category-card>div:first-child{max-width:620px}}
+@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-status-three,.franchise-hub-grid,.franchise-workspace,.assets-grid{grid-template-columns:1fr}.schedule-preview ol,.full-schedule{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}.stats-controls{align-items:stretch;flex-direction:column}.stats-controls form{width:100%;min-width:0}.scouting-hero,.scouting-section-heading{align-items:start;flex-direction:column}.scouting-section-heading>p{text-align:left}.model-stamp{width:100%}.scouting-insights{grid-template-columns:1fr}}
+@media(max-width:480px){.franchise-status-grid,.finance-summary,.schedule-preview ol,.full-schedule,.rule-list,.week-schedule,.update-list,.summary-rating-grid{grid-template-columns:1fr}.preview-heading{align-items:start;flex-direction:column;gap:4px}.preview-heading>span{margin-bottom:8px}.rating-card{min-height:90px}.granular-list article{grid-template-columns:60px 1fr}.attribute-category-card{padding:18px}.granular-list dl{display:grid;grid-template-columns:1fr 1fr}}
 @media(max-width:480px) {
   .mode-hero { grid-template-columns:1fr 82px; }
   .mode-brand-logo { width:78px; height:95px; }

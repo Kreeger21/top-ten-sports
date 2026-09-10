@@ -910,6 +910,15 @@ def nba_franchise_roster():
     team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_roster.html", teams=nba_franchise_service.TEAMS,
                            **nba_franchise_service.team_overview(team_code))
+@app.route("/franchise/nba/players/<player_id>/attributes")
+def nba_franchise_player_attributes(player_id):
+    team_code = request.args.get("team", "ATL").upper()
+    context = nba_franchise_service.team_overview(team_code)
+    player = nba_franchise_service.roster_player(context["team"].code, player_id)
+    if player is None:
+        return redirect(url_for("nba_franchise_roster", team=context["team"].code))
+    return render_template("nba_franchise_player_attributes.html", teams=nba_franchise_service.TEAMS,
+                           player=player, **context)
 @app.route("/franchise/nba/schedule")
 def nba_franchise_schedule():
     team_code = request.args.get("team", "ATL").upper()

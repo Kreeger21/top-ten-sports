@@ -92,7 +92,7 @@ def _stat_rows():
     if not STATS_PATH.exists():
         return ()
     with STATS_PATH.open(encoding="utf-8") as handle:
-        return tuple(csv.DictReader(handle))
+        return tuple(row for row in csv.DictReader(handle) if row.get("season") == "2025")
 
 
 def statistics(team_code, mode="totals", view="team", limit=50):
@@ -142,6 +142,11 @@ def roster(team_code):
                         "contract_verified": salary is not None,
                         "attribute_profile": nba_attribute_service.attributes_for_player(row["player_id"])})
     return tuple(sorted(players, key=lambda player: (player["position"], player["name"])))
+
+
+def roster_player(team_code, player_id):
+    """Return a player only when they belong to the selected franchise roster."""
+    return next((player for player in roster(team_code) if player["player_id"] == str(player_id)), None)
 
 
 def starting_lineup(team_code):

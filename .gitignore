@@ -3,6 +3,10 @@
 __pycache__/
 *.py[cod]
 .env
+.env.*
+!.env.example
+data/nba_provider_raw/
+data/nba_provider_shadow_private/
 node_modules/
 .pnpm-store/
 .stylelintcache

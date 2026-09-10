@@ -1,0 +1,25 @@
+{
+  "status": "documentation_researched_shadow_only",
+  "model_version": "v4-tracking-expanded",
+  "sources": {
+    "nba_stats": "Existing verified game-level cache; live endpoints blocked from this host.",
+    "sportradar_nba": "Official NBA feed. Docs confirm player/game/season statistics, summaries, play-by-play, profiles, splits, advanced metrics, and event positional data; desired tracking fields below are not documented as equivalent.",
+    "sportradar_synergy": "Separate, manually tagged analytics product; not Official NBA Tracking.",
+    "hoopr": "Open play-by-play and shot-event fallback; proxies are explicitly labeled."
+  },
+  "features": [
+    {"feature":"Drives","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"PROXY","can_derive":"PARTIAL","selected_source":"Not Tracked"},
+    {"feature":"Potential Assists","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"Secondary Assists","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"Passes Made/Received","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"Deflections/Hustle","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"Screen Assists","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"P&R Screener Involvement","nba_stats":"UNKNOWN","sportradar_nba":"UNKNOWN","sportradar_synergy":"AVAILABLE/DIRECT","hoopr":"NOT AVAILABLE","can_derive":"YES","selected_source":"Shadow: Synergy-derived"},
+    {"feature":"Rebound Chances","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"Touches/Movement","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"NOT AVAILABLE","hoopr":"NOT AVAILABLE","can_derive":"NO","selected_source":"Not Tracked"},
+    {"feature":"Direct Matchup Defense","nba_stats":"BLOCKED/DIRECT","sportradar_nba":"UNKNOWN","sportradar_synergy":"PARTIAL","hoopr":"NOT AVAILABLE","can_derive":"PARTIAL","selected_source":"Not Tracked"},
+    {"feature":"Defensive Play Types","nba_stats":"UNKNOWN","sportradar_nba":"UNKNOWN","sportradar_synergy":"AVAILABLE/DIRECT","hoopr":"NOT AVAILABLE","can_derive":"YES","selected_source":"Shadow: Synergy-derived"},
+    {"feature":"Offensive Play Types","nba_stats":"UNKNOWN","sportradar_nba":"UNKNOWN","sportradar_synergy":"AVAILABLE/DIRECT","hoopr":"NOT AVAILABLE","can_derive":"YES","selected_source":"Shadow: Synergy-derived"},
+    {"feature":"Shot Coordinates","nba_stats":"AVAILABLE","sportradar_nba":"PARTIAL","sportradar_synergy":"AVAILABLE/DIRECT","hoopr":"AVAILABLE/DIRECT","can_derive":"YES","selected_source":"hoopR (active); Synergy shadow"}
+  ]
+}

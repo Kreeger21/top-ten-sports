@@ -4,6 +4,8 @@ gunicorn==23.0.0
 html5lib==1.1
 ijson==3.5.1
 pandas==3.0.5
+playwright==1.62.0
+pyreadr==0.5.6
 pybaseball==2.2.7
 requests==2.34.2
 waitress==3.0.2
