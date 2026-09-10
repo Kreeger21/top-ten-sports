@@ -70,6 +70,21 @@ class LeaderTests(unittest.TestCase):
         self.assertNotIn(b"Offseason roster", response.data)
         self.assertIn(b"Week 1 \xc2\xb7 2026\xe2\x80\x9327 season", response.data)
 
+    def test_nba_franchise_uses_selected_team_colorway_on_every_screen(self):
+        import nba_franchise_service as franchise
+        self.assertEqual(set(franchise.TEAM_COLORS), {team.code for team in franchise.TEAMS})
+        client = app.test_client()
+        for path in ("", "/roster", "/schedule", "/news", "/finances", "/assets", "/statistics"):
+            response = client.get(f"/franchise/nba{path}?team=NYK")
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(b"--team-primary:#006BB6", response.data)
+            self.assertIn(b"--team-secondary:#F58426", response.data)
+            self.assertIn(b'data-team="NYK"', response.data)
+
+        celtics = client.get("/franchise/nba?team=BOS")
+        self.assertIn(b"--team-primary:#007A33", celtics.data)
+        self.assertNotIn(b"--team-primary:#006BB6", celtics.data)
+
     def test_nba_franchise_hub_links_to_detail_pages(self):
         client = app.test_client()
         home = client.get("/franchise/nba?team=TOR")

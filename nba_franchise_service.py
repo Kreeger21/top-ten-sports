@@ -50,14 +50,19 @@ class Team:
     conference: str
     division: str
 
+    @property
+    def colors(self):
+        return TEAM_COLORS[self.code]
+
 
 _TEAM_ROWS = (
+    ("ATL", "Hawks", "Atlanta", "East", "Southeast"),
     ("BOS", "Celtics", "Boston", "East", "Atlantic"), ("BKN", "Nets", "Brooklyn", "East", "Atlantic"),
     ("NYK", "Knicks", "New York", "East", "Atlantic"), ("PHI", "76ers", "Philadelphia", "East", "Atlantic"),
     ("TOR", "Raptors", "Toronto", "East", "Atlantic"), ("CHI", "Bulls", "Chicago", "East", "Central"),
     ("CLE", "Cavaliers", "Cleveland", "East", "Central"), ("DET", "Pistons", "Detroit", "East", "Central"),
     ("IND", "Pacers", "Indiana", "East", "Central"), ("MIL", "Bucks", "Milwaukee", "East", "Central"),
-    ("ATL", "Hawks", "Atlanta", "East", "Southeast"), ("CHA", "Hornets", "Charlotte", "East", "Southeast"),
+    ("CHA", "Hornets", "Charlotte", "East", "Southeast"),
     ("MIA", "Heat", "Miami", "East", "Southeast"), ("ORL", "Magic", "Orlando", "East", "Southeast"),
     ("WAS", "Wizards", "Washington", "East", "Southeast"), ("DEN", "Nuggets", "Denver", "West", "Northwest"),
     ("MIN", "Timberwolves", "Minnesota", "West", "Northwest"), ("OKC", "Thunder", "Oklahoma City", "West", "Northwest"),
@@ -68,8 +73,40 @@ _TEAM_ROWS = (
     ("HOU", "Rockets", "Houston", "West", "Southwest"), ("MEM", "Grizzlies", "Memphis", "West", "Southwest"),
     ("NOP", "Pelicans", "New Orleans", "West", "Southwest"), ("SAS", "Spurs", "San Antonio", "West", "Southwest"),
 )
-TEAMS = tuple(Team(*row) for row in _TEAM_ROWS)
+TEAMS = tuple(sorted((Team(*row) for row in _TEAM_ROWS), key=lambda team: (team.city, team.name)))
 TEAM_BY_CODE = {team.code: team for team in TEAMS}
+TEAM_COLORS = {
+    "ATL": {"primary": "#E03A3E", "secondary": "#C1D32F", "accent": "#FDB927"},
+    "BOS": {"primary": "#007A33", "secondary": "#BA9653", "accent": "#FFFFFF"},
+    "BKN": {"primary": "#000000", "secondary": "#FFFFFF", "accent": "#FFFFFF"},
+    "NYK": {"primary": "#006BB6", "secondary": "#F58426", "accent": "#F58426"},
+    "PHI": {"primary": "#006BB6", "secondary": "#ED174C", "accent": "#FFFFFF"},
+    "TOR": {"primary": "#CE1141", "secondary": "#000000", "accent": "#FFFFFF"},
+    "CHI": {"primary": "#CE1141", "secondary": "#000000", "accent": "#FFFFFF"},
+    "CLE": {"primary": "#860038", "secondary": "#FDBB30", "accent": "#FDBB30"},
+    "DET": {"primary": "#C8102E", "secondary": "#1D42BA", "accent": "#FFFFFF"},
+    "IND": {"primary": "#002D62", "secondary": "#FDBB30", "accent": "#FDBB30"},
+    "MIL": {"primary": "#00471B", "secondary": "#EEE1C6", "accent": "#EEE1C6"},
+    "CHA": {"primary": "#1D1160", "secondary": "#00788C", "accent": "#A1A1A4"},
+    "MIA": {"primary": "#98002E", "secondary": "#F9A01B", "accent": "#F9A01B"},
+    "ORL": {"primary": "#0077C0", "secondary": "#C4CED4", "accent": "#FFFFFF"},
+    "WAS": {"primary": "#002B5C", "secondary": "#E31837", "accent": "#C4CED4"},
+    "DEN": {"primary": "#0E2240", "secondary": "#FEC524", "accent": "#FEC524"},
+    "MIN": {"primary": "#0C2340", "secondary": "#236192", "accent": "#9EA2A2"},
+    "OKC": {"primary": "#007AC1", "secondary": "#EF3B24", "accent": "#FDBB30"},
+    "POR": {"primary": "#E03A3E", "secondary": "#000000", "accent": "#FFFFFF"},
+    "UTA": {"primary": "#2A2A86", "secondary": "#00A4E4", "accent": "#FFF21F"},
+    "GSW": {"primary": "#1D428A", "secondary": "#FFC72C", "accent": "#FFC72C"},
+    "LAC": {"primary": "#C8102E", "secondary": "#1D42BA", "accent": "#FFFFFF"},
+    "LAL": {"primary": "#552583", "secondary": "#FDB927", "accent": "#FDB927"},
+    "PHX": {"primary": "#1D1160", "secondary": "#E56020", "accent": "#F9AD1B"},
+    "SAC": {"primary": "#5A2D81", "secondary": "#63727A", "accent": "#FFFFFF"},
+    "DAL": {"primary": "#00538C", "secondary": "#002B5E", "accent": "#B8C4CA"},
+    "HOU": {"primary": "#CE1141", "secondary": "#000000", "accent": "#FFFFFF"},
+    "MEM": {"primary": "#5D76A9", "secondary": "#12173F", "accent": "#F5B112"},
+    "NOP": {"primary": "#0C2340", "secondary": "#C8102E", "accent": "#85714D"},
+    "SAS": {"primary": "#000000", "secondary": "#C4CED4", "accent": "#FFFFFF"},
+}
 ROSTER_PATH = Path(__file__).with_name("data") / "nba_franchise_rosters.csv"
 STATS_PATH = Path(__file__).with_name("data") / "nba_franchise_stats_2025.csv"
 STAT_OPTIONS = {

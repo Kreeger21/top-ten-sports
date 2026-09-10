@@ -21,6 +21,7 @@ import team_logo_game_service
 import nba_player_game_service
 import career_game_service
 import nba_franchise_service
+import nba_franchise_simulation
 
 app = Flask(__name__)
 APP_ENV = os.environ.get("TOP_TEN_ENV", "test").lower()
@@ -900,20 +901,138 @@ def home(): return render_template("product_home.html")
 def top_ten_home(): return render_template("sports_home.html")
 @app.route("/franchise")
 def franchise_home(): return render_template("franchise_home.html")
+
+
+def _nba_franchise_context(team_code=None):
+    save = nba_franchise_simulation.load(session.get("nba_franchise_save_id"))
+    if session.get("nba_franchise_save_id") and save is None:
+        session.pop("nba_franchise_save_id", None)
+    selected = save["team"] if save else (team_code or "ATL").upper()
+    context = nba_franchise_service.team_overview(selected)
+    if save:
+        context.update(nba_franchise_simulation.season_state(save))
+        current_roster = nba_franchise_simulation.roster_for_save(save, selected)
+        context.update({"roster": current_roster,
+                        "starting_lineup": nba_franchise_simulation.starting_lineup_for_save(save, selected),
+                        "tradeable_players": tuple(player for player in current_roster if player["contract_verified"]),
+                        "draft_picks": nba_franchise_simulation.draft_picks(save, selected),
+                        "league_transactions": tuple(save.get("transactions", ())),
+                        "last_trade_response": save.get("last_trade_response")})
+    else:
+        context.update({"franchise_save": None, "wins": 0, "losses": 0, "games_played": 0,
+                        "games_remaining": 82, "recent_results": (), "next_game": None,
+                        "season_complete": False, "simulated_stats": (), "simulated_stats_preview": (),
+                        "team_strength": nba_franchise_simulation.team_strength(context["team"].code)})
+    return context
+
+
+def _nba_franchise_library():
+    save_ids = list(dict.fromkeys(session.get("nba_franchise_save_ids", [])))
+    active_id = session.get("nba_franchise_save_id")
+    if active_id and active_id not in save_ids:
+        save_ids.append(active_id)
+    saves = []
+    valid_ids = []
+    for save_id in save_ids:
+        save = nba_franchise_simulation.load(save_id)
+        if not save:
+            continue
+        valid_ids.append(save_id)
+        state = nba_franchise_simulation.season_state(save)
+        saves.append({"save": save, "team": nba_franchise_service.TEAM_BY_CODE[save["team"]],
+                      "wins": state["wins"], "losses": state["losses"],
+                      "games_played": state["games_played"]})
+    session["nba_franchise_save_ids"] = valid_ids
+    return tuple(saves)
+
+
 @app.route("/franchise/nba")
 def nba_franchise():
-    team_code = request.args.get("team", "ATL").upper()
+    if not request.args.get("team") and not nba_franchise_simulation.load(session.get("nba_franchise_save_id")):
+        return render_template("nba_franchise_setup.html", teams=nba_franchise_service.TEAMS,
+                               saved_franchises=_nba_franchise_library(),
+                               top_players=nba_franchise_simulation.player_rankings(limit=10),
+                               top_teams=nba_franchise_simulation.team_rankings()[:10])
     return render_template("nba_franchise.html", teams=nba_franchise_service.TEAMS,
-                           **nba_franchise_service.team_overview(team_code))
+                           **_nba_franchise_context(request.args.get("team")))
+
+
+@app.route("/franchise/nba/start", methods=["POST"])
+def nba_franchise_start():
+    if nba_franchise_simulation.load(session.get("nba_franchise_save_id")):
+        return redirect(url_for("nba_franchise"))
+    try:
+        save = nba_franchise_simulation.create(request.form.get("team", ""))
+    except ValueError:
+        return redirect(url_for("nba_franchise"))
+    session["nba_franchise_save_id"] = save["id"]
+    save_ids = list(dict.fromkeys(session.get("nba_franchise_save_ids", [])))
+    save_ids.append(save["id"])
+    session["nba_franchise_save_ids"] = list(dict.fromkeys(save_ids))
+    return redirect(url_for("nba_franchise"))
+
+
+@app.route("/franchise/nba/leave", methods=["POST"])
+def nba_franchise_leave():
+    session.pop("nba_franchise_save_id", None)
+    return redirect(url_for("nba_franchise"))
+
+
+@app.route("/franchise/nba/load/<save_id>", methods=["POST"])
+def nba_franchise_load(save_id):
+    allowed = set(session.get("nba_franchise_save_ids", []))
+    save = nba_franchise_simulation.load(save_id) if save_id in allowed else None
+    if save:
+        session["nba_franchise_save_id"] = save["id"]
+    return redirect(url_for("nba_franchise"))
+
+
+@app.route("/franchise/nba/simulate", methods=["POST"])
+def nba_franchise_simulate():
+    save = nba_franchise_simulation.load(session.get("nba_franchise_save_id"))
+    if not save:
+        return redirect(url_for("nba_franchise"))
+    count = 4 if request.form.get("advance") == "week" else 1
+    nba_franchise_simulation.simulate(save, count)
+    return redirect(url_for("nba_franchise"))
+
+
+@app.route("/franchise/nba/end", methods=["GET", "POST"])
+def nba_franchise_end():
+    save = nba_franchise_simulation.load(session.get("nba_franchise_save_id"))
+    if not save:
+        session.pop("nba_franchise_save_id", None)
+        return redirect(url_for("nba_franchise"))
+    context = _nba_franchise_context()
+    if request.method == "POST":
+        nba_franchise_simulation.delete(save["id"])
+        session.pop("nba_franchise_save_id", None)
+        session["nba_franchise_save_ids"] = [save_id for save_id in session.get("nba_franchise_save_ids", [])
+                                               if save_id != save["id"]]
+        return redirect(url_for("nba_franchise"))
+    return render_template("nba_franchise_end.html", teams=nba_franchise_service.TEAMS, **context)
+
+
+@app.route("/franchise/nba/rankings/players")
+def nba_franchise_player_rankings():
+    query = request.args.get("q", "").strip()
+    return render_template("nba_franchise_player_rankings.html", query=query,
+                           players=nba_franchise_simulation.player_rankings(query, 100))
+
+
+@app.route("/franchise/nba/rankings/teams")
+def nba_franchise_team_rankings():
+    return render_template("nba_franchise_team_rankings.html",
+                           rankings=nba_franchise_simulation.team_rankings())
+
+
 @app.route("/franchise/nba/roster")
 def nba_franchise_roster():
-    team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_roster.html", teams=nba_franchise_service.TEAMS,
-                           **nba_franchise_service.team_overview(team_code))
+                           **_nba_franchise_context(request.args.get("team")))
 @app.route("/franchise/nba/players/<player_id>/attributes")
 def nba_franchise_player_attributes(player_id):
-    team_code = request.args.get("team", "ATL").upper()
-    context = nba_franchise_service.team_overview(team_code)
+    context = _nba_franchise_context(request.args.get("team"))
     player = nba_franchise_service.roster_player(context["team"].code, player_id)
     if player is None:
         return redirect(url_for("nba_franchise_roster", team=context["team"].code))
@@ -921,30 +1040,67 @@ def nba_franchise_player_attributes(player_id):
                            player=player, **context)
 @app.route("/franchise/nba/schedule")
 def nba_franchise_schedule():
-    team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_schedule.html", teams=nba_franchise_service.TEAMS,
-                           **nba_franchise_service.team_overview(team_code))
+                           **_nba_franchise_context(request.args.get("team")))
+
+
+@app.route("/franchise/nba/simulated-stats")
+def nba_franchise_simulated_stats():
+    return render_template("nba_franchise_simulated_stats.html", teams=nba_franchise_service.TEAMS,
+                           **_nba_franchise_context(request.args.get("team")))
+
+
+@app.route("/franchise/nba/games/<int:game_number>")
+def nba_franchise_box_score(game_number):
+    context = _nba_franchise_context(request.args.get("team"))
+    save = context.get("franchise_save")
+    result = nba_franchise_simulation.game_result(save, game_number) if save else None
+    if result is None:
+        return redirect(url_for("nba_franchise_schedule", team=context["team"].code))
+    context["game_result"] = result
+    context["opponent_team"] = nba_franchise_service.TEAM_BY_CODE[result["opponent"]]
+    return render_template("nba_franchise_box_score.html", teams=nba_franchise_service.TEAMS, **context)
 @app.route("/franchise/nba/news")
 def nba_franchise_news():
-    team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_news.html", teams=nba_franchise_service.TEAMS,
-                           **nba_franchise_service.team_overview(team_code))
+                           **_nba_franchise_context(request.args.get("team")))
 @app.route("/franchise/nba/finances")
 def nba_franchise_finances():
-    team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_finances.html", teams=nba_franchise_service.TEAMS,
-                           **nba_franchise_service.team_overview(team_code))
+                           **_nba_franchise_context(request.args.get("team")))
 @app.route("/franchise/nba/assets")
 def nba_franchise_assets():
-    team_code = request.args.get("team", "ATL").upper()
     return render_template("nba_franchise_assets.html", teams=nba_franchise_service.TEAMS,
-                           **nba_franchise_service.team_overview(team_code))
+                           **_nba_franchise_context(request.args.get("team")))
+
+
+@app.route("/franchise/nba/trades", methods=["GET", "POST"])
+def nba_franchise_trades():
+    save = nba_franchise_simulation.load(session.get("nba_franchise_save_id"))
+    if not save:
+        return redirect(url_for("nba_franchise"))
+    partner = request.values.get("partner", "")
+    if partner not in nba_franchise_service.TEAM_BY_CODE or partner == save["team"]:
+        partner = next(team.code for team in nba_franchise_service.TEAMS if team.code != save["team"])
+    if request.method == "POST":
+        nba_franchise_simulation.propose_trade(
+            save, partner, request.form.getlist("user_player"), request.form.getlist("cpu_player"),
+            request.form.getlist("user_pick"), request.form.getlist("cpu_pick"))
+        return redirect(url_for("nba_franchise_trades", partner=partner))
+    context = _nba_franchise_context()
+    return render_template("nba_franchise_trades.html", teams=nba_franchise_service.TEAMS,
+                           trade_partners=tuple(team for team in nba_franchise_service.TEAMS
+                                                if team.code != save["team"]),
+                           partner=nba_franchise_service.TEAM_BY_CODE[partner],
+                           partner_roster=nba_franchise_simulation.roster_for_save(save, partner),
+                           partner_picks=nba_franchise_simulation.draft_picks(save, partner),
+                           trade_offer=(save.get("last_trade_offer", {})
+                                        if save.get("last_trade_offer", {}).get("partner") == partner else {}), **context)
 @app.route("/franchise/nba/statistics")
 def nba_franchise_statistics():
-    team_code = request.args.get("team", "ATL").upper()
     view = request.args.get("view", "team")
     mode = request.args.get("mode", "totals")
-    context = nba_franchise_service.team_overview(team_code)
+    context = _nba_franchise_context(request.args.get("team"))
     return render_template("nba_franchise_statistics.html", teams=nba_franchise_service.TEAMS,
                            stat_options=nba_franchise_service.STAT_OPTIONS,
                            stats=nba_franchise_service.statistics(context["team"].code, mode, view),

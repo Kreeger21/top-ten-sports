@@ -7,6 +7,8 @@ __pycache__/
 !.env.example
 data/nba_provider_raw/
 data/nba_provider_shadow_private/
+data/nba_franchise_saves/
+tests/fixtures/nba_franchise_saves/*.json
 node_modules/
 .pnpm-store/
 .stylelintcache

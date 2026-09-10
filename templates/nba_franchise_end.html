@@ -1,0 +1,5 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>End {{ team.city }} {{ team.name }} Franchise</title><link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}"></head>
+<body class="nba-franchise"><main class="page-shell franchise-dashboard">
+{% include '_nba_franchise_header.html' %}
+<section class="end-franchise-card" aria-labelledby="end-franchise-title"><p class="eyebrow">Franchise management</p><h1 id="end-franchise-title">End this franchise?</h1><p>This permanently deletes your {{ team.city }} {{ team.name }} 2026–27 season, including its {{ wins }}–{{ losses }} record and all {{ games_played }} simulated game{% if games_played != 1 %}s{% endif %}.</p><div class="end-franchise-actions"><a href="{{ url_for('nba_franchise') }}">Keep playing</a><form method="post"><button type="submit">Delete franchise</button></form></div><small>This action cannot be undone.</small></section>
+</main></body></html>

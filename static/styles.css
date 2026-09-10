@@ -1159,11 +1159,19 @@ body.franchise-menu h2 { font-family:"Oswald Sports","Arial Narrow",sans-serif; 
   .section-heading > p { margin-top:12px; text-align:left; }
 }
 
-body.nba-franchise { --ink:#fff8e8; --muted:rgba(255,248,232,.7); --accent:#ff7a21; --accent-dark:#160a04; --line:rgba(255,248,232,.18); --panel:rgba(14,29,46,.94); font-family:"Inter Local",sans-serif; background:radial-gradient(circle at 12% 0%,rgba(255,122,33,.28),transparent 32rem),linear-gradient(145deg,#080f1a,#132a43 58%,#0a1727); }
+body.nba-franchise { --team-primary:#1d428a; --team-secondary:#c8102e; --team-accent:#fdb927; --ink:#fff; --muted:rgba(255,255,255,.72); --accent:var(--team-accent); --accent-dark:#080b10; --line:color-mix(in srgb,var(--team-secondary) 32%,rgba(255,255,255,.16)); --panel:color-mix(in srgb,var(--team-primary) 18%,rgba(8,13,21,.96)); font-family:"Inter Local",sans-serif; background:radial-gradient(circle at 10% -5%,color-mix(in srgb,var(--team-primary) 58%,transparent),transparent 34rem),radial-gradient(circle at 96% 12%,color-mix(in srgb,var(--team-secondary) 30%,transparent),transparent 30rem),linear-gradient(145deg,#070a0f,color-mix(in srgb,var(--team-primary) 25%,#0a111b) 58%,#070a0f); background-attachment:fixed; }
 body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial Narrow",sans-serif; text-transform:uppercase; }
 .franchise-dashboard .top-nav { padding-bottom:13px; border-bottom:1px solid var(--line); }
 .franchise-dashboard .top-nav span { color:var(--accent); font-size:.72rem; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
-.franchise-team-hero { display:grid; grid-template-columns:1fr 280px; align-items:end; gap:32px; margin:42px 0 28px; padding-bottom:28px; border-bottom:4px solid var(--accent); }
+.franchise-nav-actions { display:flex; align-items:center; gap:16px; }
+.franchise-nav-actions form { margin:0; }
+.leave-franchise-link { padding:0; border:0; color:var(--accent); background:transparent; font:inherit; font-size:.7rem; font-weight:850; letter-spacing:.06em; cursor:pointer; text-transform:uppercase; }
+.leave-franchise-link:hover,.leave-franchise-link:focus-visible { color:#fff; outline:2px solid var(--accent); outline-offset:4px; }
+.end-franchise-link { color:#ff9aa5!important; font-size:.7rem; font-weight:850; letter-spacing:.06em; text-transform:uppercase; }
+.end-franchise-link:hover,.end-franchise-link:focus-visible { color:#fff!important; outline:2px solid #ff7b89; outline-offset:4px; }
+.franchise-team-hero { position:relative; display:grid; grid-template-columns:1fr 280px; align-items:end; gap:32px; margin:42px 0 28px; padding:28px 26px; overflow:hidden; border:1px solid var(--line); border-bottom:4px solid var(--accent); border-radius:16px; background:linear-gradient(115deg,color-mix(in srgb,var(--team-primary) 62%,#080d15),color-mix(in srgb,var(--team-secondary) 24%,#080d15)); box-shadow:0 22px 50px rgba(0,0,0,.28); }
+.franchise-team-hero::after { content:attr(data-team); position:absolute; right:300px; bottom:-.25em; color:rgba(255,255,255,.055); font-family:"Oswald Sports","Arial Narrow",sans-serif; font-size:9rem; font-weight:900; line-height:1; pointer-events:none; }
+.franchise-team-hero>* { position:relative; z-index:1; }
 .franchise-team-hero h1 { margin:0; font-size:clamp(3rem,6vw,5.6rem); line-height:.94; }
 .franchise-team-hero form span { color:var(--muted); font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 .franchise-status-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
@@ -1172,15 +1180,101 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .franchise-status-grid>a { color:var(--ink); text-decoration:none; transition:border-color .16s ease,transform .16s ease; }
 .franchise-status-grid>a:hover,.franchise-status-grid>a:focus-visible { border-color:var(--accent); transform:translateY(-2px); outline:none; }
 .franchise-status-three { grid-template-columns:repeat(3,1fr); }
+.franchise-status-four { grid-template-columns:repeat(4,1fr); }
 .franchise-status-grid span { color:var(--muted); font-size:.68rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
 .franchise-status-grid strong { font-size:1.12rem; }
 .franchise-status-grid small { color:var(--muted); line-height:1.35; }
 .franchise-hub-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:20px; }
+.franchise-lock { display:grid; justify-items:end; gap:4px; padding:15px 17px; border:1px solid var(--line); border-radius:12px; background:rgba(5,10,17,.55); text-align:right; }
+.franchise-lock span,.franchise-lock small { color:var(--muted); font-size:.68rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
+.franchise-lock strong { color:var(--accent); font-family:"Oswald Sports","Arial Narrow",sans-serif; font-size:2.1rem; line-height:1; }
+.simulation-console { display:grid; grid-template-columns:1fr auto; align-items:center; gap:28px; margin-bottom:20px; padding:22px 24px; border:1px solid color-mix(in srgb,var(--accent) 50%,transparent); border-radius:14px; background:linear-gradient(115deg,color-mix(in srgb,var(--team-primary) 32%,var(--panel)),var(--panel)); box-shadow:0 18px 44px rgba(0,0,0,.24); }
+.simulation-console h2 { margin:3px 0 5px; font-size:2rem; }
+.simulation-console p { margin:0; color:var(--muted); font-size:.8rem; line-height:1.5; }
+.latest-result { color:var(--ink); font-weight:800; }
+.simulation-console form { display:grid; grid-template-columns:1fr 1fr; gap:8px; min-width:300px; }
+.simulation-console button,.franchise-setup-card button { min-height:44px; padding:10px 15px; border:1px solid var(--accent); border-radius:9px; color:#fff; background:color-mix(in srgb,var(--team-primary) 72%,#111); font:inherit; font-size:.76rem; font-weight:900; cursor:pointer; text-transform:uppercase; transition:transform .16s ease,filter .16s ease; }
+.simulation-console button:hover,.simulation-console button:focus-visible,.franchise-setup-card button:hover,.franchise-setup-card button:focus-visible { filter:brightness(1.18); transform:translateY(-1px); outline:2px solid var(--accent); outline-offset:2px; }
+.simulation-console .secondary-action { color:var(--ink); background:transparent; }
+.simulation-console form small { grid-column:1/-1; color:var(--muted); font-size:.66rem; text-align:center; }
+.game-result { display:inline-grid; width:20px; height:20px; place-items:center; margin-right:4px; border-radius:5px; color:#06100a; background:#71d7a1; font-size:.65rem; font-weight:950; }
+.game-result.l { color:#fff; background:#d84f5f; }
+.completed-game { border-color:color-mix(in srgb,var(--accent) 40%,transparent)!important; }
+.franchise-setup-page { --team-primary:#1d428a; --team-secondary:#c8102e; --team-accent:#fdb927; }
+.franchise-setup-card { display:grid; grid-template-columns:1.2fr .8fr; align-items:end; gap:50px; margin:70px auto 0; padding:42px; border:1px solid var(--line); border-bottom:5px solid var(--accent); border-radius:18px; background:linear-gradient(135deg,color-mix(in srgb,var(--team-primary) 45%,var(--panel)),color-mix(in srgb,var(--team-secondary) 18%,var(--panel))); box-shadow:0 28px 70px rgba(0,0,0,.36); }
+.franchise-setup-card h1 { max-width:650px; margin:6px 0 18px; font-size:clamp(3.2rem,7vw,6rem); line-height:.92; }
+.franchise-setup-card form { display:grid; gap:10px; padding:22px; border:1px solid var(--line); border-radius:13px; background:rgba(5,10,17,.68); }
+.franchise-setup-card label { color:var(--muted); font-size:.7rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+.franchise-setup-card select { width:100%; }
+.franchise-setup-card small { color:var(--muted); font-size:.68rem; line-height:1.45; text-align:center; }
+.franchise-ranking-previews { display:grid; grid-template-columns:1fr 1fr; align-items:start; gap:20px; margin:24px 0 70px; }
+.saved-franchise-library { margin-top:24px; padding:26px; border:1px solid var(--line); border-radius:15px; background:var(--panel); box-shadow:0 20px 50px rgba(0,0,0,.25); }
+.saved-franchise-heading { display:flex; align-items:end; justify-content:space-between; gap:28px; margin-bottom:18px; }
+.saved-franchise-heading h2 { margin:3px 0 0; font-size:2rem; }
+.saved-franchise-heading>p { max-width:460px; margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; text-align:right; }
+.saved-franchise-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.saved-franchise-grid article { position:relative; display:grid; gap:18px; min-height:185px; padding:20px; overflow:hidden; border:1px solid color-mix(in srgb,var(--save-secondary) 48%,var(--line)); border-radius:12px; background:linear-gradient(135deg,color-mix(in srgb,var(--save-primary) 52%,#0a1019),color-mix(in srgb,var(--save-secondary) 18%,#0a1019)); }
+.saved-franchise-grid article::after { content:""; position:absolute; inset:auto -30px -55px auto; width:130px; height:130px; border:22px solid rgba(255,255,255,.045); border-radius:50%; pointer-events:none; }
+.saved-franchise-grid article>div,.saved-franchise-grid form { position:relative; z-index:1; }
+.saved-franchise-grid span { color:rgba(255,255,255,.72); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+.saved-franchise-grid h3 { margin:6px 0; font-size:1.25rem; }
+.saved-franchise-grid p { margin:0; color:rgba(255,255,255,.72); font-size:.75rem; }
+.saved-franchise-grid form { align-self:end; }
+.saved-franchise-grid button { width:100%; min-height:40px; border:1px solid rgba(255,255,255,.46); border-radius:8px; color:#fff; background:rgba(5,10,17,.52); font:inherit; font-size:.7rem; font-weight:900; cursor:pointer; text-transform:uppercase; }
+.saved-franchise-grid button:hover,.saved-franchise-grid button:focus-visible { border-color:#fff; background:rgba(5,10,17,.78); outline:2px solid #fff; outline-offset:2px; }
+.saved-franchise-empty { padding:24px; border:1px dashed var(--line); border-radius:10px; text-align:center; }
+.saved-franchise-empty strong { color:var(--ink); }
+.saved-franchise-empty p { margin:6px 0 0; color:var(--muted); font-size:.78rem; }
+.ranking-preview-card { display:block; padding:25px; border:1px solid var(--line); border-radius:15px; color:var(--ink); background:var(--panel); box-shadow:0 20px 50px rgba(0,0,0,.25); text-decoration:none; transition:border-color .16s ease,transform .16s ease; }
+.ranking-preview-card:hover,.ranking-preview-card:focus-visible { border-color:var(--accent); transform:translateY(-2px); outline:none; }
+.ranking-preview-heading { display:flex; align-items:start; justify-content:space-between; gap:18px; margin-bottom:17px; }
+.ranking-preview-heading h2 { margin:3px 0 0; font-size:2rem; }
+.ranking-preview-heading>span { color:var(--accent); font-size:.7rem; font-weight:900; letter-spacing:.05em; text-transform:uppercase; }
+.ranking-preview-card ol,.ranking-table { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
+.ranking-preview-card li { display:grid; grid-template-columns:30px minmax(0,1fr) auto 42px; align-items:center; gap:10px; min-height:42px; padding:0 11px; border:1px solid var(--line); border-radius:8px; }
+.ranking-preview-card li b { color:var(--accent); font-variant-numeric:tabular-nums; }
+.ranking-preview-card li strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ranking-preview-card li small { color:var(--muted); font-size:.68rem; }
+.ranking-preview-card li em,.ranking-table li em { display:grid; min-width:38px; height:30px; place-items:center; border-radius:7px; color:#080b10; background:var(--accent); font-size:.8rem; font-style:normal; font-weight:950; font-variant-numeric:tabular-nums; }
+.ranking-page-hero { max-width:850px; padding:55px 0 30px; }
+.ranking-page-hero h1 { margin:4px 0 15px; font-size:clamp(3.2rem,7vw,6rem); line-height:.92; }
+.ranking-page-hero>p:last-child { max-width:720px; color:var(--muted); line-height:1.55; }
+.player-ranking-search { display:grid; gap:7px; margin-bottom:18px; padding:16px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+.player-ranking-search label { color:var(--muted); font-size:.68rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+.player-ranking-search>div { display:grid; grid-template-columns:1fr auto auto; gap:8px; }
+.player-ranking-search input { min-width:0; }
+.player-ranking-search button,.player-ranking-search a { display:grid; min-height:44px; place-items:center; padding:8px 18px; border:1px solid var(--accent); border-radius:8px; color:var(--ink); background:color-mix(in srgb,var(--team-primary) 72%,#111); font:inherit; font-size:.72rem; font-weight:900; text-decoration:none; text-transform:uppercase; }
+.ranking-list-card { margin-bottom:70px; overflow:hidden; border:1px solid var(--line); border-radius:15px; background:var(--panel); box-shadow:0 22px 55px rgba(0,0,0,.28); }
+.ranking-table-heading,.ranking-table li { display:grid; grid-template-columns:70px minmax(220px,1fr) 100px 100px 90px; align-items:center; gap:12px; }
+.ranking-table-heading { padding:14px 20px; color:var(--muted); background:rgba(255,255,255,.035); font-size:.64rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+.ranking-table { gap:0; }
+.ranking-table li { min-height:57px; padding:8px 20px; border-top:1px solid var(--line); }
+.ranking-table li:hover { background:color-mix(in srgb,var(--team-primary) 22%,transparent); }
+.ranking-table li b { color:var(--accent); font-size:1rem; font-variant-numeric:tabular-nums; }
+.ranking-table li span,.ranking-table li small { color:var(--muted); }
+.ranking-table li em { justify-self:end; }
+.team-ranking-heading,.team-ranking-table li { grid-template-columns:70px minmax(240px,1fr) 110px 90px 90px 90px; }
+.team-ranking-table li { box-shadow:inset 4px 0 0 var(--rank-primary); }
+.team-ranking-table li em { color:#fff; background:linear-gradient(135deg,var(--rank-primary),var(--rank-secondary)); }
+.ranking-empty { display:block!important; padding:24px!important; color:var(--muted); }
+.end-franchise-card { max-width:720px; margin:70px auto 0; padding:38px; border:1px solid rgba(255,123,137,.5); border-radius:16px; background:var(--panel); box-shadow:0 26px 65px rgba(0,0,0,.35); }
+.end-franchise-card h1 { margin:5px 0 16px; font-size:clamp(2.8rem,6vw,5rem); line-height:.94; }
+.end-franchise-card>p:not(.eyebrow) { max-width:600px; color:var(--muted); line-height:1.6; }
+.end-franchise-actions { display:flex; align-items:center; gap:12px; margin:28px 0 13px; }
+.end-franchise-actions a,.end-franchise-actions button { display:inline-grid; min-height:44px; place-items:center; padding:10px 18px; border-radius:9px; font:inherit; font-size:.76rem; font-weight:900; text-decoration:none; text-transform:uppercase; }
+.end-franchise-actions a { border:1px solid var(--accent); color:var(--ink); }
+.end-franchise-actions button { border:1px solid #ff7b89; color:#fff; background:#a92738; cursor:pointer; }
+.end-franchise-actions a:hover,.end-franchise-actions a:focus-visible,.end-franchise-actions button:hover,.end-franchise-actions button:focus-visible { filter:brightness(1.16); outline:2px solid currentColor; outline-offset:2px; }
+.end-franchise-card>small { color:#ff9aa5; font-size:.7rem; font-weight:800; }
 .hub-preview { position:relative; display:block; color:var(--ink); text-decoration:none; transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease; }
 .hub-preview:hover,.hub-preview:focus-visible { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 22px 52px rgba(0,0,0,.34); outline:none; }
 .preview-heading { display:flex; align-items:start; justify-content:space-between; gap:18px; }
 .preview-heading h2 { margin:2px 0 0; }
 .preview-heading > span { color:var(--accent); font-size:.72rem; font-weight:850; letter-spacing:.05em; white-space:nowrap; text-transform:uppercase; }
+.schedule-card-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+.schedule-card-actions a,.schedule-card-actions>span { display:flex; min-height:42px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border:1px solid var(--line); border-radius:8px; color:var(--ink); font-size:.76rem; font-weight:850; letter-spacing:.04em; text-decoration:none; text-transform:uppercase; }
+.schedule-card-actions a:hover,.schedule-card-actions a:focus-visible { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,transparent); color:var(--accent); outline:none; }
+.schedule-card-actions>span { color:var(--muted); cursor:not-allowed; }
 .projection-note { margin:-10px 0 15px; color:var(--muted); font-size:.75rem; }
 .week-schedule,.starting-five,.full-schedule { margin:0; padding:0; list-style:none; }
 .week-schedule { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -1193,10 +1287,54 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .stats-preview { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
 .stats-preview li { display:grid; grid-template-columns:28px 1fr auto; align-items:center; gap:9px; min-height:42px; padding:0 12px; border:1px solid var(--line); border-radius:8px; }
 .stats-preview b,.stats-preview span { color:var(--accent); font-size:.72rem; }
+.simulated-stats-hub .stats-preview span { text-align:right; font-variant-numeric:tabular-nums; }
+.franchise-empty-state { display:grid; place-content:center; min-height:150px; padding:24px; border:1px dashed var(--line); border-radius:10px; text-align:center; }
+.franchise-empty-state strong { font-size:1.02rem; }
+.franchise-empty-state p { margin:6px 0 0; color:var(--muted); }
+.franchise-table-scroll { overflow-x:auto; scrollbar-color:var(--accent) transparent; }
+.sim-stats-table { width:100%; min-width:820px; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+.sim-stats-table th,.sim-stats-table td { padding:12px 14px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap; }
+.sim-stats-table thead th { color:var(--muted); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; }
+.sim-stats-table th:first-child { position:sticky; left:0; z-index:1; min-width:180px; background:var(--surface); text-align:left; }
+.sim-stats-table tbody th { color:var(--text); }
+.sim-stats-table tbody tr:hover { background:color-mix(in srgb,var(--accent) 7%,transparent); }
+.sim-stats-table tbody td strong { color:var(--accent); }
+.box-score-hero { margin-top:18px; padding:24px 28px; }
+.box-score-hero>div { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px; margin-top:12px; }
+.box-score-hero article { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.box-score-hero article:last-child { flex-direction:row-reverse; }
+.box-score-hero article span { font-weight:800; }
+.box-score-hero article strong { color:var(--accent); font-size:2.5rem; font-variant-numeric:tabular-nums; }
+.box-score-panel { margin-top:18px; }
+.full-schedule li>a { display:grid; grid-column:1/-1; grid-template-columns:30px 1fr; gap:2px 9px; color:inherit; text-decoration:none; }
+.full-schedule li>a>b { grid-row:span 2; }
+.full-schedule .completed-game:hover { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 8%,transparent); }
+.trades-hub { min-height:250px; }
+.trade-card-mark { margin:18px 0 12px; color:var(--accent); font-size:4rem; font-weight:950; line-height:.8; }
+.trade-center { margin-top:18px; }
+.trade-partner-form { display:grid; grid-template-columns:auto minmax(220px,360px); align-items:center; gap:12px; margin:22px 0; }
+.trade-partner-form label,.trade-builder label { color:var(--muted); font-size:.72rem; font-weight:850; letter-spacing:.07em; text-transform:uppercase; }
+.trade-partner-form select,.trade-builder select { width:100%; min-height:46px; border:1px solid var(--line); border-radius:8px; background:#101823; color:#f7f9fc; color-scheme:dark; padding:0 12px; }
+.trade-partner-form select option,.trade-builder select option { background:#101823; color:#f7f9fc; }
+.trade-builder { display:grid; grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr); align-items:center; gap:18px; }
+.trade-builder fieldset { display:grid; gap:9px; min-width:0; margin:0; padding:20px; border:1px solid var(--line); border-radius:12px; }
+.trade-builder legend { padding:0 8px; color:var(--accent); font-size:1.05rem; font-weight:900; }
+.trade-asset-list { display:grid; gap:11px; }
+.trade-asset-row { display:grid; gap:7px; }
+.trade-asset-controls { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:1px 0 10px; }
+.trade-asset-controls button { grid-column:auto; justify-self:stretch; min-width:0; min-height:38px; width:auto; padding:0 10px; border:1px solid var(--line); background:transparent; color:var(--ink); font-size:.72rem; }
+.trade-asset-controls button:hover,.trade-asset-controls button:focus-visible { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,transparent); color:var(--accent); }
+.trade-builder button { grid-column:1/-1; justify-self:center; min-width:220px; }
+.trade-swap { color:var(--accent); font-size:2.5rem; font-weight:950; text-align:center; }
+.trade-response { margin:0 0 20px; padding:14px 17px; border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:8px; background:rgba(255,255,255,.03); }
+.trade-response p { margin:4px 0 0; color:var(--muted); }
+.trade-response.accepted { border-left-color:#45d483; }
+.trade-response.declined { border-left-color:#ff6b6b; }
+.trade-response.counter { border-left-color:#f2c14e; }
 .stats-controls { display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:18px; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
 .stats-tabs { display:flex; gap:6px; }
 .stats-tabs a { padding:11px 15px; border:1px solid transparent; border-radius:8px; color:var(--muted); font-size:.78rem; font-weight:850; text-decoration:none; text-transform:uppercase; }
-.stats-tabs a.active { border-color:var(--accent); color:var(--ink); background:rgba(255,122,33,.1); }
+.stats-tabs a.active { border-color:var(--accent); color:var(--ink); background:color-mix(in srgb,var(--team-primary) 42%,transparent); }
 .stats-controls form { min-width:230px; }
 .stats-controls label { display:block; margin-bottom:5px; color:var(--muted); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
 .stats-controls select { width:100%; }
@@ -1222,7 +1360,7 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .full-schedule { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; padding:24px 26px 28px; }
 .team-wire { display:grid; gap:12px; padding:24px 26px 12px; }
 .team-wire h3 { margin:7px 0; font-size:1.05rem; }
-.wire-disclaimer { margin:8px 26px 26px; padding:14px; border-left:3px solid var(--accent); color:var(--muted); background:rgba(255,122,33,.06); font-size:.78rem; }
+.wire-disclaimer { margin:8px 26px 26px; padding:14px; border-left:3px solid var(--accent); color:var(--muted); background:color-mix(in srgb,var(--team-primary) 18%,transparent); font-size:.78rem; }
 .finance-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
 .finance-summary article { display:grid; gap:7px; padding:18px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
 .finance-summary span { color:var(--muted); font-size:.68rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
@@ -1239,7 +1377,7 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .rule-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .rule-list p { margin:0; padding:14px; border:1px solid var(--line); border-radius:9px; }
 .rule-list b,.rule-list span { display:block; }.rule-list b { color:var(--accent); font-size:1.2rem; }.rule-list span { margin-top:4px; color:var(--muted); font-size:.72rem; }
-.season-path { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }.season-path span { padding:10px 12px; border-radius:7px; color:var(--ink); background:rgba(255,122,33,.12); font-size:.78rem; font-weight:800; }.season-path i { color:var(--accent); font-style:normal; }
+.season-path { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }.season-path span { padding:10px 12px; border-radius:7px; color:var(--ink); background:color-mix(in srgb,var(--team-primary) 32%,transparent); font-size:.78rem; font-weight:800; }.season-path i { color:var(--accent); font-style:normal; }
 .panel-note,.data-integrity-note { color:var(--muted); font-size:.82rem; line-height:1.55; }
 .schedule-preview { margin-top:20px; }.schedule-preview ol { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0; padding:0; list-style:none; }.schedule-preview li { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; padding:12px; border:1px solid var(--line); border-radius:8px; }.schedule-preview li span { grid-row:span 2; color:var(--accent); font-weight:900; }.schedule-preview li small { color:var(--muted); }
 .roster-panel { margin:20px 0 0; padding:0; overflow:hidden; }
@@ -1251,7 +1389,7 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .franchise-roster-table th,.franchise-roster-table td { padding:13px 16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:middle; }
 .franchise-roster-table th { color:var(--muted); background:rgba(255,255,255,.025); font-size:.66rem; font-weight:850; letter-spacing:.09em; text-transform:uppercase; }
 .franchise-roster-table tbody tr { transition:background-color .16s ease; }
-.franchise-roster-table tbody tr:hover { background:rgba(255,122,33,.06); }
+.franchise-roster-table tbody tr:hover { background:color-mix(in srgb,var(--team-primary) 22%,transparent); }
 .franchise-roster-table tbody tr:last-child td { border-bottom:0; }
 .franchise-roster-table td { font-size:.86rem; }
 .franchise-roster-table td:nth-child(2) strong,.franchise-roster-table td:nth-child(2) small { display:block; }
@@ -1268,7 +1406,7 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .attribute-ratings span { display:grid; gap:3px; min-width:0; padding:7px 8px; border:1px solid var(--line); border-radius:7px; background:rgba(255,255,255,.025); }
 .attribute-ratings b { overflow:hidden; color:var(--muted); font-size:.58rem; font-weight:850; letter-spacing:.03em; text-overflow:ellipsis; text-transform:uppercase; white-space:nowrap; }
 .attribute-ratings strong { color:var(--ink); font-size:1rem; font-variant-numeric:tabular-nums; }
-.attribute-ratings .strong { border-color:rgba(255,122,33,.45); }
+.attribute-ratings .strong { border-color:color-mix(in srgb,var(--accent) 55%,transparent); }
 .attribute-ratings .elite { border-color:#71d7a1; background:rgba(113,215,161,.07); }
 .attribute-ratings .elite strong { color:#71d7a1; }
 .attribute-meta { display:block; margin-top:6px; color:var(--muted); font-size:.62rem; }
@@ -1292,7 +1430,7 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .rating-card strong { grid-row:span 2; color:var(--ink); font-family:"Oswald Sports","Arial Narrow",sans-serif; font-size:3rem; line-height:.85; }
 .rating-card small { color:var(--muted); font-size:.65rem; }
 .rating-card.elite { border-color:#71d7a1; }.rating-card.elite strong { color:#71d7a1; }
-.rating-card.great,.rating-card.good { border-color:rgba(255,122,33,.55); }
+.rating-card.great,.rating-card.good { border-color:color-mix(in srgb,var(--accent) 60%,transparent); }
 .scouting-insights { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0; }
 .scouting-insights article { padding:22px; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
 .scouting-insights h2 { margin:4px 0 15px; font-size:1.5rem; }
@@ -1300,9 +1438,9 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .scouting-insights ul { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
 .scouting-insights li { display:flex; justify-content:space-between; gap:16px; padding:9px 11px; border-radius:7px; background:rgba(255,255,255,.035); }
 .scouting-insights li strong { color:var(--accent); font-variant-numeric:tabular-nums; }
-.attribute-category-nav { position:sticky; top:0; z-index:5; display:flex; gap:7px; margin:26px 0 14px; padding:10px; overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:#0e1d2e; }
+.attribute-category-nav { position:sticky; top:0; z-index:5; display:flex; gap:7px; margin:26px 0 14px; padding:10px; overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:color-mix(in srgb,var(--team-primary) 20%,#0a1019); }
 .attribute-category-nav a { flex:0 0 auto; padding:9px 11px; border-radius:7px; color:var(--muted); font-size:.7rem; font-weight:800; text-decoration:none; text-transform:uppercase; }
-.attribute-category-nav a:hover,.attribute-category-nav a:focus-visible { color:var(--ink); background:rgba(255,122,33,.13); outline:none; }
+.attribute-category-nav a:hover,.attribute-category-nav a:focus-visible { color:var(--ink); background:color-mix(in srgb,var(--team-primary) 45%,transparent); outline:none; }
 .attribute-category-list { display:grid; gap:14px; }
 .attribute-category-card { display:grid; grid-template-columns:minmax(220px,.62fr) minmax(0,1.38fr); gap:30px; padding:25px; scroll-margin-top:80px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
 .attribute-category-card h2 { margin:4px 0 8px; font-size:1.75rem; }
@@ -1317,13 +1455,13 @@ body.nba-franchise h1,body.nba-franchise h2 { font-family:"Oswald Sports","Arial
 .granular-list dt { color:var(--muted); font-size:.57rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }.granular-list dd { margin:0; font-size:.7rem; font-variant-numeric:tabular-nums; }
 .not-tracked-state { align-self:center; padding:20px; border:1px dashed rgba(255,181,98,.48); border-radius:10px; background:rgba(255,181,98,.04); }
 .not-tracked-state strong { color:#ffb562; font-size:.75rem; letter-spacing:.07em; text-transform:uppercase; }.not-tracked-state p { margin:7px 0 0!important; }
-.scouting-data-note { margin:18px 0 0; padding:15px 18px; border-left:3px solid var(--accent); color:var(--muted); background:rgba(255,122,33,.06); font-size:.77rem; line-height:1.5; }
+.scouting-data-note { margin:18px 0 0; padding:15px 18px; border-left:3px solid var(--accent); color:var(--muted); background:color-mix(in srgb,var(--team-primary) 18%,transparent); font-size:.77rem; line-height:1.5; }
 .empty-roster { margin:0; padding:28px 26px; color:var(--muted); }
 .data-integrity-note { margin:18px 3px 0; }.data-integrity-note strong { color:var(--accent); }
-@media(max-width:900px){.full-schedule{grid-template-columns:repeat(3,1fr)}.finance-summary{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.full-schedule{grid-template-columns:repeat(3,1fr)}.finance-summary,.franchise-status-four{grid-template-columns:1fr 1fr}.simulation-console,.franchise-setup-card,.franchise-ranking-previews{grid-template-columns:1fr}.saved-franchise-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){.summary-rating-grid{grid-template-columns:repeat(3,1fr)}.attribute-category-card{grid-template-columns:1fr}.attribute-category-card>div:first-child{max-width:620px}}
-@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-status-three,.franchise-hub-grid,.franchise-workspace,.assets-grid{grid-template-columns:1fr}.schedule-preview ol,.full-schedule{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}.stats-controls{align-items:stretch;flex-direction:column}.stats-controls form{width:100%;min-width:0}.scouting-hero,.scouting-section-heading{align-items:start;flex-direction:column}.scouting-section-heading>p{text-align:left}.model-stamp{width:100%}.scouting-insights{grid-template-columns:1fr}}
-@media(max-width:480px){.franchise-status-grid,.finance-summary,.schedule-preview ol,.full-schedule,.rule-list,.week-schedule,.update-list,.summary-rating-grid{grid-template-columns:1fr}.preview-heading{align-items:start;flex-direction:column;gap:4px}.preview-heading>span{margin-bottom:8px}.rating-card{min-height:90px}.granular-list article{grid-template-columns:60px 1fr}.attribute-category-card{padding:18px}.granular-list dl{display:grid;grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.franchise-team-hero{grid-template-columns:1fr}.franchise-lock{justify-items:start;text-align:left}.franchise-status-grid{grid-template-columns:1fr 1fr}.franchise-status-three,.franchise-hub-grid,.franchise-workspace,.assets-grid{grid-template-columns:1fr}.schedule-preview ol,.full-schedule{grid-template-columns:1fr 1fr}.roster-heading{align-items:start;flex-direction:column;gap:8px}.roster-heading>p{text-align:left}.stats-controls{align-items:stretch;flex-direction:column}.stats-controls form{width:100%;min-width:0}.scouting-hero,.scouting-section-heading{align-items:start;flex-direction:column}.scouting-section-heading>p{text-align:left}.model-stamp{width:100%}.scouting-insights{grid-template-columns:1fr}.simulation-console form{min-width:0;width:100%}.franchise-setup-card{gap:26px;margin-top:32px;padding:26px}.ranking-list-card{overflow-x:auto}.ranking-table-heading,.ranking-table li{min-width:650px}.team-ranking-heading,.team-ranking-table li{min-width:780px}.saved-franchise-heading{align-items:start;flex-direction:column;gap:8px}.saved-franchise-heading>p{text-align:left}.box-score-hero>div{gap:10px}.box-score-hero article{align-items:flex-start;flex-direction:column;gap:3px}.box-score-hero article:last-child{align-items:flex-end;flex-direction:column}.box-score-hero article strong{font-size:2rem}.box-score-hero article span{font-size:.8rem}.trade-builder{grid-template-columns:1fr}.trade-swap{transform:rotate(90deg)}.trade-builder button{grid-column:auto;width:100%}}
+@media(max-width:480px){.franchise-status-grid,.finance-summary,.schedule-preview ol,.full-schedule,.rule-list,.week-schedule,.update-list,.summary-rating-grid{grid-template-columns:1fr}.preview-heading{align-items:start;flex-direction:column;gap:4px}.preview-heading>span{margin-bottom:8px}.schedule-card-actions{grid-template-columns:1fr}.rating-card{min-height:90px}.granular-list article{grid-template-columns:60px 1fr}.attribute-category-card{padding:18px}.granular-list dl{display:grid;grid-template-columns:1fr 1fr}.simulation-console form{grid-template-columns:1fr}.simulation-console form small{grid-column:auto}.franchise-setup-card h1{font-size:3rem}.franchise-nav-actions{align-items:flex-end;flex-direction:column;gap:5px}.end-franchise-actions{align-items:stretch;flex-direction:column}.end-franchise-actions form,.end-franchise-actions button{width:100%}.end-franchise-card{margin-top:32px;padding:25px}.ranking-preview-heading{align-items:start;flex-direction:column;gap:6px}.ranking-preview-card li{grid-template-columns:26px minmax(0,1fr) 38px}.ranking-preview-card li small{display:none}.player-ranking-search>div{grid-template-columns:1fr}.ranking-page-hero{padding-top:38px}.ranking-list-card{overflow:hidden}.player-ranking-heading,.player-ranking-table li{grid-template-columns:48px minmax(0,1fr) 52px;min-width:0}.player-ranking-heading span:nth-child(3),.player-ranking-heading span:nth-child(4),.player-ranking-table li span,.player-ranking-table li small{display:none}.team-ranking-heading,.team-ranking-table li{grid-template-columns:48px minmax(0,1fr) 52px;min-width:0}.team-ranking-heading span:nth-child(3),.team-ranking-heading span:nth-child(4),.team-ranking-heading span:nth-child(5),.team-ranking-table li span,.team-ranking-table li small{display:none}.saved-franchise-grid{grid-template-columns:1fr}.saved-franchise-library{padding:20px}}
 @media(max-width:480px) {
   .mode-hero { grid-template-columns:1fr 82px; }
   .mode-brand-logo { width:78px; height:95px; }
