@@ -88,7 +88,7 @@ class LeaderTests(unittest.TestCase):
     def test_nba_franchise_hub_links_to_detail_pages(self):
         client = app.test_client()
         home = client.get("/franchise/nba?team=TOR")
-        self.assertIn(b"Current week", home.data)
+        self.assertIn(b"Schedule", home.data)
         self.assertIn(b"News & transactions", home.data)
         for path, heading in (("roster", b"Full roster"), ("schedule", b"Full schedule"),
                               ("news", b"News & transactions")):

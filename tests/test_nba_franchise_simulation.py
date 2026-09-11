@@ -25,6 +25,12 @@ class NBAFranchiseSimulationTests(unittest.TestCase):
         self.assertTrue(all(25 <= item["overall"] <= 99 for item in strengths))
         self.assertGreater(len({item["overall"] for item in strengths}), 5)
 
+    def test_team_strength_uses_calibrated_player_overalls(self):
+        baseline = simulation.team_strength("DEN")["overall"]
+        with patch.object(simulation, "player_overall", return_value=99):
+            calibrated = simulation.team_strength("DEN")["overall"]
+        self.assertGreater(calibrated, baseline)
+
     def test_player_and_team_rankings_are_complete_and_sorted(self):
         players = simulation.player_rankings(limit=100)
         teams = simulation.team_rankings()
@@ -166,8 +172,9 @@ class NBAFranchiseSimulationTests(unittest.TestCase):
                 save = simulation.load(browser_session["nba_franchise_save_id"])
             atl = sorted(simulation.roster_for_save(save, "ATL"), key=simulation._player_quality)
             bos = sorted(simulation.roster_for_save(save, "BOS"), key=simulation._player_quality)
-            outgoing = min(atl, key=lambda player: abs(simulation._asset_value(player) - simulation._asset_value(bos[len(bos)//2])))
-            incoming = min(bos, key=lambda player: abs(simulation._asset_value(player) - simulation._asset_value(outgoing)))
+            outgoing, incoming = min(((a, b) for a in atl for b in bos
+                                      if simulation._asset_value(a) >= simulation._asset_value(b)),
+                                     key=lambda pair: simulation._asset_value(pair[0]) - simulation._asset_value(pair[1]))
             response = client.post("/franchise/nba/trades", data={"partner": "BOS",
                 "user_player": outgoing["player_id"], "cpu_player": incoming["player_id"]},
                 follow_redirects=True)

@@ -42,7 +42,7 @@ counts, or NBA screen assists.
 
 All new adapters are intentionally **shadow-only**. They can emit old rating, new
 rating, difference, source, and confidence comparisons, but `promoted` is always
-false. The production model remains `v4-tracking-expanded` until licensed data is
+false. The possession-expanded model is `v5-possession-expanded`; licensed tracking data is
 available, representative coverage is measured, player and season IDs reconcile,
 and basketball sanity checks pass for passers, defenders, scorers, rebounders,
 screeners, specialists, and contrasting usage/turnover archetypes.
@@ -81,7 +81,7 @@ tracking category has been converted into a fabricated rating.
 
 The franchise scouting pipeline is source snapshot → canonical player-season records → multi-season feature store → granular attributes → weighted summary ratings → simulation tendencies. `nba_attribute_service.py` owns definitions, transformations, reliability, calibration, confidence, aggregation, and profile assembly. UI templates render the resulting profile without calculating ratings.
 
-The active model is `v4-tracking-expanded`. Every skill rating uses one NBA-wide reference population. Position percentile remains available as scouting context but never drives the final rating. The five compact roster summaries remain Scoring, Playmaking, Rebounding, Steal / Hands, and Rim Protection.
+The active model is `v5-possession-expanded`. Every skill rating uses one NBA-wide reference population. Position percentile remains available as scouting context but never drives the final rating. The five compact roster summaries remain Scoring, Playmaking, Rebounding, Steal / Hands, and Rim Protection.
 
 ## Source snapshot
 

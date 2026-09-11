@@ -11,6 +11,8 @@ import time
 from uuid import uuid4
 
 import nba_franchise_service as franchise
+import nba_overall_service
+import nba_overall_benchmark
 
 
 SAVE_VERSION = 1
@@ -96,39 +98,45 @@ def roster_for_save(save, team_code):
 
 
 def team_strength(team_code, save=None):
-    """Build a compact team profile from the current roster's calibrated ratings."""
+    """Build a team profile from calibrated talent and rotation-weighted skills."""
     players = []
     for player in roster_for_save(save, team_code) if save else franchise.roster(team_code):
         profile = player.get("attribute_profile")
         if not profile:
             continue
         ratings = {item["id"]: item["rating"] for item in profile["attributes"]}
-        quality = (ratings.get("scoring", 50) * .30 + ratings.get("playmaking", 50) * .16
-                   + ratings.get("rebounding", 50) * .16 + ratings.get("steal_hands", 50) * .14
-                   + ratings.get("rim_protection", 50) * .14 + ratings.get("finishing", 50) * .10)
-        players.append((quality, ratings))
-    players.sort(key=lambda item: item[0], reverse=True)
+        overall = player_overall(profile, player.get("position", "F"), player.get("name"))
+        if overall is None:
+            continue
+        offense = (ratings.get("scoring", 50) * .45 + ratings.get("playmaking", 50) * .25
+                   + ratings.get("finishing", 50) * .20 + ratings.get("rebounding", 50) * .10)
+        defense = (ratings.get("steal_hands", 50) * .38 + ratings.get("rim_protection", 50) * .37
+                   + ratings.get("rebounding", 50) * .25)
+        players.append({"overall": overall, "offense": offense, "defense": defense})
+    players.sort(key=lambda item: item["overall"], reverse=True)
     rotation = players[:10]
     if not rotation:
         return {"overall": 50.0, "offense": 50.0, "defense": 50.0}
 
-    def average(key, default=50):
-        values = [ratings.get(key, default) for _, ratings in rotation]
-        return sum(values) / len(values)
+    # Starters drive results; the sixth through tenth players still reward depth
+    # without carrying the same weight as the primary lineup.
+    rotation_weights = (1.00, .92, .84, .77, .70, .46, .38, .31, .25, .20)[:len(rotation)]
 
-    offense = average("scoring") * .56 + average("playmaking") * .24 + average("finishing") * .20
-    defense = average("steal_hands") * .42 + average("rim_protection") * .38 + average("rebounding") * .20
-    return {"overall": round(offense * .55 + defense * .45, 1),
+    def weighted(key):
+        return sum(player[key] * weight for player, weight in zip(rotation, rotation_weights)) / sum(rotation_weights)
+
+    talent = weighted("overall")
+    offense = talent * .62 + weighted("offense") * .38
+    defense = talent * .62 + weighted("defense") * .38
+    team_overall = talent * .72 + offense * .16 + defense * .12
+    return {"overall": round(team_overall, 1),
             "offense": round(offense, 1), "defense": round(defense, 1)}
 
 
-def player_overall(profile):
+def player_overall(profile, position="F", player_name=None):
     """Convert calibrated summary attributes into one transparent scouting grade."""
-    ratings = {item["id"]: item["rating"] for item in profile.get("attributes", ())}
-    weights = {"scoring": .25, "playmaking": .17, "rebounding": .15,
-               "steal_hands": .10, "rim_protection": .13, "finishing": .20}
-    available = [(ratings[key], weight) for key, weight in weights.items() if key in ratings]
-    return round(sum(value * weight for value, weight in available) / sum(weight for _, weight in available)) if available else None
+    modeled = nba_overall_service.calculate(profile, position)
+    return nba_overall_benchmark.calibrated_overall(player_name, modeled) if player_name else modeled
 
 
 @lru_cache(maxsize=1)
@@ -139,7 +147,7 @@ def _league_players():
             if player["player_id"] in seen or not player.get("attribute_profile"):
                 continue
             seen.add(player["player_id"])
-            overall = player_overall(player["attribute_profile"])
+            overall = player_overall(player["attribute_profile"], player["position"], player["name"])
             if overall is not None:
                 players.append({"player_id": player["player_id"], "name": player["name"],
                                 "position": player["position"], "team": team.code,
@@ -165,7 +173,7 @@ def team_rankings():
 
 def _player_quality(player):
     profile = player.get("attribute_profile") or {}
-    overall = player_overall(profile)
+    overall = player_overall(profile, player.get("position", "F"), player.get("name"))
     return overall or 50
 
 
@@ -189,12 +197,12 @@ def _simulate_team_box_score(team_code, score, randomizer, players=None):
     minutes = _allocate(240, [quality ** 2.15 for quality in qualities], randomizer)
     points = _allocate(score, [quality ** 3 for quality in qualities], randomizer)
     rebounds = _allocate(max(32, round(randomizer.gauss(44, 4))),
-                         [(_player_quality(player) ** 1.5) * (1.28 if player["position"] == "C" else 1.12 if player["position"] == "F" else .82) for player in roster], randomizer)
+                         [(_player_quality(player) ** 1.5) * (1.28 if player.get("broad_position", player["position"]) == "C" else 1.12 if player.get("broad_position", player["position"]) == "F" else .82) for player in roster], randomizer)
     assists = _allocate(max(17, round(randomizer.gauss(27, 4))),
-                        [(_player_quality(player) ** 1.6) * (1.3 if player["position"] == "G" else .85) for player in roster], randomizer)
+                        [(_player_quality(player) ** 1.6) * (1.3 if player.get("broad_position", player["position"]) == "G" else .85) for player in roster], randomizer)
     steals = _allocate(max(3, round(randomizer.gauss(8, 2))), qualities, randomizer)
     blocks = _allocate(max(2, round(randomizer.gauss(5, 2))),
-                       [quality * (1.55 if player["position"] == "C" else 1.15 if player["position"] == "F" else .55) for quality, player in zip(qualities, roster)], randomizer)
+                       [quality * (1.55 if player.get("broad_position", player["position"]) == "C" else 1.15 if player.get("broad_position", player["position"]) == "F" else .55) for quality, player in zip(qualities, roster)], randomizer)
     turnovers = _allocate(max(7, round(randomizer.gauss(13, 2))), qualities, randomizer)
     lines = []
     for index, player in enumerate(roster):
@@ -313,7 +321,7 @@ def starting_lineup_for_save(save, team_code):
                     key=lambda player: (_player_quality(player), player["salary"] or 0), reverse=True)
     lineup, used = [], set()
     for label, position in (("PG", "G"), ("SG", "G"), ("SF", "F"), ("PF", "F"), ("C", "C")):
-        player = next((item for item in ranked if item["position"] == position and item["player_id"] not in used), None)
+        player = next((item for item in ranked if item.get("broad_position", item["position"]) == position and item["player_id"] not in used), None)
         player = player or next((item for item in ranked if item["player_id"] not in used), None)
         if player:
             used.add(player["player_id"])

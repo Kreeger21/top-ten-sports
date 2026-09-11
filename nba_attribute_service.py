@@ -8,8 +8,9 @@ from pathlib import Path
 
 import nba_official_features
 import nba_event_features
+import nba_possession_service
 
-MODEL_VERSION = "v4-tracking-expanded"
+MODEL_VERSION = "v5-possession-expanded"
 MODEL_SEASON = "2022–23 through 2024–25"
 REFERENCE_POPULATION = "NBA-wide"
 RATING_MIN, RATING_MAX = 25, 99
@@ -63,6 +64,15 @@ ATTRIBUTE_DEFINITIONS = (
     AttributeDefinition("corner_three", "Corner Three", "Shooting", "corner_three_pct", "Accuracy from both three-point corners.", "corner_three_fga", 120, .86, source="SportsDataverse hoopR play-by-play"),
     AttributeDefinition("above_break_three", "Above-the-Break Three", "Shooting", "above_break_three_pct", "Accuracy on above-the-break and deep threes.", "above_break_three_fga", 240, .86, source="SportsDataverse hoopR play-by-play"),
     AttributeDefinition("self_created_scoring", "Self-Created Scoring", "Scoring", "unassisted_make_rate", "Share of made field goals not identified as assisted in play-by-play.", "shot_fg", 300, .72, source="SportsDataverse hoopR play-by-play"),
+    AttributeDefinition("hook_scoring", "Hook Shot Making", "Finishing", "hook_pct", "Accuracy on explicitly classified hook-shot actions; not a complete post-up metric.", "hook_fga", 120, .74, source="SportsDataverse hoopR play-by-play"),
+    AttributeDefinition("possession_self_creation", "Possession Shot Creation", "Scoring", "pos_self_created_makes_per_100", "Observable unassisted made field goals per 100 reconstructed on-court possessions; misses are not guessed.", "pos_creation_events", 900, .78, source="Derived Possession Evidence"),
+    AttributeDefinition("possession_playmaking", "Possession Playmaking", "Playmaking", "pos_assists_per_100", "Assists per 100 reconstructed on-court offensive possessions.", "pos_offensive_possessions", 1500, .78, source="Derived Possession Evidence"),
+    AttributeDefinition("passing_security", "Passing Security", "Playmaking", "pos_passing_security", "Assists as a share of recorded assist and turnover decisions.", "pos_creation_events", 900, .72, source="Derived Possession Evidence"),
+    AttributeDefinition("handle_security", "Handle Security", "Ball Handling", "pos_handle_security", "Share of offensive creation events completed without a turnover.", "pos_creation_events", 900, .74, source="Derived Possession Evidence"),
+    AttributeDefinition("off_ball_scoring", "Off-Ball Scoring Evidence", "Scoring", "pos_assisted_makes_per_100", "Assisted made field goals per 100 reconstructed on-court possessions; assistance is evidence, not proof, of off-ball skill.", "pos_assisted_fgm", 300, .70, source="Derived Possession Evidence"),
+    AttributeDefinition("transition_scoring", "Transition Scoring", "Finishing", "pos_transition_points_per_possession", "Points per confidence-weighted transition possession.", "pos_transition_possessions", 220, .72, source="Derived Possession Evidence"),
+    AttributeDefinition("post_possession_scoring", "Post Possession Scoring", "Finishing", "pos_post_efficiency", "Field-goal accuracy on explicitly identified post-action possessions.", "pos_post_fga", 140, .68, source="Derived Possession Evidence"),
+    AttributeDefinition("second_chance_scoring", "Second-Chance Scoring", "Finishing", "pos_second_chance_points_per_action", "Points after an offensive rebound within the same possession.", "pos_second_chance_actions", 100, .68, source="Derived Possession Evidence"),
 )
 
 TENDENCY_DEFINITIONS = (
@@ -74,11 +84,15 @@ TENDENCY_DEFINITIONS = (
     AttributeDefinition("rim_attempt", "Rim Attempt Rate", "Finishing", "rim_rate", "Share of shots attempted at the rim.", "shot_fga", 500, .90, source="SportsDataverse hoopR play-by-play"),
     AttributeDefinition("midrange_attempt", "Midrange Attempt Rate", "Shooting", "midrange_rate", "Share of shots attempted from short and long midrange.", "shot_fga", 500, .86, source="SportsDataverse hoopR play-by-play"),
     AttributeDefinition("corner_three_attempt", "Corner Three Rate", "Shooting", "corner_three_rate", "Share of shots attempted from the corners.", "shot_fga", 500, .88, source="SportsDataverse hoopR play-by-play"),
+    AttributeDefinition("self_creation_tendency", "Self-Creation Tendency", "Scoring", "pos_unassisted_make_rate", "Share of made field goals recorded without an assist; missed-attempt creation is unknown.", "pos_fgm", 350, .76, source="Derived Possession Evidence"),
+    AttributeDefinition("assisted_scoring_tendency", "Assisted Scoring Tendency", "Scoring", "pos_assisted_make_rate", "Share of made field goals identified as assisted.", "pos_fgm", 350, .76, source="Derived Possession Evidence"),
+    AttributeDefinition("transition_tendency", "Transition Tendency", "Finishing", "pos_transition_frequency", "Confidence-weighted transition possessions as a share of known on-court offensive possessions.", "pos_offensive_possessions", 1200, .68, source="Derived Possession Evidence"),
+    AttributeDefinition("post_tendency", "Post Tendency", "Finishing", "pos_post_tendency", "Explicit post actions as a share of known on-court offensive possessions.", "pos_offensive_possessions", 1200, .68, source="Derived Possession Evidence"),
 )
 
 SUMMARY_DEFINITIONS = (
     ("scoring", "Scoring", (("scoring_volume", .42), ("scoring_efficiency", .28), ("overall_shooting", .15), ("three_point_shooting", .08), ("free_throw_shooting", .07))),
-    ("playmaking", "Playmaking", (("assist_creation", .55), ("assist_turnover", .30), ("turnover_avoidance", .15))),
+    ("playmaking", "Playmaking", (("possession_playmaking", .30), ("passing_security", .15), ("assist_creation", .30), ("assist_turnover", .15), ("turnover_avoidance", .10))),
     ("rebounding", "Rebounding", (("total_rebounding", .40), ("offensive_rebounding", .30), ("defensive_rebounding", .30))),
     ("steal_hands", "Steal / Hands", (("steal_ability", 1.0),)),
     ("rim_protection", "Rim Protection", (("shot_blocking", 1.0),)),
@@ -90,7 +104,7 @@ CATEGORY_DESCRIPTIONS = {
     "Shooting": "NBA-wide shooting efficiency with attempt-based reliability.",
     "Finishing": "Validated rim, paint, layup, dunk, and floater results derived from shot events.",
     "Playmaking": "NBA-wide assist creation, decision efficiency, and ball security proxies.",
-    "Ball Handling": "Tracking-based dribble creation and pressure handling are not loaded.",
+    "Ball Handling": "Possession-responsibility ball security; optical dribble and pressure tracking are not loaded.",
     "Rebounding": "NBA-wide offensive, defensive, and total rebound production.",
     "Perimeter Defense": "Matchup shooting, contests, and deflections are not loaded.",
     "Interior Defense": "Shot blocking and foul discipline; defended-rim impact is not loaded.",
@@ -222,6 +236,13 @@ def _player_features():
         derived["shot_fga"] = counts.get("shot_fga", 0)
         derived["midrange_rate"] = (derived.get("short_midrange_fga", 0) + derived.get("long_midrange_fga", 0)) / derived["shot_fga"] if derived["shot_fga"] else None
         features[player_id].update({key: value for key, value in derived.items() if value is not None})
+    # Possession rows use ESPN player ids; only verified identity links are merged.
+    for espn_id, stats_id in _identity().items():
+        possession = nba_possession_service.features_for_player(espn_id)
+        if stats_id not in features or not possession: continue
+        derived = {f"pos_{key}": value for key, value in possession.get("features", {}).items() if value is not None}
+        derived.update({f"pos_{key}": value for key, value in possession.get("counts", {}).items()})
+        features[stats_id].update(derived)
     return features
 
 
@@ -260,6 +281,7 @@ def _calculate(data, definition, all_features):
                     "dunk_fga": "dunk attempts", "floater_fga": "floater attempts",
                     "short_midrange_fga": "short-midrange attempts", "long_midrange_fga": "long-midrange attempts",
                     "corner_three_fga": "corner-three attempts", "above_break_three_fga": "above-break attempts",
+                    "hook_fga": "hook-shot attempts",
                     "shot_fg": "made field goals", "shot_fga": "shot attempts"}
     league_rank, position_rank = round(league_percentile * 100), round(position_percentile * 100)
     is_rate = definition.metric.endswith("_rate")
@@ -268,12 +290,13 @@ def _calculate(data, definition, all_features):
             "confidence_label": _confidence_label(confidence, sample, definition.sample_target),
             "description": definition.description, "observed": round(observed, 3),
             "observed_label": f"{observed * 100:.1f}%" if is_rate else f"{observed:.3f}",
-            "sample": round(sample), "sample_label": f"{round(sample):,} {sample_units[definition.sample_metric]}",
+            "sample": round(sample), "sample_label": f"{round(sample):,} {sample_units.get(definition.sample_metric, definition.sample_metric.removeprefix('pos_').replace('_', ' '))}",
             "league_percentile": league_rank, "league_percentile_label": _ordinal(league_rank),
             "position_percentile": position_rank, "position_percentile_label": _ordinal(position_rank), "reliability": round(reliability * 100),
             "feature": definition.metric, "reference_population": REFERENCE_POPULATION,
             "model_version": MODEL_VERSION, "fallback_used": definition.source.startswith("SportsDataverse"),
-            "source": definition.source, "provenance": "event-derived" if definition.source.startswith("SportsDataverse") else "box-score-derived"}
+            "source": definition.source, "provenance": "possession-derived" if definition.source == "Derived Possession Evidence" else "event-derived" if definition.source.startswith("SportsDataverse") else "box-score-derived",
+            "evidence_tier": "Derived Open-Data Possession Evidence" if definition.source == "Derived Possession Evidence" else "Direct Open-Data Event Evidence" if definition.source.startswith("SportsDataverse") else "Box-Score Evidence"}
 
 
 def _summaries(granular):
@@ -305,6 +328,19 @@ def _strengths_and_weaknesses(granular):
             tuple(sorted((item for item in eligible if item["rating"] < 55), key=lambda x: x["rating"])[:5]))
 
 
+def position_metadata_for_player(espn_player_id, fallback=""):
+    """Canonical five-position metadata from the latest verified stats identity."""
+    stats_id = _identity().get(str(espn_player_id))
+    data = _player_features().get(stats_id, {})
+    primary = str(data.get("position") or "").upper()
+    if primary not in {"PG", "SG", "SF", "PF", "C"}:
+        primary = str(fallback or "").upper()
+    broad = _primary_position(primary)
+    return {"primary_position": primary or broad, "secondary_position": None,
+            "broad_position": broad, "position_source": "verified season statistics" if stats_id and data.get("position") else "ESPN roster fallback",
+            "position_confidence": "High" if stats_id and data.get("position") else "Medium"}
+
+
 @lru_cache(maxsize=1024)
 def attributes_for_player(espn_player_id):
     stats_id = _identity().get(str(espn_player_id))
@@ -317,18 +353,32 @@ def attributes_for_player(espn_player_id):
     official_status = nba_official_features.snapshot().get("status", "not_loaded")
     event_snapshot = nba_event_features.snapshot()
     official_data = nba_official_features.features_for_player(stats_id)
+    possession_data = nba_possession_service.features_for_player(str(espn_player_id))
+    possession_features = possession_data.get("features", {})
+    impact_labels = (("on_court_ortg","On-Court ORtg"),("on_court_drtg","On-Court DRtg"),
+                     ("off_court_ortg","Off-Court ORtg"),("off_court_drtg","Off-Court DRtg"),
+                     ("offensive_on_off","Offensive On/Off"),("defensive_on_off","Defensive On/Off"))
+    impact = tuple({"id":key,"name":label,"value":possession_features[key],"source":"Contextual Impact Evidence"}
+                   for key,label in impact_labels if possession_features.get(key) is not None)
+    role_context = {"role":possession_features.get("role_context","Unknown"),
+                    "creation_burden":possession_features.get("creation_burden"),
+                    "offensive_possessions":possession_data.get("counts",{}).get("offensive_possessions",0)}
     return {"model_version": MODEL_VERSION, "season": MODEL_SEASON, "games": round(data["g"]),
             "source_seasons": data["seasons"], "calculated_at": datetime.now(timezone.utc).isoformat(),
             "reference_population": REFERENCE_POPULATION, "attributes": _summaries(granular),
             "granular_attributes": granular, "categories": _categories(granular), "tendencies": tendencies,
+            "impact": impact, "role_context": role_context,
             "strengths": strengths, "weaknesses": weaknesses, "official_data_status": official_status,
             "event_data_status": event_snapshot.get("status", "not_loaded"),
             "event_coverage": event_snapshot.get("coverage", {}),
+            "possession_data_status": nba_possession_service.snapshot().get("status", "not_loaded"),
+            "possession_coverage": nba_possession_service.snapshot().get("coverage", {}),
             "official_source_count": len(official_data.get("seasons", {})) if official_data else 0,
             "data_note": "Ratings use an NBA-wide, three-season true-talent model. Position percentile is context only. "
                          + (" Validated hoopR shot events are included." if event_snapshot.get("status") == "verified" else " Shot-event data is not loaded.")
+                         + (" Possession-derived context is included." if nba_possession_service.snapshot().get("status") == "verified" else " Possession context is not loaded.")
                          + (" Official NBA tracking data is included." if official_data else " Official tracking-only skills remain Not tracked.")}
 
 
 def clear_caches():
-    _stats.cache_clear(); _identity.cache_clear(); _player_features.cache_clear(); attributes_for_player.cache_clear(); nba_official_features.clear_cache(); nba_event_features.clear_cache()
+    _stats.cache_clear(); _identity.cache_clear(); _player_features.cache_clear(); attributes_for_player.cache_clear(); nba_official_features.clear_cache(); nba_event_features.clear_cache(); nba_possession_service.clear_cache()

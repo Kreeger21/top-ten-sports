@@ -174,7 +174,9 @@ def roster(team_code):
             continue
         salary = int(float(row["salary_2026_27"])) if row["salary_2026_27"] else None
         remaining = int(float(row["years_remaining"])) if row["years_remaining"] else None
-        players.append({**row, "age": int(float(row["age"])) if row["age"] else None,
+        position_meta = nba_attribute_service.position_metadata_for_player(row["player_id"], row["position"])
+        players.append({**row, **position_meta, "listed_position": row["position"],
+                        "position": position_meta["primary_position"], "age": int(float(row["age"])) if row["age"] else None,
                         "salary": salary, "years_remaining": remaining,
                         "contract_verified": salary is not None,
                         "attribute_profile": nba_attribute_service.attributes_for_player(row["player_id"])})
@@ -194,7 +196,7 @@ def starting_lineup(team_code):
     used = set()
     for label, position in (("PG", "G"), ("SG", "G"), ("SF", "F"), ("PF", "F"), ("C", "C")):
         player = next((candidate for candidate in ranked
-                       if candidate["position"] == position and candidate["player_id"] not in used), None)
+                       if candidate.get("broad_position", candidate["position"]) == position and candidate["player_id"] not in used), None)
         if player is None:
             player = next((candidate for candidate in ranked if candidate["player_id"] not in used), None)
         if player:

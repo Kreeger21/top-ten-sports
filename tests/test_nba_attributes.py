@@ -6,6 +6,12 @@ from nba_court_zones import classify_shot
 
 
 class NBAAttributeTests(unittest.TestCase):
+    def test_position_metadata_prefers_verified_five_position_source(self):
+        player = next(player for player in __import__('nba_franchise_service').roster('SAS')
+                      if player['name'] == 'Victor Wembanyama')
+        self.assertEqual(player['position'], 'C')
+        self.assertEqual(player['broad_position'], 'C')
+        self.assertEqual(player['position_confidence'], 'High')
     def test_ratings_are_versioned_bounded_and_explainable(self):
         profiles = [player["attribute_profile"] for team in franchise.TEAMS
                     for player in franchise.roster(team.code) if player["attribute_profile"]]
@@ -44,8 +50,9 @@ class NBAAttributeTests(unittest.TestCase):
         handling = next(category for category in profile["categories"] if category["name"] == "Ball Handling")
         self.assertEqual(finishing["status"], "available")
         self.assertGreater(len(finishing["attributes"]), 0)
-        self.assertEqual(handling["status"], "not-tracked")
-        self.assertEqual(handling["attributes"], ())
+        self.assertEqual(handling["status"], "available")
+        self.assertIn("handle_security", {item["id"] for item in handling["attributes"]})
+        self.assertTrue(handling["attributes"])
 
     def test_final_rating_uses_league_percentile_not_position_percentile(self):
         definition = next(item for item in attributes.ATTRIBUTE_DEFINITIONS if item.id == "total_rebounding")

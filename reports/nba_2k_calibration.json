@@ -1,0 +1,408 @@
+{
+  "status": "diagnostic_only",
+  "generated_at": "2026-09-11T04:32:47.831195+00:00",
+  "source_url": "https://raw.githubusercontent.com/wkoverfield/nba2kapi/main/nba2k-all-players.json",
+  "source_etag": "W/\"590a844da7c981e9b39a45f68e9d4d3e8ed088ce2c1d599ac9757a1d809d3e21\"",
+  "source_note": "Fan-maintained scrape of 2kratings.com; not affiliated with or endorsed by 2K Sports.",
+  "method": "80/20 deterministic ridge regression on six transparent category averages derived from granular 2K attributes; badges excluded.",
+  "players": 528,
+  "features": [
+    "Outside Scoring",
+    "Inside Scoring",
+    "Playmaking",
+    "Athleticism",
+    "Defense",
+    "Rebounding"
+  ],
+  "models": {
+    "G": {
+      "players": 213,
+      "train_players": 170,
+      "test_players": 43,
+      "test_mae": 1.705,
+      "test_r2": 0.902,
+      "standardized_coefficients": {
+        "Outside Scoring": 3.9296,
+        "Inside Scoring": 1.3159,
+        "Playmaking": 1.2846,
+        "Athleticism": 0.764,
+        "Defense": 1.7662,
+        "Rebounding": 0.0991
+      },
+      "relative_importance": {
+        "Outside Scoring": 0.429,
+        "Inside Scoring": 0.1437,
+        "Playmaking": 0.1402,
+        "Athleticism": 0.0834,
+        "Defense": 0.1928,
+        "Rebounding": 0.0108
+      },
+      "target_distribution": {
+        "mean": 76.23,
+        "median": 76.0,
+        "minimum": 67,
+        "maximum": 98,
+        "count_80_plus": 52,
+        "count_85_plus": 25,
+        "count_90_plus": 10
+      }
+    },
+    "F": {
+      "players": 211,
+      "train_players": 169,
+      "test_players": 42,
+      "test_mae": 1.31,
+      "test_r2": 0.908,
+      "standardized_coefficients": {
+        "Outside Scoring": 3.0535,
+        "Inside Scoring": 1.6431,
+        "Playmaking": 0.971,
+        "Athleticism": 0.869,
+        "Defense": 1.8452,
+        "Rebounding": 0.2269
+      },
+      "relative_importance": {
+        "Outside Scoring": 0.3547,
+        "Inside Scoring": 0.1909,
+        "Playmaking": 0.1128,
+        "Athleticism": 0.1009,
+        "Defense": 0.2143,
+        "Rebounding": 0.0264
+      },
+      "target_distribution": {
+        "mean": 75.77,
+        "median": 75.0,
+        "minimum": 67,
+        "maximum": 97,
+        "count_80_plus": 55,
+        "count_85_plus": 21,
+        "count_90_plus": 9
+      }
+    },
+    "C": {
+      "players": 104,
+      "train_players": 83,
+      "test_players": 21,
+      "test_mae": 1.811,
+      "test_r2": 0.863,
+      "standardized_coefficients": {
+        "Outside Scoring": 2.1523,
+        "Inside Scoring": 2.0963,
+        "Playmaking": 0.0768,
+        "Athleticism": 0.673,
+        "Defense": 2.2057,
+        "Rebounding": 1.6452
+      },
+      "relative_importance": {
+        "Outside Scoring": 0.2432,
+        "Inside Scoring": 0.2369,
+        "Playmaking": 0.0087,
+        "Athleticism": 0.076,
+        "Defense": 0.2493,
+        "Rebounding": 0.1859
+      },
+      "target_distribution": {
+        "mean": 76.5,
+        "median": 75.0,
+        "minimum": 68,
+        "maximum": 98,
+        "count_80_plus": 25,
+        "count_85_plus": 11,
+        "count_90_plus": 4
+      }
+    }
+  },
+  "franchise_comparison": {
+    "matched_players": 359,
+    "mean_our_overall": 68.53,
+    "mean_2k_overall": 77.92,
+    "mean_2k_minus_ours": 9.38,
+    "mean_absolute_gap": 9.53,
+    "correlation": 0.615,
+    "largest_positive_gaps": [
+      {
+        "player": "Anthony Edwards",
+        "position": "SG",
+        "our_overall": 70,
+        "two_k_overall": 95,
+        "gap": 25
+      },
+      {
+        "player": "Kyshawn George",
+        "position": "SG",
+        "our_overall": 56,
+        "two_k_overall": 81,
+        "gap": 25
+      },
+      {
+        "player": "Cade Cunningham",
+        "position": "PG",
+        "our_overall": 68,
+        "two_k_overall": 92,
+        "gap": 24
+      },
+      {
+        "player": "Paolo Banchero",
+        "position": "PF",
+        "our_overall": 66,
+        "two_k_overall": 90,
+        "gap": 24
+      },
+      {
+        "player": "Bam Adebayo",
+        "position": "C",
+        "our_overall": 66,
+        "two_k_overall": 89,
+        "gap": 23
+      },
+      {
+        "player": "Victor Wembanyama",
+        "position": "C",
+        "our_overall": 72,
+        "two_k_overall": 95,
+        "gap": 23
+      },
+      {
+        "player": "Stephon Castle",
+        "position": "PG",
+        "our_overall": 62,
+        "two_k_overall": 84,
+        "gap": 22
+      },
+      {
+        "player": "Gradey Dick",
+        "position": "SG",
+        "our_overall": 54,
+        "two_k_overall": 76,
+        "gap": 22
+      },
+      {
+        "player": "Jaren Jackson Jr.",
+        "position": "C",
+        "our_overall": 65,
+        "two_k_overall": 87,
+        "gap": 22
+      },
+      {
+        "player": "Keyonte George",
+        "position": "PG",
+        "our_overall": 60,
+        "two_k_overall": 82,
+        "gap": 22
+      },
+      {
+        "player": "Karl-Anthony Towns",
+        "position": "C",
+        "our_overall": 69,
+        "two_k_overall": 90,
+        "gap": 21
+      },
+      {
+        "player": "Trae Young",
+        "position": "PG",
+        "our_overall": 67,
+        "two_k_overall": 88,
+        "gap": 21
+      },
+      {
+        "player": "Alperen Sengun",
+        "position": "C",
+        "our_overall": 68,
+        "two_k_overall": 88,
+        "gap": 20
+      },
+      {
+        "player": "Anthony Black",
+        "position": "PG",
+        "our_overall": 59,
+        "two_k_overall": 79,
+        "gap": 20
+      },
+      {
+        "player": "Ariel Hukporti",
+        "position": "C",
+        "our_overall": 51,
+        "two_k_overall": 71,
+        "gap": 20
+      },
+      {
+        "player": "Jalen Green",
+        "position": "SG",
+        "our_overall": 63,
+        "two_k_overall": 83,
+        "gap": 20
+      },
+      {
+        "player": "Ja Morant",
+        "position": "PG",
+        "our_overall": 69,
+        "two_k_overall": 89,
+        "gap": 20
+      },
+      {
+        "player": "Shaedon Sharpe",
+        "position": "SG",
+        "our_overall": 61,
+        "two_k_overall": 81,
+        "gap": 20
+      },
+      {
+        "player": "Nikola Jokic",
+        "position": "C",
+        "our_overall": 79,
+        "two_k_overall": 98,
+        "gap": 19
+      },
+      {
+        "player": "Bennedict Mathurin",
+        "position": "SF",
+        "our_overall": 62,
+        "two_k_overall": 81,
+        "gap": 19
+      }
+    ],
+    "largest_negative_gaps": [
+      {
+        "player": "Tyus Jones",
+        "position": "PG",
+        "our_overall": 81,
+        "two_k_overall": 74,
+        "gap": -7
+      },
+      {
+        "player": "Payton Pritchard",
+        "position": "PG",
+        "our_overall": 84,
+        "two_k_overall": 80,
+        "gap": -4
+      },
+      {
+        "player": "Larry Nance Jr.",
+        "position": "PF",
+        "our_overall": 77,
+        "two_k_overall": 74,
+        "gap": -3
+      },
+      {
+        "player": "Ty Jerome",
+        "position": "SG",
+        "our_overall": 82,
+        "two_k_overall": 79,
+        "gap": -3
+      },
+      {
+        "player": "Jonathan Isaac",
+        "position": "PF",
+        "our_overall": 76,
+        "two_k_overall": 73,
+        "gap": -3
+      },
+      {
+        "player": "Justin Champagnie",
+        "position": "SF",
+        "our_overall": 77,
+        "two_k_overall": 74,
+        "gap": -3
+      },
+      {
+        "player": "Kenrich Williams",
+        "position": "PF",
+        "our_overall": 78,
+        "two_k_overall": 76,
+        "gap": -2
+      },
+      {
+        "player": "Paul Reed",
+        "position": "C",
+        "our_overall": 73,
+        "two_k_overall": 72,
+        "gap": -1
+      },
+      {
+        "player": "Kyle Anderson",
+        "position": "PF",
+        "our_overall": 75,
+        "two_k_overall": 74,
+        "gap": -1
+      },
+      {
+        "player": "Marcus Sasser",
+        "position": "PG",
+        "our_overall": 74,
+        "two_k_overall": 74,
+        "gap": 0
+      },
+      {
+        "player": "Cason Wallace",
+        "position": "SG",
+        "our_overall": 79,
+        "two_k_overall": 79,
+        "gap": 0
+      },
+      {
+        "player": "Mike Conley",
+        "position": "PG",
+        "our_overall": 76,
+        "two_k_overall": 77,
+        "gap": 1
+      },
+      {
+        "player": "Santi Aldama",
+        "position": "PF",
+        "our_overall": 77,
+        "two_k_overall": 78,
+        "gap": 1
+      },
+      {
+        "player": "Gary Payton II",
+        "position": "SG",
+        "our_overall": 74,
+        "two_k_overall": 75,
+        "gap": 1
+      },
+      {
+        "player": "Kris Dunn",
+        "position": "PG",
+        "our_overall": 75,
+        "two_k_overall": 76,
+        "gap": 1
+      },
+      {
+        "player": "Bradley Beal",
+        "position": "SG",
+        "our_overall": 76,
+        "two_k_overall": 77,
+        "gap": 1
+      },
+      {
+        "player": "Jalen Pickett",
+        "position": "SG",
+        "our_overall": 70,
+        "two_k_overall": 71,
+        "gap": 1
+      },
+      {
+        "player": "Sandro Mamukelashvili",
+        "position": "PF",
+        "our_overall": 74,
+        "two_k_overall": 75,
+        "gap": 1
+      },
+      {
+        "player": "Quinten Post",
+        "position": "PF",
+        "our_overall": 73,
+        "two_k_overall": 74,
+        "gap": 1
+      },
+      {
+        "player": "Trendon Watford",
+        "position": "PF",
+        "our_overall": 73,
+        "two_k_overall": 74,
+        "gap": 1
+      }
+    ]
+  },
+  "guardrail": "No production attribute, positional weight, penalty, bonus, baseline, or display curve was changed."
+}
